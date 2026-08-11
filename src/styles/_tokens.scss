@@ -1,0 +1,18 @@
+:root{
+  --ink:#0D0D0D; --ink-2:#2C2825;
+  --gold:#B08542; --gold-lt:#D8BA84; --gold-dp:#7E5C2B;
+  --cream:#F6F2EB; --paper:#FFFDF9; --taupe:#8B8177;
+  --line:rgba(176,133,66,.26); --line-soft:rgba(13,13,13,.08);
+  --warn:#9A6A2E; --warn-bg:#FBF3E4;
+  --stop:#8C3B2E; --stop-bg:#FAEDEA;
+  --ok:#3F6B4A;   --ok-bg:#EDF3EE;
+  --info:#3A5570; --info-bg:#EDF1F5;
+  --display:"Cormorant Garamond",Georgia,serif;
+  --body:"Jost",system-ui,sans-serif;
+  --pad:clamp(20px,5vw,72px);
+  --maxw:1280px;
+}
+html[dir="rtl"]{
+  --display:"Reem Kufi",sans-serif;
+  --body:"IBM Plex Sans Arabic",system-ui,sans-serif;
+}
