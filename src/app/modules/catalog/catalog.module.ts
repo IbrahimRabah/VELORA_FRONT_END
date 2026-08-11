@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../../shared/shared.module';
 
 import { CatalogRoutingModule } from './catalog-routing.module';
 import { ProductListPageComponent } from './pages/product-list-page/product-list-page.component';
@@ -45,7 +46,8 @@ import { ProductPriceBlockComponent } from './components/product-price-block/pro
   ],
   imports: [
     CommonModule,
-    CatalogRoutingModule
+    CatalogRoutingModule,
+    SharedModule
   ]
 })
 export class CatalogModule { }

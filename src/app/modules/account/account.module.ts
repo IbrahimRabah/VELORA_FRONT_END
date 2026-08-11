@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../../shared/shared.module';
 
 import { AccountRoutingModule } from './account-routing.module';
 import { AccountLayoutComponent } from './components/account-layout/account-layout.component';
@@ -33,7 +34,8 @@ import { SessionsPanelComponent } from './components/sessions-panel/sessions-pan
   ],
   imports: [
     CommonModule,
-    AccountRoutingModule
+    AccountRoutingModule,
+    SharedModule
   ]
 })
 export class AccountModule { }

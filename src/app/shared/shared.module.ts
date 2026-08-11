@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -113,8 +115,15 @@ import { OnlyDigitsDirective } from './directives/only-digits.directive';
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
     TranslateModule
   ],  exports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
     LanguageToggleComponent,
     TranslateModule,
     CardComponent,

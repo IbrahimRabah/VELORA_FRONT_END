@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
+import { LayoutModule } from './layout/layout.module';
 
 // PrimeNG Imports
 import { CardModule } from 'primeng/card';
@@ -28,9 +28,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
     CoreModule,
-    SharedModule,
+    LayoutModule,
     AppRoutingModule,
     // PrimeNG Modules
     CardModule,
@@ -48,7 +47,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     })
   ],
   providers: [
-    provideClientHydration()
+      provideHttpClient(withFetch(), withInterceptorsFromDi()),
+      provideClientHydration()
   ],
   bootstrap: [AppComponent]
 })

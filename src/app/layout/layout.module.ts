@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { CustomerLayoutComponent } from './customer-layout/customer-layout.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { SiteHeaderComponent } from './components/site-header/site-header.component';
@@ -31,7 +32,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     NotFoundComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [
     CustomerLayoutComponent,

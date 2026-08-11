@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../../../shared/shared.module';
 
 import { RemittancesRoutingModule } from './remittances-routing.module';
 import { OutstandingPageComponent } from './pages/outstanding-page/outstanding-page.component';
@@ -17,7 +18,8 @@ import { RemittanceFormPageComponent } from './pages/remittance-form-page/remitt
   ],
   imports: [
     CommonModule,
-    RemittancesRoutingModule
+    RemittancesRoutingModule,
+    SharedModule
   ]
 })
 export class RemittancesModule { }

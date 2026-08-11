@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../../../shared/shared.module';
 
 import { TaxonomyRoutingModule } from './taxonomy-routing.module';
 import { CategoryTreePageComponent } from './pages/category-tree-page/category-tree-page.component';
@@ -23,7 +24,8 @@ import { AttributeValuesEditorComponent } from './components/attribute-values-ed
   ],
   imports: [
     CommonModule,
-    TaxonomyRoutingModule
+    TaxonomyRoutingModule,
+    SharedModule
   ]
 })
 export class TaxonomyModule { }

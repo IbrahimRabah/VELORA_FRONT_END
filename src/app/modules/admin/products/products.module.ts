@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../../../shared/shared.module';
 
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductListPageComponent } from './pages/product-list-page/product-list-page.component';
@@ -27,7 +28,8 @@ import { PublishActionsBarComponent } from './components/publish-actions-bar/pub
   ],
   imports: [
     CommonModule,
-    ProductsRoutingModule
+    ProductsRoutingModule,
+    SharedModule
   ]
 })
 export class ProductsModule { }

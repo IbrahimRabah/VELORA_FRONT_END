@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../../../shared/shared.module';
 
 import { OrdersRoutingModule } from './orders-routing.module';
 import { OrderListPageComponent } from './pages/order-list-page/order-list-page.component';
@@ -25,7 +26,8 @@ import { OrderAuditPanelComponent } from './components/order-audit-panel/order-a
   ],
   imports: [
     CommonModule,
-    OrdersRoutingModule
+    OrdersRoutingModule,
+    SharedModule
   ]
 })
 export class OrdersModule { }
