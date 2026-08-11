@@ -1,0 +1,29 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { TaxonomyRoutingModule } from './taxonomy-routing.module';
+import { CategoryTreePageComponent } from './pages/category-tree-page/category-tree-page.component';
+import { BrandListPageComponent } from './pages/brand-list-page/brand-list-page.component';
+import { AttributeListPageComponent } from './pages/attribute-list-page/attribute-list-page.component';
+import { AttributeFormPageComponent } from './pages/attribute-form-page/attribute-form-page.component';
+import { CategoryFormDialogComponent } from './components/category-form-dialog/category-form-dialog.component';
+import { BrandFormDialogComponent } from './components/brand-form-dialog/brand-form-dialog.component';
+import { AttributeValuesEditorComponent } from './components/attribute-values-editor/attribute-values-editor.component';
+
+
+@NgModule({
+  declarations: [
+    CategoryTreePageComponent,
+    BrandListPageComponent,
+    AttributeListPageComponent,
+    AttributeFormPageComponent,
+    CategoryFormDialogComponent,
+    BrandFormDialogComponent,
+    AttributeValuesEditorComponent
+  ],
+  imports: [
+    CommonModule,
+    TaxonomyRoutingModule
+  ]
+})
+export class TaxonomyModule { }
