@@ -1,0 +1,39 @@
+// Mobile-first only — every mixin here is a min-width query. Values match Bootstrap's
+// own grid breakpoints exactly (see _bootstrap-layout.scss) so the two systems never
+// disagree about where "tablet" or "desktop" starts.
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+);
+
+@mixin from($name) {
+  @media (min-width: map-get($breakpoints, $name)) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @include from(sm) {
+    @content;
+  }
+}
+
+@mixin md {
+  @include from(md) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @include from(lg) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @include from(xl) {
+    @content;
+  }
+}

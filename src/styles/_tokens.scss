@@ -1,18 +1,73 @@
-:root{
-  --ink:#0D0D0D; --ink-2:#2C2825;
-  --gold:#B08542; --gold-lt:#D8BA84; --gold-dp:#7E5C2B;
-  --cream:#F6F2EB; --paper:#FFFDF9; --taupe:#8B8177;
-  --line:rgba(176,133,66,.26); --line-soft:rgba(13,13,13,.08);
-  --warn:#9A6A2E; --warn-bg:#FBF3E4;
-  --stop:#8C3B2E; --stop-bg:#FAEDEA;
-  --ok:#3F6B4A;   --ok-bg:#EDF3EE;
-  --info:#3A5570; --info-bg:#EDF1F5;
-  --display:"Cormorant Garamond",Georgia,serif;
-  --body:"Jost",system-ui,sans-serif;
-  --pad:clamp(20px,5vw,72px);
-  --maxw:1280px;
+:root {
+  --ink: #0d0d0d;
+  --ink-2: #2c2825;
+  --gold: #b08542;
+  --gold-lt: #d8ba84;
+  --gold-dp: #7e5c2b;
+  --cream: #f6f2eb;
+  --paper: #fffdf9;
+  --taupe: #8b8177;
+  --line: rgba(176, 133, 66, 0.26);
+  --line-soft: rgba(13, 13, 13, 0.08);
+  --warn: #9a6a2e;
+  --warn-bg: #fbf3e4;
+  --stop: #8c3b2e;
+  --stop-bg: #faedea;
+  --ok: #3f6b4a;
+  --ok-bg: #edf3ee;
+  --info: #3a5570;
+  --info-bg: #edf1f5;
+  --display: "Cormorant Garamond", Georgia, serif;
+  --body: "Jost", system-ui, sans-serif;
+  --pad: clamp(20px, 5vw, 72px);
+  --maxw: 1280px;
+
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-8: 48px;
+  --sp-10: 64px;
+
+  --z-header: 100;
+  --z-drawer: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 16px;
+  --r-full: 999px;
+  --shadow-sm: 0 1px 3px rgba(13, 13, 13, 0.06);
+  --shadow-md: 0 4px 16px rgba(13, 13, 13, 0.08);
+
+  --surface: var(--paper);
+  --surface-alt: var(--cream);
+  --text: var(--ink);
+  --text-muted: var(--taupe);
+  --brand: var(--gold);
+  --brand-hover: var(--gold-dp);
+  --border: var(--line);
+
+  // Fluid type scale (mobile → desktop), min-content-max via clamp() so
+  // _typography.scss never needs a literal font-size or a media query.
+  --fs-sm: clamp(0.8125rem, 0.775rem + 0.2vw, 0.875rem);
+  --fs-base: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem);
+  --fs-lg: clamp(1.0625rem, 1rem + 0.3vw, 1.125rem);
+  --fs-h6: clamp(1.125rem, 1.05rem + 0.4vw, 1.25rem);
+  --fs-h5: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --fs-h4: clamp(1.5rem, 1.3rem + 1vw, 1.875rem);
+  --fs-h3: clamp(1.75rem, 1.5rem + 1.25vw, 2.25rem);
+  --fs-h2: clamp(2rem, 1.6rem + 2vw, 2.75rem);
+  --fs-h1: clamp(2.5rem, 1.9rem + 3vw, 3.5rem);
+
+  // Modal/overlay backdrop — --line-soft (0.08 alpha) is too light to dim page
+  // content behind a dialog, so this is a separate token rather than reusing it.
+  --overlay: rgba(13, 13, 13, 0.5);
 }
-html[dir="rtl"]{
-  --display:"Reem Kufi",sans-serif;
-  --body:"IBM Plex Sans Arabic",system-ui,sans-serif;
+html[dir="rtl"] {
+  --display: "Reem Kufi", sans-serif;
+  --body: "IBM Plex Sans Arabic", system-ui, sans-serif;
 }

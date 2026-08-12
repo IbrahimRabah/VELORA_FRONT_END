@@ -1,0 +1,64 @@
+// Fluid sizes come from the --fs-* clamp() tokens (_tokens.scss) — no literal size and
+// no media query needed here, they already scale between mobile and desktop on their own.
+
+body {
+  font-family: var(--body);
+  font-size: var(--fs-base);
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--display);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+h1 {
+  font-size: var(--fs-h1);
+}
+
+h2 {
+  font-size: var(--fs-h2);
+}
+
+h3 {
+  font-size: var(--fs-h3);
+}
+
+h4 {
+  font-size: var(--fs-h4);
+}
+
+h5 {
+  font-size: var(--fs-h5);
+}
+
+h6 {
+  font-size: var(--fs-h6);
+}
+
+small {
+  font-size: var(--fs-sm);
+}
+
+// Arabic needs noticeably more line spacing than Latin to read comfortably — the app
+// boots dir="rtl" by default (language.store), so this is what most visitors actually see.
+html[dir='rtl'] {
+  body {
+    line-height: 1.75;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.3;
+  }
+}

@@ -1,0 +1,87 @@
+// Corrections for PrimeNG components whose classic (lara) CSS hardcodes a physical
+// direction — verified against the installed PrimeNG 17.18.15 source
+// (resources/themes/lara-light-blue/theme.css and the component .mjs templates), not
+// guessed. Every selector here exists in that installed version.
+//
+// STRICT RULE: in all NEW code (components, future styles), use logical properties —
+// margin-inline-start/end, padding-inline, inset-inline, text-align: start/end — so it
+// works in both directions without a file like this one. This file exists only for
+// what logical properties alone can't fix: PrimeNG's own compiled CSS already commits
+// to a physical property or a fixed-direction icon glyph (e.g. a chevron that needs
+// transform: scaleX(-1) to point the other way), and that can't be undone with a
+// logical-property declaration — it has to be overridden directly, scoped to [dir="rtl"].
+
+html[dir='rtl'] {
+  // Dropdown: the trigger's rounded corners assume it sits on the visual right (true in
+  // LTR); under RTL, flexbox auto-flips the trigger to the visual left, but the
+  // hardcoded border-top/bottom-*-right-radius stays put. Same for the clear icon's
+  // `right: 3rem` offset.
+  .p-dropdown .p-dropdown-trigger {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+
+  .p-dropdown .p-dropdown-clear-icon {
+    right: auto;
+    left: 3rem;
+  }
+
+  // Calendar: prev/next use ChevronLeftIcon/ChevronRightIcon regardless of direction —
+  // mirror them so "previous month" still points toward where the reader expects "back".
+  .p-datepicker-prev-icon,
+  .p-datepicker-next-icon {
+    transform: scaleX(-1);
+  }
+
+  // Paginator: first/last corner-rounding assumes first=leftmost/last=rightmost (LTR);
+  // under RTL those positions swap. The nav icons (AngleDoubleLeft/Left/Right/
+  // AngleDoubleRight, all sharing the p-paginator-icon class) need the same mirror as
+  // the calendar chevrons.
+  .p-paginator .p-paginator-first {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+  }
+
+  .p-paginator .p-paginator-last {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+  }
+
+  .p-paginator-icon {
+    transform: scaleX(-1);
+  }
+
+  // Breadcrumb: the separator is a ChevronRightIcon (SVG) regardless of direction —
+  // mirror it so it still points toward the next crumb in reading order.
+  .p-breadcrumb .p-menuitem-separator svg {
+    transform: scaleX(-1);
+  }
+
+  // Checkbox: the label's spacing from its checkbox is a hardcoded margin-left (LTR:
+  // checkbox then label, gap on the label's left). In RTL the checkbox visually ends up
+  // on the label's right, so the gap must move to the label's right instead.
+  .p-checkbox-label {
+    margin-left: 0;
+    margin-right: 0.5rem;
+  }
+
+  // Dialog close/maximize icons: spacing between header icons is margin-right per icon
+  // with :last-child zeroed, assuming last-in-DOM = visually-outermost-right (LTR).
+  // Under RTL the DOM order visually reverses, so the outer edge is now the first
+  // child, not the last — replaced with the logical equivalent so it tracks whichever
+  // icon is actually trailing.
+  .p-dialog .p-dialog-header .p-dialog-header-icon {
+    margin-right: 0;
+    margin-inline-end: 0.5rem;
+  }
+
+  .p-dialog .p-dialog-header .p-dialog-header-icon:last-child {
+    margin-inline-end: 0;
+  }
+}
