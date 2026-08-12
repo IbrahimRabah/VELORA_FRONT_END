@@ -1,2 +1,147 @@
-export const ERROR_MESSAGES = {
+import { ErrorCode } from '../enums/error-code';
+
+// User-facing translations of every ErrorCode (never developer-facing text).
+// `error.interceptor` (batch 4) looks these up by `ApiError.code`.
+export const ERROR_MESSAGES_AR: Record<ErrorCode, string> = {
+  // Global
+  [ErrorCode.INVALID_REQUEST_BODY]: 'تعذّر فهم الطلب المُرسل',
+  [ErrorCode.INVALID_PARAMETER]: 'أحد قيم الطلب غير صالح',
+  [ErrorCode.UNAUTHORIZED]: 'يجب تسجيل الدخول لإتمام هذا الإجراء',
+  [ErrorCode.FORBIDDEN]: 'لا تملك صلاحية القيام بهذا الإجراء',
+  [ErrorCode.INTERNAL_ERROR]: 'حدث خطأ غير متوقع، حاول مرة أخرى لاحقاً',
+  [ErrorCode.VALIDATION_FAILED]: 'يوجد بيانات غير صحيحة، برجاء المراجعة',
+
+  // Identity & Authentication
+  [ErrorCode.INVALID_PHONE_FORMAT]: 'رقم الهاتف غير صحيح',
+  [ErrorCode.PHONE_ALREADY_EXISTS]: 'رقم الهاتف مستخدم بالفعل',
+  [ErrorCode.EMAIL_ALREADY_EXISTS]: 'البريد الإلكتروني مستخدم بالفعل',
+  [ErrorCode.INVALID_CREDENTIALS]: 'بيانات الدخول غير صحيحة',
+  [ErrorCode.ACCOUNT_SUSPENDED]: 'هذا الحساب موقوف حالياً',
+  [ErrorCode.TOKEN_INVALID]: 'انتهت صلاحية الجلسة، برجاء تسجيل الدخول مرة أخرى',
+  [ErrorCode.TOKEN_EXPIRED]: 'انتهت صلاحية الجلسة، برجاء تسجيل الدخول مرة أخرى',
+  [ErrorCode.OTP_TOO_MANY_ATTEMPTS]: 'تم تجاوز عدد المحاولات المسموح بها، حاول لاحقاً',
+  [ErrorCode.OTP_INVALID]: 'رمز التحقق غير صحيح',
+  [ErrorCode.OTP_EXPIRED]: 'انتهت صلاحية رمز التحقق، اطلب رمزاً جديداً',
+
+  // Catalog
+  [ErrorCode.PRODUCT_NOT_FOUND]: 'المنتج غير موجود',
+  [ErrorCode.VARIANT_NOT_FOUND]: 'هذا الخيار من المنتج غير موجود',
+  [ErrorCode.RESOURCE_NOT_FOUND]: 'العنصر المطلوب غير موجود',
+  [ErrorCode.CATEGORY_NOT_FOUND]: 'الفئة غير موجودة',
+  [ErrorCode.BRAND_NOT_FOUND]: 'العلامة التجارية غير موجودة',
+  [ErrorCode.ATTRIBUTE_NOT_FOUND]: 'الخاصية غير موجودة',
+  [ErrorCode.ATTRIBUTE_VALUE_NOT_FOUND]: 'قيمة الخاصية غير موجودة',
+  [ErrorCode.ATTRIBUTE_NOT_VARIANT_DEFINING]: 'هذه الخاصية وصفية فقط ولا يمكن توليد خيارات منتج منها',
+  [ErrorCode.ATTRIBUTE_IN_USE]: 'لا يمكن تعديل هذه الخاصية لأنها مستخدمة في خيارات منتجات حالية',
+  [ErrorCode.SLUG_ALREADY_EXISTS]: 'هذا الرابط المختصر مستخدم بالفعل',
+  [ErrorCode.SKU_ALREADY_EXISTS]: 'رمز المنتج (SKU) مستخدم بالفعل',
+  [ErrorCode.BARCODE_ALREADY_EXISTS]: 'الباركود مستخدم بالفعل',
+  [ErrorCode.ATTRIBUTE_CODE_EXISTS]: 'كود الخاصية مستخدم بالفعل',
+  [ErrorCode.ATTRIBUTE_VALUE_CODE_EXISTS]: 'كود قيمة الخاصية مستخدم بالفعل',
+  [ErrorCode.BRAND_SLUG_EXISTS]: 'رابط العلامة التجارية مستخدم بالفعل',
+  [ErrorCode.CATEGORY_CYCLE]: 'لا يمكن أن تكون الفئة تابعة لنفسها',
+  [ErrorCode.CATEGORY_NOT_EMPTY]: 'لا يمكن حذف فئة تحتوي على عناصر',
+  [ErrorCode.PRODUCT_HAS_NO_VARIANTS]: 'لا يمكن نشر منتج بدون خيارات (variants)',
+  [ErrorCode.PRODUCT_MISSING_ARABIC_NAME]: 'يجب إضافة اسم عربي للمنتج قبل النشر',
+  [ErrorCode.FILE_TOO_LARGE]: 'حجم الملف أكبر من الحد المسموح',
+  [ErrorCode.DUPLICATE_VALUE]: 'هذه القيمة مستخدمة بالفعل',
+  [ErrorCode.REFERENCED_BY_OTHER_RECORDS]: 'لا يمكن حذف هذا العنصر لأنه مرتبط بعناصر أخرى',
+
+  // Cart & Checkout
+  [ErrorCode.STOCK_UNAVAILABLE]: 'الكمية المطلوبة غير متاحة في المخزون',
+  [ErrorCode.PRODUCT_NOT_ACTIVE]: 'هذا المنتج غير متاح للبيع حالياً',
+  [ErrorCode.CART_ITEM_NOT_FOUND]: 'هذا العنصر غير موجود في السلة',
+  [ErrorCode.CART_EMPTY]: 'السلة فارغة',
+  [ErrorCode.INVALID_ADDRESS]: 'برجاء اختيار أو إدخال عنوان صحيح',
+  [ErrorCode.GOVERNORATE_NOT_SERVED]: 'التوصيل غير متاح لهذه المحافظة حالياً',
+  [ErrorCode.SHIPPING_RATE_NOT_CONFIGURED]: 'تكلفة الشحن لهذه المنطقة غير مُعدة حالياً',
+  [ErrorCode.PAYMENT_METHOD_UNAVAILABLE]: 'طريقة الدفع هذه غير متاحة حالياً',
+  [ErrorCode.DUPLICATE_ORDER]: 'جاري تنفيذ هذا الطلب بالفعل',
+
+  // Orders
+  [ErrorCode.ORDER_NOT_FOUND]: 'الطلب غير موجود',
+  [ErrorCode.ORDER_CANNOT_BE_CANCELLED]: 'لا يمكن إلغاء هذا الطلب في حالته الحالية',
+  [ErrorCode.INVALID_STATUS_TRANSITION]: 'لا يمكن تغيير حالة الطلب بهذه الطريقة',
+  [ErrorCode.RETURN_WINDOW_CLOSED]: 'انتهت مدة السماح باسترجاع هذا الطلب',
+  [ErrorCode.RETURN_QUANTITY_EXCEEDED]: 'الكمية المطلوب استرجاعها أكبر من المتاح',
+  [ErrorCode.REFUND_EXCEEDS_ORDER_TOTAL]: 'قيمة الاسترداد أكبر من إجمالي الطلب',
+
+  // Inventory
+  [ErrorCode.INVENTORY_RECORD_MISSING]: 'لا يوجد سجل مخزون لهذا المنتج',
+  [ErrorCode.CONCURRENT_STOCK_CHANGE]: 'تم تعديل المخزون في نفس اللحظة، حاول مرة أخرى',
+  [ErrorCode.NEGATIVE_STOCK]: 'هذا التعديل سيجعل الكمية بالسالب',
+  [ErrorCode.MOVEMENT_TYPE_NOT_MANUAL]: 'نوع الحركة هذا لا يمكن إدخاله يدوياً',
+  [ErrorCode.STOCK_BELOW_RESERVED]: 'هذا التعديل سيجعل الكمية المتاحة أقل من المحجوز',
+};
+
+export const ERROR_MESSAGES_EN: Record<ErrorCode, string> = {
+  // Global
+  [ErrorCode.INVALID_REQUEST_BODY]: 'We could not understand the request sent',
+  [ErrorCode.INVALID_PARAMETER]: 'One of the request values is invalid',
+  [ErrorCode.UNAUTHORIZED]: 'Please sign in to continue',
+  [ErrorCode.FORBIDDEN]: 'You do not have permission to do this',
+  [ErrorCode.INTERNAL_ERROR]: 'Something went wrong, please try again later',
+  [ErrorCode.VALIDATION_FAILED]: 'Some of the information provided is invalid',
+
+  // Identity & Authentication
+  [ErrorCode.INVALID_PHONE_FORMAT]: 'This phone number is not valid',
+  [ErrorCode.PHONE_ALREADY_EXISTS]: 'This phone number is already registered',
+  [ErrorCode.EMAIL_ALREADY_EXISTS]: 'This email is already registered',
+  [ErrorCode.INVALID_CREDENTIALS]: 'Incorrect sign-in details',
+  [ErrorCode.ACCOUNT_SUSPENDED]: 'This account is currently suspended',
+  [ErrorCode.TOKEN_INVALID]: 'Your session has expired, please sign in again',
+  [ErrorCode.TOKEN_EXPIRED]: 'Your session has expired, please sign in again',
+  [ErrorCode.OTP_TOO_MANY_ATTEMPTS]: 'Too many attempts, please try again later',
+  [ErrorCode.OTP_INVALID]: 'This verification code is incorrect',
+  [ErrorCode.OTP_EXPIRED]: 'This verification code has expired, request a new one',
+
+  // Catalog
+  [ErrorCode.PRODUCT_NOT_FOUND]: 'This product could not be found',
+  [ErrorCode.VARIANT_NOT_FOUND]: 'This product option could not be found',
+  [ErrorCode.RESOURCE_NOT_FOUND]: 'This item could not be found',
+  [ErrorCode.CATEGORY_NOT_FOUND]: 'This category could not be found',
+  [ErrorCode.BRAND_NOT_FOUND]: 'This brand could not be found',
+  [ErrorCode.ATTRIBUTE_NOT_FOUND]: 'This attribute could not be found',
+  [ErrorCode.ATTRIBUTE_VALUE_NOT_FOUND]: 'This attribute value could not be found',
+  [ErrorCode.ATTRIBUTE_NOT_VARIANT_DEFINING]: 'This attribute is informational only and cannot generate variants',
+  [ErrorCode.ATTRIBUTE_IN_USE]: 'This attribute cannot be changed because it is already used by existing variants',
+  [ErrorCode.SLUG_ALREADY_EXISTS]: 'This URL slug is already in use',
+  [ErrorCode.SKU_ALREADY_EXISTS]: 'This SKU is already in use',
+  [ErrorCode.BARCODE_ALREADY_EXISTS]: 'This barcode is already in use',
+  [ErrorCode.ATTRIBUTE_CODE_EXISTS]: 'This attribute code is already in use',
+  [ErrorCode.ATTRIBUTE_VALUE_CODE_EXISTS]: 'This attribute value code is already in use',
+  [ErrorCode.BRAND_SLUG_EXISTS]: 'This brand URL slug is already in use',
+  [ErrorCode.CATEGORY_CYCLE]: 'A category cannot be its own parent',
+  [ErrorCode.CATEGORY_NOT_EMPTY]: 'A category with items in it cannot be deleted',
+  [ErrorCode.PRODUCT_HAS_NO_VARIANTS]: 'A product needs at least one variant before it can be published',
+  [ErrorCode.PRODUCT_MISSING_ARABIC_NAME]: 'An Arabic name is required before publishing this product',
+  [ErrorCode.FILE_TOO_LARGE]: 'This file is larger than the allowed size',
+  [ErrorCode.DUPLICATE_VALUE]: 'This value is already in use',
+  [ErrorCode.REFERENCED_BY_OTHER_RECORDS]: 'This item cannot be deleted because other records depend on it',
+
+  // Cart & Checkout
+  [ErrorCode.STOCK_UNAVAILABLE]: 'The requested quantity is not available in stock',
+  [ErrorCode.PRODUCT_NOT_ACTIVE]: 'This product is not currently available for purchase',
+  [ErrorCode.CART_ITEM_NOT_FOUND]: 'This item could not be found in your cart',
+  [ErrorCode.CART_EMPTY]: 'Your cart is empty',
+  [ErrorCode.INVALID_ADDRESS]: 'Please provide a valid address',
+  [ErrorCode.GOVERNORATE_NOT_SERVED]: 'Delivery is not currently available to this governorate',
+  [ErrorCode.SHIPPING_RATE_NOT_CONFIGURED]: 'Shipping is not currently configured for this area',
+  [ErrorCode.PAYMENT_METHOD_UNAVAILABLE]: 'This payment method is not currently available',
+  [ErrorCode.DUPLICATE_ORDER]: 'This order is already being processed',
+
+  // Orders
+  [ErrorCode.ORDER_NOT_FOUND]: 'This order could not be found',
+  [ErrorCode.ORDER_CANNOT_BE_CANCELLED]: 'This order can no longer be cancelled',
+  [ErrorCode.INVALID_STATUS_TRANSITION]: 'This order status change is not allowed',
+  [ErrorCode.RETURN_WINDOW_CLOSED]: 'The return window for this order has closed',
+  [ErrorCode.RETURN_QUANTITY_EXCEEDED]: 'The requested return quantity exceeds what is available',
+  [ErrorCode.REFUND_EXCEEDS_ORDER_TOTAL]: 'The refund amount exceeds the order total',
+
+  // Inventory
+  [ErrorCode.INVENTORY_RECORD_MISSING]: 'No inventory record exists for this item',
+  [ErrorCode.CONCURRENT_STOCK_CHANGE]: 'Stock was updated at the same time, please try again',
+  [ErrorCode.NEGATIVE_STOCK]: 'This change would make the stock quantity negative',
+  [ErrorCode.MOVEMENT_TYPE_NOT_MANUAL]: 'This movement type cannot be entered manually',
+  [ErrorCode.STOCK_BELOW_RESERVED]: 'This change would drop available stock below what is reserved',
 };
