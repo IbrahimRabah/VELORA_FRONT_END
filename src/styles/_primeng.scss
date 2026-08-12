@@ -1,43 +1,12 @@
-// Re-points PrimeNG's own CSS custom properties at our tokens — never redeclares
-// component selectors (.p-button, .p-dropdown, ...) directly. Variable names below are
-// copied verbatim from node_modules/primeng/resources/themes/lara-light-blue/theme.css.
+// PrimeNG 18 + Aura maps VELORA's tokens to its semantic design tokens at the
+// TypeScript level, not here: see src/app/core/theme/velora-preset.ts
+// (definePreset(Aura, {...}), wired in app.module.ts via providePrimeNG). Unlike the
+// old lara-light-blue build, Aura's component styles genuinely read those semantic
+// tokens (verified against the installed source, e.g.
+// node_modules/primeng/esm2022/select/style/selectstyle.mjs reading
+// `${dt('select.border.radius')}` etc.), so a plain `:root { --x: var(--y) }` override
+// file is no longer the right tool — Aura's own values are already `--p-*` CSS custom
+// properties generated from the preset, and definePreset is how you redirect them.
 //
-// ⚠️ CAVEAT, verified against the installed lara-light-blue build (PrimeNG 17.18.15):
-// this compiled theme only actually *consumes* `var(--font-family)` in its component
-// rules (6 uses). --primary-color, --surface-*, --text-color*, --border-radius and
-// --focus-ring are declared on :root but never referenced by `.p-*` selectors in this
-// file — component colors are hardcoded hex instead (e.g. `background: #3B82F6;` on
-// .p-button, 96 occurrences total). So overriding them here is still the officially
-// correct, forward-compatible PrimeNG theming API — and it's what actually reskins the
-// font — but it will NOT visibly recolor buttons/inputs/etc. on its own with this
-// specific theme build. Getting VELORA's gold onto components for real needs either a
-// PrimeNG theme built from variables (e.g. Aura, in newer PrimeNG) or targeted
-// overrides in a later pass — out of scope for "map variables, don't rewrite
-// component styles."
-
-:root {
-  --font-family: var(--body);
-
-  --primary-color: var(--brand);
-  --primary-color-text: var(--ink);
-
-  --text-color: var(--text);
-  --text-color-secondary: var(--text-muted);
-
-  --surface-ground: var(--surface-alt);
-  --surface-section: var(--surface);
-  --surface-card: var(--surface);
-  --surface-overlay: var(--surface);
-  --surface-border: var(--border);
-  --surface-hover: var(--surface-alt);
-
-  --highlight-bg: var(--cream);
-  --highlight-text-color: var(--gold-dp);
-
-  --border-radius: var(--r-md);
-  --content-padding: var(--sp-5);
-  --inline-spacing: var(--sp-2);
-
-  --focus-ring: 0 0 0 0.2rem var(--line);
-  --maskbg: var(--overlay);
-}
+// This file is kept only as the documented placeholder for anything that genuinely
+// can't be expressed as a semantic token (there is nothing like that yet).

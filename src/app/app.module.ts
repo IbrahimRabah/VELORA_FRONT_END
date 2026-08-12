@@ -4,11 +4,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { providePrimeNG } from 'primeng/config';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { LayoutModule } from './layout/layout.module';
+import { VeloraPreset } from './core/theme/velora-preset';
 
 // PrimeNG Imports
 import { CardModule } from 'primeng/card';
@@ -48,7 +50,16 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
       provideHttpClient(withFetch(), withInterceptorsFromDi()),
-      provideClientHydration()
+      provideClientHydration(),
+      providePrimeNG({
+        theme: {
+          preset: VeloraPreset,
+          // VELORA's tokens are a single light palette — no dark variant exists yet,
+          // so Aura's automatic light-dark() switching is turned off rather than
+          // silently applying its own default dark colors under prefers-color-scheme.
+          options: { darkModeSelector: 'none' }
+        }
+      })
   ],
   bootstrap: [AppComponent]
 })
