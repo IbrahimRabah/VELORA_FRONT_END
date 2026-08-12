@@ -1,5 +1,5 @@
 {
-  "name": "edumarqet-phase2",
+  "name": "velora",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:edumarqet-phase2": "node dist/mawgoud/server/server.mjs"
+    "serve:ssr:velora": "node dist/mawgoud/server/server.mjs"
   },
   "private": true,
   "dependencies": {
