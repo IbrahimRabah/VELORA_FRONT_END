@@ -13,12 +13,7 @@ interface TableItem {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {  constructor(
-    private translate: TranslateService,
-    public themeService: ThemeService
-  ) {
-    // Default language is already set by the LanguageToggleComponent
-  }
+export class AppComponent { 
 
   data: TableItem[] = [
     { id: 1, name: 'Item 1', status: 'Success' },

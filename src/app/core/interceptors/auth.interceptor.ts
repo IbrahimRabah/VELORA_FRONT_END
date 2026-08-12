@@ -54,7 +54,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private handle401(err: unknown, req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if (!(err instanceof HttpErrorResponse) || err.status !== 401) {
+    if (!(err instanceof HttpErrorResponse) || err.status !== 401  && err.status !== 403) {
       return throwError(() => err);
     }
 
@@ -84,8 +84,9 @@ export class AuthInterceptor implements HttpInterceptor {
     // Case 1 — an expired/missing access token on any other endpoint: refresh once and
     // replay the original request with the new token.
   const isPublicAuthPath = PUBLIC_AUTH_PATHS.some((p) => req.url.includes(p));
+ const isSecurityRejection = code === ErrorCode.UNAUTHORIZED || code === undefined;
 
-    if (code === ErrorCode.UNAUTHORIZED && !isPublicAuthPath) {
+    if (isSecurityRejection && !isPublicAuthPath) {
       if (!this.tokenStorage.getRefreshToken()) {
         this.clearSessionAndRedirect();
         return throwError(() => err);
