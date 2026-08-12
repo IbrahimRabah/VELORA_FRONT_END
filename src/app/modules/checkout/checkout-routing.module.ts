@@ -2,9 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
 import { OrderConfirmationPageComponent } from './pages/order-confirmation-page/order-confirmation-page.component';
+import { checkoutReadyGuard } from '../../core/guards/checkout-ready.guard';
 
 const routes: Routes = [
-  { path: '', component: CheckoutPageComponent },
+  // Guarded on the form page only — by the time the customer reaches /confirmation the
+  // order already succeeded and the cart has been retired, so checkoutReady is expected
+  // to be false there; gating this route too would incorrectly block the confirmation page.
+  { path: '', component: CheckoutPageComponent, canActivate: [checkoutReadyGuard] },
   { path: 'confirmation', component: OrderConfirmationPageComponent }
 ];
 

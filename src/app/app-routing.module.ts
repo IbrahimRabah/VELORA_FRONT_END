@@ -5,6 +5,7 @@ import { CustomerLayoutComponent } from './layout/customer-layout/customer-layou
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { NotFoundComponent } from './layout/components/not-found/not-found.component';
 import { adminGuard } from './core/guards/admin.guard';
+import { authGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -16,7 +17,11 @@ const routes: Routes = [
       { path: 'cart', loadChildren: () => import('./modules/cart/cart.module').then(m => m.CartModule) },
       { path: 'checkout', loadChildren: () => import('./modules/checkout/checkout.module').then(m => m.CheckoutModule) },
       { path: 'auth', loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule) },
-      { path: 'me', loadChildren: () => import('./modules/account/account.module').then(m => m.AccountModule) }
+      {
+        path: 'me',
+        canActivateChild: [authGuard],
+        loadChildren: () => import('./modules/account/account.module').then(m => m.AccountModule)
+      }
     ]
   },
   {
@@ -26,6 +31,8 @@ const routes: Routes = [
     canActivateChild: [adminGuard],
     loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)
   },
+  // Placeholder page component until a dedicated 403/Forbidden page is built.
+  { path: '403', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }
 ];
 
