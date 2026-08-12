@@ -1,6 +1,5 @@
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core';
 
 import { Language } from '../enums/language';
 
@@ -9,8 +8,17 @@ const RTL_LANGUAGES: readonly Language[] = [Language.AR];
 
 /**
  * Mechanism layer only — reads/persists the current language and applies it to the
- * document (lang/dir attributes) and to ngx-translate. core/state/language.store.ts
- * (batch 7) wraps this in a signal for components to read reactively.
+ * document (lang/dir attributes). core/state/language.store.ts (batch 7) wraps this in a
+ * signal for components to read reactively.
+ *
+ * Deliberately does NOT inject TranslateService (ngx-translate), even though switching
+ * the active translation is an obvious next step when the language changes. This service
+ * is a dependency of language.interceptor (registered under HTTP_INTERCEPTORS) —
+ * TranslateService's TranslateLoader depends on HttpClient, so injecting it here would
+ * make constructing HttpClient depend on constructing this service, which depends on
+ * TranslateService, which depends on HttpClient again (Angular throws NG0200 the moment
+ * any request is made). Whoever consumes this service at the UI layer (the batch 7/8
+ * store/initializer) is responsible for also calling `TranslateService.use(lang)`.
  */
 @Injectable({
   providedIn: 'root',
@@ -18,13 +26,10 @@ const RTL_LANGUAGES: readonly Language[] = [Language.AR];
 export class LanguageService {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly document = inject(DOCUMENT);
-  private readonly translate = inject(TranslateService);
 
   private current: Language = this.readStoredLanguage() ?? Language.AR;
 
   constructor() {
-    this.translate.setDefaultLang(Language.AR);
-    this.translate.use(this.current);
     this.applyToDocument(this.current);
   }
 
@@ -43,7 +48,6 @@ export class LanguageService {
     this.current = lang;
     this.persist(lang);
     this.applyToDocument(lang);
-    this.translate.use(lang);
   }
 
   private applyToDocument(lang: Language): void {

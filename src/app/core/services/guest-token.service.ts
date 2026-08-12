@@ -1,6 +1,6 @@
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Observable, finalize, map, of, shareReplay, tap } from 'rxjs';
 
 import { API_ROUTES } from '../constants/api-routes';
@@ -19,7 +19,14 @@ const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365; // 1 year
   providedIn: 'root',
 })
 export class GuestTokenService {
-  private readonly http = inject(HttpClient);
+  // Built directly on HttpBackend, bypassing every interceptor. This service is consumed
+  // by GuestTokenInterceptor, so depending on the normal (intercepted) HttpClient here
+  // would make constructing HttpClient depend on constructing that interceptor, which
+  // depends on this service, which depends on HttpClient again — Angular throws NG0200
+  // the moment any request is made. It also sidesteps a nonsensical self-reference:
+  // guest-token.interceptor would otherwise try to attach X-Guest-Token to the very
+  // request that issues that token.
+  private readonly http = new HttpClient(inject(HttpBackend));
   private readonly platformId = inject(PLATFORM_ID);
   private readonly document = inject(DOCUMENT);
 
