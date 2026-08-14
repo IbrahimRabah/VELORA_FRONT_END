@@ -16,6 +16,8 @@ const routes: Routes = [
       { path: 'products', loadChildren: () => import('./modules/catalog/catalog.module').then(m => m.CatalogModule) },
       { path: 'cart', loadChildren: () => import('./modules/cart/cart.module').then(m => m.CartModule) },
       { path: 'checkout', loadChildren: () => import('./modules/checkout/checkout.module').then(m => m.CheckoutModule) },
+      { path: 'about', loadChildren: () => import('./modules/about/about.module').then(m => m.AboutModule) },
+      { path: 'contact', loadChildren: () => import('./modules/contact/contact.module').then(m => m.ContactModule) },
       { path: 'auth', loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule) },
       {
         path: 'me',

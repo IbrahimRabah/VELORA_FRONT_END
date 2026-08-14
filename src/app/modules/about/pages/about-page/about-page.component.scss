@@ -1,0 +1,17 @@
+.about-page {
+  padding-block: var(--sp-8);
+  min-block-size: 40vh;
+}
+
+.about-page__title {
+  font-family: var(--display);
+  font-size: var(--fs-h2);
+  color: var(--text);
+  margin-block-end: var(--sp-4);
+}
+
+.about-page__body {
+  color: var(--text-muted);
+  font-size: var(--fs-base);
+  max-inline-size: 60ch;
+}

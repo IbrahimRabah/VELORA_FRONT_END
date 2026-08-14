@@ -1,1 +1,51 @@
-<p>search-bar works!</p>
+<div
+  class="search-bar"
+  [class.search-bar--open]="isOpen()"
+  appClickOutside
+  (appClickOutside)="closeSearch()"
+>
+  <button
+    [hidden]="isOpen()"
+    type="button"
+    class="search-bar__toggle"
+    (click)="openSearch()"
+    aria-haspopup="true"
+    [attr.aria-expanded]="isOpen()"
+    [attr.aria-label]="'header.search' | translate"
+  >
+    <i class="pi pi-search" aria-hidden="true"></i>
+  </button>
+
+  <form
+    class="search-bar__panel"
+    [attr.inert]="isOpen() ? null : ''"
+    (ngSubmit)="submit()"
+    (keydown.escape)="closeSearch()"
+  >
+    <input
+      #searchInput
+      type="search"
+      pInputText
+      class="search-bar__input"
+      [formControl]="query"
+      [placeholder]="'header.searchPlaceholder' | translate"
+      [attr.aria-label]="'header.searchPlaceholder' | translate"
+    />
+    <button
+      type="submit"
+      pButton
+      pRipple
+      icon="pi pi-search"
+      class="search-bar__submit"
+      [attr.aria-label]="'header.search' | translate"
+    ></button>
+    <button
+      type="button"
+      class="search-bar__close"
+      (click)="closeSearch()"
+      [attr.aria-label]="'common.close' | translate"
+    >
+      <i class="pi pi-times" aria-hidden="true"></i>
+    </button>
+  </form>
+</div>

@@ -1,1 +1,44 @@
-<p>site-header works!</p>
+<div class="site-topbar">
+  <div class="container-vl site-topbar__inner">
+    <span class="site-topbar__cod">
+      <i class="pi pi-wallet" aria-hidden="true"></i>
+      {{ 'topBar.cod' | translate }}
+    </span>
+    <div class="site-topbar__end">
+      <a routerLink="/me/orders" class="site-topbar__link">{{ 'topBar.myOrders' | translate }}</a>
+      <app-vl-language-switcher></app-vl-language-switcher>
+    </div>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container-vl site-header__row">
+    <button
+      type="button"
+      class="site-header__menu-btn"
+      (click)="openMobileNav()"
+      [attr.aria-label]="'common.menu' | translate"
+    >
+      <i class="pi pi-bars" aria-hidden="true"></i>
+    </button>
+
+    <a routerLink="/" class="site-header__logo">
+      <img src="assets/images/shared/logo.png" [alt]="'header.logoAlt' | translate" />
+    </a>
+
+    <app-main-nav class="site-header__nav" [categories]="categories()"></app-main-nav>
+
+    <app-search-bar class="site-header__search"></app-search-bar>
+
+    <div class="site-header__actions">
+      <app-user-menu></app-user-menu>
+      <app-cart-icon></app-cart-icon>
+    </div>
+  </div>
+</header>
+
+<app-mobile-nav-drawer
+  [visible]="mobileNavOpen()"
+  (visibleChange)="onMobileNavVisibleChange($event)"
+  [categories]="categories()"
+></app-mobile-nav-drawer>

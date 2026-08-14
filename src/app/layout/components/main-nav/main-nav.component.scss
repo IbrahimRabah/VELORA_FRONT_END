@@ -1,0 +1,115 @@
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+}
+
+.main-nav__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.main-nav__link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text);
+  text-decoration: none;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  padding-block: var(--sp-2);
+  border-bottom: 1px solid transparent;
+  transition: color 220ms ease, border-color 220ms ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--brand);
+  }
+}
+
+.main-nav__link--active {
+  color: var(--brand);
+  border-block-end-color: var(--brand);
+}
+
+.main-nav__caret {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  margin-inline-start: var(--sp-1);
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 0.6rem;
+  cursor: pointer;
+  border-radius: var(--r-sm);
+
+  i {
+    transition: transform 220ms ease;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--brand);
+  }
+}
+
+.main-nav__item:hover .main-nav__caret i,
+.main-nav__item:focus-within .main-nav__caret i,
+.main-nav__item--open .main-nav__caret i {
+  transform: rotate(180deg);
+}
+
+.main-nav__dropdown {
+  position: absolute;
+  inset-inline-start: 0;
+  top: 100%;
+  min-inline-size: 200px;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--sp-2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity 240ms ease, transform 240ms ease, visibility 240ms ease;
+  z-index: var(--z-header);
+}
+
+.main-nav__item:hover .main-nav__dropdown,
+.main-nav__item:focus-within .main-nav__dropdown,
+.main-nav__item--open .main-nav__dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.main-nav__dropdown-link {
+  color: var(--text);
+  text-decoration: none;
+  font-size: var(--fs-sm);
+  white-space: nowrap;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-sm);
+  transition: background 220ms ease, color 220ms ease;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--surface-alt);
+    color: var(--brand);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .main-nav__caret i,
+  .main-nav__dropdown {
+    transition: none;
+  }
+}

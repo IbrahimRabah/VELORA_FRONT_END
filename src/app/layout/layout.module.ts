@@ -1,6 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { PopoverModule } from 'primeng/popover';
+
+import { SharedModule } from '../shared/shared.module';
 import { CustomerLayoutComponent } from './customer-layout/customer-layout.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { SiteHeaderComponent } from './components/site-header/site-header.component';
@@ -33,7 +38,11 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    SharedModule,
+    ButtonModule,
+    InputTextModule,
+    PopoverModule
   ],
   exports: [
     CustomerLayoutComponent,

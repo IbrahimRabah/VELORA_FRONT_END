@@ -1,1 +1,43 @@
-<p>user-menu works!</p>
+<button
+  type="button"
+  class="user-menu__trigger"
+  (click)="toggle($event)"
+  [attr.aria-label]="'header.account' | translate"
+>
+  <i class="pi pi-user" aria-hidden="true"></i>
+</button>
+
+<p-popover #panel>
+  <div class="user-menu__panel">
+    <ng-container *ngIf="isLoggedIn(); else guestLinks">
+      <a routerLink="/me/profile" class="user-menu__link">
+        <i class="pi pi-user" aria-hidden="true"></i>
+        {{ 'userMenu.profile' | translate }}
+      </a>
+      <a routerLink="/me/orders" class="user-menu__link">
+        <i class="pi pi-shopping-bag" aria-hidden="true"></i>
+        {{ 'userMenu.orders' | translate }}
+      </a>
+      <a routerLink="/me/addresses" class="user-menu__link">
+        <i class="pi pi-map-marker" aria-hidden="true"></i>
+        {{ 'userMenu.addresses' | translate }}
+      </a>
+      <hr class="user-menu__divider" />
+      <button type="button" class="user-menu__link user-menu__link--button" (click)="logout()">
+        <i class="pi pi-sign-out" aria-hidden="true"></i>
+        {{ 'userMenu.logout' | translate }}
+      </button>
+    </ng-container>
+
+    <ng-template #guestLinks>
+      <a routerLink="/auth/login" class="user-menu__link">
+        <i class="pi pi-sign-in" aria-hidden="true"></i>
+        {{ 'userMenu.login' | translate }}
+      </a>
+      <a routerLink="/auth/register" class="user-menu__link">
+        <i class="pi pi-user-plus" aria-hidden="true"></i>
+        {{ 'userMenu.register' | translate }}
+      </a>
+    </ng-template>
+  </div>
+</p-popover>

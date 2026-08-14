@@ -1,1 +1,8 @@
-<p>cart-icon works!</p>
+<a
+  routerLink="/cart"
+  class="cart-icon"
+  [attr.aria-label]="'header.cartItemsAria' | translate: { count: itemCount() }"
+>
+  <i class="pi pi-shopping-bag cart-icon__glyph" aria-hidden="true"></i>
+  <span class="cart-icon__badge" *ngIf="itemCount() > 0">{{ itemCount() }}</span>
+</a>

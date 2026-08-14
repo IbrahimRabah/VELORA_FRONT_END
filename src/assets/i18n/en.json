@@ -1,13 +1,75 @@
 {
-  "HOME": {
-    "TITLE": "Component Libraries",
-    "DESCRIPTION": "This is the home page",
-    "PRIMENG_FEATURES": "PrimeNG Features",
-    "BOOTSTRAP_FEATURES": "Bootstrap Features"
+  "common": {
+    "language": "Language",
+    "arabic": "العربية",
+    "english": "English",
+    "categories": "Categories",
+    "allProducts": "All Products",
+    "home": "Home",
+    "about": "About Us",
+    "contact": "Contact Us",
+    "close": "Close",
+    "menu": "Menu"
   },
-  "COMMON": {
-    "LANGUAGE": "Language",
-    "ENGLISH": "English",
-    "ARABIC": "Arabic"
+  "header": {
+    "logoAlt": "VELORA",
+    "searchPlaceholder": "Search for a product...",
+    "search": "Search",
+    "account": "My Account",
+    "cart": "Cart",
+    "cartItemsAria": "Items in cart: {{count}}"
+  },
+  "topBar": {
+    "cod": "Cash on Delivery",
+    "myOrders": "My Orders"
+  },
+  "userMenu": {
+    "login": "Login",
+    "register": "Register",
+    "profile": "Profile",
+    "orders": "My Orders",
+    "addresses": "Addresses",
+    "logout": "Logout"
+  },
+  "footer": {
+    "hero": {
+      "tagline": "Precision in every second"
+    },
+    "feature": {
+      "timelessDesign": "Timeless Design",
+      "luxuryQuality": "Luxury Quality",
+      "durability": "Durability",
+      "madeForYou": "Made for You"
+    },
+    "blurb": "VELORA — refined watches, wallets and perfumes for those who value lasting quality.",
+    "socialAria": "Follow us on social media",
+    "social": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "tiktok": "TikTok"
+    },
+    "copyright": "© {{year}} VELORA. All rights reserved."
+  },
+  "pages": {
+    "about": {
+      "title": "About Us",
+      "placeholder": "This page is coming soon."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "placeholder": "This page is coming soon."
+    }
+  },
+  "product": {
+    "addToCart": "Add to Cart",
+    "outOfStock": "Out of Stock",
+    "inStock": "In Stock",
+    "viewDetails": "View Details"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "checkout": "Checkout",
+    "subtotal": "Subtotal"
   }
 }

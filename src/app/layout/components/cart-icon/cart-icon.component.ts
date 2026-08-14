@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+
+import { CartStoreService } from '../../../core/state/cart-store.service';
 
 @Component({
   selector: 'app-cart-icon',
@@ -7,5 +9,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CartIconComponent {
+  private readonly cartStore = inject(CartStoreService);
 
+  readonly itemCount = this.cartStore.itemCount;
 }

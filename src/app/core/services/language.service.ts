@@ -11,6 +11,12 @@ const RTL_LANGUAGES: readonly Language[] = [Language.AR];
  * document (lang/dir attributes). core/state/language.store.ts (batch 7) wraps this in a
  * signal for components to read reactively.
  *
+ * applyToDocument runs on both platforms (DOCUMENT is a safe universal token — platform-server
+ * backs it with a virtual document that CommonEngine serializes to the final HTML). That's
+ * required for SSR/prerender: the response must already carry the right lang/dir on
+ * <html> before any client JS runs, or an Arabic page would flash as LTR. Only persist()
+ * (localStorage) is browser-only, since there's nothing to persist to on the server.
+ *
  * Deliberately does NOT inject TranslateService (ngx-translate), even though switching
  * the active translation is an obvious next step when the language changes. This service
  * is a dependency of language.interceptor (registered under HTTP_INTERCEPTORS) —
@@ -51,9 +57,6 @@ export class LanguageService {
   }
 
   private applyToDocument(lang: Language): void {
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
     this.document.documentElement.lang = lang;
     this.document.documentElement.dir = this.isRtl(lang) ? 'rtl' : 'ltr';
   }

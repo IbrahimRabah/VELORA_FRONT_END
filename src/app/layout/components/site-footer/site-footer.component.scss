@@ -1,0 +1,131 @@
+@use 'styles/breakpoints';
+
+.site-footer {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+// ═══ Hero — dark banner image + 4 brand features ═══
+
+.site-footer__hero {
+  position: relative;
+  background: url('/assets/images/shared/footer.png') center / cover no-repeat;
+}
+
+.site-footer__hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--overlay);
+}
+
+.site-footer__hero-inner {
+  position: relative;
+  z-index: 1;
+  padding-block: var(--sp-8);
+  text-align: center;
+}
+
+.site-footer__hero-tagline {
+  font-family: var(--display);
+  font-size: var(--fs-h3);
+  color: var(--cream);
+  margin-block-end: var(--sp-6);
+}
+
+.site-footer__features {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--sp-6) var(--sp-8);
+  margin: 0;
+  padding: 0;
+}
+
+.site-footer__feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  min-inline-size: 6rem;
+  max-inline-size: 10rem;
+  font-size: var(--fs-sm);
+  color: var(--cream);
+
+  i {
+    font-size: 1.5rem;
+    color: var(--gold-lt);
+  }
+}
+
+// ═══ Bottom bar — logo + tagline + social + copyright ═══
+
+.site-footer__bottom {
+  border-block-start: 1px solid rgba(246, 242, 235, 0.12);
+}
+
+.site-footer__bottom-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  padding-block: var(--sp-6);
+  text-align: center;
+}
+
+.site-footer__logo img {
+  block-size: 2rem;
+  inline-size: auto;
+}
+
+.site-footer__blurb {
+  margin: 0;
+  max-inline-size: 40ch;
+  font-size: var(--fs-sm);
+  opacity: 0.8;
+}
+
+.site-footer__social {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.site-footer__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  border: 1px solid rgba(246, 242, 235, 0.25);
+  border-radius: var(--r-full);
+  color: var(--cream);
+  opacity: 0.85;
+  transition: opacity 220ms ease, color 220ms ease, border-color 220ms ease;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 1;
+    color: var(--gold-lt);
+    border-color: var(--gold-lt);
+  }
+}
+
+.site-footer__copyright {
+  font-size: var(--fs-sm);
+  opacity: 0.7;
+}
+
+@include breakpoints.md {
+  .site-footer__bottom-inner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: start;
+  }
+
+  .site-footer__blurb {
+    flex: 1 1 auto;
+    margin-inline: var(--sp-6);
+  }
+}

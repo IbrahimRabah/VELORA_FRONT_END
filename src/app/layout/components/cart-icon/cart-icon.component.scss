@@ -1,0 +1,40 @@
+.cart-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  color: var(--text);
+  text-decoration: none;
+  border-radius: var(--r-full);
+  transition: color 220ms ease, background 220ms ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--brand);
+    background: var(--surface-alt);
+  }
+}
+
+.cart-icon__glyph {
+  font-size: 1.1rem;
+}
+
+.cart-icon__badge {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  min-inline-size: 1.125rem;
+  block-size: 1.125rem;
+  padding-inline: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6875rem;
+  line-height: 1;
+  font-weight: 600;
+  color: var(--paper);
+  background: var(--brand);
+  border-radius: var(--r-full);
+}

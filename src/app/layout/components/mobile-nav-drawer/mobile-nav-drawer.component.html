@@ -1,1 +1,101 @@
-<p>mobile-nav-drawer works!</p>
+<div
+  class="mobile-nav-drawer__backdrop"
+  [class.mobile-nav-drawer__backdrop--visible]="visible"
+  [attr.inert]="visible ? null : ''"
+  (click)="close()"
+></div>
+
+<div
+  class="mobile-nav-drawer__panel"
+  [class.mobile-nav-drawer__panel--open]="visible"
+  [attr.inert]="visible ? null : ''"
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-label]="'common.menu' | translate"
+  (keydown.escape)="close()"
+>
+  <div class="mobile-nav-drawer__header">
+    <span class="mobile-nav-drawer__title">{{ 'common.menu' | translate }}</span>
+    <button
+      #closeBtn
+      type="button"
+      class="mobile-nav-drawer__close"
+      (click)="close()"
+      [attr.aria-label]="'common.close' | translate"
+    >
+      <i class="pi pi-times" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <nav class="mobile-nav-drawer__nav">
+    <a routerLink="/" class="mobile-nav-drawer__link" (click)="close()">
+      {{ 'common.home' | translate }}
+    </a>
+
+    <ng-container *ngFor="let category of categories">
+      <div class="mobile-nav-drawer__category">
+        <a
+          routerLink="/products"
+          [queryParams]="{ categoryId: category.id }"
+          class="mobile-nav-drawer__link"
+          (click)="close()"
+        >{{ category.name }}</a>
+
+        <button
+          *ngIf="category.children.length"
+          type="button"
+          class="mobile-nav-drawer__toggle"
+          [class.mobile-nav-drawer__toggle--open]="isCategoryOpen(category.id)"
+          [attr.aria-expanded]="isCategoryOpen(category.id)"
+          [attr.aria-controls]="'mobile-nav-children-' + category.id"
+          [attr.aria-label]="category.name"
+          (click)="toggleCategory(category.id)"
+        >
+          <i class="pi pi-angle-down" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div
+        *ngIf="category.children.length"
+        [id]="'mobile-nav-children-' + category.id"
+        class="mobile-nav-drawer__children"
+        [class.mobile-nav-drawer__children--open]="isCategoryOpen(category.id)"
+      >
+        <div class="mobile-nav-drawer__children-inner">
+          <a
+            *ngFor="let child of category.children"
+            routerLink="/products"
+            [queryParams]="{ categoryId: child.id }"
+            class="mobile-nav-drawer__child-link"
+            (click)="close()"
+          >{{ child.name }}</a>
+        </div>
+      </div>
+    </ng-container>
+
+    <a routerLink="/products" class="mobile-nav-drawer__link" (click)="close()">
+      {{ 'common.allProducts' | translate }}
+    </a>
+    <a routerLink="/about" class="mobile-nav-drawer__link" (click)="close()">
+      {{ 'common.about' | translate }}
+    </a>
+    <a routerLink="/contact" class="mobile-nav-drawer__link" (click)="close()">
+      {{ 'common.contact' | translate }}
+    </a>
+
+    <hr class="mobile-nav-drawer__divider" />
+
+    <a routerLink="/me/profile" class="mobile-nav-drawer__link" (click)="close()">
+      <i class="pi pi-user" aria-hidden="true"></i>
+      {{ 'header.account' | translate }}
+    </a>
+    <a routerLink="/me/orders" class="mobile-nav-drawer__link" (click)="close()">
+      <i class="pi pi-truck" aria-hidden="true"></i>
+      {{ 'topBar.myOrders' | translate }}
+    </a>
+
+    <hr class="mobile-nav-drawer__divider" />
+
+    <app-vl-language-switcher class="mobile-nav-drawer__lang"></app-vl-language-switcher>
+  </nav>
+</div>

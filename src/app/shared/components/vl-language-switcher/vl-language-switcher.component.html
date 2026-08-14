@@ -1,1 +1,23 @@
-<p>vl-language-switcher works!</p>
+<div class="vl-lang-switcher" role="group" [attr.aria-label]="'common.language' | translate">
+  <button
+    type="button"
+    pRipple
+    class="vl-lang-switcher__option"
+    [class.vl-lang-switcher__option--active]="lang() === Language.AR"
+    [attr.aria-pressed]="lang() === Language.AR"
+    (click)="select(Language.AR)"
+  >
+    {{ 'common.arabic' | translate }}
+  </button>
+  <span class="vl-lang-switcher__divider" aria-hidden="true"></span>
+  <button
+    type="button"
+    pRipple
+    class="vl-lang-switcher__option"
+    [class.vl-lang-switcher__option--active]="lang() === Language.EN"
+    [attr.aria-pressed]="lang() === Language.EN"
+    (click)="select(Language.EN)"
+  >
+    {{ 'common.english' | translate }}
+  </button>
+</div>

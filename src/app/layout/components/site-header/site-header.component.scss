@@ -1,0 +1,153 @@
+@use 'styles/breakpoints';
+
+:host {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-header);
+  display: block;
+}
+
+// ═══ Top bar — thin strip, --ink background, light text ═══
+
+.site-topbar {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.site-topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding-block: var(--sp-2);
+  font-size: var(--fs-sm);
+}
+
+.site-topbar__cod {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  white-space: nowrap;
+}
+
+.site-topbar__end {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.site-topbar__link {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.85;
+  white-space: nowrap;
+  transition: opacity 220ms ease;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 1;
+  }
+}
+
+// ═══ Main header ═══
+
+.site-header {
+  position: relative;
+  background: var(--surface);
+  border-block-end: 1px solid var(--border);
+}
+
+.site-header__row {
+  display: flex;
+  // Was flex-wrap: wrap — with the search field's old full-width row this only ever
+  // wrapped intentionally on mobile. But it stayed wrap at desktop too, so once nav +
+  // search + actions' combined natural width crept past the container (a longer/shorter
+  // language's label was enough to tip it), the actions group silently dropped to a
+  // second line instead of shrinking. nowrap here is the actual fix; min-inline-size: 0
+  // below lets the nav shrink instead of forcing overflow.
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--sp-3) var(--sp-4);
+  padding-block: var(--sp-3);
+}
+
+.site-header__menu-btn {
+  order: 1;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 1.125rem;
+  cursor: pointer;
+  border-radius: var(--r-full);
+  transition: background 220ms ease, color 220ms ease;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--surface-alt);
+    color: var(--brand);
+  }
+}
+
+.site-header__logo {
+  order: 2;
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  display: flex;
+  justify-content: center;
+
+  img {
+    block-size: 2.25rem;
+    inline-size: auto;
+  }
+}
+
+.site-header__search {
+  order: 3;
+  flex-shrink: 0;
+}
+
+.site-header__actions {
+  order: 4;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.site-header__nav {
+  display: none;
+}
+
+@include breakpoints.md {
+  .site-header__menu-btn {
+    display: none;
+  }
+
+  .site-header__logo {
+    order: 1;
+    flex: 0 0 auto;
+    justify-content: flex-start;
+  }
+
+  .site-header__nav {
+    order: 2;
+    flex-shrink: 1;
+    min-inline-size: 0;
+    display: flex;
+  }
+
+  .site-header__search {
+    order: 3;
+    margin-inline-start: auto;
+  }
+
+  .site-header__actions {
+    order: 4;
+  }
+}

@@ -1,1 +1,52 @@
-<p>site-footer works!</p>
+<footer class="site-footer">
+  <section class="site-footer__hero">
+    <div class="site-footer__hero-overlay"></div>
+    <div class="container-vl site-footer__hero-inner">
+      <p class="site-footer__hero-tagline">{{ 'footer.hero.tagline' | translate }}</p>
+
+      <ul class="site-footer__features">
+        <li class="site-footer__feature">
+          <i class="pi pi-sparkles" aria-hidden="true"></i>
+          <span>{{ 'footer.feature.timelessDesign' | translate }}</span>
+        </li>
+        <li class="site-footer__feature">
+          <i class="pi pi-crown" aria-hidden="true"></i>
+          <span>{{ 'footer.feature.luxuryQuality' | translate }}</span>
+        </li>
+        <li class="site-footer__feature">
+          <i class="pi pi-shield" aria-hidden="true"></i>
+          <span>{{ 'footer.feature.durability' | translate }}</span>
+        </li>
+        <li class="site-footer__feature">
+          <i class="pi pi-heart-fill" aria-hidden="true"></i>
+          <span>{{ 'footer.feature.madeForYou' | translate }}</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="site-footer__bottom">
+    <div class="container-vl site-footer__bottom-inner">
+      <a routerLink="/" class="site-footer__logo">
+        <img src="assets/images/shared/dark_logo.jpg" [alt]="'header.logoAlt' | translate" />
+      </a>
+
+      <p class="site-footer__blurb">{{ 'footer.blurb' | translate }}</p>
+
+      <nav class="site-footer__social" [attr.aria-label]="'footer.socialAria' | translate">
+        <a
+          *ngFor="let link of socialLinks"
+          [href]="link.url"
+          class="site-footer__social-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          [attr.aria-label]="link.labelKey | translate"
+        >
+          <i class="pi" [ngClass]="link.icon" aria-hidden="true"></i>
+        </a>
+      </nav>
+
+      <span class="site-footer__copyright">{{ 'footer.copyright' | translate: { year } }}</span>
+    </div>
+  </div>
+</footer>

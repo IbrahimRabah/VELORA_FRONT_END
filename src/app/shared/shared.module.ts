@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { RippleModule } from 'primeng/ripple';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
@@ -118,7 +119,8 @@ import { OnlyDigitsDirective } from './directives/only-digits.directive';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    TranslateModule
+    TranslateModule,
+    RippleModule
   ],  exports: [
     CommonModule,
     FormsModule,
@@ -126,6 +128,7 @@ import { OnlyDigitsDirective } from './directives/only-digits.directive';
     RouterModule,
     LanguageToggleComponent,
     TranslateModule,
+    RippleModule,
     CardComponent,
     ThemeToggleComponent,
     VlFormFieldComponent,

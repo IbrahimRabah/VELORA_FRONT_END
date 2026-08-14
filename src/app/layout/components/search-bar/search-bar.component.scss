@@ -1,0 +1,123 @@
+@use 'styles/breakpoints';
+
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar__toggle {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  border-radius: var(--r-full);
+  cursor: pointer;
+  transition: color 220ms ease, background 220ms ease;
+
+  // [hidden] rather than *ngIf in the template — keeps the button in the DOM (instead of
+  // destroying/recreating it) while the panel is open, which avoids the browser resetting
+  // focus to <body> mid-click when the element a click just landed on disappears.
+  &[hidden] {
+    display: none;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: var(--surface-alt);
+    color: var(--brand);
+  }
+}
+
+// Anchored to the nearest positioned ancestor, which is `.site-header` on mobile (below)
+// and `.search-bar` itself at desktop (breakpoint override) — see each block for why.
+.search-bar__panel {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 100%;
+  z-index: var(--z-header);
+  display: flex;
+  align-items: stretch;
+  gap: var(--sp-2);
+  background: var(--surface);
+  border-block-start: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  padding: var(--sp-3);
+  transform-origin: top;
+  opacity: 0;
+  visibility: hidden;
+  transform: scaleY(0.9);
+  transition: opacity 240ms ease, transform 240ms ease, visibility 240ms ease;
+}
+
+.search-bar--open .search-bar__panel {
+  opacity: 1;
+  visibility: visible;
+  transform: scaleY(1);
+}
+
+.search-bar__input {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.search-bar__submit {
+  flex: 0 0 auto;
+}
+
+.search-bar__close {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: var(--r-full);
+  cursor: pointer;
+  transition: color 220ms ease, background 220ms ease;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--surface-alt);
+    color: var(--brand);
+  }
+}
+
+@include breakpoints.md {
+  // `.search-bar` becomes the positioned ancestor here instead of `.site-header`, so the
+  // panel anchors to the search icon itself (a compact dropdown) rather than spanning the
+  // full header width like it does on mobile.
+  .search-bar {
+    position: relative;
+  }
+
+  .search-bar__panel {
+    inset-inline: auto 0;
+    inset-block-start: calc(100% + var(--sp-2));
+    inline-size: min(320px, 60vw);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    // transform-origin has no logical keyword equivalent (same escape hatch documented
+    // in mobile-nav-drawer's transform override) — the panel's anchored edge is
+    // inset-inline-end, so the origin must flip with it to keep the "grows from the
+    // icon" effect correct in RTL.
+    transform-origin: top right;
+
+    :host-context([dir='rtl']) & {
+      transform-origin: top left;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .search-bar__panel {
+    transition: none;
+  }
+}

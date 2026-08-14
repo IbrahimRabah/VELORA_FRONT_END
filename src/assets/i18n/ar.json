@@ -1,13 +1,75 @@
 {
-  "HOME": {
-    "TITLE": "مكتبات المكونات",
-    "DESCRIPTION": "هذه الصفحة الرئيسية",
-    "PRIMENG_FEATURES": "ميزات PrimeNG",
-    "BOOTSTRAP_FEATURES": "ميزات Bootstrap"
+  "common": {
+    "language": "اللغة",
+    "arabic": "العربية",
+    "english": "English",
+    "categories": "التصنيفات",
+    "allProducts": "كل المنتجات",
+    "home": "الرئيسية",
+    "about": "من نحن",
+    "contact": "اتصل بنا",
+    "close": "إغلاق",
+    "menu": "القائمة"
   },
-  "COMMON": {
-    "LANGUAGE": "اللغة",
-    "ENGLISH": "English",
-    "ARABIC": "العربية"
+  "header": {
+    "logoAlt": "فيلورا",
+    "searchPlaceholder": "ابحث عن منتج...",
+    "search": "بحث",
+    "account": "حسابي",
+    "cart": "السلة",
+    "cartItemsAria": "عدد المنتجات في السلة: {{count}}"
+  },
+  "topBar": {
+    "cod": "الدفع عند الاستلام",
+    "myOrders": "طلباتي"
+  },
+  "userMenu": {
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "profile": "الملف الشخصي",
+    "orders": "طلباتي",
+    "addresses": "العناوين",
+    "logout": "تسجيل الخروج"
+  },
+  "footer": {
+    "hero": {
+      "tagline": "الدقة في كل ثانية"
+    },
+    "feature": {
+      "timelessDesign": "تصميم خالد",
+      "luxuryQuality": "جودة فاخرة",
+      "durability": "متانة",
+      "madeForYou": "صُنع لك"
+    },
+    "blurb": "فيلورا — ساعات ومحافظ وعطور راقية لمن يقدّر الجودة الدائمة.",
+    "socialAria": "تابعنا على وسائل التواصل الاجتماعي",
+    "social": {
+      "facebook": "فيسبوك",
+      "instagram": "إنستجرام",
+      "tiktok": "تيك توك"
+    },
+    "copyright": "© {{year}} فيلورا. جميع الحقوق محفوظة."
+  },
+  "pages": {
+    "about": {
+      "title": "من نحن",
+      "placeholder": "هذه الصفحة قريباً."
+    },
+    "contact": {
+      "title": "اتصل بنا",
+      "placeholder": "هذه الصفحة قريباً."
+    }
+  },
+  "product": {
+    "addToCart": "أضف إلى السلة",
+    "outOfStock": "غير متوفر",
+    "inStock": "متوفر",
+    "viewDetails": "عرض التفاصيل"
+  },
+  "cart": {
+    "title": "سلة التسوق",
+    "empty": "سلتك فارغة",
+    "checkout": "إتمام الطلب",
+    "subtotal": "الإجمالي الفرعي"
   }
 }
