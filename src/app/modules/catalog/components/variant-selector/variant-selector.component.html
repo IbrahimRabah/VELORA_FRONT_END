@@ -1,1 +1,18 @@
-<p>variant-selector works!</p>
+<div class="variant-selector" *ngIf="colorGroup.values.length">
+  <p class="variant-selector__label">
+    {{ 'product.color' | translate }}: <span class="variant-selector__value">{{ selectedValueName }}</span>
+  </p>
+
+  <div class="variant-selector__swatches">
+    <button
+      *ngFor="let value of colorGroup.values"
+      type="button"
+      class="variant-selector__swatch"
+      [class.variant-selector__swatch--active]="value.id === selectedValueId"
+      [style.background]="value.hexColor"
+      [attr.aria-label]="value.name"
+      [attr.aria-pressed]="value.id === selectedValueId"
+      (click)="select(value.id)"
+    ></button>
+  </div>
+</div>

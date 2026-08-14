@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+
+import { AttributeGroupResponse } from '../../../../core/models';
 
 @Component({
   selector: 'app-variant-selector',
@@ -7,5 +9,15 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VariantSelectorComponent {
+  @Input({ required: true }) colorGroup!: AttributeGroupResponse;
+  @Input() selectedValueId: number | null = null;
+  @Output() readonly selectedValueIdChange = new EventEmitter<number>();
 
+  get selectedValueName(): string | null {
+    return this.colorGroup.values.find((value) => value.id === this.selectedValueId)?.name ?? null;
+  }
+
+  select(valueId: number): void {
+    this.selectedValueIdChange.emit(valueId);
+  }
 }

@@ -1,0 +1,41 @@
+.variant-selector__label {
+  margin: 0 0 var(--sp-3);
+  font-size: var(--fs-sm);
+  color: var(--text);
+}
+
+.variant-selector__value {
+  font-weight: 600;
+}
+
+.variant-selector__swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+}
+
+.variant-selector__swatch {
+  inline-size: 32px;
+  block-size: 32px;
+  padding: 0;
+  border: 2px solid var(--paper);
+  border-radius: var(--r-full);
+  box-shadow: 0 0 0 1px var(--border);
+  cursor: pointer;
+  transition: box-shadow 200ms ease;
+}
+
+.variant-selector__swatch:hover,
+.variant-selector__swatch:focus-visible {
+  box-shadow: 0 0 0 1px var(--gold-lt);
+}
+
+.variant-selector__swatch--active {
+  box-shadow: 0 0 0 2px var(--brand);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .variant-selector__swatch {
+    transition: none;
+  }
+}

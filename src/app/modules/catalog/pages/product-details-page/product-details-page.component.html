@@ -1,1 +1,97 @@
-<p>product-details-page works!</p>
+<ng-container *ngIf="!loading(); else loadingTpl">
+  <ng-container *ngIf="product() as p; else notFoundTpl">
+    <section class="pdp section">
+      <div class="container-vl pdp__grid">
+        <app-product-gallery
+          [images]="galleryImages()"
+          [activeImageId]="activeGalleryImageId()"
+          [productName]="p.name"
+        ></app-product-gallery>
+
+        <div class="pdp__details">
+          <span *ngIf="p.newArrival" class="pdp__badge">{{ 'product.new' | translate }}</span>
+
+          <h1 class="pdp__name">{{ p.name }}</h1>
+
+          <p class="pdp__meta">
+            <span>{{ categoryName() }}</span>
+            <span class="pdp__meta-sep" aria-hidden="true">&bull;</span>
+            <span>{{ selectedVariant()?.sku }}</span>
+          </p>
+
+          <app-product-price-block [price]="displayPrice()"></app-product-price-block>
+
+          <p class="pdp__short-desc">{{ p.shortDescription }}</p>
+
+          <app-variant-selector
+            *ngIf="colorGroup() as group"
+            [colorGroup]="group"
+            [selectedValueId]="selectedValueId()"
+            (selectedValueIdChange)="selectValue($event)"
+          ></app-variant-selector>
+
+          <app-add-to-cart-box
+            [disabled]="!inStock()"
+            [loading]="addingToCart()"
+            (addToCart)="addToCart()"
+          ></app-add-to-cart-box>
+
+          <div class="pdp__features">
+            <div class="pdp__feature">
+              <i class="pi pi-money-bill" aria-hidden="true"></i>
+              <div>
+                <p class="pdp__feature-title">{{ 'product.features.cod.title' | translate }}</p>
+                <p class="pdp__feature-subtitle">{{ 'product.features.cod.subtitle' | translate }}</p>
+              </div>
+            </div>
+            <div class="pdp__feature">
+              <i class="pi pi-truck" aria-hidden="true"></i>
+              <div>
+                <p class="pdp__feature-title">{{ 'product.features.delivery.title' | translate }}</p>
+                <p class="pdp__feature-subtitle">{{ 'product.features.delivery.subtitle' | translate }}</p>
+              </div>
+            </div>
+            <div class="pdp__feature">
+              <i class="pi pi-replay" aria-hidden="true"></i>
+              <div>
+                <p class="pdp__feature-title">{{ 'product.features.returns.title' | translate }}</p>
+                <p class="pdp__feature-subtitle">{{ 'product.features.returns.subtitle' | translate }}</p>
+              </div>
+            </div>
+            <div class="pdp__feature">
+              <i class="pi pi-verified" aria-hidden="true"></i>
+              <div>
+                <p class="pdp__feature-title">{{ 'product.features.authentic.title' | translate }}</p>
+                <p class="pdp__feature-subtitle">{{ 'product.features.authentic.subtitle' | translate }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pdp__description section">
+      <div class="container-vl">
+        <h2 class="pdp__description-title">{{ 'product.description' | translate }}</h2>
+        <p class="pdp__description-text">{{ p.description }}</p>
+      </div>
+    </section>
+
+    <app-related-products [products]="relatedProducts()"></app-related-products>
+  </ng-container>
+</ng-container>
+
+<ng-template #loadingTpl>
+  <div class="pdp__loading container-vl section">
+    <div class="pdp__loading-gallery"></div>
+    <div class="pdp__loading-details">
+      <div class="pdp__loading-line pdp__loading-line--lg"></div>
+      <div class="pdp__loading-line"></div>
+      <div class="pdp__loading-line pdp__loading-line--sm"></div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #notFoundTpl>
+  <p class="pdp__not-found container-vl section">{{ 'product.notFound' | translate }}</p>
+</ng-template>

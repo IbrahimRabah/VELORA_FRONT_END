@@ -1,0 +1,124 @@
+@use 'styles/breakpoints';
+
+.product-gallery {
+  display: flex;
+  gap: var(--sp-4);
+}
+
+.product-gallery__thumbs {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: var(--sp-3);
+  inline-size: 64px;
+
+  @include breakpoints.md {
+    inline-size: 84px;
+  }
+}
+
+.product-gallery__thumb {
+  display: block;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: var(--r-sm);
+  background: var(--surface-alt);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 200ms ease;
+
+  img {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: contain;
+  }
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--gold-lt);
+  }
+}
+
+.product-gallery__thumb--active {
+  border-color: var(--brand);
+}
+
+.product-gallery__main {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--r-md);
+  background: var(--cream);
+  overflow: hidden;
+}
+
+.product-gallery__image {
+  max-inline-size: 100%;
+  max-block-size: 100%;
+  object-fit: contain;
+  transition: opacity 200ms ease;
+}
+
+.product-gallery__zoom {
+  position: absolute;
+  inset-block-start: var(--sp-4);
+  inset-inline-end: var(--sp-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 40px;
+  block-size: 40px;
+  border-radius: var(--r-full);
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+
+  i {
+    font-size: 1rem;
+  }
+}
+
+.product-gallery__nav {
+  position: absolute;
+  inset-block-start: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 40px;
+  block-size: 40px;
+  border: none;
+  border-radius: var(--r-full);
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.product-gallery__nav--prev {
+  inset-inline-start: var(--sp-4);
+}
+
+.product-gallery__nav--next {
+  inset-inline-end: var(--sp-4);
+}
+
+.product-gallery__nav:hover,
+.product-gallery__nav:focus-visible {
+  background: var(--brand);
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-gallery__thumb,
+  .product-gallery__nav,
+  .product-gallery__image {
+    transition: none;
+  }
+}

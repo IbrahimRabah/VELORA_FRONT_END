@@ -1,1 +1,49 @@
-<p>product-gallery works!</p>
+<div class="product-gallery" *ngIf="images.length">
+  <div class="product-gallery__thumbs">
+    <button
+      *ngFor="let image of images; let i = index"
+      type="button"
+      class="product-gallery__thumb"
+      [class.product-gallery__thumb--active]="i === index()"
+      (click)="select(i)"
+    >
+      <img [src]="image.thumbUrl || image.url" [alt]="image.alt || productName" loading="lazy" decoding="async" />
+    </button>
+  </div>
+
+  <div class="product-gallery__main">
+    <span class="product-gallery__zoom" aria-hidden="true">
+      <i class="pi pi-search-plus"></i>
+    </span>
+
+    <button
+      *ngIf="images.length > 1"
+      type="button"
+      class="product-gallery__nav product-gallery__nav--prev"
+      [attr.aria-label]="'product.gallery.previous' | translate"
+      (click)="previous()"
+    >
+      <i class="pi pi-chevron-left" aria-hidden="true"></i>
+    </button>
+
+    <img
+      *ngIf="activeImage() as image"
+      class="product-gallery__image"
+      [src]="image.url"
+      [alt]="image.alt || productName"
+      [style.opacity]="imageOpacity()"
+      loading="eager"
+      decoding="async"
+    />
+
+    <button
+      *ngIf="images.length > 1"
+      type="button"
+      class="product-gallery__nav product-gallery__nav--next"
+      [attr.aria-label]="'product.gallery.next' | translate"
+      (click)="next()"
+    >
+      <i class="pi pi-chevron-right" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>

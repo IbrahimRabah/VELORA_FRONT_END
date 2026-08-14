@@ -1,0 +1,36 @@
+.add-to-cart-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  inline-size: 100%;
+  padding: var(--sp-4);
+  border: none;
+  border-radius: var(--r-md);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 200ms ease, opacity 200ms ease;
+}
+
+.add-to-cart-box i {
+  font-size: 1.1rem;
+}
+
+.add-to-cart-box:hover:not(:disabled),
+.add-to-cart-box:focus-visible:not(:disabled) {
+  background: var(--ink-2);
+}
+
+.add-to-cart-box:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .add-to-cart-box {
+    transition: none;
+  }
+}

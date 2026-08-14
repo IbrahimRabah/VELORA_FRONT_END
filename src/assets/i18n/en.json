@@ -62,13 +62,41 @@
   },
   "product": {
     "addToCart": "Add to Cart",
+    "addedToCart": "Added to cart",
     "outOfStock": "Out of Stock",
     "outOfStockBadge": "Sold Out",
     "inStock": "In Stock",
     "viewDetails": "View Details",
     "viewProduct": "View Product",
     "new": "New",
-    "priceFrom": "From {{price}}"
+    "priceFrom": "From {{price}}",
+    "color": "Color",
+    "description": "Description",
+    "alsoLike": "You May Also Like",
+    "notFound": "This product could not be found.",
+    "gallery": {
+      "zoom": "Zoom image",
+      "previous": "Previous image",
+      "next": "Next image"
+    },
+    "features": {
+      "cod": {
+        "title": "Cash on Delivery",
+        "subtitle": "Pay when your order arrives"
+      },
+      "delivery": {
+        "title": "Nationwide Delivery",
+        "subtitle": "Delivery to all governorates"
+      },
+      "returns": {
+        "title": "Free Cancellation",
+        "subtitle": "Cancel free before shipping"
+      },
+      "authentic": {
+        "title": "Authentic Products",
+        "subtitle": "100% genuine, guaranteed"
+      }
+    }
   },
   "cart": {
     "title": "Shopping Cart",

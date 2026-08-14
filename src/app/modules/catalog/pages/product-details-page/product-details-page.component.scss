@@ -1,0 +1,146 @@
+@use 'styles/breakpoints';
+@use 'styles/mixins';
+
+.pdp {
+  background: var(--paper);
+}
+
+.pdp__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-8);
+
+  @include breakpoints.lg {
+    grid-template-columns: 1.1fr 1fr;
+  }
+}
+
+.pdp__details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.pdp__badge {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-dp);
+}
+
+.pdp__name {
+  margin: 0;
+  font-family: var(--display);
+  font-size: var(--fs-h3);
+}
+
+.pdp__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.pdp__short-desc {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+  @include mixins.truncate(2);
+}
+
+.pdp__features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-5);
+  padding-block-start: var(--sp-4);
+  border-block-start: 1px solid var(--border);
+}
+
+.pdp__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+}
+
+.pdp__feature i {
+  flex-shrink: 0;
+  margin-block-start: 2px;
+  font-size: 1.25rem;
+  color: var(--brand);
+}
+
+.pdp__feature-title {
+  margin: 0;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.pdp__feature-subtitle {
+  margin: var(--sp-1) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.pdp__description {
+  background: var(--cream);
+}
+
+.pdp__description-title {
+  margin: 0 0 var(--sp-4);
+  font-family: var(--display);
+  font-size: var(--fs-h4);
+}
+
+.pdp__description-text {
+  margin: 0;
+  max-inline-size: 70ch;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.pdp__loading {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-8);
+
+  @include breakpoints.lg {
+    grid-template-columns: 1.1fr 1fr;
+  }
+}
+
+.pdp__loading-gallery {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--r-md);
+  background: var(--surface-alt);
+}
+
+.pdp__loading-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.pdp__loading-line {
+  inline-size: 60%;
+  block-size: 1rem;
+  border-radius: var(--r-sm);
+  background: var(--surface-alt);
+}
+
+.pdp__loading-line--lg {
+  inline-size: 80%;
+  block-size: 2rem;
+}
+
+.pdp__loading-line--sm {
+  inline-size: 40%;
+}
+
+.pdp__not-found {
+  color: var(--text-muted);
+  text-align: center;
+}

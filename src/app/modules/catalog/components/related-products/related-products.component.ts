@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
+import { ProductSummaryResponse } from '../../../../core/models';
 
 @Component({
   selector: 'app-related-products',
@@ -7,5 +9,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RelatedProductsComponent {
-
+  @Input() products: ProductSummaryResponse[] = [];
 }

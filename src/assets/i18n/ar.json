@@ -62,13 +62,41 @@
   },
   "product": {
     "addToCart": "أضف إلى السلة",
+    "addedToCart": "تمت الإضافة إلى السلة",
     "outOfStock": "غير متوفر",
     "outOfStockBadge": "نفد",
     "inStock": "متوفر",
     "viewDetails": "عرض التفاصيل",
     "viewProduct": "اعرض المنتج",
     "new": "جديد",
-    "priceFrom": "من {{price}}"
+    "priceFrom": "من {{price}}",
+    "color": "اللون",
+    "description": "الوصف",
+    "alsoLike": "قد يعجبك أيضاً",
+    "notFound": "تعذر العثور على هذا المنتج.",
+    "gallery": {
+      "zoom": "تكبير الصورة",
+      "previous": "الصورة السابقة",
+      "next": "الصورة التالية"
+    },
+    "features": {
+      "cod": {
+        "title": "الدفع عند الاستلام",
+        "subtitle": "ادفع عند وصول طلبك"
+      },
+      "delivery": {
+        "title": "توصيل لكل المحافظات",
+        "subtitle": "نوصل طلبك أينما كنت"
+      },
+      "returns": {
+        "title": "إلغاء مجاني",
+        "subtitle": "إلغاء مجاني قبل الشحن"
+      },
+      "authentic": {
+        "title": "منتجات أصلية",
+        "subtitle": "أصالة 100% مضمونة"
+      }
+    }
   },
   "cart": {
     "title": "سلة التسوق",

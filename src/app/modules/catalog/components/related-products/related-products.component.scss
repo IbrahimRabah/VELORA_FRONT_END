@@ -1,0 +1,22 @@
+@use 'styles/breakpoints';
+
+.related-products {
+  background: var(--paper);
+}
+
+.related-products__title {
+  margin-block-end: var(--sp-6);
+  font-family: var(--display);
+  font-size: var(--fs-h3);
+  text-align: center;
+}
+
+.related-products__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-5);
+
+  @include breakpoints.lg {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
