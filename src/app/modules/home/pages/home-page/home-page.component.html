@@ -1,1 +1,28 @@
-<p>home-page works!</p>
+<app-hero-banner></app-hero-banner>
+
+<section class="home-features">
+  <div class="container-vl home-features__grid">
+    <div class="home-features__item">
+      <i class="pi pi-money-bill" aria-hidden="true"></i>
+      <span>{{ 'home.features.cod' | translate }}</span>
+    </div>
+    <div class="home-features__item">
+      <i class="pi pi-truck" aria-hidden="true"></i>
+      <span>{{ 'home.features.nationwideDelivery' | translate }}</span>
+    </div>
+    <div class="home-features__item">
+      <i class="pi pi-replay" aria-hidden="true"></i>
+      <span>{{ 'home.features.freeCancellation' | translate }}</span>
+    </div>
+    <div class="home-features__item">
+      <i class="pi pi-verified" aria-hidden="true"></i>
+      <span>{{ 'home.features.authentic' | translate }}</span>
+    </div>
+  </div>
+</section>
+
+<app-category-showcase [categories]="categories()"></app-category-showcase>
+
+<app-featured-section [products]="featuredProducts()" [loading]="featuredLoading()"></app-featured-section>
+
+<app-new-arrivals-section [products]="newArrivals()" [loading]="newArrivalsLoading()"></app-new-arrivals-section>

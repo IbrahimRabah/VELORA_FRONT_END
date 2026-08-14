@@ -1,1 +1,24 @@
-<p>category-showcase works!</p>
+<section class="category-showcase section">
+  <div class="container-vl">
+    <h2 class="category-showcase__title">{{ 'home.categories.title' | translate }}</h2>
+
+    <div class="category-showcase__grid">
+      <a
+        *ngFor="let category of items"
+        class="category-showcase__card"
+        routerLink="/products"
+        [queryParams]="{ categoryId: category.id }"
+      >
+        <img
+          class="category-showcase__image"
+          [src]="imageFor(category)"
+          [alt]="category.name"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="category-showcase__overlay"></span>
+        <span class="category-showcase__name">{{ category.name }}</span>
+      </a>
+    </div>
+  </div>
+</section>

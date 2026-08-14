@@ -63,13 +63,41 @@
   "product": {
     "addToCart": "Add to Cart",
     "outOfStock": "Out of Stock",
+    "outOfStockBadge": "Sold Out",
     "inStock": "In Stock",
-    "viewDetails": "View Details"
+    "viewDetails": "View Details",
+    "viewProduct": "View Product",
+    "new": "New",
+    "priceFrom": "From {{price}}"
   },
   "cart": {
     "title": "Shopping Cart",
     "empty": "Your cart is empty",
     "checkout": "Checkout",
     "subtotal": "Subtotal"
+  },
+  "home": {
+    "hero": {
+      "imageAlt": "VELORA watch",
+      "tagline": "VELORA WATCHES — TIME. ELEGANCE. YOU.",
+      "cta": "Shop Now"
+    },
+    "features": {
+      "cod": "Cash on Delivery",
+      "nationwideDelivery": "Delivery to All Governorates",
+      "freeCancellation": "Free Cancellation Before Shipping",
+      "authentic": "Authentic Products"
+    },
+    "categories": {
+      "title": "Shop by Category"
+    },
+    "featured": {
+      "title": "Featured Products",
+      "viewAll": "View All"
+    },
+    "newArrivals": {
+      "title": "New Arrivals",
+      "viewAll": "View All"
+    }
   }
 }

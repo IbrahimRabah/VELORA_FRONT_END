@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
 import { SharedModule } from '../../shared/shared.module';
 
 import { HomeRoutingModule } from './home-routing.module';
@@ -23,7 +24,8 @@ import { BrandsStripComponent } from './components/brands-strip/brands-strip.com
   imports: [
     CommonModule,
     HomeRoutingModule,
-    SharedModule
+    SharedModule,
+    ButtonModule
   ]
 })
 export class HomeModule { }

@@ -1,0 +1,155 @@
+@use 'styles/mixins';
+@use 'styles/breakpoints';
+
+.vl-product-card {
+  display: flex;
+  flex-direction: column;
+  color: var(--text);
+  text-decoration: none;
+  border-radius: var(--r-md);
+  transition: transform 240ms ease, box-shadow 240ms ease;
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.vl-product-card__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: var(--r-md);
+  background: var(--surface-alt);
+}
+
+.vl-product-card__image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  // contain, not cover: product photos aren't all square (perfume bottles are tall,
+  // watches are wide) — cover was cropping edges off product shots to force-fill the
+  // square tile. --surface-alt on the media wrapper fills the letterboxed space.
+  object-fit: contain;
+  object-position: center;
+  transition: transform 300ms ease;
+}
+
+// Ready for `hoverImageUrl` (docs/BACKEND_NOTES.md item 1) — stacked on top of the
+// primary image, crossfades in on hover/focus. 250ms per spec.
+.vl-product-card__image--hover {
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+
+.vl-product-card:hover .vl-product-card__image--hover,
+.vl-product-card:focus-within .vl-product-card__image--hover {
+  opacity: 1;
+}
+
+.vl-product-card:hover .vl-product-card__image:not(.vl-product-card__image--hover) {
+  transform: scale(1.04);
+}
+
+.vl-product-card__badges {
+  position: absolute;
+  inset-block-start: var(--sp-3);
+  inset-inline-start: var(--sp-3);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-2);
+}
+
+.vl-product-card__badge {
+  padding: var(--sp-1) var(--sp-2);
+  border-radius: var(--r-sm);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.vl-product-card__badge--new {
+  background: var(--brand);
+  color: var(--ink);
+}
+
+.vl-product-card__badge--out {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+// Full-width bar along the image's bottom edge — clipped to the media's rounded
+// corners by its overflow: hidden. Always shown on mobile (no hover there); slides
+// up from below the image on hover/focus from md up.
+.vl-product-card__cta {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--overlay);
+  color: var(--cream);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-align: center;
+  transform: translateY(0);
+}
+
+@include breakpoints.md {
+  .vl-product-card__cta {
+    transform: translateY(100%);
+    transition: transform 250ms ease;
+  }
+
+  .vl-product-card:hover .vl-product-card__cta,
+  .vl-product-card:focus-within .vl-product-card__cta {
+    transform: translateY(0);
+  }
+}
+
+.vl-product-card__body {
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-4);
+}
+
+.vl-product-card__brand {
+  margin-block-end: var(--sp-1);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.vl-product-card__name {
+  // Fixed block-size (not just line-clamp) so a one-line name and a two-line name
+  // leave the price at the exact same vertical offset within the card.
+  margin-block-end: var(--sp-3);
+  font-size: var(--fs-base);
+  line-height: 1.3;
+  min-block-size: calc(1.3em * 2);
+  @include mixins.truncate(2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vl-product-card,
+  .vl-product-card__image,
+  .vl-product-card__image--hover,
+  .vl-product-card__cta {
+    transition: none;
+  }
+
+  .vl-product-card:hover {
+    transform: none;
+  }
+
+  .vl-product-card:hover .vl-product-card__image:not(.vl-product-card__image--hover) {
+    transform: none;
+  }
+}

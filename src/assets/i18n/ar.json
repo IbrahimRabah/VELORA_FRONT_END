@@ -63,13 +63,41 @@
   "product": {
     "addToCart": "أضف إلى السلة",
     "outOfStock": "غير متوفر",
+    "outOfStockBadge": "نفد",
     "inStock": "متوفر",
-    "viewDetails": "عرض التفاصيل"
+    "viewDetails": "عرض التفاصيل",
+    "viewProduct": "اعرض المنتج",
+    "new": "جديد",
+    "priceFrom": "من {{price}}"
   },
   "cart": {
     "title": "سلة التسوق",
     "empty": "سلتك فارغة",
     "checkout": "إتمام الطلب",
     "subtotal": "الإجمالي الفرعي"
+  },
+  "home": {
+    "hero": {
+      "imageAlt": "ساعة فيلورا",
+      "tagline": "فيلورا ووتشز — الوقت. الأناقة. أنت.",
+      "cta": "تسوّق الآن"
+    },
+    "features": {
+      "cod": "الدفع عند الاستلام",
+      "nationwideDelivery": "توصيل لكل المحافظات",
+      "freeCancellation": "إلغاء مجاني قبل الشحن",
+      "authentic": "منتجات أصلية"
+    },
+    "categories": {
+      "title": "تسوّق حسب الفئة"
+    },
+    "featured": {
+      "title": "منتجات مميزة",
+      "viewAll": "عرض الكل"
+    },
+    "newArrivals": {
+      "title": "وصل حديثاً",
+      "viewAll": "عرض الكل"
+    }
   }
 }

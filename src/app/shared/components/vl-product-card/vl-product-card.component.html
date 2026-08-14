@@ -1,1 +1,55 @@
-<p>vl-product-card works!</p>
+<a class="vl-product-card" [routerLink]="['/products', product.slug]">
+  <span class="vl-product-card__media">
+    <img
+      class="vl-product-card__image"
+      [src]="product.imageUrl"
+      [alt]="product.imageAlt"
+      loading="lazy"
+      decoding="async"
+    />
+
+    <!--
+      Hover/crossfade image — ProductSummaryResponse has no second image field yet
+      (see docs/BACKEND_NOTES.md, item 1). Once `hoverImageUrl` lands, activate with:
+
+      <img
+        *ngIf="product.hoverImageUrl"
+        class="vl-product-card__image vl-product-card__image--hover"
+        [src]="product.hoverImageUrl"
+        [alt]="product.imageAlt"
+        loading="lazy"
+        decoding="async"
+      />
+
+      .vl-product-card__image--hover is already styled in the .scss (opacity 0 → 1 on
+      card hover/focus-within, 250ms) — no other markup or CSS changes needed.
+    -->
+
+    <span class="vl-product-card__badges">
+      <span *ngIf="product.newArrival" class="vl-product-card__badge vl-product-card__badge--new">
+        {{ 'product.new' | translate }}
+      </span>
+      <span *ngIf="!product.inStock" class="vl-product-card__badge vl-product-card__badge--out">
+        {{ 'product.outOfStockBadge' | translate }}
+      </span>
+    </span>
+
+    <!--
+      Always navigates to the product page — purchasing happens at the variant level
+      (colour/size), so "add to cart" from the card isn't possible; this just gets the
+      customer to the picker. Not a separate <a> (nesting inside the card's own link is
+      invalid HTML) — it's a decorative affordance riding on the card's single link.
+    -->
+    <span class="vl-product-card__cta">{{ 'product.viewProduct' | translate }}</span>
+  </span>
+
+  <span class="vl-product-card__body">
+    <span class="vl-product-card__brand">{{ product.brandName }}</span>
+    <span class="vl-product-card__name">{{ product.name }}</span>
+    <app-vl-price
+      class="vl-product-card__price"
+      [minPrice]="product.minPrice"
+      [maxPrice]="product.maxPrice"
+    ></app-vl-price>
+  </span>
+</a>

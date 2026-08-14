@@ -1,1 +1,19 @@
-<p>new-arrivals-section works!</p>
+<section class="new-arrivals-section section" *ngIf="showSection">
+  <div class="container-vl">
+    <div class="new-arrivals-section__header">
+      <h2 class="new-arrivals-section__title">{{ 'home.newArrivals.title' | translate }}</h2>
+      <a class="new-arrivals-section__view-all" routerLink="/products" [queryParams]="{ newArrival: true }">
+        {{ 'home.newArrivals.viewAll' | translate }}
+      </a>
+    </div>
+
+    <div class="new-arrivals-section__grid">
+      <ng-container *ngIf="loading; else productsTpl">
+        <app-vl-skeleton *ngFor="let placeholder of skeletonPlaceholders"></app-vl-skeleton>
+      </ng-container>
+      <ng-template #productsTpl>
+        <app-vl-product-card *ngFor="let product of products" [product]="product"></app-vl-product-card>
+      </ng-template>
+    </div>
+  </div>
+</section>

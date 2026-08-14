@@ -1,1 +1,19 @@
-<p>featured-section works!</p>
+<section class="featured-section section" *ngIf="showSection">
+  <div class="container-vl">
+    <div class="featured-section__header">
+      <h2 class="featured-section__title">{{ 'home.featured.title' | translate }}</h2>
+      <a class="featured-section__view-all" routerLink="/products" [queryParams]="{ featured: true }">
+        {{ 'home.featured.viewAll' | translate }}
+      </a>
+    </div>
+
+    <div class="featured-section__grid">
+      <ng-container *ngIf="loading; else productsTpl">
+        <app-vl-skeleton *ngFor="let placeholder of skeletonPlaceholders"></app-vl-skeleton>
+      </ng-container>
+      <ng-template #productsTpl>
+        <app-vl-product-card *ngFor="let product of products" [product]="product"></app-vl-product-card>
+      </ng-template>
+    </div>
+  </div>
+</section>

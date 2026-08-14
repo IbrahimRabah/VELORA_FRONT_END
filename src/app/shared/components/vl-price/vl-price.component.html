@@ -1,1 +1,6 @@
-<p>vl-price works!</p>
+<span class="vl-price">
+  <ng-container *ngIf="isRange; else singlePrice">
+    {{ 'product.priceFrom' | translate: { price: formatted } }}
+  </ng-container>
+  <ng-template #singlePrice>{{ formatted }}</ng-template>
+</span>

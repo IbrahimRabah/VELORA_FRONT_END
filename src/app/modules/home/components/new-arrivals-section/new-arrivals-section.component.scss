@@ -1,0 +1,48 @@
+@use 'styles/breakpoints';
+
+.new-arrivals-section__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  margin-block-end: var(--sp-6);
+}
+
+.new-arrivals-section__title {
+  font-family: var(--display);
+  font-size: var(--fs-h3);
+}
+
+.new-arrivals-section__view-all {
+  flex-shrink: 0;
+  color: var(--brand);
+  font-size: var(--fs-sm);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 220ms ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--brand-hover);
+  }
+}
+
+.new-arrivals-section__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-5);
+
+  @include breakpoints.md {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include breakpoints.lg {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .new-arrivals-section__view-all {
+    transition: none;
+  }
+}

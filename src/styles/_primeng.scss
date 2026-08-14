@@ -9,4 +9,13 @@
 // properties generated from the preset, and definePreset is how you redirect them.
 //
 // This file is kept only as the documented placeholder for anything that genuinely
-// can't be expressed as a semantic token (there is nothing like that yet).
+// can't be expressed as a semantic token.
+//
+// p-skeleton's shimmer keyframes come from Aura's component CSS, not the token preset,
+// so honoring prefers-reduced-motion for it has to happen here rather than in
+// velora-preset.ts.
+@media (prefers-reduced-motion: reduce) {
+  .p-skeleton::after {
+    animation: none;
+  }
+}
