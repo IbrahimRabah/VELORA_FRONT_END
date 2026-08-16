@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, computed, effect, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output, computed, effect, signal, untracked } from '@angular/core';
 
 import { ImageResponse } from '../../../../core/models';
 
@@ -40,6 +40,13 @@ export class ProductGalleryComponent implements OnDestroy {
     this.preferredImageIdSignal.set(value ?? null);
   }
 
+  // Reports whichever image is actually on screen right now — distinct from the
+  // activeImageId input above (a "please jump here" request from the parent), this fires
+  // for every way the displayed image can change: thumbnail click, prev/next, or the
+  // preferred-id effect. The PDP page uses it to detect "the poster is on screen" so it
+  // can clear the color swatch's active mark without touching the underlying selection.
+  @Output() readonly displayedImageIdChange = new EventEmitter<number | null>();
+
   readonly index = this.activeIndex.asReadonly();
   readonly imageOpacity = this.imageOpacitySignal.asReadonly();
   readonly activeImage = computed(() => this.imagesSignal()[this.activeIndex()] ?? null);
@@ -63,6 +70,10 @@ export class ProductGalleryComponent implements OnDestroy {
       }
       this.goToIndex(targetIndex);
     }, { allowSignalWrites: true });
+
+    effect(() => {
+      this.displayedImageIdChange.emit(this.activeImage()?.id ?? null);
+    });
   }
 
   ngOnDestroy(): void {

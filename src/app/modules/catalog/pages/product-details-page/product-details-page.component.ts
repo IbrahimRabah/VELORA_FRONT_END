@@ -89,6 +89,36 @@ export class ProductDetailsPageComponent {
   // and re-selecting the poster's own thumbnail still works via the gallery's own click handling.
   readonly activeGalleryImageId = signal<number | null>(null);
 
+  // What the gallery is actually showing right now, reported back by the gallery via
+  // displayedImageIdChange. Used only to detect "the poster is on screen" so the color
+  // swatch's active mark can be cleared — selectedValueId itself (price/SKU/add-to-cart)
+  // stays on the last-picked color regardless of which image is being viewed.
+  readonly displayedImageId = signal<number | null>(null);
+
+  readonly posterImageId = computed<number | null>(() => {
+    const product = this.product();
+    return product ? this.posterId(product) : null;
+  });
+
+  readonly isPosterDisplayed = computed(() => {
+    const displayed = this.displayedImageId();
+    return displayed !== null && displayed === this.posterImageId();
+  });
+
+  // The image shown next to the description copy on desktop. Prefers a product image not
+  // part of the currently displayed gallery set (e.g. a lifestyle shot excluded once the
+  // selected variant's own photos take over). Single-variant products (perfumes, no color
+  // group) have no such exclusive shot — every product image ends up in the gallery — so
+  // this falls back to the last product image instead of leaving the section imageless,
+  // keeping the description layout consistent across all product types.
+  readonly descriptionImage = computed<ImageResponse | null>(() => {
+    const product = this.product();
+    if (!product || !product.images.length) return null;
+    const shown = new Set(this.galleryImages().map((image) => image.id));
+    const exclusive = product.images.find((image) => !shown.has(image.id));
+    return exclusive ?? product.images[product.images.length - 1];
+  });
+
   readonly categoryName = computed(() => {
     const path = this.product()?.categoryPath ?? [];
     return path.length ? path[path.length - 1].name : '';
@@ -123,6 +153,10 @@ export class ProductDetailsPageComponent {
         },
       });
     }, { allowSignalWrites: true });
+  }
+
+  onDisplayedImageChange(imageId: number | null): void {
+    this.displayedImageId.set(imageId);
   }
 
   selectValue(valueId: number): void {

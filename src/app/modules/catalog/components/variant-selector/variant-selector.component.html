@@ -1,5 +1,5 @@
 <div class="variant-selector" *ngIf="colorGroup.values.length">
-  <p class="variant-selector__label">
+  <p class="variant-selector__label" *ngIf="selectedValueName">
     {{ 'product.color' | translate }}: <span class="variant-selector__value">{{ selectedValueName }}</span>
   </p>
 

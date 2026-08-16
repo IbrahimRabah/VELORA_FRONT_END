@@ -6,6 +6,7 @@
           [images]="galleryImages()"
           [activeImageId]="activeGalleryImageId()"
           [productName]="p.name"
+          (displayedImageIdChange)="onDisplayedImageChange($event)"
         ></app-product-gallery>
 
         <div class="pdp__details">
@@ -26,7 +27,7 @@
           <app-variant-selector
             *ngIf="colorGroup() as group"
             [colorGroup]="group"
-            [selectedValueId]="selectedValueId()"
+            [selectedValueId]="isPosterDisplayed() ? null : selectedValueId()"
             (selectedValueIdChange)="selectValue($event)"
           ></app-variant-selector>
 
@@ -71,9 +72,20 @@
     </section>
 
     <section class="pdp__description section">
-      <div class="container-vl">
-        <h2 class="pdp__description-title">{{ 'product.description' | translate }}</h2>
-        <p class="pdp__description-text">{{ p.description }}</p>
+      <div class="container-vl pdp__description-inner">
+        <div class="pdp__description-copy">
+          <h2 class="pdp__description-title">{{ 'product.description' | translate }}</h2>
+          <p class="pdp__description-text">{{ p.description }}</p>
+        </div>
+
+        <img
+          *ngIf="descriptionImage() as image"
+          class="pdp__description-image"
+          [src]="image.url"
+          [alt]="image.alt || p.name"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
     </section>
 
