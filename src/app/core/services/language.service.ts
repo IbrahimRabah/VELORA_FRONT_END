@@ -2,8 +2,8 @@ import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 
 import { Language } from '../enums/language';
+import { LANGUAGE_STORAGE_KEY, parseStoredLanguage } from '../constants/language-storage';
 
-const STORAGE_KEY = 'velora_lang';
 const RTL_LANGUAGES: readonly Language[] = [Language.AR];
 
 /**
@@ -65,14 +65,13 @@ export class LanguageService {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
-    localStorage.setItem(STORAGE_KEY, lang);
+    localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
   }
 
   private readStoredLanguage(): Language | null {
     if (!isPlatformBrowser(this.platformId)) {
       return null;
     }
-    const value = localStorage.getItem(STORAGE_KEY);
-    return value === Language.AR || value === Language.EN ? (value as Language) : null;
+    return parseStoredLanguage(localStorage.getItem(LANGUAGE_STORAGE_KEY));
   }
 }

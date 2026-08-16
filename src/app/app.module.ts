@@ -11,6 +11,7 @@ import { CoreModule } from './core/core.module';
 import { LayoutModule } from './layout/layout.module';
 import { VeloraPreset } from './core/theme/velora-preset';
 import { translateLoaderFactory } from './core/services/translate-loader.factory';
+import { getInitialLanguage } from './core/constants/language-storage';
 
 // PrimeNG Imports
 import { CardModule } from 'primeng/card';
@@ -36,7 +37,7 @@ import { TagModule } from 'primeng/tag';
     TableModule,
     TagModule,
     TranslateModule.forRoot({
-      defaultLanguage: 'ar',
+      defaultLanguage: getInitialLanguage(),
       loader: {
         provide: TranslateLoader,
         useFactory: translateLoaderFactory,
