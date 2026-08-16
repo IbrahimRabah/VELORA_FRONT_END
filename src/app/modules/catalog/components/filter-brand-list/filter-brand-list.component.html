@@ -1,1 +1,11 @@
-<p>filter-brand-list works!</p>
+<ul class="filter-brand-list">
+  <li *ngFor="let brand of brands" class="filter-brand-list__row">
+    <p-checkbox
+      [inputId]="'brand-' + brand.id"
+      [binary]="true"
+      [ngModel]="isSelected(brand.id)"
+      (onChange)="toggle.emit(brand.id)"
+    ></p-checkbox>
+    <label class="filter-brand-list__label" [for]="'brand-' + brand.id">{{ brand.name }}</label>
+  </li>
+</ul>

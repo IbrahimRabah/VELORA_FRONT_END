@@ -1,1 +1,35 @@
-<p>product-grid works!</p>
+<app-vl-error-state
+  *ngIf="error"
+  [title]="'products.error.title' | translate"
+  [message]="'products.error.message' | translate"
+  (retry)="retry.emit()"
+></app-vl-error-state>
+
+<ng-container *ngIf="!error">
+  <div *ngIf="loading" class="product-grid">
+    <app-vl-skeleton *ngFor="let placeholder of skeletonPlaceholders"></app-vl-skeleton>
+  </div>
+
+  <ng-container *ngIf="!loading">
+    <app-vl-empty-state
+      *ngIf="!products.length; else gridTpl"
+      [icon]="hasActiveFilters ? 'pi-filter-slash' : 'pi-inbox'"
+      [title]="(hasActiveFilters ? 'products.empty.filteredTitle' : 'products.empty.title') | translate"
+      [message]="(hasActiveFilters ? 'products.empty.filteredMessage' : 'products.empty.message') | translate"
+      [actionLabel]="hasActiveFilters ? ('products.filters.clearAll' | translate) : null"
+      (action)="clearFilters.emit()"
+    ></app-vl-empty-state>
+
+    <ng-template #gridTpl>
+      <div class="product-grid">
+        <app-vl-product-card *ngFor="let product of products" [product]="product"></app-vl-product-card>
+      </div>
+
+      <app-vl-pagination
+        [page]="page"
+        [totalPages]="totalPages"
+        (pageChange)="pageChange.emit($event)"
+      ></app-vl-pagination>
+    </ng-template>
+  </ng-container>
+</ng-container>

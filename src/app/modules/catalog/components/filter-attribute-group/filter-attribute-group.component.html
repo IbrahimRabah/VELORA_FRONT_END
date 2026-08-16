@@ -1,1 +1,12 @@
-<p>filter-attribute-group works!</p>
+<ul class="filter-attribute-group">
+  <li *ngFor="let value of group.values" class="filter-attribute-group__row">
+    <p-checkbox
+      [inputId]="'attr-' + value.id"
+      [binary]="true"
+      [ngModel]="isSelected(value.id)"
+      (onChange)="toggle.emit(value.id)"
+    ></p-checkbox>
+    <label class="filter-attribute-group__label" [for]="'attr-' + value.id">{{ value.name }}</label>
+    <span *ngIf="value.productCount != null" class="filter-attribute-group__count">{{ value.productCount }}</span>
+  </li>
+</ul>

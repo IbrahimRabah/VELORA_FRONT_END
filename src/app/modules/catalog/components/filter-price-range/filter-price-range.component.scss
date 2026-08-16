@@ -1,0 +1,16 @@
+.filter-price-range {
+  padding-inline: var(--sp-2);
+}
+
+.filter-price-range__slider {
+  display: block;
+  margin-block-end: var(--sp-4);
+}
+
+.filter-price-range__labels {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}

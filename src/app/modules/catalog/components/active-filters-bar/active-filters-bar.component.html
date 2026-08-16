@@ -1,1 +1,7 @@
-<p>active-filters-bar works!</p>
+<div *ngIf="chips.length" class="active-filters-bar">
+  <app-vl-filter-chip
+    *ngFor="let chip of chips"
+    [label]="chip.label"
+    (remove)="remove.emit(chip.key)"
+  ></app-vl-filter-chip>
+</div>

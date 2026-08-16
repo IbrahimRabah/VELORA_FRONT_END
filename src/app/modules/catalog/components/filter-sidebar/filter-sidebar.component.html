@@ -1,1 +1,90 @@
-<p>filter-sidebar works!</p>
+<div class="filter-sidebar">
+  <section *ngIf="categoryOptions.length" class="filter-sidebar__section">
+    <h3 class="filter-sidebar__heading">{{ 'products.filters.category' | translate }}</h3>
+    <ul class="filter-sidebar__category-list">
+      <li *ngFor="let option of categoryOptions" class="filter-sidebar__category-row">
+        <label>
+          <input
+            type="radio"
+            name="filter-sidebar-category"
+            [checked]="option.id === activeCategoryId"
+            (change)="categorySelect.emit(option.id)"
+          />
+          <span class="filter-sidebar__category-name">{{ option.label }}</span>
+        </label>
+        <span *ngIf="option.count != null" class="filter-sidebar__category-count">{{ option.count }}</span>
+      </li>
+    </ul>
+  </section>
+
+  <hr *ngIf="categoryOptions.length" class="filter-sidebar__divider" />
+
+  <section class="filter-sidebar__section">
+    <h3 class="filter-sidebar__heading">{{ 'products.filters.price' | translate }}</h3>
+    <app-filter-price-range
+      [minPrice]="filter.minPrice ?? null"
+      [maxPrice]="filter.maxPrice ?? null"
+      (rangeChange)="priceChange.emit($event)"
+    ></app-filter-price-range>
+  </section>
+
+  <ng-container *ngIf="facets?.brands?.length">
+    <hr class="filter-sidebar__divider" />
+    <section class="filter-sidebar__section">
+      <h3 class="filter-sidebar__heading">{{ 'products.filters.brand' | translate }}</h3>
+      <app-filter-brand-list
+        [brands]="facets!.brands"
+        [selectedIds]="selectedBrandIds"
+        (toggle)="brandToggle.emit($event)"
+      ></app-filter-brand-list>
+    </section>
+  </ng-container>
+
+  <ng-container *ngIf="colorGroup as group">
+    <hr class="filter-sidebar__divider" />
+    <section class="filter-sidebar__section">
+      <h3 class="filter-sidebar__heading">{{ 'products.filters.color' | translate }}</h3>
+      <app-filter-color-swatches
+        [group]="group"
+        [selectedIds]="selectedAttributeValueIds"
+        (toggle)="colorToggle.emit($event)"
+      ></app-filter-color-swatches>
+    </section>
+  </ng-container>
+
+  <ng-container *ngFor="let group of otherAttributeGroups">
+    <hr class="filter-sidebar__divider" />
+    <section class="filter-sidebar__section">
+      <h3 class="filter-sidebar__heading">{{ group.name }}</h3>
+      <app-filter-attribute-group
+        [group]="group"
+        [selectedIds]="selectedAttributeValueIds"
+        (toggle)="attributeToggle.emit($event)"
+      ></app-filter-attribute-group>
+    </section>
+  </ng-container>
+
+  <hr class="filter-sidebar__divider" />
+
+  <section class="filter-sidebar__section">
+    <div class="filter-sidebar__in-stock">
+      <p-checkbox
+        inputId="filter-in-stock"
+        [binary]="true"
+        [ngModel]="inStockOnly"
+        (onChange)="inStockChange.emit($event.checked)"
+      ></p-checkbox>
+      <label for="filter-in-stock">{{ 'products.filters.inStockOnly' | translate }}</label>
+    </div>
+  </section>
+
+  <button
+    *ngIf="hasAnyFilters"
+    type="button"
+    class="filter-sidebar__clear-all"
+    (click)="clearAll.emit()"
+  >
+    <i class="pi pi-times-circle" aria-hidden="true"></i>
+    {{ 'products.filters.clearAll' | translate }}
+  </button>
+</div>

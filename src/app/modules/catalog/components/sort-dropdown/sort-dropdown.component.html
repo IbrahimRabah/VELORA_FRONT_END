@@ -1,1 +1,18 @@
-<p>sort-dropdown works!</p>
+<div class="sort-dropdown">
+  <label class="sort-dropdown__label" for="sort-dropdown">{{ 'products.sortLabel' | translate }}</label>
+  <p-select
+    inputId="sort-dropdown"
+    [options]="choices"
+    optionLabel="labelKey"
+    optionValue="value"
+    [ngModel]="value"
+    (onChange)="valueChange.emit($event.value)"
+  >
+    <ng-template pTemplate="selectedItem" let-choice>
+      <span *ngIf="choice">{{ choice.labelKey | translate }}</span>
+    </ng-template>
+    <ng-template pTemplate="item" let-choice>
+      <span>{{ choice.labelKey | translate }}</span>
+    </ng-template>
+  </p-select>
+</div>

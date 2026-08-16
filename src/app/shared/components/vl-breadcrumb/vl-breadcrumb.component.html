@@ -1,1 +1,20 @@
-<p>vl-breadcrumb works!</p>
+<nav class="vl-breadcrumb" aria-label="Breadcrumb">
+  <ol class="vl-breadcrumb__list">
+    <li *ngFor="let item of items; let last = last" class="vl-breadcrumb__item">
+      <a
+        *ngIf="item.link && !last; else currentTpl"
+        class="vl-breadcrumb__link"
+        [routerLink]="item.link"
+        [queryParams]="item.queryParams"
+      >{{ item.labelKey ? (item.labelKey | translate) : item.label }}</a>
+
+      <ng-template #currentTpl>
+        <span class="vl-breadcrumb__current" [attr.aria-current]="last ? 'page' : null">
+          {{ item.labelKey ? (item.labelKey | translate) : item.label }}
+        </span>
+      </ng-template>
+
+      <i *ngIf="!last" class="pi pi-angle-right vl-breadcrumb__sep" aria-hidden="true"></i>
+    </li>
+  </ol>
+</nav>

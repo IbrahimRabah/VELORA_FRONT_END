@@ -1,0 +1,38 @@
+<div
+  class="mobile-filter-drawer__backdrop"
+  [class.mobile-filter-drawer__backdrop--visible]="visible"
+  [attr.inert]="visible ? null : ''"
+  (click)="close()"
+></div>
+
+<div
+  class="mobile-filter-drawer__panel"
+  [class.mobile-filter-drawer__panel--open]="visible"
+  [attr.inert]="visible ? null : ''"
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-label]="'products.filters.title' | translate"
+  (keydown.escape)="close()"
+>
+  <div class="mobile-filter-drawer__header">
+    <span class="mobile-filter-drawer__title">{{ 'products.filters.title' | translate }}</span>
+    <button
+      type="button"
+      class="mobile-filter-drawer__close"
+      (click)="close()"
+      [attr.aria-label]="'common.close' | translate"
+    >
+      <i class="pi pi-times" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <div class="mobile-filter-drawer__body">
+    <ng-content></ng-content>
+  </div>
+
+  <div class="mobile-filter-drawer__footer">
+    <button type="button" class="mobile-filter-drawer__apply" (click)="close()">
+      {{ 'common.confirm' | translate }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+.vl-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding-block-start: var(--sp-6);
+}
+
+.vl-pagination__chevron,
+.vl-pagination__page {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r-full);
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    border-color: var(--brand);
+    color: var(--brand-hover);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.vl-pagination__page--active {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.vl-pagination__ellipsis {
+  color: var(--text-muted);
+  padding-inline: var(--sp-1);
+}
+
+.vl-pagination__chevron i {
+  :host-context([dir='rtl']) & {
+    transform: scaleX(-1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vl-pagination__chevron,
+  .vl-pagination__page {
+    transition: none;
+  }
+}

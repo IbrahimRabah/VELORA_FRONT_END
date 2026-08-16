@@ -1,1 +1,5 @@
-<p>vl-filter-chip works!</p>
+<button type="button" class="vl-filter-chip" (click)="remove.emit()">
+  <span>{{ label }}</span>
+  <i class="pi pi-times" aria-hidden="true"></i>
+  <span class="visually-hidden">{{ 'common.remove' | translate }}: {{ label }}</span>
+</button>

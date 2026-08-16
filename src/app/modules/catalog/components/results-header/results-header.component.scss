@@ -1,0 +1,19 @@
+.results-header {
+  display: block;
+  padding-block-end: var(--sp-4);
+  border-block-end: 1px solid var(--line-soft);
+}
+
+.results-header__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.results-header__count {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}

@@ -1,0 +1,11 @@
+.sort-dropdown {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  white-space: nowrap;
+}
+
+.sort-dropdown__label {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}

@@ -11,7 +11,9 @@
     "close": "Close",
     "menu": "Menu",
     "confirm": "Confirm",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "remove": "Remove",
+    "retry": "Retry"
   },
   "header": {
     "logoAlt": "VELORA",
@@ -150,6 +152,48 @@
     "newArrivals": {
       "title": "New Arrivals",
       "viewAll": "View All"
+    }
+  },
+  "products": {
+    "resultsCount": "{{count}} products",
+    "searchResultsFor": "Search results for \"{{query}}\"",
+    "sortLabel": "Sort by:",
+    "sort": {
+      "newest": "Newest",
+      "priceAsc": "Price: Low to High",
+      "priceDesc": "Price: High to Low",
+      "name": "Name"
+    },
+    "filters": {
+      "title": "Filters",
+      "category": "Category",
+      "brand": "Brand",
+      "color": "Color",
+      "price": "Price",
+      "inStockOnly": "In Stock Only",
+      "clearAll": "Clear All",
+      "mobileButton": "Filters",
+      "allCategory": "All {{name}}"
+    },
+    "empty": {
+      "filteredTitle": "No products match your filters",
+      "filteredMessage": "Try adjusting or clearing your filters to see more results.",
+      "title": "No products yet",
+      "message": "Check back soon — new products are on the way."
+    },
+    "error": {
+      "title": "Something went wrong",
+      "message": "We couldn't load these products."
+    },
+    "promo": {
+      "eyebrow": "New In",
+      "headline": "Discover the Latest Arrivals",
+      "cta": "Shop New Arrivals"
+    },
+    "pagination": {
+      "previous": "Previous page",
+      "next": "Next page",
+      "goToPage": "Go to page {{page}}"
     }
   }
 }

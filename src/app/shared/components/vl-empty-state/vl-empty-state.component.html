@@ -1,1 +1,14 @@
-<p>vl-empty-state works!</p>
+<div class="vl-empty-state">
+  <i class="pi {{ icon }} vl-empty-state__icon" aria-hidden="true"></i>
+  <p class="vl-empty-state__title">{{ title }}</p>
+  <p class="vl-empty-state__message">{{ message }}</p>
+  <button
+    *ngIf="actionLabel"
+    type="button"
+    class="vl-empty-state__action"
+    (click)="action.emit()"
+  >
+    <i class="pi pi-refresh" aria-hidden="true"></i>
+    {{ actionLabel }}
+  </button>
+</div>

@@ -1,1 +1,15 @@
-<p>filter-color-swatches works!</p>
+<ul class="filter-color-swatches">
+  <li *ngFor="let value of group.values">
+    <button
+      type="button"
+      class="filter-color-swatches__row"
+      [class.filter-color-swatches__row--active]="isSelected(value.id)"
+      [attr.aria-pressed]="isSelected(value.id)"
+      (click)="toggle.emit(value.id)"
+    >
+      <span class="filter-color-swatches__dot" [style.background]="value.hexColor"></span>
+      <span class="filter-color-swatches__name">{{ value.name }}</span>
+      <span *ngIf="value.productCount != null" class="filter-color-swatches__count">{{ value.productCount }}</span>
+    </button>
+  </li>
+</ul>

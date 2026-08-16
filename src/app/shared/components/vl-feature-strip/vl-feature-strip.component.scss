@@ -1,0 +1,37 @@
+@use 'styles/breakpoints';
+
+.vl-feature-strip {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-5);
+
+  @include breakpoints.md {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.vl-feature-strip__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+}
+
+.vl-feature-strip__item i {
+  flex-shrink: 0;
+  margin-block-start: 2px;
+  font-size: 1.25rem;
+  color: var(--brand);
+}
+
+.vl-feature-strip__title {
+  margin: 0;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.vl-feature-strip__subtitle {
+  margin: var(--sp-1) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}

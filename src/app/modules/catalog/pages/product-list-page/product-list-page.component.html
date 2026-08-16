@@ -1,1 +1,103 @@
-<p>product-list-page works!</p>
+<div class="plp container-vl">
+  <app-vl-breadcrumb class="plp__breadcrumb" [items]="breadcrumbItems()"></app-vl-breadcrumb>
+
+  <section class="plp__hero">
+    <img
+      *ngIf="!bannerBroken()"
+      class="plp__hero-image"
+      [src]="bannerUrl()"
+      alt=""
+      (error)="onBannerError()"
+    />
+
+    <div class="plp__hero-content">
+      <h1 class="plp__hero-title">{{ heroTitle() ?? ('common.allProducts' | translate) }}</h1>
+      <p *ngIf="heroDescription() as description" class="plp__hero-description">{{ description }}</p>
+    </div>
+  </section>
+
+  <app-category-card-grid
+    *ngIf="categoryCards().length"
+    class="plp__category-cards"
+    [cards]="categoryCards()"
+  ></app-category-card-grid>
+
+  <button type="button" class="plp__mobile-filters-btn" (click)="openMobileFilters()">
+    <i class="pi pi-sliders-h" aria-hidden="true"></i>
+    {{ 'products.filters.mobileButton' | translate }}
+    <span *ngIf="activeFilterCount() > 0" class="plp__mobile-filters-count">{{ activeFilterCount() }}</span>
+  </button>
+
+  <div class="plp__layout">
+    <aside class="plp__sidebar">
+      <app-filter-sidebar
+        [facets]="facets()"
+        [filter]="queryFilter()"
+        [categoryOptions]="categoryOptions()"
+        [activeCategoryId]="categoryId()"
+        (priceChange)="onPriceChange($event)"
+        (brandToggle)="onBrandToggle($event)"
+        (colorToggle)="onColorToggle($event)"
+        (attributeToggle)="onAttributeToggle($event)"
+        (inStockChange)="onInStockChange($event)"
+        (categorySelect)="onCategorySelect($event)"
+        (clearAll)="onClearAllFilters()"
+      ></app-filter-sidebar>
+    </aside>
+
+    <div class="plp__main">
+      <app-results-header
+        [totalElements]="productsPage().totalElements"
+        [searchQuery]="queryFilter().q ?? null"
+        [sort]="sort()"
+        [chips]="activeFilterChips()"
+        (sortChange)="onSortChange($event)"
+        (removeChip)="onRemoveChip($event)"
+      ></app-results-header>
+
+      <a
+        *ngIf="!promoBroken()"
+        class="plp__promo"
+        routerLink="/products"
+        [queryParams]="{ newArrival: true }"
+      >
+        <img class="plp__promo-image" [src]="promoUrl()" alt="" (error)="onPromoError()" />
+        <div class="plp__promo-content">
+          <span class="plp__promo-eyebrow">{{ 'products.promo.eyebrow' | translate }}</span>
+          <span class="plp__promo-headline">{{ 'products.promo.headline' | translate }}</span>
+          <span class="plp__promo-cta">{{ 'products.promo.cta' | translate }}</span>
+        </div>
+      </a>
+
+      <app-product-grid
+        [products]="productsPage().content"
+        [loading]="productsLoading()"
+        [error]="productsError()"
+        [hasActiveFilters]="hasActiveFilters()"
+        [page]="productsPage().page"
+        [totalPages]="productsPage().totalPages"
+        (pageChange)="onPageChange($event)"
+        (retry)="retryProducts()"
+        (clearFilters)="onClearAllFilters()"
+      ></app-product-grid>
+    </div>
+  </div>
+
+  <app-vl-feature-strip class="plp__feature-strip"></app-vl-feature-strip>
+</div>
+
+<app-mobile-filter-drawer [visible]="mobileFiltersOpen()" (visibleChange)="mobileFiltersOpen.set($event)">
+  <app-filter-sidebar
+    [facets]="facets()"
+    [filter]="queryFilter()"
+    [categoryOptions]="categoryOptions()"
+    [activeCategoryId]="categoryId()"
+    (priceChange)="onPriceChange($event)"
+    (brandToggle)="onBrandToggle($event)"
+    (colorToggle)="onColorToggle($event)"
+    (attributeToggle)="onAttributeToggle($event)"
+    (inStockChange)="onInStockChange($event)"
+    (categorySelect)="onCategorySelect($event)"
+    (clearAll)="onClearAllFilters()"
+  ></app-filter-sidebar>
+</app-mobile-filter-drawer>

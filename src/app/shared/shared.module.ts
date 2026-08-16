@@ -37,6 +37,7 @@ import { VlQuantityStepperComponent } from './components/vl-quantity-stepper/vl-
 import { VlStatusBadgeComponent } from './components/vl-status-badge/vl-status-badge.component';
 import { VlStockIndicatorComponent } from './components/vl-stock-indicator/vl-stock-indicator.component';
 import { VlProductCardComponent } from './components/vl-product-card/vl-product-card.component';
+import { VlFeatureStripComponent } from './components/vl-feature-strip/vl-feature-strip.component';
 import { VlGovernorateSelectComponent } from './components/vl-governorate-select/vl-governorate-select.component';
 import { VlPhoneInputComponent } from './components/vl-phone-input/vl-phone-input.component';
 import { VlImageUploaderComponent } from './components/vl-image-uploader/vl-image-uploader.component';
@@ -93,6 +94,7 @@ import { OnlyDigitsDirective } from './directives/only-digits.directive';
     VlStatusBadgeComponent,
     VlStockIndicatorComponent,
     VlProductCardComponent,
+    VlFeatureStripComponent,
     VlGovernorateSelectComponent,
     VlPhoneInputComponent,
     VlImageUploaderComponent,
@@ -159,6 +161,7 @@ import { OnlyDigitsDirective } from './directives/only-digits.directive';
     VlStatusBadgeComponent,
     VlStockIndicatorComponent,
     VlProductCardComponent,
+    VlFeatureStripComponent,
     VlGovernorateSelectComponent,
     VlPhoneInputComponent,
     VlImageUploaderComponent,

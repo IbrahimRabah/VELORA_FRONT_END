@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 import { API_ROUTES } from '../../constants/api-routes';
 import { APP_CONFIG } from '../../constants/app-config';
@@ -55,9 +55,22 @@ export class CatalogApiService {
     return this.http.get<CategoryDetailResponse>(API_ROUTES.catalog.categoryBySlug(slug));
   }
 
+  // GET /categories/filters returns each brand/attribute-value row duplicated (a join
+  // without distinct on the backend — same shape as the product-images cartesian-product
+  // bug fixed earlier; confirmed by inspecting the raw response: every attribute value
+  // repeats with an *identical* id, not a distinct one, so deduping by id here is safe.
+  // See docs/BACKEND_NOTES.md item 4.
   getFilters(categoryId?: number): Observable<FilterFacetsResponse> {
     const params = categoryId == null ? undefined : new HttpParams().set('categoryId', categoryId);
-    return this.http.get<FilterFacetsResponse>(API_ROUTES.catalog.categoryFilters(), { params });
+    return this.http
+      .get<FilterFacetsResponse>(API_ROUTES.catalog.categoryFilters(), { params })
+      .pipe(
+        map((res) => ({
+          ...res,
+          brands: dedupeById(res.brands),
+          attributes: res.attributes.map((group) => ({ ...group, values: dedupeById(group.values) })),
+        })),
+      );
   }
 
   getBrands(): Observable<BrandResponse[]> {
@@ -110,4 +123,16 @@ export class CatalogApiService {
   private appendArray(params: HttpParams, key: string, value: number[] | undefined | null): HttpParams {
     return value === undefined || value === null || value.length === 0 ? params : params.set(key, value.join(','));
   }
+}
+
+function dedupeById<T extends { id: number }>(items: T[]): T[] {
+  const seen = new Set<number>();
+  const result: T[] = [];
+  for (const item of items) {
+    if (!seen.has(item.id)) {
+      seen.add(item.id);
+      result.push(item);
+    }
+  }
+  return result;
 }

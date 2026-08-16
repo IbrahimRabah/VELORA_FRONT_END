@@ -11,7 +11,9 @@
     "close": "إغلاق",
     "menu": "القائمة",
     "confirm": "تأكيد",
-    "cancel": "إلغاء"
+    "cancel": "إلغاء",
+    "remove": "إزالة",
+    "retry": "إعادة المحاولة"
   },
   "header": {
     "logoAlt": "فيلورا",
@@ -150,6 +152,48 @@
     "newArrivals": {
       "title": "وصل حديثاً",
       "viewAll": "عرض الكل"
+    }
+  },
+  "products": {
+    "resultsCount": "{{count}} منتج",
+    "searchResultsFor": "نتائج البحث عن \"{{query}}\"",
+    "sortLabel": "ترتيب حسب:",
+    "sort": {
+      "newest": "الأحدث",
+      "priceAsc": "السعر: من الأقل للأعلى",
+      "priceDesc": "السعر: من الأعلى للأقل",
+      "name": "الاسم"
+    },
+    "filters": {
+      "title": "الفلاتر",
+      "category": "الفئة",
+      "brand": "الماركة",
+      "color": "اللون",
+      "price": "السعر",
+      "inStockOnly": "المتوفر فقط",
+      "clearAll": "مسح الكل",
+      "mobileButton": "الفلاتر",
+      "allCategory": "كل {{name}}"
+    },
+    "empty": {
+      "filteredTitle": "لا توجد منتجات مطابقة لفلاترك",
+      "filteredMessage": "جرّب تعديل أو مسح الفلاتر لرؤية نتائج أكثر.",
+      "title": "لا توجد منتجات بعد",
+      "message": "تابعنا قريباً — منتجات جديدة في الطريق."
+    },
+    "error": {
+      "title": "حدث خطأ ما",
+      "message": "تعذر تحميل هذه المنتجات."
+    },
+    "promo": {
+      "eyebrow": "جديدنا",
+      "headline": "اكتشف أحدث الوصولات",
+      "cta": "تسوّق الجديد"
+    },
+    "pagination": {
+      "previous": "الصفحة السابقة",
+      "next": "الصفحة التالية",
+      "goToPage": "اذهب إلى صفحة {{page}}"
     }
   }
 }

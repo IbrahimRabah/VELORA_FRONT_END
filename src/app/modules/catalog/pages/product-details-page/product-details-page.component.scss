@@ -51,38 +51,10 @@
   @include mixins.truncate(2);
 }
 
-.pdp__features {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--sp-5);
+.pdp__features-wrap {
+  display: block;
   padding-block-start: var(--sp-4);
   border-block-start: 1px solid var(--border);
-}
-
-.pdp__feature {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--sp-3);
-}
-
-.pdp__feature i {
-  flex-shrink: 0;
-  margin-block-start: 2px;
-  font-size: 1.25rem;
-  color: var(--brand);
-}
-
-.pdp__feature-title {
-  margin: 0;
-  font-size: var(--fs-sm);
-  font-weight: 700;
-  color: var(--text);
-}
-
-.pdp__feature-subtitle {
-  margin: var(--sp-1) 0 0;
-  font-size: var(--fs-sm);
-  color: var(--text-muted);
 }
 
 .pdp__description {

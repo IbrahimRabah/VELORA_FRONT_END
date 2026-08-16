@@ -1,0 +1,127 @@
+@use 'styles/mixins';
+
+.filter-sidebar {
+  @include mixins.card-surface;
+  padding: var(--sp-6);
+}
+
+.filter-sidebar__section {
+  padding-block: var(--sp-5);
+
+  &:first-child {
+    padding-block-start: 0;
+  }
+
+  &:last-child {
+    padding-block-end: 0;
+  }
+}
+
+.filter-sidebar__heading {
+  position: relative;
+  margin: 0 0 var(--sp-4);
+  padding-block-end: var(--sp-2);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-end: 0;
+    inline-size: 1.75rem;
+    block-size: 2px;
+    background: var(--gold);
+  }
+}
+
+.filter-sidebar__divider {
+  border: none;
+  border-block-start: 1px solid var(--line-soft);
+  margin: 0;
+}
+
+.filter-sidebar__category-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.filter-sidebar__category-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding-block: var(--sp-1);
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    cursor: pointer;
+  }
+
+  input[type='radio'] {
+    accent-color: var(--brand);
+    inline-size: 1rem;
+    block-size: 1rem;
+  }
+}
+
+.filter-sidebar__category-name {
+  font-size: var(--fs-sm);
+  color: var(--text);
+}
+
+.filter-sidebar__category-count {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.filter-sidebar__in-stock {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+
+  label {
+    font-size: var(--fs-sm);
+    color: var(--text);
+    cursor: pointer;
+  }
+}
+
+.filter-sidebar__clear-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  inline-size: 100%;
+  margin-block-start: var(--sp-4);
+  padding: var(--sp-3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 200ms ease, color 200ms ease;
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--stop);
+    color: var(--stop);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .filter-sidebar__clear-all {
+    transition: none;
+  }
+}

@@ -1,0 +1,111 @@
+@use 'styles/breakpoints';
+
+// Mobile: horizontally scrollable. Desktop: three equal columns.
+.category-card-grid {
+  display: flex;
+  gap: var(--sp-4);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include breakpoints.md {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    overflow-x: visible;
+  }
+}
+
+.category-card-grid__item {
+  flex: 0 0 75%;
+  scroll-snap-align: start;
+
+  @include breakpoints.sm {
+    flex-basis: 45%;
+  }
+
+  @include breakpoints.md {
+    flex-basis: auto;
+  }
+}
+
+.category-card-grid__link {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  background: var(--ink);
+  text-decoration: none;
+}
+
+.category-card-grid__image {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: contain;
+  // The wide banner art these cards reuse (2172x724) composes its subject toward the
+  // physical right edge, with empty space on the left reserved for hero text overlay
+  // — cropping to this portrait card from the right keeps the product in frame
+  // instead of centering into that empty space. Physical, not logical: the artwork
+  // itself doesn't mirror between LTR/RTL.
+  object-position: right center;
+  filter: brightness(0.62);
+  transition: transform 300ms ease;
+}
+
+.category-card-grid__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(13, 13, 13, 0.82), rgba(13, 13, 13, 0.1) 55%);
+}
+
+.category-card-grid__body {
+  position: absolute;
+  z-index: 1;
+  inset-inline: 0;
+  inset-block-end: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-5);
+  text-align: center;
+}
+
+.category-card-grid__name {
+  font-family: var(--display);
+  font-size: var(--fs-h4);
+  color: var(--cream);
+}
+
+.category-card-grid__count {
+  font-size: var(--fs-sm);
+  color: var(--cream);
+  opacity: 0.85;
+}
+
+.category-card-grid__rule {
+  inline-size: 2.5rem;
+  block-size: 2px;
+  margin-block-start: var(--sp-1);
+  background: var(--gold);
+}
+
+.category-card-grid__link:hover .category-card-grid__image,
+.category-card-grid__link:focus-visible .category-card-grid__image {
+  transform: scale(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .category-card-grid__image {
+    transition: none;
+  }
+
+  .category-card-grid__link:hover .category-card-grid__image,
+  .category-card-grid__link:focus-visible .category-card-grid__image {
+    transform: none;
+  }
+}

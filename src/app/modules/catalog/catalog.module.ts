@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
+import { SelectModule } from 'primeng/select';
+import { SliderModule } from 'primeng/slider';
+import { CheckboxModule } from 'primeng/checkbox';
 
 import { CatalogRoutingModule } from './catalog-routing.module';
 import { ProductListPageComponent } from './pages/product-list-page/product-list-page.component';
@@ -21,6 +24,8 @@ import { ProductTabsComponent } from './components/product-tabs/product-tabs.com
 import { AddToCartBoxComponent } from './components/add-to-cart-box/add-to-cart-box.component';
 import { RelatedProductsComponent } from './components/related-products/related-products.component';
 import { ProductPriceBlockComponent } from './components/product-price-block/product-price-block.component';
+import { MobileFilterDrawerComponent } from './components/mobile-filter-drawer/mobile-filter-drawer.component';
+import { CategoryCardGridComponent } from './components/category-card-grid/category-card-grid.component';
 
 
 @NgModule({
@@ -42,12 +47,17 @@ import { ProductPriceBlockComponent } from './components/product-price-block/pro
     ProductTabsComponent,
     AddToCartBoxComponent,
     RelatedProductsComponent,
-    ProductPriceBlockComponent
+    ProductPriceBlockComponent,
+    MobileFilterDrawerComponent,
+    CategoryCardGridComponent
   ],
   imports: [
     CommonModule,
     CatalogRoutingModule,
-    SharedModule
+    SharedModule,
+    SelectModule,
+    SliderModule,
+    CheckboxModule
   ]
 })
 export class CatalogModule { }

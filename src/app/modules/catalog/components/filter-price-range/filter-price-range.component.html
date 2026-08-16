@@ -1,1 +1,15 @@
-<p>filter-price-range works!</p>
+<div class="filter-price-range">
+  <p-slider
+    class="filter-price-range__slider"
+    [(ngModel)]="range"
+    [range]="true"
+    [min]="floor"
+    [max]="ceil"
+    (onSlideEnd)="commit()"
+  ></p-slider>
+
+  <div class="filter-price-range__labels">
+    <span>{{ format(range[0]) }}</span>
+    <span>{{ format(range[1]) }}</span>
+  </div>
+</div>

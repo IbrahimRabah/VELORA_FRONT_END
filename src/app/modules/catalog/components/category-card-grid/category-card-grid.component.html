@@ -1,0 +1,23 @@
+<ul *ngIf="cards.length" class="category-card-grid">
+  <li *ngFor="let card of cards" class="category-card-grid__item">
+    <a class="category-card-grid__link" routerLink="/products" [queryParams]="{ categoryId: card.id }">
+      <img
+        *ngIf="card.image && !isBroken(card.id)"
+        class="category-card-grid__image"
+        [src]="card.image"
+        [alt]="card.label"
+        loading="lazy"
+        decoding="async"
+        (error)="onImageError(card.id)"
+      />
+      <span class="category-card-grid__scrim"></span>
+      <span class="category-card-grid__body">
+        <span class="category-card-grid__name">{{ card.label }}</span>
+        <span *ngIf="card.count != null" class="category-card-grid__count">
+          {{ 'products.resultsCount' | translate: { count: card.count } }}
+        </span>
+        <span class="category-card-grid__rule"></span>
+      </span>
+    </a>
+  </li>
+</ul>

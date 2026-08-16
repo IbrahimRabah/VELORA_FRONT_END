@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-vl-filter-chip',
@@ -7,5 +7,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VlFilterChipComponent {
-
+  @Input({ required: true }) label!: string;
+  @Output() readonly remove = new EventEmitter<void>();
 }

@@ -1,1 +1,34 @@
-<p>vl-pagination works!</p>
+<nav *ngIf="totalPages > 1" class="vl-pagination" [attr.aria-label]="'products.pagination.goToPage' | translate: { page: page + 1 }">
+  <button
+    type="button"
+    class="vl-pagination__chevron"
+    [disabled]="page === 0"
+    [attr.aria-label]="'products.pagination.previous' | translate"
+    (click)="goTo(page - 1)"
+  >
+    <i class="pi pi-chevron-left" aria-hidden="true"></i>
+  </button>
+
+  <ng-container *ngFor="let p of pages">
+    <span *ngIf="p === ellipsis" class="vl-pagination__ellipsis">&hellip;</span>
+    <button
+      *ngIf="p !== ellipsis"
+      type="button"
+      class="vl-pagination__page"
+      [class.vl-pagination__page--active]="p === page"
+      [attr.aria-current]="p === page ? 'page' : null"
+      [attr.aria-label]="'products.pagination.goToPage' | translate: { page: p + 1 }"
+      (click)="goTo(p)"
+    >{{ p + 1 }}</button>
+  </ng-container>
+
+  <button
+    type="button"
+    class="vl-pagination__chevron"
+    [disabled]="page >= totalPages - 1"
+    [attr.aria-label]="'products.pagination.next' | translate"
+    (click)="goTo(page + 1)"
+  >
+    <i class="pi pi-chevron-right" aria-hidden="true"></i>
+  </button>
+</nav>

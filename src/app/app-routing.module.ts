@@ -39,7 +39,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top' })],
+  // Scroll restoration is handled manually by ScrollRestorationService instead — it
+  // only resets to top on an actual path change, not on same-route query-param
+  // updates (filters/sort/category), which 'top' would otherwise reset on every time.
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'disabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

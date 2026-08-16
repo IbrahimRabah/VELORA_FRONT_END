@@ -1,1 +1,9 @@
-<p>vl-error-state works!</p>
+<div class="vl-error-state">
+  <i class="pi pi-exclamation-triangle vl-error-state__icon" aria-hidden="true"></i>
+  <p class="vl-error-state__title">{{ title }}</p>
+  <p class="vl-error-state__message">{{ message }}</p>
+  <button type="button" class="vl-error-state__retry" (click)="retry.emit()">
+    <i class="pi pi-refresh" aria-hidden="true"></i>
+    {{ 'common.retry' | translate }}
+  </button>
+</div>

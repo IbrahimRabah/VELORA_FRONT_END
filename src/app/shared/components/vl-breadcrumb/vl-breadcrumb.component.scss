@@ -1,0 +1,41 @@
+.vl-breadcrumb__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vl-breadcrumb__item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.vl-breadcrumb__link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: var(--fs-sm);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--brand);
+  }
+}
+
+.vl-breadcrumb__current {
+  color: var(--text);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+.vl-breadcrumb__sep {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+
+  :host-context([dir='rtl']) & {
+    transform: scaleX(-1);
+  }
+}

@@ -37,36 +37,7 @@
             (addToCart)="addToCart()"
           ></app-add-to-cart-box>
 
-          <div class="pdp__features">
-            <div class="pdp__feature">
-              <i class="pi pi-money-bill" aria-hidden="true"></i>
-              <div>
-                <p class="pdp__feature-title">{{ 'product.features.cod.title' | translate }}</p>
-                <p class="pdp__feature-subtitle">{{ 'product.features.cod.subtitle' | translate }}</p>
-              </div>
-            </div>
-            <div class="pdp__feature">
-              <i class="pi pi-truck" aria-hidden="true"></i>
-              <div>
-                <p class="pdp__feature-title">{{ 'product.features.delivery.title' | translate }}</p>
-                <p class="pdp__feature-subtitle">{{ 'product.features.delivery.subtitle' | translate }}</p>
-              </div>
-            </div>
-            <div class="pdp__feature">
-              <i class="pi pi-replay" aria-hidden="true"></i>
-              <div>
-                <p class="pdp__feature-title">{{ 'product.features.returns.title' | translate }}</p>
-                <p class="pdp__feature-subtitle">{{ 'product.features.returns.subtitle' | translate }}</p>
-              </div>
-            </div>
-            <div class="pdp__feature">
-              <i class="pi pi-verified" aria-hidden="true"></i>
-              <div>
-                <p class="pdp__feature-title">{{ 'product.features.authentic.title' | translate }}</p>
-                <p class="pdp__feature-subtitle">{{ 'product.features.authentic.subtitle' | translate }}</p>
-              </div>
-            </div>
-          </div>
+          <app-vl-feature-strip class="pdp__features-wrap"></app-vl-feature-strip>
         </div>
       </div>
     </section>

@@ -1,0 +1,218 @@
+@use 'styles/breakpoints';
+@use 'styles/mixins';
+
+.plp {
+  padding-block: var(--sp-5);
+}
+
+.plp__breadcrumb {
+  margin-block-end: var(--sp-4);
+}
+
+// Hero + promo banner share the dark-image-with-scrim shell. Both banner sets are
+// wide (~1916 x 821 for the current artwork) — sized to their own aspect ratio with a
+// max-height cap instead of a fixed height, so object-fit: contain never has to crop
+// the subject. min-block-size is a floor so the overlaid text always has room to
+// breathe on very narrow viewports (letterboxed against the --ink background, not
+// cropped) rather than a layout decision that fights the aspect ratio.
+.plp__hero,
+.plp__promo {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  background: var(--ink);
+  text-decoration: none;
+  // .plp__promo is a flex item (.plp__main is display:flex); flex/grid items default
+  // to min-width: auto, which for an aspect-ratio box resolves to its *ratio-derived*
+  // intrinsic width (here, min-block-size 200 * ratio ≈ 467px) — that intrinsic
+  // contribution inflates the flex/grid container even though max-inline-size clamps
+  // the box's own final size. min-inline-size: 0 opts out, letting it actually shrink
+  // to fit the container instead of overflowing it on narrow viewports.
+  inline-size: 100%;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  aspect-ratio: 1916 / 821;
+  min-block-size: 200px;
+  max-block-size: 320px;
+
+  @include breakpoints.md {
+    max-block-size: 460px;
+  }
+}
+
+.plp__hero::after,
+.plp__promo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(13, 13, 13, 0.75), rgba(13, 13, 13, 0.2) 60%);
+}
+
+.plp__hero-image,
+.plp__promo-image {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: contain;
+}
+
+.plp__hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
+  margin-block-end: var(--sp-10);
+  color: var(--cream);
+
+  @include breakpoints.md {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: var(--sp-8);
+  }
+}
+
+.plp__hero-content {
+  position: relative;
+  z-index: 2;
+  max-inline-size: 40ch;
+}
+
+.plp__hero-title,
+.plp__promo-headline {
+  margin: 0;
+  font-family: var(--display);
+  color: var(--cream);
+}
+
+.plp__hero-title {
+  font-size: var(--fs-h2);
+}
+
+.plp__hero-description {
+  margin: var(--sp-2) 0 0;
+  color: var(--cream);
+  opacity: 0.85;
+  font-size: var(--fs-sm);
+  @include mixins.truncate(2);
+}
+
+.plp__category-cards {
+  display: block;
+  margin-block-end: var(--sp-10);
+}
+
+.plp__mobile-filters-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  inline-size: 100%;
+  margin-block-end: var(--sp-5);
+  padding: var(--sp-3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+
+  @include breakpoints.lg {
+    display: none;
+  }
+}
+
+.plp__mobile-filters-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 1.25rem;
+  block-size: 1.25rem;
+  padding-inline: var(--sp-1);
+  border-radius: var(--r-full);
+  background: var(--brand);
+  color: var(--ink);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.plp__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-6);
+}
+
+.plp__sidebar {
+  display: none;
+}
+
+@include breakpoints.lg {
+  .plp__layout {
+    grid-template-columns: 280px 1fr;
+    align-items: start;
+  }
+
+  .plp__sidebar {
+    display: block;
+    position: sticky;
+    inset-block-start: var(--sp-5);
+  }
+}
+
+.plp__main {
+  display: flex;
+  flex-direction: column;
+  // Grid item default min-width: auto would otherwise inherit the aspect-ratio
+  // banners' intrinsic width contribution and force the grid track wider — see the
+  // .plp__hero/.plp__promo comment.
+  min-inline-size: 0;
+  gap: var(--sp-10);
+}
+
+.plp__promo {
+  display: block;
+}
+
+.plp__promo-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  justify-content: center;
+  block-size: 100%;
+  padding-inline: var(--sp-6);
+}
+
+.plp__promo-eyebrow {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-lt);
+}
+
+.plp__promo-headline {
+  font-size: var(--fs-h4);
+}
+
+.plp__promo-cta {
+  align-self: flex-start;
+  margin-block-start: var(--sp-2);
+  padding: var(--sp-1) var(--sp-4);
+  border: 1px solid var(--cream);
+  border-radius: var(--r-full);
+  color: var(--cream);
+  font-size: var(--fs-sm);
+}
+
+.plp__feature-strip {
+  display: block;
+  margin-block-start: var(--sp-10);
+  padding-block-start: var(--sp-6);
+  border-block-start: 1px solid var(--border);
+}

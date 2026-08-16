@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+
+import { AttributeGroupResponse } from '../../../../core/models';
 
 @Component({
   selector: 'app-filter-color-swatches',
@@ -7,5 +9,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterColorSwatchesComponent {
+  @Input({ required: true }) group!: AttributeGroupResponse;
+  @Input() selectedIds: number[] = [];
+  @Output() readonly toggle = new EventEmitter<number>();
 
+  isSelected(id: number): boolean {
+    return this.selectedIds.includes(id);
+  }
 }

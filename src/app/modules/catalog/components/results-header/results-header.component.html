@@ -1,1 +1,14 @@
-<p>results-header works!</p>
+<div class="results-header">
+  <div class="results-header__row">
+    <p class="results-header__count">
+      {{ searchQuery
+        ? ('products.searchResultsFor' | translate: { query: searchQuery })
+        : ('products.resultsCount' | translate: { count: totalElements })
+      }}
+    </p>
+
+    <app-sort-dropdown [value]="sort" (valueChange)="sortChange.emit($event)"></app-sort-dropdown>
+  </div>
+
+  <app-active-filters-bar [chips]="chips" (remove)="removeChip.emit($event)"></app-active-filters-bar>
+</div>
