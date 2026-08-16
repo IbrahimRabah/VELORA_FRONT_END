@@ -1,1 +1,21 @@
-<p>cart-warnings-banner works!</p>
+<div class="cart-warnings-banner" *ngIf="blockingWarnings.length || priceChangedWarnings.length">
+  <div class="cart-warnings-banner__group cart-warnings-banner__group--blocking" *ngIf="blockingWarnings.length">
+    <i class="pi pi-exclamation-triangle" aria-hidden="true"></i>
+    <div>
+      <p class="cart-warnings-banner__title">{{ 'cart.warningsBlockingTitle' | translate }}</p>
+      <ul class="cart-warnings-banner__list">
+        <li *ngFor="let warning of blockingWarnings">{{ warning.detail }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cart-warnings-banner__group cart-warnings-banner__group--info" *ngIf="priceChangedWarnings.length">
+    <i class="pi pi-info-circle" aria-hidden="true"></i>
+    <div>
+      <p class="cart-warnings-banner__title">{{ 'cart.warningsPriceTitle' | translate }}</p>
+      <ul class="cart-warnings-banner__list">
+        <li *ngFor="let warning of priceChangedWarnings">{{ warning.detail }}</li>
+      </ul>
+    </div>
+  </div>
+</div>

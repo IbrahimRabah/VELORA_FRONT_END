@@ -1,0 +1,55 @@
+.vl-qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  overflow: hidden;
+  transition: opacity 200ms ease;
+}
+
+.vl-qty-stepper--disabled {
+  opacity: 0.6;
+}
+
+.vl-qty-stepper__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease, opacity 200ms ease;
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    background: var(--cream);
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+}
+
+.vl-qty-stepper__value {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 2rem;
+  padding-inline: var(--sp-1);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vl-qty-stepper,
+  .vl-qty-stepper__btn {
+    transition: none;
+  }
+}

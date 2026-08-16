@@ -9,7 +9,9 @@
     "about": "من نحن",
     "contact": "اتصل بنا",
     "close": "إغلاق",
-    "menu": "القائمة"
+    "menu": "القائمة",
+    "confirm": "تأكيد",
+    "cancel": "إلغاء"
   },
   "header": {
     "logoAlt": "فيلورا",
@@ -99,10 +101,32 @@
     }
   },
   "cart": {
-    "title": "سلة التسوق",
+    "title": "سلتك",
     "empty": "سلتك فارغة",
-    "checkout": "إتمام الطلب",
-    "subtotal": "الإجمالي الفرعي"
+    "continueShopping": "متابعة التسوق",
+    "checkoutCta": "متابعة إتمام الطلب",
+    "subtotalWithCount": "الإجمالي الفرعي ({{count}} منتج)",
+    "shipping": "الشحن",
+    "shippingNote": "يُحسب عند إتمام الطلب حسب محافظتك",
+    "total": "الإجمالي",
+    "includingVat": "شامل ضريبة القيمة المضافة",
+    "orderSummary": "ملخص الطلب",
+    "codBadge": "الدفع عند الاستلام",
+    "clearCart": "إفراغ السلة",
+    "headerProduct": "المنتج",
+    "headerPrice": "السعر",
+    "headerQuantity": "الكمية",
+    "headerTotal": "الإجمالي",
+    "removeItem": "إزالة",
+    "removeItemAria": "إزالة {{name}} من السلة",
+    "decreaseQty": "تقليل الكمية",
+    "increaseQty": "زيادة الكمية",
+    "confirmRemoveTitle": "إزالة المنتج؟",
+    "confirmRemoveMessage": "إزالة \"{{name}}\" من سلتك؟",
+    "confirmClearTitle": "إفراغ السلة؟",
+    "confirmClearMessage": "سيتم حذف كل المنتجات من سلتك. لا يمكن التراجع عن هذا.",
+    "warningsBlockingTitle": "بعض المنتجات تحتاج مراجعة قبل إتمام الطلب",
+    "warningsPriceTitle": "تغيّرت أسعار بعض المنتجات في سلتك"
   },
   "home": {
     "hero": {

@@ -1,0 +1,112 @@
+.cart-summary {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--sp-6);
+}
+
+.cart-summary__heading {
+  margin: 0 0 var(--sp-5);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.cart-summary__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding-block: var(--sp-2);
+  font-size: var(--fs-sm);
+}
+
+.cart-summary__label {
+  color: var(--text-muted);
+}
+
+.cart-summary__value {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.cart-summary__note {
+  color: var(--text-muted);
+  text-align: end;
+  max-inline-size: 14rem;
+}
+
+.cart-summary__total-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin-block-start: var(--sp-4);
+  padding-block-start: var(--sp-4);
+  border-block-start: 1px solid var(--line);
+}
+
+.cart-summary__total-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: var(--fs-h4);
+  font-weight: 700;
+  color: var(--text);
+
+  small {
+    font-size: var(--fs-sm);
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+}
+
+.cart-summary__total-value {
+  font-size: var(--fs-h4);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.cart-summary__checkout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  inline-size: 100%;
+  margin-block-start: var(--sp-6);
+  padding: var(--sp-4);
+  border: none;
+  border-radius: var(--r-md);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 200ms ease;
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    opacity: 0.88;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.cart-summary__cod {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  margin-block-start: var(--sp-4);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+
+  i {
+    color: var(--brand);
+  }
+}

@@ -1,1 +1,59 @@
-<p>cart-item-row works!</p>
+<article
+  class="cart-item-row"
+  [class.cart-item-row--pending]="pending"
+  [class.cart-item-row--blocked]="isBlocked"
+>
+  <button
+    type="button"
+    class="cart-item-row__remove"
+    [disabled]="pending"
+    (click)="onRemove()"
+    [attr.aria-label]="'cart.removeItemAria' | translate: { name: item.name }"
+  >
+    <i class="pi pi-times" aria-hidden="true"></i>
+  </button>
+
+  <div class="cart-item-row__product">
+    <a class="cart-item-row__image" [routerLink]="['/products', item.slug]" tabindex="-1">
+      <img [src]="item.imageUrl" [alt]="item.name" loading="lazy" decoding="async" />
+    </a>
+
+    <div class="cart-item-row__info">
+      <a class="cart-item-row__name" [routerLink]="['/products', item.slug]">{{ item.name }}</a>
+      <p class="cart-item-row__variant">{{ item.variantSummary }}</p>
+
+      <p class="cart-item-row__stock" [class.cart-item-row__stock--out]="!item.inStock">
+        <span class="cart-item-row__stock-dot" aria-hidden="true"></span>
+        {{ (item.inStock ? 'product.inStock' : 'product.outOfStock') | translate }}
+      </p>
+
+      <p class="cart-item-row__warning" *ngFor="let warning of blockingWarnings">
+        {{ warning.detail }}
+      </p>
+    </div>
+  </div>
+
+  <div class="cart-item-row__price">
+    <span class="cart-item-row__price-old" *ngIf="priceWarning">
+      <app-vl-price [minPrice]="item.priceAtAdd"></app-vl-price>
+    </span>
+    <app-vl-price [minPrice]="item.unitPrice"></app-vl-price>
+  </div>
+
+  <div class="cart-item-row__meta">
+    <div class="cart-item-row__qty">
+      <app-vl-quantity-stepper
+        [value]="displayQuantity"
+        [min]="1"
+        [max]="maxQuantity"
+        [disabled]="pending"
+        (decrease)="decrease()"
+        (increase)="increase()"
+      ></app-vl-quantity-stepper>
+    </div>
+
+    <div class="cart-item-row__total">
+      <app-vl-price [minPrice]="item.lineTotal"></app-vl-price>
+    </div>
+  </div>
+</article>

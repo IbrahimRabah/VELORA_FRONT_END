@@ -6,6 +6,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './empty-cart.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EmptyCartComponent {
-
-}
+export class EmptyCartComponent {}

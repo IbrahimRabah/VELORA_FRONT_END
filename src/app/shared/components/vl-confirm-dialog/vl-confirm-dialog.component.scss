@@ -1,0 +1,110 @@
+.vl-confirm-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-4);
+}
+
+.vl-confirm-dialog__backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--overlay);
+  animation: vl-confirm-fade 220ms ease;
+}
+
+.vl-confirm-dialog__panel {
+  position: relative;
+  z-index: 1;
+  inline-size: min(360px, 100%);
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--sp-6);
+  animation: vl-confirm-pop 220ms ease;
+}
+
+.vl-confirm-dialog__title {
+  margin: 0 0 var(--sp-2);
+  font-family: var(--display);
+  font-size: var(--fs-h5);
+  color: var(--text);
+}
+
+.vl-confirm-dialog__message {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.vl-confirm-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--sp-3);
+  margin-block-start: var(--sp-5);
+}
+
+.vl-confirm-dialog__cancel,
+.vl-confirm-dialog__confirm {
+  padding: var(--sp-2) var(--sp-4);
+  border-radius: var(--r-md);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease, opacity 200ms ease;
+}
+
+.vl-confirm-dialog__cancel {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--text);
+
+  &:hover,
+  &:focus-visible {
+    background: var(--surface-alt);
+  }
+}
+
+.vl-confirm-dialog__confirm {
+  border: none;
+  background: var(--ink);
+  color: var(--paper);
+
+  &:hover,
+  &:focus-visible {
+    opacity: 0.9;
+  }
+}
+
+.vl-confirm-dialog__confirm--danger {
+  background: var(--stop);
+}
+
+@keyframes vl-confirm-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes vl-confirm-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vl-confirm-dialog__backdrop,
+  .vl-confirm-dialog__panel {
+    animation: none;
+  }
+}

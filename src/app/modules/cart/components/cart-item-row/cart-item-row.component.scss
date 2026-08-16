@@ -1,0 +1,195 @@
+@use 'styles/breakpoints';
+
+.cart-item-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-4);
+  padding: var(--sp-5) var(--sp-8) var(--sp-5) 0;
+  border-block-end: 1px solid var(--line-soft);
+  transition: opacity 200ms ease;
+
+  // Below xl the list panel (2/3 of the page grid) isn't wide enough to fit a 110px
+  // image plus four columns without crushing the product name — stay in the mobile
+  // stacked layout until there's genuinely room for it.
+  @include breakpoints.xl {
+    grid-template-columns: minmax(160px, 2fr) 110px 130px 110px;
+    align-items: center;
+    gap: var(--sp-3);
+  }
+}
+
+.cart-item-row--pending {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.cart-item-row--blocked {
+  border-inline-start: 3px solid var(--stop);
+  padding-inline-start: var(--sp-4);
+  background: var(--stop-bg);
+}
+
+.cart-item-row__remove {
+  position: absolute;
+  inset-block-start: var(--sp-5);
+  inset-inline-end: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: var(--r-full);
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease;
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    background: var(--surface-alt);
+    color: var(--stop);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.cart-item-row__product {
+  display: flex;
+  gap: var(--sp-4);
+  min-inline-size: 0;
+}
+
+.cart-item-row__image {
+  flex-shrink: 0;
+  display: block;
+  inline-size: 96px;
+  block-size: 96px;
+  border-radius: var(--r-md);
+  background: var(--cream);
+  overflow: hidden;
+
+  @include breakpoints.xl {
+    inline-size: 110px;
+    block-size: 110px;
+  }
+}
+
+.cart-item-row__image img {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.cart-item-row__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  min-inline-size: 0;
+  padding-inline-end: var(--sp-5);
+}
+
+.cart-item-row__name {
+  font-family: var(--display);
+  font-size: var(--fs-lg);
+  color: var(--text);
+  text-decoration: none;
+  transition: color 200ms ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--brand);
+  }
+}
+
+.cart-item-row__variant {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.cart-item-row__stock {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: var(--sp-1) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--ok);
+}
+
+.cart-item-row__stock-dot {
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: 50%;
+  background: var(--ok);
+}
+
+.cart-item-row__stock--out {
+  color: var(--stop);
+}
+
+.cart-item-row__stock--out .cart-item-row__stock-dot {
+  background: var(--stop);
+}
+
+.cart-item-row__warning {
+  margin: var(--sp-1) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--stop);
+}
+
+.cart-item-row__price {
+  font-size: var(--fs-base);
+  color: var(--text);
+  display: none;
+
+  @include breakpoints.xl {
+    display: block;
+  }
+}
+
+.cart-item-row__price-old {
+  display: block;
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  text-decoration: line-through;
+}
+
+.cart-item-row__meta {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @include breakpoints.xl {
+    display: contents;
+  }
+}
+
+.cart-item-row__qty {
+  @include breakpoints.xl {
+    justify-self: start;
+  }
+}
+
+.cart-item-row__total {
+  font-weight: 600;
+  color: var(--text);
+
+  @include breakpoints.xl {
+    text-align: end;
+    justify-self: end;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cart-item-row,
+  .cart-item-row__remove {
+    transition: none;
+  }
+}

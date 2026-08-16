@@ -1,1 +1,5 @@
-<p>empty-cart works!</p>
+<div class="empty-cart">
+  <i class="pi pi-shopping-bag empty-cart__icon" aria-hidden="true"></i>
+  <p class="empty-cart__text">{{ 'cart.empty' | translate }}</p>
+  <a routerLink="/products" class="empty-cart__cta">{{ 'cart.continueShopping' | translate }}</a>
+</div>

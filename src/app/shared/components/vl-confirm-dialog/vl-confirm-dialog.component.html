@@ -1,1 +1,28 @@
-<p>vl-confirm-dialog works!</p>
+<div *ngIf="request() as req" class="vl-confirm-dialog">
+  <div class="vl-confirm-dialog__backdrop" (click)="cancel()"></div>
+  <div
+    class="vl-confirm-dialog__panel"
+    role="alertdialog"
+    aria-modal="true"
+    [attr.aria-labelledby]="req.title ? 'vl-confirm-dialog-title' : null"
+    aria-describedby="vl-confirm-dialog-message"
+    (keydown.escape)="cancel()"
+  >
+    <h2 *ngIf="req.title" id="vl-confirm-dialog-title" class="vl-confirm-dialog__title">{{ req.title }}</h2>
+    <p id="vl-confirm-dialog-message" class="vl-confirm-dialog__message">{{ req.message }}</p>
+    <div class="vl-confirm-dialog__actions">
+      <button type="button" class="vl-confirm-dialog__cancel" (click)="cancel()">
+        {{ req.cancelLabel || ('common.cancel' | translate) }}
+      </button>
+      <button
+        #confirmBtn
+        type="button"
+        class="vl-confirm-dialog__confirm"
+        [class.vl-confirm-dialog__confirm--danger]="req.danger"
+        (click)="confirm()"
+      >
+        {{ req.confirmLabel || ('common.confirm' | translate) }}
+      </button>
+    </div>
+  </div>
+</div>

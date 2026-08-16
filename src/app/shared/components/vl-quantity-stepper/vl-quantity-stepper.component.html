@@ -1,1 +1,17 @@
-<p>vl-quantity-stepper works!</p>
+<div class="vl-qty-stepper" [class.vl-qty-stepper--disabled]="disabled">
+  <button
+    type="button"
+    class="vl-qty-stepper__btn"
+    [disabled]="disabled || value <= min"
+    (click)="decrease.emit()"
+    [attr.aria-label]="'cart.decreaseQty' | translate"
+  >&minus;</button>
+  <span class="vl-qty-stepper__value" aria-live="polite">{{ value }}</span>
+  <button
+    type="button"
+    class="vl-qty-stepper__btn"
+    [disabled]="disabled || value >= max"
+    (click)="increase.emit()"
+    [attr.aria-label]="'cart.increaseQty' | translate"
+  >+</button>
+</div>

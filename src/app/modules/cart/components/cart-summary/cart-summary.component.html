@@ -1,1 +1,36 @@
-<p>cart-summary works!</p>
+<div class="cart-summary" *ngIf="cartStore.cart() as cart">
+  <h2 class="cart-summary__heading">{{ 'cart.orderSummary' | translate }}</h2>
+
+  <div class="cart-summary__row">
+    <span class="cart-summary__label">{{ 'cart.subtotalWithCount' | translate: { count: cart.itemCount } }}</span>
+    <span class="cart-summary__value"><app-vl-price [minPrice]="cart.subtotal"></app-vl-price></span>
+  </div>
+
+  <div class="cart-summary__row">
+    <span class="cart-summary__label">{{ 'cart.shipping' | translate }}</span>
+    <span class="cart-summary__note">{{ 'cart.shippingNote' | translate }}</span>
+  </div>
+
+  <div class="cart-summary__total-row">
+    <div class="cart-summary__total-label">
+      <span>{{ 'cart.total' | translate }}</span>
+      <small>{{ 'cart.includingVat' | translate }}</small>
+    </div>
+    <span class="cart-summary__total-value"><app-vl-price [minPrice]="cart.estimatedTotal"></app-vl-price></span>
+  </div>
+
+  <button
+    type="button"
+    class="cart-summary__checkout"
+    [disabled]="!cartStore.checkoutReady()"
+    (click)="goToCheckout()"
+  >
+    <i class="pi pi-lock" aria-hidden="true"></i>
+    {{ 'cart.checkoutCta' | translate }}
+  </button>
+
+  <div class="cart-summary__cod">
+    <i class="pi pi-money-bill" aria-hidden="true"></i>
+    {{ 'cart.codBadge' | translate }}
+  </div>
+</div>

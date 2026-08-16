@@ -9,7 +9,9 @@
     "about": "About Us",
     "contact": "Contact Us",
     "close": "Close",
-    "menu": "Menu"
+    "menu": "Menu",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
   },
   "header": {
     "logoAlt": "VELORA",
@@ -99,10 +101,32 @@
     }
   },
   "cart": {
-    "title": "Shopping Cart",
+    "title": "Your Cart",
     "empty": "Your cart is empty",
-    "checkout": "Checkout",
-    "subtotal": "Subtotal"
+    "continueShopping": "Continue Shopping",
+    "checkoutCta": "Proceed to Checkout",
+    "subtotalWithCount": "Subtotal ({{count}} items)",
+    "shipping": "Shipping",
+    "shippingNote": "Calculated at checkout based on your governorate",
+    "total": "Total",
+    "includingVat": "Including VAT",
+    "orderSummary": "Order Summary",
+    "codBadge": "Cash on Delivery",
+    "clearCart": "Clear Cart",
+    "headerProduct": "Product",
+    "headerPrice": "Price",
+    "headerQuantity": "Quantity",
+    "headerTotal": "Total",
+    "removeItem": "Remove",
+    "removeItemAria": "Remove {{name}} from cart",
+    "decreaseQty": "Decrease quantity",
+    "increaseQty": "Increase quantity",
+    "confirmRemoveTitle": "Remove item?",
+    "confirmRemoveMessage": "Remove \"{{name}}\" from your cart?",
+    "confirmClearTitle": "Clear cart?",
+    "confirmClearMessage": "This removes every item from your cart. This can't be undone.",
+    "warningsBlockingTitle": "These items need attention before checkout",
+    "warningsPriceTitle": "Prices have changed since you added these items"
   },
   "home": {
     "hero": {

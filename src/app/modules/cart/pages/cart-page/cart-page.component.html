@@ -1,1 +1,129 @@
-<p>cart-page works!</p>
+<div class="cart-page container-vl section">
+  <header class="cart-page__header">
+    <div>
+      <nav class="cart-page__breadcrumb" aria-label="breadcrumb">
+        <a routerLink="/">{{ 'common.home' | translate }}</a>
+        <span aria-hidden="true">&bull;</span>
+        <span>{{ 'cart.title' | translate }}</span>
+      </nav>
+      <h1 class="cart-page__title">{{ 'cart.title' | translate }}</h1>
+    </div>
+
+    <a routerLink="/products" class="cart-page__continue">
+      {{ 'cart.continueShopping' | translate }}
+      <i class="pi pi-chevron-right" aria-hidden="true"></i>
+    </a>
+  </header>
+
+  <ng-container *ngIf="!loading(); else skeletonTpl">
+    <ng-container *ngIf="!cartStore.isEmpty(); else emptyTpl">
+      <app-cart-warnings-banner></app-cart-warnings-banner>
+
+      <div class="cart-page__grid">
+        <section class="cart-page__list">
+          <div class="cart-list__head" aria-hidden="true">
+            <span>{{ 'cart.headerProduct' | translate }}</span>
+            <span>{{ 'cart.headerPrice' | translate }}</span>
+            <span>{{ 'cart.headerQuantity' | translate }}</span>
+            <span>{{ 'cart.headerTotal' | translate }}</span>
+          </div>
+
+          <app-cart-item-row
+            *ngFor="let item of cartStore.cart()?.items"
+            [item]="item"
+            [warnings]="warningsForItem(item.itemId)"
+            [pending]="isPending(item.itemId)"
+            (quantityChange)="onQuantityChange($event.itemId, $event.quantity)"
+            (removeItem)="onRemoveItem($event)"
+          ></app-cart-item-row>
+
+          <div class="cart-list__footer">
+            <button type="button" class="cart-list__clear" [disabled]="clearing()" (click)="onClearCart()">
+              <i class="pi pi-trash" aria-hidden="true"></i>
+              {{ 'cart.clearCart' | translate }}
+            </button>
+          </div>
+        </section>
+
+        <aside class="cart-page__summary">
+          <app-cart-summary></app-cart-summary>
+        </aside>
+      </div>
+
+      <section class="cart-page__features">
+        <div class="cart-page__feature">
+          <i class="pi pi-money-bill" aria-hidden="true"></i>
+          <div>
+            <p class="cart-page__feature-title">{{ 'product.features.cod.title' | translate }}</p>
+            <p class="cart-page__feature-subtitle">{{ 'product.features.cod.subtitle' | translate }}</p>
+          </div>
+        </div>
+        <div class="cart-page__feature">
+          <i class="pi pi-truck" aria-hidden="true"></i>
+          <div>
+            <p class="cart-page__feature-title">{{ 'product.features.delivery.title' | translate }}</p>
+            <p class="cart-page__feature-subtitle">{{ 'product.features.delivery.subtitle' | translate }}</p>
+          </div>
+        </div>
+        <div class="cart-page__feature">
+          <i class="pi pi-replay" aria-hidden="true"></i>
+          <div>
+            <p class="cart-page__feature-title">{{ 'product.features.returns.title' | translate }}</p>
+            <p class="cart-page__feature-subtitle">{{ 'product.features.returns.subtitle' | translate }}</p>
+          </div>
+        </div>
+        <div class="cart-page__feature">
+          <i class="pi pi-verified" aria-hidden="true"></i>
+          <div>
+            <p class="cart-page__feature-title">{{ 'product.features.authentic.title' | translate }}</p>
+            <p class="cart-page__feature-subtitle">{{ 'product.features.authentic.subtitle' | translate }}</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="cart-page__mobile-bar">
+        <div class="cart-page__mobile-bar-total">
+          <span>{{ 'cart.total' | translate }}</span>
+          <app-vl-price [minPrice]="cartStore.cart()?.estimatedTotal ?? 0"></app-vl-price>
+        </div>
+        <button
+          type="button"
+          class="cart-page__mobile-bar-cta"
+          [disabled]="!cartStore.checkoutReady()"
+          (click)="goToCheckout()"
+        >
+          <i class="pi pi-lock" aria-hidden="true"></i>
+          {{ 'cart.checkoutCta' | translate }}
+        </button>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #emptyTpl>
+    <app-empty-cart></app-empty-cart>
+  </ng-template>
+
+  <ng-template #skeletonTpl>
+    <div class="cart-page__grid">
+      <section class="cart-page__list">
+        <div class="cart-item-skeleton" *ngFor="let row of skeletonRows">
+          <p-skeleton shape="rectangle" width="96px" height="96px" borderRadius="var(--r-md)"></p-skeleton>
+          <div class="cart-item-skeleton__lines">
+            <p-skeleton width="60%" height="1.25rem"></p-skeleton>
+            <p-skeleton width="40%" height="0.875rem"></p-skeleton>
+            <p-skeleton width="30%" height="0.875rem"></p-skeleton>
+          </div>
+        </div>
+      </section>
+
+      <aside class="cart-page__summary">
+        <div class="cart-summary-skeleton">
+          <p-skeleton width="50%" height="1rem"></p-skeleton>
+          <p-skeleton width="100%" height="1.5rem"></p-skeleton>
+          <p-skeleton width="100%" height="1.5rem"></p-skeleton>
+          <p-skeleton width="100%" height="2.5rem"></p-skeleton>
+        </div>
+      </aside>
+    </div>
+  </ng-template>
+</div>
