@@ -1,0 +1,31 @@
+<section class="about-closing section">
+  <div class="container-vl about-closing__grid">
+    <div class="about-closing__content">
+      <h2 class="about-closing__heading">
+        <span>{{ 'about.closing.headingLine1' | translate }}</span>
+        <span class="about-closing__heading-line--gold">{{ 'about.closing.headingLine2' | translate }}</span>
+      </h2>
+
+      <p class="about-closing__paragraph">{{ 'about.closing.paragraph' | translate }}</p>
+
+      <div class="about-closing__actions">
+        <a
+          *ngFor="let link of links"
+          routerLink="/products"
+          [queryParams]="queryParamsFor(link)"
+          pButton
+          pRipple
+          outlined
+          class="about-closing__cta"
+        >
+          <i class="pi {{ link.icon }}" aria-hidden="true"></i>
+          <span>{{ 'about.closing.' + link.key | translate }}</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="about-closing__image-wrap">
+      <span class="about-closing__watermark" aria-hidden="true">VELORA</span>
+    </div>
+  </div>
+</section>

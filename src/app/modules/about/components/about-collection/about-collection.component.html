@@ -1,0 +1,38 @@
+<section class="about-collection section">
+  <div class="container-vl">
+    <h2 class="about-collection__heading">
+      <span class="about-collection__rule" aria-hidden="true"></span>
+      {{ 'about.collection.heading' | translate }}
+      <span class="about-collection__rule" aria-hidden="true"></span>
+    </h2>
+
+    <div class="about-collection__cards">
+      <article class="about-collection__card" *ngFor="let card of cards">
+        <div class="about-collection__image-wrap">
+          <img
+            class="about-collection__image"
+            [src]="card.image"
+            [alt]="'about.collection.' + card.key + '.imageAlt' | translate"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="about-collection__scrim" aria-hidden="true"></span>
+        </div>
+
+        <div class="about-collection__body">
+          <p class="about-collection__name" *ngIf="card.category as category">{{ category.name }}</p>
+          <p class="about-collection__tagline">{{ 'about.collection.' + card.key + '.title' | translate }}</p>
+          <p class="about-collection__description">{{ 'about.collection.' + card.key + '.description' | translate }}</p>
+          <a
+            class="about-collection__cta"
+            routerLink="/products"
+            [queryParams]="queryParamsFor(card)"
+            pButton
+            pRipple
+            outlined
+          >{{ 'about.collection.explore' | translate }}</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

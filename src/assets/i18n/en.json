@@ -55,10 +55,6 @@
     "copyright": "© {{year}} VELORA. All rights reserved."
   },
   "pages": {
-    "about": {
-      "title": "About Us",
-      "placeholder": "This page is coming soon."
-    },
     "contact": {
       "title": "Contact Us",
       "placeholder": "This page is coming soon."
@@ -129,6 +125,106 @@
     "confirmClearMessage": "This removes every item from your cart. This can't be undone.",
     "warningsBlockingTitle": "These items need attention before checkout",
     "warningsPriceTitle": "Prices have changed since you added these items"
+  },
+  "about": {
+    "hero": {
+      "imageAlt": "VELORA banner",
+      "titleLine1": "Timeless Elegance.",
+      "titleLine2": "Made for You.",
+      "subtitle": "We create refined watches, wallets and fragrances designed to become part of your everyday story.",
+      "cta": "Discover VELORA"
+    },
+    "story": {
+      "eyebrow": "OUR STORY",
+      "headingLine1": "More Than Products.",
+      "headingLine2": "A Statement of Style.",
+      "imageAlt": "VELORA craftsmanship",
+      "paragraph1": "VELORA was created with a simple idea: everyday essentials should feel exceptional.",
+      "paragraph2": "From the watch you wear, to the wallet you carry, to the fragrance that defines your presence — every VELORA piece is selected to bring together timeless design, refined details and modern elegance.",
+      "paragraph3": "We believe luxury is not only about what you own. It is about how it makes you feel."
+    },
+    "collection": {
+      "heading": "The VELORA Collection",
+      "explore": "Explore",
+      "watches": {
+        "title": "Time, Refined.",
+        "description": "Sophisticated timepieces designed for every moment.",
+        "imageAlt": "VELORA watches"
+      },
+      "wallets": {
+        "title": "Crafted for Everyday Elegance.",
+        "description": "Refined designs that combine functionality with timeless style.",
+        "imageAlt": "VELORA wallets"
+      },
+      "perfumes": {
+        "title": "Leave Your Signature.",
+        "description": "Distinctive fragrances created to make every presence memorable.",
+        "imageAlt": "VELORA perfumes"
+      }
+    },
+    "values": {
+      "heading": "Designed Around You",
+      "timelessDesign": {
+        "title": "Timeless Design",
+        "description": "Styles that remain elegant beyond trends."
+      },
+      "attentionToDetail": {
+        "title": "Attention to Detail",
+        "description": "Every detail is considered, from material to finishing."
+      },
+      "qualitySelection": {
+        "title": "Quality Selection",
+        "description": "Products chosen with quality, comfort and durability in mind."
+      },
+      "madeForYou": {
+        "title": "Made for You",
+        "description": "Pieces designed to complement your personal style."
+      }
+    },
+    "genderPanels": {
+      "cta": "Explore Now",
+      "forHim": {
+        "title": "For Him",
+        "tagline": "Bold. Refined. Distinctive.",
+        "imageAlt": "VELORA for him"
+      },
+      "forHer": {
+        "title": "For Her",
+        "tagline": "Elegant. Graceful. Unforgettable.",
+        "imageAlt": "VELORA for her"
+      }
+    },
+    "promise": {
+      "heading": "The VELORA Promise",
+      "cod": {
+        "title": "Cash on Delivery",
+        "description": "Pay when your order arrives."
+      },
+      "delivery": {
+        "title": "Delivery to All Governorates",
+        "description": "We deliver across Egypt."
+      },
+      "cancellation": {
+        "title": "Free Cancellation",
+        "description": "Cancel any time before shipping."
+      },
+      "authentic": {
+        "title": "Authentic Products",
+        "description": "100% genuine, guaranteed."
+      },
+      "whatsapp": {
+        "title": "WhatsApp Support",
+        "description": "We're here whenever you need us."
+      }
+    },
+    "closing": {
+      "headingLine1": "Your Time. Your Style.",
+      "headingLine2": "Your Signature.",
+      "paragraph": "A watch marks your moments. A wallet travels with you. A fragrance stays in memory. VELORA brings them together.",
+      "shopWatches": "Shop Watches",
+      "shopWallets": "Shop Wallets",
+      "shopPerfumes": "Shop Perfumes"
+    }
   },
   "home": {
     "hero": {

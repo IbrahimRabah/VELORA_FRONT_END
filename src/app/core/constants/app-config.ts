@@ -85,4 +85,9 @@ export const APP_CONFIG = {
     min: 0,
     max: 50000,
   },
+
+  contact: {
+    // Not a contract endpoint — a direct customer-support link used on the About page.
+    whatsappUrl: 'https://wa.me/201090386165',
+  },
 } as const;

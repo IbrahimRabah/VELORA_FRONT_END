@@ -1,0 +1,67 @@
+@use 'styles/breakpoints';
+
+.about-story {
+  background: var(--cream);
+}
+
+.about-story__grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+
+  @include breakpoints.md {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--sp-8);
+  }
+}
+
+.about-story__image-wrap {
+  @include breakpoints.md {
+    flex: 0 0 45%;
+  }
+}
+
+.about-story__image {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.about-story__content {
+  @include breakpoints.md {
+    flex: 1;
+  }
+}
+
+.about-story__eyebrow {
+  margin: 0 0 var(--sp-3);
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--gold-dp);
+}
+
+.about-story__heading {
+  margin: 0 0 var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--display);
+  font-size: var(--fs-h2);
+  line-height: 1.25;
+  color: var(--text);
+}
+
+.about-story__paragraph {
+  max-inline-size: 62ch;
+  margin: 0 0 var(--sp-4);
+  font-size: var(--fs-base);
+  line-height: 1.8;
+  color: var(--text-muted);
+
+  &:last-child {
+    margin-block-end: 0;
+  }
+}

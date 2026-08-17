@@ -59,6 +59,7 @@ import { LazyImgDirective } from './directives/lazy-img.directive';
 import { AutofocusDirective } from './directives/autofocus.directive';
 import { DebounceInputDirective } from './directives/debounce-input.directive';
 import { OnlyDigitsDirective } from './directives/only-digits.directive';
+import { ScrollRevealDirective } from './directives/scroll-reveal.directive';
 
 @NgModule({
   declarations: [
@@ -115,7 +116,8 @@ import { OnlyDigitsDirective } from './directives/only-digits.directive';
     LazyImgDirective,
     AutofocusDirective,
     DebounceInputDirective,
-    OnlyDigitsDirective
+    OnlyDigitsDirective,
+    ScrollRevealDirective
   ],
   imports: [
     CommonModule,
@@ -182,7 +184,8 @@ import { OnlyDigitsDirective } from './directives/only-digits.directive';
     LazyImgDirective,
     AutofocusDirective,
     DebounceInputDirective,
-    OnlyDigitsDirective
+    OnlyDigitsDirective,
+    ScrollRevealDirective
   ]
 })
 export class SharedModule { }

@@ -1,0 +1,69 @@
+@use 'styles/breakpoints';
+
+.about-promise {
+  background: var(--paper);
+}
+
+.about-promise__heading {
+  margin: 0 0 var(--sp-8);
+  font-family: var(--display);
+  font-size: var(--fs-h3);
+  text-align: center;
+  color: var(--text);
+}
+
+.about-promise__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-6) var(--sp-4);
+
+  @include breakpoints.md {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+  }
+}
+
+.about-promise__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  text-align: center;
+  padding-inline: var(--sp-4);
+  text-decoration: none;
+  color: inherit;
+
+  // The 5th item (WhatsApp) centers alone on its own row in the mobile 2-col grid.
+  &:last-child {
+    grid-column: 1 / -1;
+
+    @include breakpoints.md {
+      grid-column: auto;
+    }
+  }
+
+  @include breakpoints.md {
+    &:not(:first-child) {
+      border-inline-start: 1px solid var(--line);
+    }
+  }
+}
+
+.about-promise__icon {
+  font-size: 1.75rem;
+  color: var(--ink);
+}
+
+.about-promise__title {
+  margin: 0;
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text);
+}
+
+.about-promise__description {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}

@@ -1,0 +1,67 @@
+@use 'styles/breakpoints';
+
+.about-values {
+  background: var(--ink);
+}
+
+.about-values__heading {
+  margin: 0 0 var(--sp-8);
+  font-family: var(--display);
+  font-size: var(--fs-h3);
+  text-align: center;
+  color: var(--gold);
+}
+
+.about-values__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-6) var(--sp-4);
+
+  @include breakpoints.md {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+}
+
+.about-values__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  text-align: center;
+  padding-inline: var(--sp-4);
+  position: relative;
+
+  @include breakpoints.md {
+    // Thin gold rules between columns — omitted on the first item and on mobile's
+    // 2×2 stack, where a vertical divider between wrapped rows would look broken.
+    &:not(:first-child)::before {
+      content: '';
+      position: absolute;
+      inset-block: var(--sp-2);
+      inset-inline-start: 0;
+      inline-size: 1px;
+      background: rgba(176, 133, 66, 0.2);
+    }
+  }
+}
+
+.about-values__icon {
+  font-size: 2.25rem;
+  color: var(--gold);
+}
+
+.about-values__title {
+  margin: 0;
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--paper);
+}
+
+.about-values__description {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: rgba(246, 242, 235, 0.7);
+}

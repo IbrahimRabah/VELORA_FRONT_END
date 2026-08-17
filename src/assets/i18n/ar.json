@@ -55,10 +55,6 @@
     "copyright": "© {{year}} فيلورا. جميع الحقوق محفوظة."
   },
   "pages": {
-    "about": {
-      "title": "من نحن",
-      "placeholder": "هذه الصفحة قريباً."
-    },
     "contact": {
       "title": "اتصل بنا",
       "placeholder": "هذه الصفحة قريباً."
@@ -129,6 +125,106 @@
     "confirmClearMessage": "سيتم حذف كل المنتجات من سلتك. لا يمكن التراجع عن هذا.",
     "warningsBlockingTitle": "بعض المنتجات تحتاج مراجعة قبل إتمام الطلب",
     "warningsPriceTitle": "تغيّرت أسعار بعض المنتجات في سلتك"
+  },
+  "about": {
+    "hero": {
+      "imageAlt": "غلاف فيلورا",
+      "titleLine1": "أناقة لا يمسّها الزمن",
+      "titleLine2": "صُنعت لك",
+      "subtitle": "نصنع ساعات ومحافظ وعطوراً راقية، تصير جزءاً من يومك",
+      "cta": "اكتشف VELORA"
+    },
+    "story": {
+      "eyebrow": "حكايتنا",
+      "headingLine1": "أكثر من منتجات.",
+      "headingLine2": "إنه أسلوبك.",
+      "imageAlt": "حرفية فيلورا",
+      "paragraph1": "بدأت VELORA بفكرة بسيطة: ما نستخدمه كل يوم يستحق أن يكون استثنائياً.",
+      "paragraph2": "من الساعة التي ترتديها، إلى المحفظة التي ترافقك، إلى العطر الذي يسبقك — كل قطعة من VELORA مختارة لتجمع بين التصميم الخالد والتفاصيل الدقيقة والأناقة العصرية.",
+      "paragraph3": "الفخامة عندنا ليست فيما تملك، بل في ما تشعر به حين تملكه."
+    },
+    "collection": {
+      "heading": "مجموعة VELORA",
+      "explore": "استكشف",
+      "watches": {
+        "title": "وقتٌ بأناقة.",
+        "description": "ساعات راقية لكل لحظة.",
+        "imageAlt": "ساعات فيلورا"
+      },
+      "wallets": {
+        "title": "أناقة كل يوم.",
+        "description": "تصاميم تجمع بين العملية والأناقة الخالدة.",
+        "imageAlt": "محافظ فيلورا"
+      },
+      "perfumes": {
+        "title": "اترك أثرك.",
+        "description": "عطور مميّزة تجعل حضورك لا يُنسى.",
+        "imageAlt": "عطور فيلورا"
+      }
+    },
+    "values": {
+      "heading": "مصمّم من أجلك",
+      "timelessDesign": {
+        "title": "تصميم خالد",
+        "description": "أناقة تتجاوز الموضة."
+      },
+      "attentionToDetail": {
+        "title": "اهتمام بالتفاصيل",
+        "description": "كل تفصيلة محسوبة، من الخامة إلى اللمسة الأخيرة."
+      },
+      "qualitySelection": {
+        "title": "جودة مختارة",
+        "description": "منتجات مختارة بعناية في الجودة والراحة والمتانة."
+      },
+      "madeForYou": {
+        "title": "صُنع لك",
+        "description": "قطع تكمّل أسلوبك الشخصي."
+      }
+    },
+    "genderPanels": {
+      "cta": "تصفّح الآن",
+      "forHim": {
+        "title": "له",
+        "tagline": "جريء. راقٍ. مميّز",
+        "imageAlt": "فيلورا له"
+      },
+      "forHer": {
+        "title": "لها",
+        "tagline": "أنيقة. رقيقة. لا تُنسى",
+        "imageAlt": "فيلورا لها"
+      }
+    },
+    "promise": {
+      "heading": "وعد VELORA",
+      "cod": {
+        "title": "الدفع عند الاستلام",
+        "description": "ادفع عند وصول طلبك."
+      },
+      "delivery": {
+        "title": "توصيل لكل المحافظات",
+        "description": "نوصل لكل محافظات مصر."
+      },
+      "cancellation": {
+        "title": "إلغاء مجاني",
+        "description": "ألغِ طلبك قبل الشحن."
+      },
+      "authentic": {
+        "title": "منتجات أصلية",
+        "description": "أصلية 100%."
+      },
+      "whatsapp": {
+        "title": "دعم عبر واتساب",
+        "description": "معك وقت ما تحتاج."
+      }
+    },
+    "closing": {
+      "headingLine1": "وقتك. أسلوبك.",
+      "headingLine2": "أثرك.",
+      "paragraph": "الساعة تحفظ لحظاتك، والمحفظة ترافقك، والعطر يبقى في الذاكرة. VELORA تجمعهم.",
+      "shopWatches": "تسوّق الساعات",
+      "shopWallets": "تسوّق المحافظ",
+      "shopPerfumes": "تسوّق العطور"
+    }
   },
   "home": {
     "hero": {

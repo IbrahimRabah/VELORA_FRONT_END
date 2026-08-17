@@ -1,0 +1,29 @@
+<section class="about-hero">
+  <img
+    class="about-hero__image"
+    src="assets/images/about/banner.png"
+    [alt]="'about.hero.imageAlt' | translate"
+    fetchpriority="high"
+    loading="eager"
+  />
+  <span class="about-hero__scrim" aria-hidden="true"></span>
+
+  <div class="about-hero__content">
+    <span class="about-hero__logo" aria-hidden="true">VELORA</span>
+
+    <h1 class="about-hero__title">
+      <span class="about-hero__title-line">{{ 'about.hero.titleLine1' | translate }}</span>
+      <span class="about-hero__title-line about-hero__title-line--gold">{{ 'about.hero.titleLine2' | translate }}</span>
+    </h1>
+
+    <span class="about-hero__divider" aria-hidden="true">
+      <span class="about-hero__divider-line"></span>
+      <span class="about-hero__divider-diamond"></span>
+      <span class="about-hero__divider-line"></span>
+    </span>
+
+    <p class="about-hero__subtitle">{{ 'about.hero.subtitle' | translate }}</p>
+
+    <a routerLink="/products" pButton pRipple class="about-hero__cta">{{ 'about.hero.cta' | translate }}</a>
+  </div>
+</section>

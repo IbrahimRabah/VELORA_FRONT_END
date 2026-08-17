@@ -1,0 +1,19 @@
+// Pairs with shared/directives/scroll-reveal.directive.ts ([appScrollReveal]).
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 280ms ease, transform 280ms ease;
+}
+
+.scroll-reveal--visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

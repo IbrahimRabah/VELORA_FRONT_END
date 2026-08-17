@@ -1,4 +1,13 @@
-<div class="container-vl about-page">
-  <h1 class="about-page__title">{{ 'pages.about.title' | translate }}</h1>
-  <p class="about-page__body">{{ 'pages.about.placeholder' | translate }}</p>
-</div>
+<app-about-hero></app-about-hero>
+
+<app-about-story appScrollReveal></app-about-story>
+
+<app-about-collection [categories]="categories()" appScrollReveal></app-about-collection>
+
+<app-about-values appScrollReveal></app-about-values>
+
+<app-about-gender-panels appScrollReveal></app-about-gender-panels>
+
+<app-about-promise appScrollReveal></app-about-promise>
+
+<app-about-closing [categoryIds]="categoryIds()" appScrollReveal></app-about-closing>

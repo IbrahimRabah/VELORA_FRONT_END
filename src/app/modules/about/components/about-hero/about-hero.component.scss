@@ -1,0 +1,125 @@
+@use 'styles/breakpoints';
+
+.about-hero {
+  position: relative;
+  overflow: hidden;
+  inline-size: 100%;
+  block-size: 85vh;
+  max-block-size: 720px;
+  min-block-size: 420px;
+  background: var(--ink);
+}
+
+.about-hero__image {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.about-hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 13, 13, 0.55);
+
+  @include breakpoints.md {
+    // Above md the text sits over the image's own empty side, pinned to the
+    // physical left in both languages (see .about-hero__content below) — so this
+    // gradient always darkens toward the left too, regardless of RTL/LTR.
+    background: linear-gradient(to left, rgba(13, 13, 13, 0.1) 0%, rgba(13, 13, 13, 0.65) 55%);
+  }
+}
+
+.about-hero__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-5);
+  block-size: 100%;
+  padding-inline: var(--pad);
+  text-align: center;
+
+  @include breakpoints.md {
+    // Pinned to the physical left in both languages — banner.png's empty space is
+    // fixed there, so this must NOT mirror under RTL like the rest of the site (see
+    // src/styles/_rtl.scss's documented exception, and home's hero-banner.component.scss
+    // for the same left/translateX(-50%) pattern). `direction: ltr` makes every logical
+    // property below (align-items, margin-inline-*, text-align) resolve physically
+    // instead of flipping with the page's actual RTL/LTR state.
+    direction: ltr;
+    align-items: flex-start;
+    max-inline-size: 480px;
+    margin-inline-end: auto;
+    padding-inline-start: var(--pad);
+    padding-inline-end: 0;
+    text-align: start;
+    justify-content: center;
+  }
+}
+
+.about-hero__logo {
+  font-family: var(--display);
+  font-size: var(--fs-lg);
+  letter-spacing: 0.3em;
+  color: var(--gold-lt);
+}
+
+.about-hero__title {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--display);
+  font-size: var(--fs-h1);
+  line-height: 1.15;
+  color: var(--paper);
+}
+
+.about-hero__title-line--gold {
+  color: var(--gold-dp);
+}
+
+.about-hero__divider {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  inline-size: 96px;
+}
+
+.about-hero__divider-line {
+  flex: 1;
+  block-size: 1px;
+  background: var(--gold);
+}
+
+.about-hero__divider-diamond {
+  inline-size: 6px;
+  block-size: 6px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.about-hero__subtitle {
+  margin: 0;
+  max-inline-size: 42ch;
+  font-size: var(--fs-base);
+  line-height: 1.8;
+  color: var(--cream);
+}
+
+.about-hero__cta {
+  margin-block-start: var(--sp-2);
+  background: var(--ink) !important;
+  border-color: var(--ink) !important;
+  color: var(--paper) !important;
+  padding-inline: var(--sp-6) !important;
+  padding-block: var(--sp-3) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: var(--fs-sm);
+  border-radius: var(--r-sm) !important;
+}

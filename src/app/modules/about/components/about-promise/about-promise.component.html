@@ -1,0 +1,29 @@
+<section class="about-promise section">
+  <div class="container-vl">
+    <h2 class="about-promise__heading">{{ 'about.promise.heading' | translate }}</h2>
+
+    <div class="about-promise__grid">
+      <ng-container *ngFor="let item of items">
+        <a
+          *ngIf="item.href as href; else staticItem"
+          class="about-promise__item"
+          [href]="href"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="pi {{ item.icon }} about-promise__icon" aria-hidden="true"></i>
+          <p class="about-promise__title">{{ 'about.promise.' + item.key + '.title' | translate }}</p>
+          <p class="about-promise__description">{{ 'about.promise.' + item.key + '.description' | translate }}</p>
+        </a>
+
+        <ng-template #staticItem>
+          <div class="about-promise__item">
+            <i class="pi {{ item.icon }} about-promise__icon" aria-hidden="true"></i>
+            <p class="about-promise__title">{{ 'about.promise.' + item.key + '.title' | translate }}</p>
+            <p class="about-promise__description">{{ 'about.promise.' + item.key + '.description' | translate }}</p>
+          </div>
+        </ng-template>
+      </ng-container>
+    </div>
+  </div>
+</section>

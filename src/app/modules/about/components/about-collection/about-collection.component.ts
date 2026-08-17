@@ -1,0 +1,52 @@
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
+import { CategoryNode } from '../../../../core/models';
+
+interface CollectionCard {
+  key: 'watches' | 'wallets' | 'perfumes';
+  image: string;
+  category: CategoryNode | undefined;
+}
+
+// Same three curated slugs the home page's category showcase keys its local artwork
+// off (see category-showcase.component.ts) — the About page uses its own artwork set.
+const CARD_IMAGES: Record<CollectionCard['key'], string> = {
+  watches: 'assets/images/about/watches.png',
+  wallets: 'assets/images/about/wallets.png',
+  perfumes: 'assets/images/about/perfumes.png',
+};
+
+@Component({
+  selector: 'app-about-collection',
+  templateUrl: './about-collection.component.html',
+  styleUrl: './about-collection.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class AboutCollectionComponent {
+  private _categories: CategoryNode[] = [];
+
+  cards: CollectionCard[] = this.buildCards();
+
+  @Input()
+  set categories(value: CategoryNode[]) {
+    this._categories = value;
+    this.cards = this.buildCards();
+  }
+
+  get categories(): CategoryNode[] {
+    return this._categories;
+  }
+
+  queryParamsFor(card: CollectionCard): { categoryId: number } | null {
+    return card.category ? { categoryId: card.category.id } : null;
+  }
+
+  private buildCards(): CollectionCard[] {
+    const bySlug = new Map(this._categories.map((category) => [category.slug, category]));
+    return (Object.keys(CARD_IMAGES) as CollectionCard['key'][]).map((key) => ({
+      key,
+      image: CARD_IMAGES[key],
+      category: bySlug.get(key),
+    }));
+  }
+}
