@@ -17,6 +17,10 @@
 // cropped) rather than a layout decision that fights the aspect ratio.
 .plp__hero,
 .plp__promo {
+  // Text pinned to the physical left in both languages — deliberately not mirrored
+  // under RTL (same exception as about-hero.component.scss / about-gender-panels).
+  direction: ltr;
+  text-align: left;
   position: relative;
   overflow: hidden;
   border-radius: var(--r-lg);
