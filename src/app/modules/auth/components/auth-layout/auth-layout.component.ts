@@ -4,8 +4,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'app-auth-layout',
   templateUrl: './auth-layout.component.html',
   styleUrl: './auth-layout.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AuthLayoutComponent {
-
-}
+export class AuthLayoutComponent {}

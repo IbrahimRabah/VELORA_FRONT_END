@@ -1,1 +1,92 @@
-<p>register-page works!</p>
+<app-auth-layout>
+  <h1 class="auth-heading">{{ 'auth.register.heading' | translate }}</h1>
+  <p class="auth-sub">{{ 'auth.register.sub' | translate }}</p>
+  <span class="auth-rule" aria-hidden="true"></span>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="auth-field-row">
+      <div class="auth-field" [class.auth-field--invalid]="fieldError('firstName')">
+        <label class="auth-field__label" for="register-first-name">{{ 'auth.register.firstNameLabel' | translate }}</label>
+        <input
+          id="register-first-name"
+          type="text"
+          class="auth-field__input"
+          formControlName="firstName"
+          autocomplete="given-name"
+        />
+        <p class="auth-field__error" *ngIf="fieldError('firstName') as key">{{ key | translate }}</p>
+      </div>
+
+      <div class="auth-field" [class.auth-field--invalid]="fieldError('lastName')">
+        <label class="auth-field__label" for="register-last-name">{{ 'auth.register.lastNameLabel' | translate }}</label>
+        <input
+          id="register-last-name"
+          type="text"
+          class="auth-field__input"
+          formControlName="lastName"
+          autocomplete="family-name"
+        />
+        <p class="auth-field__error" *ngIf="fieldError('lastName') as key">{{ key | translate }}</p>
+      </div>
+    </div>
+
+    <div class="auth-field" [class.auth-field--invalid]="fieldError('phone')">
+      <label class="auth-field__label" for="register-phone">{{ 'auth.register.phoneLabel' | translate }}</label>
+      <input
+        id="register-phone"
+        type="tel"
+        class="auth-field__input"
+        formControlName="phone"
+        autocomplete="tel"
+      />
+      <p class="auth-field__error" *ngIf="fieldError('phone') as key">{{ key | translate }}</p>
+    </div>
+
+    <div class="auth-field" [class.auth-field--invalid]="fieldError('email')">
+      <label class="auth-field__label" for="register-email">{{ 'auth.register.emailLabel' | translate }}</label>
+      <input
+        id="register-email"
+        type="email"
+        class="auth-field__input"
+        formControlName="email"
+        autocomplete="email"
+      />
+      <p class="auth-field__error" *ngIf="fieldError('email') as key">{{ key | translate }}</p>
+    </div>
+
+    <div class="auth-field" [class.auth-field--invalid]="fieldError('password')">
+      <label class="auth-field__label" for="register-password">{{ 'auth.register.passwordLabel' | translate }}</label>
+      <div class="auth-field__input-row">
+        <input
+          id="register-password"
+          [type]="showPassword() ? 'text' : 'password'"
+          class="auth-field__input"
+          formControlName="password"
+          autocomplete="new-password"
+        />
+        <button
+          type="button"
+          class="auth-field__toggle"
+          (click)="togglePassword()"
+          [attr.aria-label]="(showPassword() ? 'auth.fields.hidePassword' : 'auth.fields.showPassword') | translate"
+        >
+          <i class="pi" [ngClass]="showPassword() ? 'pi-eye-slash' : 'pi-eye'" aria-hidden="true"></i>
+        </button>
+      </div>
+      <app-password-strength-meter [password]="form.controls.password.value"></app-password-strength-meter>
+      <p class="auth-field__error" *ngIf="fieldError('password') as key">{{ key | translate }}</p>
+    </div>
+
+    <button type="submit" class="auth-submit" [disabled]="loading()">
+      <span class="auth-submit__spinner" *ngIf="loading()" aria-hidden="true"></span>
+      <span *ngIf="!loading()">{{ 'auth.register.submit' | translate }}</span>
+    </button>
+  </form>
+
+  <div class="auth-divider"><span>{{ 'auth.login.or' | translate }}</span></div>
+
+  <p class="auth-secondary">
+    {{ 'auth.register.haveAccount' | translate }}
+    <a routerLink="/auth/login" class="auth-link">{{ 'auth.register.signIn' | translate }}</a>
+  </p>
+</app-auth-layout>

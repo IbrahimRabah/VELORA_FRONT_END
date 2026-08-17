@@ -1,0 +1,275 @@
+// Shared field styling for the four auth pages (login/register/forgot/reset). Deliberately
+// hand-rolled instead of PrimeNG or the vl-input/vl-form-field stubs — the design is a
+// single hairline rule per field with a floating label, nothing PrimeNG's Aura theme does
+// out of the box, and identical across all four forms, so it lives here once rather than
+// duplicated (and re-budgeted against anyComponentStyle) in every page's own stylesheet.
+@use 'breakpoints';
+
+.auth-heading {
+  margin: 0;
+  font-family: var(--display);
+  font-size: var(--fs-h3);
+  color: var(--ink);
+}
+
+.auth-sub {
+  margin: var(--sp-2) 0 0;
+  font-size: var(--fs-base);
+  color: var(--text-muted);
+}
+
+.auth-rule {
+  display: block;
+  inline-size: 48px;
+  block-size: 2px;
+  background: var(--gold);
+  margin-block: var(--sp-4) var(--sp-6);
+}
+
+.auth-form-error {
+  margin: 0 0 var(--sp-5);
+  padding: var(--sp-3) var(--sp-4);
+  border-inline-start: 2px solid var(--stop);
+  background: var(--stop-bg);
+  color: var(--stop);
+  font-size: var(--fs-sm);
+}
+
+.auth-field {
+  position: relative;
+  margin-block-end: var(--sp-5);
+}
+
+.auth-field-row {
+  display: grid;
+  grid-template-columns: 1fr;
+
+  @include breakpoints.md {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-4);
+  }
+}
+
+.auth-field__label {
+  display: block;
+  margin-block-end: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  transition: color 200ms ease;
+}
+
+.auth-field__label-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+
+  .auth-field__label {
+    margin-block-end: var(--sp-2);
+  }
+}
+
+.auth-field:focus-within .auth-field__label {
+  color: var(--gold-dp);
+}
+
+.auth-field__input-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.auth-field__input {
+  flex: 1;
+  min-inline-size: 0;
+  inline-size: 100%;
+  padding-block: var(--sp-3);
+  padding-inline: 0;
+  border: none;
+  border-block-end: 1px solid var(--line);
+  background: transparent;
+  font-family: var(--body);
+  font-size: var(--fs-base);
+  color: var(--ink);
+  transition: border-color 200ms ease;
+
+  &:focus {
+    outline: none;
+    border-block-end: 2px solid var(--gold);
+  }
+}
+
+.auth-field--invalid .auth-field__input {
+  border-color: var(--stop);
+}
+
+.auth-field__input-row .auth-field__input {
+  padding-inline-end: var(--sp-8);
+}
+
+button.auth-field__toggle {
+  position: absolute;
+  inset-inline-end: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-1);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 200ms ease;
+
+  &:hover {
+    color: var(--gold);
+  }
+}
+
+.auth-field__error {
+  margin: var(--sp-1) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--stop);
+}
+
+button.auth-submit {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  inline-size: 100%;
+  margin-block-start: var(--sp-6);
+  padding-block: var(--sp-4);
+  border: none;
+  border-radius: var(--r-sm);
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--body);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: transform 200ms ease, box-shadow 200ms ease, opacity 200ms ease;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+}
+
+.auth-submit__spinner {
+  inline-size: 16px;
+  block-size: 16px;
+  border: 2px solid rgba(255, 253, 249, 0.35);
+  border-block-start-color: var(--paper);
+  border-radius: 50%;
+  animation: auth-spin 700ms linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-submit__spinner {
+    animation-duration: 1400ms;
+  }
+}
+
+@keyframes auth-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.auth-divider {
+  position: relative;
+  margin-block: var(--sp-6);
+  text-align: center;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: 50%;
+    block-size: 1px;
+    background: var(--line);
+  }
+
+  span {
+    position: relative;
+    padding-inline: var(--sp-3);
+    background: var(--paper);
+  }
+}
+
+.auth-secondary {
+  margin: 0;
+  text-align: center;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.auth-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--gold-dp);
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.auth-forgot-link {
+  flex-shrink: 0;
+  font-size: var(--fs-sm);
+  color: var(--gold-dp);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.auth-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  margin-block-end: var(--sp-6);
+  font-size: var(--fs-sm);
+  color: var(--gold-dp);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.auth-page-enter {
+  animation: auth-fade-rise 250ms ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-page-enter {
+    animation: none;
+  }
+}
+
+@keyframes auth-fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

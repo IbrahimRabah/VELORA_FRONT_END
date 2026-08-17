@@ -118,7 +118,78 @@
     "confirmClearTitle": "إفراغ السلة؟",
     "confirmClearMessage": "سيتم حذف كل المنتجات من سلتك. لا يمكن التراجع عن هذا.",
     "warningsBlockingTitle": "بعض المنتجات تحتاج مراجعة قبل إتمام الطلب",
-    "warningsPriceTitle": "تغيّرت أسعار بعض المنتجات في سلتك"
+    "warningsPriceTitle": "تغيّرت أسعار بعض المنتجات في سلتك",
+    "merged": "تم دمج سلتك"
+  },
+  "auth": {
+    "layout": {
+      "tagline": "أناقة خالدة، تصلك إلى بابك."
+    },
+    "login": {
+      "heading": "أهلاً بعودتك",
+      "sub": "سجّل دخولك لمتابعة طلباتك.",
+      "identifierLabel": "رقم الموبايل أو البريد",
+      "passwordLabel": "كلمة المرور",
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "submit": "تسجيل الدخول",
+      "or": "أو",
+      "noAccount": "ليس لديك حساب؟",
+      "createOne": "أنشئ حساباً"
+    },
+    "register": {
+      "heading": "أنشئ حسابك",
+      "sub": "احفظ عناوينك وتابع طلباتك.",
+      "firstNameLabel": "الاسم الأول",
+      "lastNameLabel": "اسم العائلة",
+      "phoneLabel": "رقم الموبايل",
+      "emailLabel": "البريد الإلكتروني (اختياري)",
+      "passwordLabel": "كلمة المرور",
+      "submit": "إنشاء الحساب",
+      "haveAccount": "لديك حساب بالفعل؟",
+      "signIn": "تسجيل الدخول"
+    },
+    "forgotPassword": {
+      "heading": "نسيت كلمة المرور؟",
+      "sub": "أدخل رقم موبايلك أو بريدك الإلكتروني وسنرسل لك رابط إعادة التعيين.",
+      "identifierLabel": "رقم الموبايل أو البريد",
+      "submit": "إرسال رابط إعادة التعيين",
+      "backToLogin": "العودة لتسجيل الدخول",
+      "confirmHeading": "راجع رسائلك",
+      "confirmMessage": "إذا كان الحساب موجوداً، فرابط إعادة التعيين في طريقه إليك."
+    },
+    "resetPassword": {
+      "heading": "إعادة تعيين كلمة المرور",
+      "sub": "اختر كلمة مرور جديدة لحسابك.",
+      "newPasswordLabel": "كلمة المرور الجديدة",
+      "confirmPasswordLabel": "تأكيد كلمة المرور",
+      "submit": "إعادة تعيين كلمة المرور",
+      "backToLogin": "العودة لتسجيل الدخول",
+      "requestNewLink": "اطلب رابطاً جديداً",
+      "invalidHeading": "الرابط غير صالح أو منتهي الصلاحية",
+      "invalidMessage": "رابط إعادة تعيين كلمة المرور هذا لم يعد صالحاً. اطلب رابطاً جديداً.",
+      "successToast": "تم تحديث كلمة المرور، برجاء تسجيل الدخول مرة أخرى"
+    },
+    "passwordStrength": {
+      "weak": "ضعيفة",
+      "fair": "متوسطة",
+      "good": "جيدة",
+      "strong": "قوية"
+    },
+    "fields": {
+      "showPassword": "إظهار كلمة المرور",
+      "hidePassword": "إخفاء كلمة المرور"
+    },
+    "errors": {
+      "required": "هذا الحقل مطلوب",
+      "identifierInvalid": "أدخل رقم موبايل أو بريد إلكتروني صحيح",
+      "phoneInvalid": "أدخل رقم موبايل مصري صحيح",
+      "emailInvalid": "أدخل بريداً إلكترونياً صحيحاً",
+      "passwordMinLength": "كلمة المرور يجب أن تكون 8 أحرف على الأقل",
+      "passwordMaxLength": "كلمة المرور يجب ألا تتجاوز 72 حرفاً",
+      "weakPassword": "اختر كلمة مرور أقوى",
+      "passwordMismatch": "كلمتا المرور غير متطابقتين",
+      "genericField": "يرجى مراجعة هذا الحقل"
+    }
   },
   "about": {
     "hero": {

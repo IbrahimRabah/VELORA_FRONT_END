@@ -1,0 +1,90 @@
+@use 'styles/breakpoints';
+
+.auth-layout {
+  display: flex;
+  flex-direction: column;
+  min-block-size: 100vh;
+  background: var(--paper);
+
+  @include breakpoints.md {
+    flex-direction: row;
+  }
+}
+
+.auth-layout__image {
+  display: none;
+  position: relative;
+
+  @include breakpoints.md {
+    display: flex;
+    flex: 0 0 45%;
+    min-block-size: 100vh;
+    overflow: hidden;
+  }
+}
+
+.auth-layout__image-img {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: fill;
+  // banner.png is a wide landscape shot with its product cluster on the right side;
+  // this panel is tall/narrow, so a center crop shows mostly empty background. Bias
+  // the crop right to keep the watch/wallet/perfume in frame.
+  object-position: 80% center;
+}
+
+.auth-layout__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(13, 13, 13, 0.3) 0%, rgba(13, 13, 13, 0.7) 100%);
+}
+
+.auth-layout__image-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  inline-size: 100%;
+  margin-top: 30px;
+  padding-inline: var(--sp-8);
+  text-align: center;
+}
+
+.auth-layout__logo {
+  block-size: 96px;
+  inline-size: 96px;
+  object-fit: cover;
+  margin-block-end: var(--sp-6);
+  border-radius: var(--r-full);
+}
+
+.auth-layout__tagline {
+  margin: 0;
+  max-inline-size: 24ch;
+  font-family: var(--display);
+  font-size: var(--fs-h5);
+  letter-spacing: 0.02em;
+  color: var(--cream);
+}
+
+.auth-layout__form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: var(--sp-8) var(--pad);
+  background: var(--paper) url('/assets/images/shared/auth-form.jpg') center / cover no-repeat;
+
+  @include breakpoints.md {
+    flex: 0 0 55%;
+  }
+}
+
+.auth-layout__form-inner {
+  inline-size: 100%;
+  max-inline-size: 420px;
+}

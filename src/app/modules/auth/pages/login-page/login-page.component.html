@@ -1,1 +1,58 @@
-<p>login-page works!</p>
+<app-auth-layout>
+  <h1 class="auth-heading">{{ 'auth.login.heading' | translate }}</h1>
+  <p class="auth-sub">{{ 'auth.login.sub' | translate }}</p>
+  <span class="auth-rule" aria-hidden="true"></span>
+
+  <p class="auth-form-error" *ngIf="formError()" role="alert">{{ formError() }}</p>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="auth-field" [class.auth-field--invalid]="fieldError('identifier')">
+      <label class="auth-field__label" for="login-identifier">{{ 'auth.login.identifierLabel' | translate }}</label>
+      <input
+        id="login-identifier"
+        type="text"
+        class="auth-field__input"
+        formControlName="identifier"
+        autocomplete="username"
+      />
+      <p class="auth-field__error" *ngIf="fieldError('identifier') as key">{{ key | translate }}</p>
+    </div>
+
+    <div class="auth-field" [class.auth-field--invalid]="fieldError('password')">
+      <div class="auth-field__label-row">
+        <label class="auth-field__label" for="login-password">{{ 'auth.login.passwordLabel' | translate }}</label>
+        <a routerLink="/auth/forgot-password" class="auth-forgot-link">{{ 'auth.login.forgotPassword' | translate }}</a>
+      </div>
+      <div class="auth-field__input-row">
+        <input
+          id="login-password"
+          [type]="showPassword() ? 'text' : 'password'"
+          class="auth-field__input"
+          formControlName="password"
+          autocomplete="current-password"
+        />
+        <button
+          type="button"
+          class="auth-field__toggle"
+          (click)="togglePassword()"
+          [attr.aria-label]="(showPassword() ? 'auth.fields.hidePassword' : 'auth.fields.showPassword') | translate"
+        >
+          <i class="pi" [ngClass]="showPassword() ? 'pi-eye-slash' : 'pi-eye'" aria-hidden="true"></i>
+        </button>
+      </div>
+      <p class="auth-field__error" *ngIf="fieldError('password') as key">{{ key | translate }}</p>
+    </div>
+
+    <button type="submit" class="auth-submit" [disabled]="loading()">
+      <span class="auth-submit__spinner" *ngIf="loading()" aria-hidden="true"></span>
+      <span *ngIf="!loading()">{{ 'auth.login.submit' | translate }}</span>
+    </button>
+  </form>
+
+  <div class="auth-divider"><span>{{ 'auth.login.or' | translate }}</span></div>
+
+  <p class="auth-secondary">
+    {{ 'auth.login.noAccount' | translate }}
+    <a routerLink="/auth/register" class="auth-link">{{ 'auth.login.createOne' | translate }}</a>
+  </p>
+</app-auth-layout>

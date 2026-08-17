@@ -118,7 +118,78 @@
     "confirmClearTitle": "Clear cart?",
     "confirmClearMessage": "This removes every item from your cart. This can't be undone.",
     "warningsBlockingTitle": "These items need attention before checkout",
-    "warningsPriceTitle": "Prices have changed since you added these items"
+    "warningsPriceTitle": "Prices have changed since you added these items",
+    "merged": "Your cart has been merged"
+  },
+  "auth": {
+    "layout": {
+      "tagline": "Timeless elegance, delivered to your door."
+    },
+    "login": {
+      "heading": "Welcome Back",
+      "sub": "Sign in to track your orders.",
+      "identifierLabel": "Phone or Email",
+      "passwordLabel": "Password",
+      "forgotPassword": "Forgot your password?",
+      "submit": "Sign In",
+      "or": "or",
+      "noAccount": "Don't have an account?",
+      "createOne": "Create one"
+    },
+    "register": {
+      "heading": "Create Your Account",
+      "sub": "Save your addresses and follow your orders.",
+      "firstNameLabel": "First Name",
+      "lastNameLabel": "Last Name",
+      "phoneLabel": "Phone Number",
+      "emailLabel": "Email (optional)",
+      "passwordLabel": "Password",
+      "submit": "Create Account",
+      "haveAccount": "Already have an account?",
+      "signIn": "Sign In"
+    },
+    "forgotPassword": {
+      "heading": "Forgot Password?",
+      "sub": "Enter your phone or email and we'll send you a reset link.",
+      "identifierLabel": "Phone or Email",
+      "submit": "Send Reset Link",
+      "backToLogin": "Back to Sign In",
+      "confirmHeading": "Check your messages",
+      "confirmMessage": "If an account matches, a reset link is on its way."
+    },
+    "resetPassword": {
+      "heading": "Reset Password",
+      "sub": "Choose a new password for your account.",
+      "newPasswordLabel": "New Password",
+      "confirmPasswordLabel": "Confirm Password",
+      "submit": "Reset Password",
+      "backToLogin": "Back to Sign In",
+      "requestNewLink": "Request a new link",
+      "invalidHeading": "Link Invalid or Expired",
+      "invalidMessage": "This password reset link is no longer valid. Request a new one.",
+      "successToast": "Password updated. Please sign in again"
+    },
+    "passwordStrength": {
+      "weak": "Weak",
+      "fair": "Fair",
+      "good": "Good",
+      "strong": "Strong"
+    },
+    "fields": {
+      "showPassword": "Show password",
+      "hidePassword": "Hide password"
+    },
+    "errors": {
+      "required": "This field is required",
+      "identifierInvalid": "Enter a valid phone number or email",
+      "phoneInvalid": "Enter a valid Egyptian mobile number",
+      "emailInvalid": "Enter a valid email address",
+      "passwordMinLength": "Password must be at least 8 characters",
+      "passwordMaxLength": "Password must be at most 72 characters",
+      "weakPassword": "Choose a stronger password",
+      "passwordMismatch": "Passwords do not match",
+      "genericField": "Please check this field"
+    }
   },
   "about": {
     "hero": {

@@ -1,1 +1,29 @@
-<p>auth-layout works!</p>
+<div class="auth-layout">
+  <!--
+    Pinned to the physical start side (first in source order, first in the row) in both
+    languages — banner.png's composition has no reading direction, so this half must NOT
+    mirror under RTL like the rest of the site (see src/styles/_rtl.scss's documented
+    exception, and about-hero.component.scss / contact-hero.component.scss for the same
+    direction:ltr pattern).
+  -->
+  <div class="auth-layout__image" aria-hidden="true">
+    <img
+      class="auth-layout__image-img"
+      src="assets/images/shared/auth.png"
+      alt=""
+      loading="eager"
+      fetchpriority="high"
+    />
+    <span class="auth-layout__scrim"></span>
+    <div class="auth-layout__image-content">
+      <img class="auth-layout__logo" src="assets/images/shared/dark_logo.jpg" [alt]="'header.logoAlt' | translate" />
+      <p class="auth-layout__tagline">{{ 'auth.layout.tagline' | translate }}</p>
+    </div>
+  </div>
+
+  <div class="auth-layout__form">
+    <div class="auth-layout__form-inner auth-page-enter">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>
