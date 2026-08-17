@@ -1,0 +1,36 @@
+<section class="contact-luxury section">
+  <div class="container-vl">
+    <div class="contact-luxury__container">
+      <div class="contact-luxury__top">
+        <div class="contact-luxury__text">
+          <h2 class="contact-luxury__heading">
+            <span>{{ 'contact.luxury.headingLine1' | translate }}</span>
+            <span>{{ 'contact.luxury.headingLine2' | translate }}</span>
+            <span>{{ 'contact.luxury.headingLine3' | translate }}</span>
+          </h2>
+          <span class="contact-luxury__rule" aria-hidden="true"></span>
+          <p class="contact-luxury__body">{{ 'contact.luxury.body' | translate }}</p>
+          <a routerLink="/products" pButton pRipple class="contact-luxury__cta">{{ 'contact.luxury.cta' | translate }}</a>
+        </div>
+
+        <div class="contact-luxury__image-wrap">
+          <img
+            class="contact-luxury__image"
+            src="assets/images/contact/luxury.png"
+            [alt]="'contact.luxury.imageAlt' | translate"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+
+      <div class="contact-luxury__strip">
+        <div class="contact-luxury__strip-item" *ngFor="let item of stripItems">
+          <i class="pi {{ item.icon }} contact-luxury__strip-icon" aria-hidden="true"></i>
+          <p class="contact-luxury__strip-title">{{ 'contact.luxury.strip.' + item.key + '.title' | translate }}</p>
+          <p class="contact-luxury__strip-description">{{ 'contact.luxury.strip.' + item.key + '.description' | translate }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

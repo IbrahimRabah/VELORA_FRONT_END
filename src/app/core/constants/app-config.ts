@@ -87,7 +87,10 @@ export const APP_CONFIG = {
   },
 
   contact: {
-    // Not a contract endpoint — a direct customer-support link used on the About page.
+    // Not a contract endpoint — direct customer-support details used on the About and
+    // Contact pages. There is no contact-form endpoint, so these are the only channels.
     whatsappUrl: 'https://wa.me/201090386165',
+    phone: '01090386165',
+    email: 'ibrahimrabah25@gmail.com',
   },
 } as const;

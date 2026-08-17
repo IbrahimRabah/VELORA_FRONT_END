@@ -1,0 +1,128 @@
+@use 'styles/breakpoints';
+
+.contact-hero {
+  position: relative;
+  overflow: hidden;
+  inline-size: 100%;
+  block-size: 70vh;
+  max-block-size: 560px;
+  min-block-size: 380px;
+  background: var(--ink);
+}
+
+.contact-hero__image {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.contact-hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 13, 13, 0.55);
+
+  @include breakpoints.md {
+    // Above md the text sits over the image's own plain side, so no scrim is needed —
+    // same reasoning as about-hero.component.scss / plp__hero, just without the dark
+    // overlay since this artwork's empty side is already light.
+    background: none;
+  }
+}
+
+.contact-hero__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  block-size: 100%;
+  padding-inline: var(--pad);
+  text-align: center;
+  color: var(--paper);
+  justify-content: center;
+
+  @include breakpoints.md {
+    // Pinned to the physical left in both languages — banner.png's empty space is
+    // fixed there, so this must NOT mirror under RTL like the rest of the site (see
+    // src/styles/_rtl.scss's documented exception, and about-hero.component.scss /
+    // product-list-page.component.scss for the same left/direction:ltr pattern).
+    direction: ltr;
+    align-items: flex-start;
+    max-inline-size: 460px;
+    margin-inline-end: auto;
+    padding-inline-start: var(--pad);
+    padding-inline-end: 0;
+    text-align: start;
+    justify-content: center;
+    color: var(--ink);
+  }
+}
+
+.contact-hero__eyebrow {
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--gold-lt);
+
+  @include breakpoints.md {
+    color: var(--gold-dp);
+  }
+}
+
+.contact-hero__heading {
+  margin: 0;
+  font-family: var(--display);
+  font-size: var(--fs-h2);
+  color: inherit;
+
+  @include breakpoints.md {
+    font-size: var(--fs-h1);
+  }
+}
+
+.contact-hero__rule {
+  display: block;
+  inline-size: 60px;
+  block-size: 2px;
+  background: var(--gold);
+}
+
+.contact-hero__body {
+  margin: 0;
+  max-inline-size: 42ch;
+  font-size: var(--fs-base);
+  line-height: 1.8;
+  color: var(--cream);
+
+  @include breakpoints.md {
+    color: var(--text-muted);
+  }
+}
+
+.contact-hero__cta {
+  margin-block-start: var(--sp-2);
+  display: inline-flex !important;
+  align-items: center;
+  gap: var(--sp-2);
+  background: var(--ink) !important;
+  border-color: var(--ink) !important;
+  color: var(--paper) !important;
+  padding-block: var(--sp-4) !important;
+  padding-inline: var(--sp-6) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: var(--fs-sm);
+  border-radius: var(--r-sm) !important;
+}
+
+.contact-hero__cta-icon {
+  font-size: 0.85em;
+
+  :host-context([dir='rtl']) & {
+    transform: scaleX(-1);
+  }
+}

@@ -1,0 +1,113 @@
+@use 'styles/breakpoints';
+
+.contact-help {
+  background: var(--paper);
+}
+
+.contact-help__heading {
+  margin: 0 0 var(--sp-4);
+  font-family: var(--display);
+  font-size: var(--fs-h3);
+  text-align: center;
+  color: var(--text);
+}
+
+.contact-help__rule {
+  display: block;
+  inline-size: 60px;
+  block-size: 2px;
+  margin: 0 auto var(--sp-8);
+  background: var(--gold);
+}
+
+.contact-help__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-4);
+
+  @media (min-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include breakpoints.md {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.contact-help__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  padding: var(--sp-5);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 220ms ease, border-color 220ms ease;
+}
+
+.contact-help__card:hover,
+.contact-help__card:focus-within {
+  transform: translateY(-2px);
+  border-color: var(--gold);
+}
+
+.contact-help__icon {
+  font-size: 1.75rem;
+  color: var(--ink);
+}
+
+.contact-help__title {
+  margin: 0;
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.contact-help__description {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.contact-help__link {
+  margin-block-start: auto;
+  padding-block-start: var(--sp-2);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gold-dp);
+}
+
+.contact-help__link-icon {
+  transition: transform 220ms ease;
+
+  :host-context([dir='rtl']) & {
+    transform: scaleX(-1);
+  }
+}
+
+// Arrow slides 4px in the reading direction on hover. Under RTL the icon is already
+// mirrored (scaleX(-1) above), so keeping the same local translateX(4px) and letting
+// that mirror carry through auto-flips the visual slide to the correct physical side.
+.contact-help__card:hover .contact-help__link-icon,
+.contact-help__card:focus-within .contact-help__link-icon {
+  transform: translateX(4px);
+}
+
+:host-context([dir='rtl']) .contact-help__card:hover .contact-help__link-icon,
+:host-context([dir='rtl']) .contact-help__card:focus-within .contact-help__link-icon {
+  transform: scaleX(-1) translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-help__card,
+  .contact-help__link-icon {
+    transition: none;
+  }
+}

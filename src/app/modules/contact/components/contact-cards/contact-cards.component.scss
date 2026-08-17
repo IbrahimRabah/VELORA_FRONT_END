@@ -1,0 +1,104 @@
+@use 'styles/breakpoints';
+
+.contact-cards {
+  position: relative;
+  z-index: 1;
+  // Pulls the panel up over the hero's bottom edge — the overlap is what makes the
+  // page read as designed surfaces rather than sections stacked one after another.
+  margin-block-start: calc(-1 * var(--sp-8));
+  margin-block-end: var(--sp-8);
+
+  @include breakpoints.md {
+    margin-block-end: var(--sp-10);
+  }
+}
+
+.contact-cards__panel {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+
+  @include breakpoints.md {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.contact-cards__cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  text-align: center;
+  padding: var(--sp-6) var(--sp-4);
+  text-decoration: none;
+  color: inherit;
+  border-block-end: 1px solid var(--line);
+  transition: transform 220ms ease;
+
+  // The 5th cell (Cash on Delivery) is last and centers alone on its own row in the
+  // mobile 2-col grid.
+  &:last-child {
+    grid-column: 1 / -1;
+    border-block-end: none;
+  }
+
+  @include breakpoints.md {
+    border-block-end: none;
+
+    &:not(:first-child) {
+      border-inline-start: 1px solid var(--line);
+    }
+
+    &:last-child {
+      grid-column: auto;
+    }
+  }
+}
+
+.contact-cards__cell:hover,
+.contact-cards__cell:focus-within {
+  transform: translateY(-2px);
+}
+
+.contact-cards__icon {
+  font-size: 2rem;
+  color: var(--ink);
+  transition: color 220ms ease;
+}
+
+.contact-cards__cell:hover .contact-cards__icon,
+.contact-cards__cell:focus-within .contact-cards__icon {
+  color: var(--gold);
+}
+
+.contact-cards__title {
+  margin: 0;
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text);
+}
+
+.contact-cards__value {
+  margin: 0;
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: var(--ink);
+  direction: ltr;
+}
+
+.contact-cards__detail {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-cards__cell,
+  .contact-cards__icon {
+    transition: none;
+  }
+}

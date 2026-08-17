@@ -1,0 +1,39 @@
+<section class="contact-help section">
+  <div class="container-vl">
+    <h2 class="contact-help__heading">{{ 'contact.help.heading' | translate }}</h2>
+    <span class="contact-help__rule" aria-hidden="true"></span>
+
+    <div class="contact-help__grid">
+      <ng-container *ngFor="let card of cards">
+        <a
+          *ngIf="card.link.kind === 'route'; else externalCard"
+          class="contact-help__card"
+          [routerLink]="card.link.url"
+        >
+          <ng-container *ngTemplateOutlet="cardBody; context: { card: card }"></ng-container>
+        </a>
+
+        <ng-template #externalCard>
+          <a
+            class="contact-help__card"
+            [href]="card.link.url"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <ng-container *ngTemplateOutlet="cardBody; context: { card: card }"></ng-container>
+          </a>
+        </ng-template>
+      </ng-container>
+    </div>
+  </div>
+</section>
+
+<ng-template #cardBody let-card="card">
+  <i class="pi {{ card.icon }} contact-help__icon" aria-hidden="true"></i>
+  <p class="contact-help__title">{{ 'contact.help.' + card.key + '.title' | translate }}</p>
+  <p class="contact-help__description">{{ 'contact.help.' + card.key + '.description' | translate }}</p>
+  <span class="contact-help__link">
+    <span>{{ 'contact.help.linkLabel' | translate }}</span>
+    <i class="pi pi-arrow-right contact-help__link-icon" aria-hidden="true"></i>
+  </span>
+</ng-template>

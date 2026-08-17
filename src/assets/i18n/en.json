@@ -54,12 +54,6 @@
     },
     "copyright": "© {{year}} VELORA. All rights reserved."
   },
-  "pages": {
-    "contact": {
-      "title": "Contact Us",
-      "placeholder": "This page is coming soon."
-    }
-  },
   "product": {
     "addToCart": "Add to Cart",
     "addedToCart": "Added to cart",
@@ -224,6 +218,82 @@
       "shopWatches": "Shop Watches",
       "shopWallets": "Shop Wallets",
       "shopPerfumes": "Shop Perfumes"
+    }
+  },
+  "contact": {
+    "hero": {
+      "imageAlt": "VELORA contact banner",
+      "eyebrow": "WE'D LOVE TO HEAR FROM YOU",
+      "heading": "Contact Us",
+      "body": "Our team is here to help with any questions, requests, or feedback.",
+      "cta": "Chat on WhatsApp"
+    },
+    "cards": {
+      "whatsapp": {
+        "title": "WhatsApp",
+        "value": "01090386165",
+        "detail": "Fastest way to reach us"
+      },
+      "phone": {
+        "title": "Phone",
+        "value": "01090386165",
+        "detail": "Call us directly"
+      },
+      "email": {
+        "title": "Email",
+        "value": "ibrahimrabah25@gmail.com",
+        "detail": "We reply within 24 hours"
+      },
+      "trackOrder": {
+        "title": "Track Your Order",
+        "detail": "See your order status any time"
+      },
+      "cod": {
+        "title": "Cash on Delivery",
+        "detail": "Pay when your order arrives"
+      }
+    },
+    "luxury": {
+      "imageAlt": "VELORA luxury delivery",
+      "headingLine1": "Luxury,",
+      "headingLine2": "delivered",
+      "headingLine3": "to you.",
+      "body": "Explore the VELORA collection online and enjoy a smooth checkout, delivery across Egypt, and support at every step.",
+      "cta": "Shop Collection",
+      "strip": {
+        "cod": {
+          "title": "Cash on Delivery",
+          "description": "Pay on arrival, no card needed"
+        },
+        "delivery": {
+          "title": "Delivery to All Governorates",
+          "description": "We deliver across Egypt"
+        },
+        "support": {
+          "title": "Direct Support",
+          "description": "Reach us on WhatsApp any time"
+        }
+      }
+    },
+    "help": {
+      "heading": "How Can We Help You?",
+      "linkLabel": "Learn More",
+      "orderHelp": {
+        "title": "Order Help",
+        "description": "Track your order or check its status."
+      },
+      "cancelOrder": {
+        "title": "Cancel an Order",
+        "description": "Free cancellation any time before shipping."
+      },
+      "delivery": {
+        "title": "Delivery & Governorates",
+        "description": "We deliver to all 27 governorates."
+      },
+      "somethingElse": {
+        "title": "Something Else",
+        "description": "Message us on WhatsApp — we reply fast."
+      }
     }
   },
   "home": {

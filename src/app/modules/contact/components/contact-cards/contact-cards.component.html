@@ -1,0 +1,36 @@
+<section class="contact-cards">
+  <div class="container-vl">
+    <div class="contact-cards__panel">
+      <ng-container *ngFor="let card of cards">
+        <a
+          *ngIf="card.link.kind === 'href'"
+          class="contact-cards__cell"
+          [href]="card.link.url"
+          [target]="card.link.external ? '_blank' : null"
+          [rel]="card.link.external ? 'noopener noreferrer' : null"
+        >
+          <ng-container *ngTemplateOutlet="cell; context: { card: card }"></ng-container>
+        </a>
+
+        <a
+          *ngIf="card.link.kind === 'route'"
+          class="contact-cards__cell"
+          [routerLink]="card.link.url"
+        >
+          <ng-container *ngTemplateOutlet="cell; context: { card: card }"></ng-container>
+        </a>
+
+        <div *ngIf="card.link.kind === 'none'" class="contact-cards__cell">
+          <ng-container *ngTemplateOutlet="cell; context: { card: card }"></ng-container>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</section>
+
+<ng-template #cell let-card="card">
+  <i class="pi {{ card.icon }} contact-cards__icon" aria-hidden="true"></i>
+  <p class="contact-cards__title">{{ 'contact.cards.' + card.key + '.title' | translate }}</p>
+  <p class="contact-cards__value" *ngIf="card.value">{{ card.value }}</p>
+  <p class="contact-cards__detail">{{ 'contact.cards.' + card.key + '.detail' | translate }}</p>
+</ng-template>
