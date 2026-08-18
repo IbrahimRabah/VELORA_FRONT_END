@@ -273,3 +273,104 @@ button.auth-submit {
     transform: none;
   }
 }
+
+// Dark-glass recolor for the four auth pages' shared field styling above, scoped to
+// .auth-card (the floating card in auth-layout.component.html) so checkout's
+// guest-address-form and account's address-form-dialog — which reuse these same
+// .auth-* classes on their normal light --paper backgrounds — are untouched.
+//
+// rgba(246, 242, 235, x) below is --cream (#f6f2eb) at various opacities — written as
+// literal rgba because CSS can't apply alpha to a var() hex color without color-mix().
+.auth-card {
+  // Seeds password-strength-meter's --line (segment track) / --text-muted (label) —
+  // that component is view-encapsulated so it can't be reached by a descendant
+  // selector from here, but custom-property inheritance crosses that boundary fine.
+  // The other consumers of these two tokens below (field underline, divider line) get
+  // their own explicit overrides anyway, since they each need a different opacity than
+  // spec'd here, so this redefinition can't conflict with them.
+  --line: rgba(246, 242, 235, 0.25);
+  --text-muted: rgba(246, 242, 235, 0.65);
+
+  .auth-heading {
+    font-size: var(--fs-h2);
+    color: var(--paper);
+  }
+
+  .auth-sub {
+    color: rgba(246, 242, 235, 0.7);
+  }
+
+  .auth-form-error {
+    border-inline-start-color: rgba(232, 152, 133, 0.8);
+    background: rgba(140, 59, 46, 0.18);
+    color: rgba(232, 152, 133, 0.95);
+  }
+
+  .auth-field__label {
+    color: rgba(246, 242, 235, 0.65);
+  }
+
+  .auth-field__input {
+    color: var(--paper);
+    border-block-end-color: rgba(246, 242, 235, 0.25);
+
+    &::placeholder {
+      color: rgba(246, 242, 235, 0.4);
+    }
+  }
+
+  .auth-field--invalid .auth-field__input {
+    border-color: rgba(232, 152, 133, 0.8);
+  }
+
+  .auth-field__error {
+    color: rgba(232, 152, 133, 0.95);
+  }
+
+  button.auth-field__toggle {
+    color: rgba(246, 242, 235, 0.5);
+
+    &:hover {
+      color: var(--gold);
+    }
+  }
+
+  button.auth-submit {
+    background: var(--gold);
+    color: var(--ink);
+
+    &:hover:not(:disabled) {
+      filter: brightness(1.08);
+    }
+  }
+
+  .auth-submit__spinner {
+    border-color: rgba(13, 13, 13, 0.35);
+    border-block-start-color: var(--ink);
+  }
+
+  .auth-divider {
+    color: rgba(246, 242, 235, 0.6);
+
+    &::before {
+      background: rgba(246, 242, 235, 0.15);
+    }
+
+    span {
+      // Matches the card's non-blur fallback fill (not the blurred 0.55 one) — a small
+      // text-sized patch reading slightly darker than the blurred backdrop around it is
+      // unnoticeable, whereas the alternative (a see-through gap in the divider line) is not.
+      background: rgba(13, 13, 13, 0.88);
+    }
+  }
+
+  .auth-secondary {
+    color: rgba(246, 242, 235, 0.6);
+  }
+
+  .auth-link,
+  .auth-forgot-link,
+  .auth-back-link {
+    color: var(--gold-lt);
+  }
+}
