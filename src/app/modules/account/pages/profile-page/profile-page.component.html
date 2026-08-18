@@ -1,1 +1,53 @@
-<p>profile-page works!</p>
+<div class="profile-page auth-page-enter">
+  <h1 class="profile-page__heading">{{ 'account.profile.heading' | translate }}</h1>
+  <span class="profile-page__rule" aria-hidden="true"></span>
+  <p class="profile-page__note">{{ 'account.profile.viewOnlyNote' | translate }}</p>
+
+  <ng-container *ngIf="!loading(); else skeletonTpl">
+    <div class="profile-page__rows">
+      <div class="profile-row">
+        <i class="pi pi-user profile-row__icon" aria-hidden="true"></i>
+        <div class="profile-row__body">
+          <p class="profile-row__label">{{ 'account.profile.nameLabel' | translate }}</p>
+          <p class="profile-row__value">{{ displayName() }}</p>
+        </div>
+      </div>
+
+      <div class="profile-row">
+        <i class="pi pi-phone profile-row__icon" aria-hidden="true"></i>
+        <div class="profile-row__body">
+          <p class="profile-row__label">{{ 'account.profile.phoneLabel' | translate }}</p>
+          <p class="profile-row__value" [class.profile-row__value--muted]="!phone()">
+            {{ phone() || ('account.profile.notProvided' | translate) }}
+          </p>
+        </div>
+      </div>
+
+      <div class="profile-row">
+        <i class="pi pi-envelope profile-row__icon" aria-hidden="true"></i>
+        <div class="profile-row__body">
+          <p class="profile-row__label">{{ 'account.profile.emailLabel' | translate }}</p>
+          <p class="profile-row__value" [class.profile-row__value--muted]="!email()">
+            {{ email() || ('account.profile.notProvided' | translate) }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="profile-page__signout"
+      [disabled]="signingOutAll()"
+      (click)="signOutAllDevices()"
+    >
+      <i class="pi pi-shield" aria-hidden="true"></i>
+      {{ 'account.profile.signOutAll' | translate }}
+    </button>
+  </ng-container>
+
+  <ng-template #skeletonTpl>
+    <div class="profile-page__rows">
+      <p-skeleton *ngFor="let row of [0, 1, 2]" height="60px" borderRadius="var(--r-md)"></p-skeleton>
+    </div>
+  </ng-template>
+</div>

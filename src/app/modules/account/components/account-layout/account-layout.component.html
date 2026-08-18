@@ -1,1 +1,55 @@
-<p>account-layout works!</p>
+<div class="account-layout container-vl section">
+  <aside class="account-sidebar">
+    <div class="account-sidebar__profile">
+      <span class="account-sidebar__avatar" aria-hidden="true">{{ initial() }}</span>
+      <p class="account-sidebar__name">{{ displayName() }}</p>
+    </div>
+
+    <span class="account-sidebar__rule" aria-hidden="true">
+      <span class="account-sidebar__rule-line"></span>
+      <span class="account-sidebar__rule-diamond"></span>
+      <span class="account-sidebar__rule-line"></span>
+    </span>
+
+    <nav class="account-sidebar__nav">
+      <a
+        routerLink="/me/profile"
+        routerLinkActive="account-sidebar__link--active"
+        class="account-sidebar__link"
+      >
+        <i class="pi pi-user" aria-hidden="true"></i>
+        <span>{{ 'account.nav.profile' | translate }}</span>
+      </a>
+      <a
+        routerLink="/me/addresses"
+        routerLinkActive="account-sidebar__link--active"
+        class="account-sidebar__link"
+      >
+        <i class="pi pi-map-marker" aria-hidden="true"></i>
+        <span>{{ 'account.nav.addresses' | translate }}</span>
+      </a>
+      <a
+        routerLink="/me/orders"
+        routerLinkActive="account-sidebar__link--active"
+        class="account-sidebar__link"
+      >
+        <i class="pi pi-shopping-bag" aria-hidden="true"></i>
+        <span>{{ 'account.nav.orders' | translate }}</span>
+      </a>
+      <button type="button" class="account-sidebar__link account-sidebar__link--button" (click)="signOut()">
+        <i class="pi pi-sign-out" aria-hidden="true"></i>
+        <span>{{ 'account.nav.signOut' | translate }}</span>
+      </button>
+    </nav>
+  </aside>
+
+  <section class="account-content">
+    <div class="account-empty" *ngIf="isIndex()">
+      <img class="account-empty__mark" src="assets/images/shared/logo.png" [alt]="'header.logoAlt' | translate" />
+      <h1 class="account-empty__heading">{{ 'account.empty.heading' | translate }}</h1>
+      <p class="account-empty__message">{{ 'account.empty.message' | translate }}</p>
+    </div>
+
+    <router-outlet></router-outlet>
+  </section>
+</div>

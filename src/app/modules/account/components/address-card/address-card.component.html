@@ -1,1 +1,49 @@
-<p>address-card works!</p>
+<article class="address-card" [class.address-card--default]="address.isDefault">
+  <div class="address-card__top">
+    <span class="address-card__icon-wrap" aria-hidden="true">
+      <i class="pi" [ngClass]="labelIcon"></i>
+    </span>
+    <h3 class="address-card__label">
+      <ng-container *ngIf="labelTranslateKey as key; else rawLabel">{{ key | translate }}</ng-container>
+      <ng-template #rawLabel>{{ address.label || ('account.addresses.untitledLabel' | translate) }}</ng-template>
+    </h3>
+    <span class="address-card__pill" *ngIf="address.isDefault">
+      <i class="pi pi-star-fill" aria-hidden="true"></i>
+      {{ 'account.addresses.defaultPill' | translate }}
+    </span>
+  </div>
+
+  <p class="address-card__recipient">{{ address.recipientName }}</p>
+
+  <p class="address-card__phone">
+    <i class="pi pi-phone" aria-hidden="true"></i>
+    {{ address.phone }}
+  </p>
+  <p class="address-card__phone" *ngIf="address.altPhone">
+    <i class="pi pi-phone" aria-hidden="true"></i>
+    {{ address.altPhone }}
+  </p>
+
+  <p class="address-card__formatted">{{ address.formatted }}</p>
+
+  <div class="address-card__footer">
+    <button type="button" class="address-card__action" (click)="edit.emit()">
+      <i class="pi pi-pencil" aria-hidden="true"></i>
+      {{ 'account.addresses.edit' | translate }}
+    </button>
+    <button type="button" class="address-card__action" (click)="deleteAddress.emit()">
+      <i class="pi pi-trash" aria-hidden="true"></i>
+      {{ 'account.addresses.delete' | translate }}
+    </button>
+    <button
+      type="button"
+      class="address-card__action"
+      [disabled]="address.isDefault"
+      [attr.title]="address.isDefault ? ('account.addresses.alreadyDefault' | translate) : null"
+      (click)="setDefault.emit()"
+    >
+      <i class="pi pi-star" aria-hidden="true"></i>
+      {{ 'account.addresses.setDefault' | translate }}
+    </button>
+  </div>
+</article>

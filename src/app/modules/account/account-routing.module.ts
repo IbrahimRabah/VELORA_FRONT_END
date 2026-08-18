@@ -1,16 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AccountLayoutComponent } from './components/account-layout/account-layout.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { AddressesPageComponent } from './pages/addresses-page/addresses-page.component';
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { OrderDetailsPageComponent } from './pages/order-details-page/order-details-page.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'profile', pathMatch: 'full' },
-  { path: 'profile', component: ProfilePageComponent },
-  { path: 'addresses', component: AddressesPageComponent },
-  { path: 'orders', component: OrdersPageComponent },
-  { path: 'orders/:id', component: OrderDetailsPageComponent }
+  {
+    path: '',
+    component: AccountLayoutComponent,
+    children: [
+      // No route for '' on purpose — landing on /me exactly then matches nothing here,
+      // leaving the router-outlet empty, and AccountLayoutComponent shows its own centred
+      // empty state instead. (A componentless route entry for '' is invalid config —
+      // NG04014 — so it must be omitted entirely, not declared with no component.)
+      { path: 'profile', component: ProfilePageComponent },
+      { path: 'addresses', component: AddressesPageComponent },
+      { path: 'orders', component: OrdersPageComponent },
+      { path: 'orders/:id', component: OrderDetailsPageComponent }
+    ]
+  }
 ];
 
 @NgModule({

@@ -432,5 +432,80 @@
       "next": "الصفحة التالية",
       "goToPage": "اذهب إلى صفحة {{page}}"
     }
+  },
+  "account": {
+    "nav": {
+      "profile": "بياناتي",
+      "addresses": "عناويني",
+      "orders": "طلباتي",
+      "signOut": "تسجيل الخروج"
+    },
+    "empty": {
+      "heading": "حسابي",
+      "message": "اختر من القائمة للوصول إلى بياناتك وعناوينك."
+    },
+    "profile": {
+      "heading": "بياناتي",
+      "viewOnlyNote": "عرض فقط — لا يمكن تعديل هذه البيانات حالياً.",
+      "nameLabel": "الاسم",
+      "phoneLabel": "رقم الموبايل",
+      "emailLabel": "البريد الإلكتروني",
+      "notProvided": "غير مسجّل",
+      "signOutAll": "تسجيل الخروج من كل الأجهزة",
+      "confirmLogoutAllTitle": "تسجيل الخروج من كل مكان؟",
+      "confirmLogoutAllMessage": "سيتم تسجيل خروجك من كل جهاز مسجّل دخوله حالياً."
+    },
+    "addresses": {
+      "heading": "عناويني",
+      "subline": "أدر عناوين التوصيل الخاصة بك.",
+      "limitNote": "يمكنك إضافة حتى 10 عناوين",
+      "addButton": "أضف عنوان",
+      "limitReached": "لقد وصلت إلى الحد الأقصى (10 عناوين)",
+      "emptyHeading": "لا توجد عناوين بعد",
+      "emptyMessage": "أضف أول عنوان توصيل لتسريع إتمام الطلب.",
+      "savedToast": "تم حفظ العنوان",
+      "deletedToast": "تم حذف العنوان",
+      "defaultUpdatedToast": "تم تحديث العنوان الافتراضي",
+      "confirmDeleteTitle": "حذف العنوان؟",
+      "confirmDeleteMessage": "سيتم حذف هذا العنوان نهائياً.",
+      "untitledLabel": "عنوان",
+      "defaultPill": "افتراضي",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "setDefault": "تعيين كافتراضي",
+      "alreadyDefault": "هذا هو عنوانك الافتراضي بالفعل"
+    },
+    "addressForm": {
+      "addTitle": "أضف عنوانًا",
+      "editTitle": "تعديل العنوان",
+      "labelField": "نوع العنوان",
+      "labelHome": "المنزل",
+      "labelWork": "العمل",
+      "labelOther": "أخرى",
+      "recipientNameLabel": "اسم المستلم",
+      "recipientNamePlaceholder": "أدخل اسم المستلم الكامل",
+      "phoneLabel": "رقم الموبايل",
+      "phonePlaceholder": "01xxxxxxxxx",
+      "governorateLabel": "المحافظة",
+      "governoratePlaceholder": "اختر المحافظة",
+      "unavailable": "غير متاحة",
+      "altPhoneLabel": "رقم موبايل آخر (اختياري)",
+      "altPhoneHelper": "رقم إضافي يساعد المندوب لو الهاتف الأساسي لا يرد.",
+      "areaLabel": "المنطقة (اختياري)",
+      "areaPlaceholder": "أدخل المنطقة أو الحي",
+      "streetLabel": "الشارع",
+      "streetPlaceholder": "أدخل اسم الشارع",
+      "buildingLabel": "العمارة (اختياري)",
+      "buildingPlaceholder": "مثال: 12",
+      "floorLabel": "الدور (اختياري)",
+      "floorPlaceholder": "مثال: 3",
+      "apartmentLabel": "الشقة (اختياري)",
+      "apartmentPlaceholder": "مثال: 7",
+      "landmarkLabel": "العلامة المميزة (اختياري)",
+      "landmarkHelper": "مثال: بجوار مسجد النور — التفاصيل الواضحة توصل الطلب أسرع.",
+      "makeDefaultLabel": "تعيين كافتراضي",
+      "makeDefaultNote": "أول عنوان يُحفظ سيصبح افتراضيًا تلقائيًا.",
+      "save": "حفظ العنوان"
+    }
   }
 }

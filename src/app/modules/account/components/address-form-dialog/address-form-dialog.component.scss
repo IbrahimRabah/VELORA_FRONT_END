@@ -1,0 +1,275 @@
+@use 'styles/breakpoints';
+
+// Portalled to <body> at runtime (see the .ts file) to escape ancestor stacking
+// contexts, so --z-modal here is what actually decides paint order vs. the header.
+.address-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-4);
+}
+
+.address-dialog__backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--overlay);
+  backdrop-filter: blur(4px);
+}
+
+.address-dialog__panel {
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+  max-inline-size: 720px;
+  max-block-size: 88vh;
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  animation: address-dialog-in 250ms ease both;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+@keyframes address-dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// Header/footer — fixed, never scroll; the form body between them is the only
+// scrollable region. Hairlines fade in via .address-dialog__*--scrolled once the body
+// has actually scrolled (bound from the component on the body's scroll event). The VELORA
+// mark behind the title is a texture, not a picture: z-index: -1 keeps the low-opacity
+// watermark behind the title/close button without fading them too.
+.address-dialog__header {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-5) var(--sp-6);
+  border-block-end: 1px solid transparent;
+  transition: 200ms ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: url('/assets/images/shared/global.jpg') center / cover no-repeat;
+    opacity: 0.08;
+  }
+}
+
+.address-dialog__title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: var(--fs-h4);
+  color: var(--ink);
+}
+
+.address-dialog__title-rule {
+  display: block;
+  inline-size: 40px;
+  block-size: 2px;
+  margin-block-start: var(--sp-3);
+  background: var(--gold);
+}
+
+.address-dialog__close {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 32px;
+  block-size: 32px;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--cream);
+    color: var(--gold-dp);
+  }
+}
+
+.address-dialog__body {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  overflow-y: auto;
+  padding: var(--sp-6);
+
+  @include breakpoints.md {
+    padding: var(--sp-8);
+  }
+}
+
+.address-dialog__segmented {
+  display: flex;
+  gap: var(--sp-3);
+  margin-block-end: var(--sp-5);
+}
+
+.address-dialog__segment {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  transition: 200ms ease;
+}
+
+.address-dialog__segment--active {
+  background: var(--cream);
+  border-color: var(--gold);
+  color: var(--gold-dp);
+  font-weight: 600;
+}
+
+.address-dialog__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0 var(--sp-5);
+
+  @include breakpoints.md {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.address-dialog__field--full {
+  @include breakpoints.md {
+    grid-column: 1 / -1;
+  }
+}
+
+.address-dialog__helper {
+  margin: var(--sp-1) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.address-dialog__checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-block-start: var(--sp-3);
+  font-size: var(--fs-base);
+  color: var(--ink);
+  cursor: pointer;
+
+  input {
+    accent-color: var(--gold);
+    inline-size: 18px;
+    block-size: 18px;
+  }
+}
+
+.address-dialog__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-6);
+  background: var(--cream);
+  border-block-start: 1px solid transparent;
+  transition: 200ms ease;
+}
+
+.address-dialog__header--scrolled,
+.address-dialog__footer--scrolled {
+  border-color: var(--line);
+}
+
+.address-dialog__cancel,
+.address-dialog__save {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-6);
+  border-radius: var(--r-sm);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: 200ms ease;
+}
+
+.address-dialog__cancel {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+}
+
+.address-dialog__save {
+  border: none;
+  background: var(--gold);
+  color: var(--ink);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+}
+
+.address-dialog__cancel:disabled,
+.address-dialog__save:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+// Mobile — bottom sheet. The base rule above already gives every corner --r-lg, so only
+// the block-end (bottom) pair needs squaring off — no need to restate the top pair.
+@media (max-width: 639px) {
+  .address-dialog {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .address-dialog__panel {
+    max-inline-size: 100%;
+    max-block-size: 92vh;
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+    animation: address-dialog-sheet-in 250ms ease both;
+  }
+}
+
+@keyframes address-dialog-sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// Placed last so it wins the cascade over both the scale-in and slide-up keyframes above,
+// regardless of viewport width.
+@media (prefers-reduced-motion: reduce) {
+  .address-dialog__panel {
+    animation: none;
+  }
+}

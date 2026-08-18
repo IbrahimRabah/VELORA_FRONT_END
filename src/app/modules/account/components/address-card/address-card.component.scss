@@ -1,0 +1,134 @@
+:host {
+  display: block;
+  animation: address-card-enter 300ms ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host {
+    animation: none;
+  }
+}
+
+@keyframes address-card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.address-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  block-size: 100%;
+  padding: var(--sp-5);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+}
+
+.address-card--default {
+  border-color: var(--gold);
+}
+
+.address-card__top {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.address-card__icon-wrap {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  inline-size: 40px;
+  block-size: 40px;
+  border-radius: 50%;
+  background: var(--cream);
+  color: var(--gold-dp);
+}
+
+.address-card__label {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  font-family: var(--display);
+  font-size: var(--fs-h6);
+  color: var(--ink);
+}
+
+.address-card__pill {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--sp-1);
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: var(--r-full);
+  background: var(--gold);
+  color: var(--ink);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+.address-card__recipient {
+  margin: 0;
+  font-size: var(--fs-base);
+  color: var(--ink);
+}
+
+.address-card__phone {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+
+  i {
+    color: var(--gold-dp);
+    font-size: 0.8rem;
+  }
+}
+
+.address-card__formatted {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+}
+
+.address-card__footer {
+  display: flex;
+  gap: var(--sp-5);
+  margin-block-start: auto;
+  padding-block-start: var(--sp-3);
+  border-block-start: 1px solid var(--line-soft);
+}
+
+.address-card__action {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 200ms ease;
+
+  &:hover:not(:disabled) {
+    color: var(--gold-dp);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+}

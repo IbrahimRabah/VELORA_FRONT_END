@@ -1,0 +1,92 @@
+.profile-page__heading {
+  margin: 0;
+  font-family: var(--display);
+  font-size: var(--fs-h3);
+  color: var(--ink);
+}
+
+.profile-page__rule {
+  display: block;
+  inline-size: 48px;
+  block-size: 2px;
+  background: var(--gold);
+  margin-block: var(--sp-4) var(--sp-4);
+}
+
+.profile-page__note {
+  margin: 0 0 var(--sp-6);
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+
+.profile-page__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.profile-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-4);
+  border-radius: var(--r-md);
+  background: var(--cream);
+}
+
+.profile-row__icon {
+  flex-shrink: 0;
+  color: var(--gold-dp);
+  font-size: 1.125rem;
+}
+
+.profile-row__body {
+  min-inline-size: 0;
+}
+
+.profile-row__label {
+  margin: 0 0 var(--sp-1);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.profile-row__value {
+  margin: 0;
+  font-size: var(--fs-base);
+  color: var(--ink);
+}
+
+.profile-row__value--muted {
+  color: var(--text-muted);
+}
+
+.profile-page__signout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  inline-size: 100%;
+  margin-block-start: var(--sp-6);
+  padding-block: var(--sp-4);
+  border: 1px solid var(--gold-dp);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--gold-dp);
+  font-family: var(--body);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease;
+
+  &:hover:not(:disabled) {
+    background: var(--gold-dp);
+    color: var(--paper);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+}

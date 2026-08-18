@@ -1,1 +1,66 @@
-<p>addresses-page works!</p>
+<div class="addresses-page auth-page-enter">
+  <header class="addresses-page__header">
+    <div>
+      <h1 class="addresses-page__heading">{{ 'account.addresses.heading' | translate }}</h1>
+      <p class="addresses-page__subline">{{ 'account.addresses.subline' | translate }}</p>
+    </div>
+
+    <div class="addresses-page__actions">
+      <div class="addresses-page__counter">
+        <p class="addresses-page__counter-value">{{ addresses().length }} / {{ maxAddresses }}</p>
+        <p class="addresses-page__counter-note">{{ 'account.addresses.limitNote' | translate }}</p>
+      </div>
+      <button
+        type="button"
+        class="addresses-page__add"
+        [disabled]="!canAddMore()"
+        [attr.title]="!canAddMore() ? ('account.addresses.limitReached' | translate) : null"
+        (click)="openAdd()"
+      >
+        <i class="pi pi-plus" aria-hidden="true"></i>
+        {{ 'account.addresses.addButton' | translate }}
+      </button>
+    </div>
+  </header>
+
+  <ng-container *ngIf="!loading(); else skeletonTpl">
+    <div class="addresses-page__grid" *ngIf="addresses().length; else emptyTpl">
+      <app-address-card
+        *ngFor="let address of addresses(); let i = index"
+        [address]="address"
+        [style.animation-delay.ms]="i * 40"
+        (edit)="openEdit(address)"
+        (deleteAddress)="onDelete(address)"
+        (setDefault)="onSetDefault(address)"
+      ></app-address-card>
+    </div>
+  </ng-container>
+
+  <ng-template #emptyTpl>
+    <div class="addresses-page__empty">
+      <span class="addresses-page__empty-icon" aria-hidden="true">
+        <i class="pi pi-map-marker"></i>
+      </span>
+      <h2 class="addresses-page__empty-heading">{{ 'account.addresses.emptyHeading' | translate }}</h2>
+      <p class="addresses-page__empty-message">{{ 'account.addresses.emptyMessage' | translate }}</p>
+      <button type="button" class="addresses-page__add" (click)="openAdd()">
+        <i class="pi pi-plus" aria-hidden="true"></i>
+        {{ 'account.addresses.addButton' | translate }}
+      </button>
+    </div>
+  </ng-template>
+
+  <ng-template #skeletonTpl>
+    <div class="addresses-page__grid">
+      <p-skeleton *ngFor="let row of [0, 1]" height="220px" borderRadius="var(--r-lg)"></p-skeleton>
+    </div>
+  </ng-template>
+
+  <app-address-form-dialog
+    [open]="dialogOpen()"
+    [address]="editingAddress()"
+    [governorates]="governorates()"
+    (closed)="onDialogClosed()"
+    (saved)="onDialogSaved()"
+  ></app-address-form-dialog>
+</div>

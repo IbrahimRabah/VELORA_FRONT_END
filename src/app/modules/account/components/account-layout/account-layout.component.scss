@@ -1,0 +1,195 @@
+@use 'styles/breakpoints';
+
+.account-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+
+  @include breakpoints.md {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    align-items: start;
+    gap: var(--sp-6);
+  }
+}
+
+.account-sidebar {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--sp-4);
+
+  @include breakpoints.md {
+    padding: var(--sp-5);
+    position: sticky;
+    inset-block-start: var(--sp-5);
+  }
+}
+
+.account-sidebar__profile {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+
+  @include breakpoints.md {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.account-sidebar__avatar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 48px;
+  block-size: 48px;
+  border-radius: 50%;
+  background: var(--cream);
+  border: 2px solid var(--gold);
+  font-family: var(--display);
+  font-size: var(--fs-h6);
+  color: var(--gold-dp);
+
+  @include breakpoints.md {
+    inline-size: 96px;
+    block-size: 96px;
+    font-size: var(--fs-h3);
+  }
+}
+
+.account-sidebar__name {
+  margin: 0;
+  font-family: var(--display);
+  font-size: var(--fs-lg);
+  color: var(--ink);
+
+  @include breakpoints.md {
+    font-size: var(--fs-h5);
+  }
+}
+
+.account-sidebar__rule {
+  display: none;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-block: var(--sp-5);
+
+  @include breakpoints.md {
+    display: flex;
+  }
+}
+
+.account-sidebar__rule-line {
+  flex: 1;
+  block-size: 1px;
+  background: var(--gold);
+}
+
+.account-sidebar__rule-diamond {
+  flex-shrink: 0;
+  inline-size: 6px;
+  block-size: 6px;
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+
+.account-sidebar__nav {
+  display: flex;
+  overflow-x: auto;
+  gap: var(--sp-1);
+  margin-block-start: var(--sp-4);
+
+  @include breakpoints.md {
+    flex-direction: column;
+    overflow-x: visible;
+    gap: 0;
+    margin-block-start: 0;
+  }
+}
+
+.account-sidebar__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-shrink: 0;
+  padding: var(--sp-3);
+  border: none;
+  border-block-end: 2px solid transparent;
+  background: none;
+  font: inherit;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 200ms ease, background 200ms ease;
+
+  @include breakpoints.md {
+    border-block-end: 1px solid var(--line-soft);
+    border-radius: var(--r-sm);
+  }
+
+  &:last-child {
+    @include breakpoints.md {
+      border-block-end: none;
+    }
+  }
+
+  &:hover {
+    color: var(--gold-dp);
+  }
+}
+
+.account-sidebar__link--active {
+  color: var(--gold-dp);
+  border-block-end-color: var(--gold);
+  font-weight: 600;
+
+  @include breakpoints.md {
+    background: var(--cream);
+    border-inline-start: 2px solid var(--gold);
+    border-block-end-color: var(--line-soft);
+    padding-inline-start: calc(var(--sp-3) - 2px);
+  }
+}
+
+.account-content {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--sp-5);
+
+  @include breakpoints.md {
+    padding: var(--sp-8);
+  }
+}
+
+.account-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-3);
+  padding-block: var(--sp-8);
+}
+
+.account-empty__mark {
+  inline-size: 96px;
+  block-size: auto;
+  margin-block-end: var(--sp-2);
+}
+
+.account-empty__heading {
+  margin: 0;
+  font-family: var(--display);
+  font-size: var(--fs-h4);
+  color: var(--ink);
+}
+
+.account-empty__message {
+  margin: 0;
+  max-inline-size: 40ch;
+  color: var(--text-muted);
+}

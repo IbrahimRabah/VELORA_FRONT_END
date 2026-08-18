@@ -1,0 +1,124 @@
+@use 'styles/breakpoints';
+
+.addresses-page__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  margin-block-end: var(--sp-6);
+
+  @include breakpoints.md {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}
+
+.addresses-page__heading {
+  margin: 0;
+  font-family: var(--display);
+  font-size: var(--fs-h3);
+  color: var(--ink);
+}
+
+.addresses-page__subline {
+  margin: var(--sp-2) 0 0;
+  color: var(--text-muted);
+  font-size: var(--fs-base);
+}
+
+.addresses-page__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  flex-shrink: 0;
+}
+
+.addresses-page__counter {
+  text-align: end;
+}
+
+.addresses-page__counter-value {
+  margin: 0;
+  font-family: var(--display);
+  font-size: var(--fs-h5);
+  color: var(--ink);
+}
+
+.addresses-page__counter-note {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.addresses-page__add {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-shrink: 0;
+  padding: var(--sp-3) var(--sp-5);
+  border: none;
+  border-radius: var(--r-sm);
+  background: var(--gold);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: transform 200ms ease, opacity 200ms ease;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+}
+
+.addresses-page__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-5);
+
+  @include breakpoints.md {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.addresses-page__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-3);
+  padding-block: var(--sp-8);
+}
+
+.addresses-page__empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 72px;
+  block-size: 72px;
+  margin-block-end: var(--sp-2);
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  color: var(--gold-dp);
+  font-size: 1.5rem;
+}
+
+.addresses-page__empty-heading {
+  margin: 0;
+  font-family: var(--display);
+  font-size: var(--fs-h5);
+  color: var(--ink);
+}
+
+.addresses-page__empty-message {
+  margin: 0 0 var(--sp-3);
+  max-inline-size: 40ch;
+  color: var(--text-muted);
+}

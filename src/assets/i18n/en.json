@@ -432,5 +432,80 @@
       "next": "Next page",
       "goToPage": "Go to page {{page}}"
     }
+  },
+  "account": {
+    "nav": {
+      "profile": "My Profile",
+      "addresses": "My Addresses",
+      "orders": "My Orders",
+      "signOut": "Sign Out"
+    },
+    "empty": {
+      "heading": "My Account",
+      "message": "Choose from the menu to reach your details and addresses."
+    },
+    "profile": {
+      "heading": "My Profile",
+      "viewOnlyNote": "View only — these details cannot be edited yet.",
+      "nameLabel": "Name",
+      "phoneLabel": "Phone",
+      "emailLabel": "Email",
+      "notProvided": "Not provided",
+      "signOutAll": "Sign out from all devices",
+      "confirmLogoutAllTitle": "Sign out everywhere?",
+      "confirmLogoutAllMessage": "This signs you out on every device where you're currently logged in."
+    },
+    "addresses": {
+      "heading": "My Addresses",
+      "subline": "Manage your delivery addresses.",
+      "limitNote": "You can add up to 10 addresses",
+      "addButton": "Add Address",
+      "limitReached": "You've reached the 10-address limit",
+      "emptyHeading": "No addresses yet",
+      "emptyMessage": "Add your first delivery address to speed up checkout.",
+      "savedToast": "Address saved",
+      "deletedToast": "Address removed",
+      "defaultUpdatedToast": "Default address updated",
+      "confirmDeleteTitle": "Delete address?",
+      "confirmDeleteMessage": "This address will be permanently removed.",
+      "untitledLabel": "Address",
+      "defaultPill": "Default",
+      "edit": "Edit",
+      "delete": "Delete",
+      "setDefault": "Set as Default",
+      "alreadyDefault": "This is already your default address"
+    },
+    "addressForm": {
+      "addTitle": "Add Address",
+      "editTitle": "Edit Address",
+      "labelField": "Address label",
+      "labelHome": "Home",
+      "labelWork": "Work",
+      "labelOther": "Other",
+      "recipientNameLabel": "Recipient Name",
+      "recipientNamePlaceholder": "Enter the full name",
+      "phoneLabel": "Phone",
+      "phonePlaceholder": "01xxxxxxxxx",
+      "governorateLabel": "Governorate",
+      "governoratePlaceholder": "Select a governorate",
+      "unavailable": "Unavailable",
+      "altPhoneLabel": "Alternate Phone (optional)",
+      "altPhoneHelper": "A second number helps the courier if the first doesn't answer.",
+      "areaLabel": "Area (optional)",
+      "areaPlaceholder": "Enter the area or district",
+      "streetLabel": "Street",
+      "streetPlaceholder": "Enter the street address",
+      "buildingLabel": "Building (optional)",
+      "buildingPlaceholder": "e.g. 12",
+      "floorLabel": "Floor (optional)",
+      "floorPlaceholder": "e.g. 3",
+      "apartmentLabel": "Apartment (optional)",
+      "apartmentPlaceholder": "e.g. 7",
+      "landmarkLabel": "Landmark (optional)",
+      "landmarkHelper": "e.g. next to Al-Nour Mosque — clear landmarks get your order there faster.",
+      "makeDefaultLabel": "Set as default",
+      "makeDefaultNote": "Your first address is saved as default automatically.",
+      "save": "Save Address"
+    }
   }
 }
