@@ -1,0 +1,14 @@
+.shipping-step__reassurance {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  margin: var(--sp-4) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+
+  i {
+    flex-shrink: 0;
+    margin-block-start: 2px;
+    color: var(--brand);
+  }
+}

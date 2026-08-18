@@ -1,11 +1,38 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject, signal } from '@angular/core';
+
+import { ShippingQuoteResponse, money } from '../../../../core/models';
+import { CartStoreService } from '../../../../core/state/cart-store.service';
 
 @Component({
   selector: 'app-checkout-summary-sidebar',
   templateUrl: './checkout-summary-sidebar.component.html',
   styleUrl: './checkout-summary-sidebar.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckoutSummarySidebarComponent {
+  readonly cartStore = inject(CartStoreService);
 
+  @Input() governorateSelected = false;
+  @Input() shippingQuote: ShippingQuoteResponse | null = null;
+  @Input() shippingLoading = false;
+  @Input() canSubmit = false;
+  @Input() submitting = false;
+  @Input() processing = false;
+  @Input() submitError: string | null = null;
+
+  @Output() readonly placeOrder = new EventEmitter<void>();
+
+  // Mobile only — the desktop layout always shows the full breakdown (see the component's
+  // scss, which ignores this below the `lg` breakpoint). Checkout-page renders its own
+  // fixed-to-the-bottom Place Order bar on mobile, so this card's own submit button is
+  // desktop-only.
+  readonly expanded = signal(false);
+
+  get hasCodFee(): boolean {
+    return money(this.shippingQuote?.codFee) > 0;
+  }
+
+  toggleExpanded(): void {
+    this.expanded.update((value) => !value);
+  }
 }

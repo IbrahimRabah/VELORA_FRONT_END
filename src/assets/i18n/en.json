@@ -121,6 +121,60 @@
     "warningsPriceTitle": "Prices have changed since you added these items",
     "merged": "Your cart has been merged"
   },
+  "checkout": {
+    "title": "Checkout",
+    "subtitle": "Complete your order securely.",
+    "contact": {
+      "heading": "Contact",
+      "phoneLabel": "Phone",
+      "emailLabel": "Email (optional)",
+      "emailPlaceholder": "you@example.com"
+    },
+    "address": {
+      "heading": "Shipping Address",
+      "useDifferent": "Use a different address",
+      "noteLabel": "Order Note (optional)",
+      "notePlaceholder": "Anything the courier or our team should know"
+    },
+    "delivery": {
+      "heading": "Delivery Method",
+      "codTitle": "Cash on Delivery",
+      "codSubtitle": "Pay when your order arrives.",
+      "reassurance": "You pay nothing now — payment is made when your order arrives."
+    },
+    "summary": {
+      "heading": "Order Summary",
+      "qty": "Qty: {{count}}",
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "selectGovernorate": "Select a governorate",
+      "arrivesIn": "Arrives in {{min}}–{{max}} days",
+      "codFee": "COD Fee",
+      "total": "Total",
+      "includingVat": "Including VAT",
+      "placeOrder": "Place Order",
+      "reassurance": {
+        "cod": "Cash on Delivery",
+        "cancelTitle": "Free Cancellation",
+        "cancelSubtitle": "Before shipping",
+        "authentic": "Authentic Products"
+      }
+    },
+    "errors": {
+      "processing": "Your order is being processed",
+      "governorateNotServed": "Delivery is not currently available to this governorate"
+    },
+    "confirmation": {
+      "heading": "Thank you for your order",
+      "copyAria": "Copy order number",
+      "copied": "Order number copied",
+      "saveNumberNote": "Save this number — you'll need it if you contact us about this order.",
+      "callNote": "We'll call you to confirm your order.",
+      "continueShopping": "Continue Shopping",
+      "viewOrders": "View My Orders",
+      "unavailable": "We couldn't load this order's details here. Check your phone — we'll call to confirm it shortly."
+    }
+  },
   "auth": {
     "layout": {
       "tagline": "Timeless elegance, delivered to your door."

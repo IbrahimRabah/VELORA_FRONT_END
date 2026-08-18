@@ -1,0 +1,105 @@
+.saved-address-picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.saved-address-picker__card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  inline-size: 100%;
+  padding: var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  text-align: start;
+  cursor: pointer;
+  transition: border-color 200ms ease, background 200ms ease;
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--gold);
+  }
+}
+
+.saved-address-picker__card--selected {
+  border-color: var(--gold);
+  border-width: 2px;
+  background: var(--surface-alt);
+}
+
+.saved-address-picker__radio {
+  flex-shrink: 0;
+  margin-block-start: 3px;
+  inline-size: 18px;
+  block-size: 18px;
+  border-radius: var(--r-full);
+  border: 2px solid var(--line);
+  transition: border-color 200ms ease;
+}
+
+.saved-address-picker__card--selected .saved-address-picker__radio {
+  border-color: var(--gold);
+  border-width: 5px;
+}
+
+.saved-address-picker__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-inline-size: 0;
+}
+
+.saved-address-picker__head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.saved-address-picker__label {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold-dp);
+}
+
+.saved-address-picker__default {
+  padding: 2px var(--sp-2);
+  border-radius: var(--r-full);
+  background: var(--ok-bg);
+  color: var(--ok);
+  font-size: var(--fs-sm);
+}
+
+.saved-address-picker__name {
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.saved-address-picker__formatted {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.saved-address-picker__different {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  align-self: flex-start;
+  padding-block: var(--sp-2);
+  border: none;
+  background: none;
+  color: var(--gold-dp);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+  }
+}

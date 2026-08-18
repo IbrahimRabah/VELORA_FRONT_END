@@ -1,1 +1,24 @@
-<p>saved-address-picker works!</p>
+<div class="saved-address-picker">
+  <button
+    type="button"
+    class="saved-address-picker__card"
+    *ngFor="let address of addresses"
+    [class.saved-address-picker__card--selected]="address.id === selectedId"
+    (click)="select.emit(address.id)"
+  >
+    <span class="saved-address-picker__radio" aria-hidden="true"></span>
+    <span class="saved-address-picker__body">
+      <span class="saved-address-picker__head">
+        <span class="saved-address-picker__label" *ngIf="address.label">{{ address.label }}</span>
+        <span class="saved-address-picker__default" *ngIf="address.isDefault">{{ 'account.addresses.defaultPill' | translate }}</span>
+      </span>
+      <span class="saved-address-picker__name">{{ address.recipientName }} &bull; {{ address.phone }}</span>
+      <span class="saved-address-picker__formatted">{{ address.formatted }}</span>
+    </span>
+  </button>
+
+  <button type="button" class="saved-address-picker__different" (click)="useDifferent.emit()">
+    <i class="pi pi-plus" aria-hidden="true"></i>
+    {{ 'checkout.address.useDifferent' | translate }}
+  </button>
+</div>

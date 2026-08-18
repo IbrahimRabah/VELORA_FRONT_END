@@ -20,6 +20,11 @@ import { ToastService } from '../services/toast.service';
 // Guards the "retry once" rule for the optimistic-lock conflict below.
 const CONCURRENT_STOCK_RETRIED = new HttpContextToken<boolean>(() => false);
 
+// Set by order-api.service.place() — checkout renders STOCK_UNAVAILABLE, GOVERNORATE_NOT_SERVED,
+// CART_EMPTY and DUPLICATE_ORDER inline (above the Place Order button, or as a distinct
+// "still processing" state for the 409), never as a toast. Every other caller is unaffected.
+export const SUPPRESS_ERROR_TOAST = new HttpContextToken<boolean>(() => false);
+
 // Thrown instead of the raw HttpErrorResponse for 400 VALIDATION_FAILED, so forms can
 // check `error.kind` and render `fieldErrors` under each control by `field` name instead
 // of digging through err.error.errors themselves.
@@ -53,6 +58,13 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     // Owned by auth.interceptor / guest-token.interceptor — never toast or transform.
     if (err.status === 401) {
+      return throwError(() => err);
+    }
+
+    // Caller owns its own inline error handling — pass the raw HttpErrorResponse through
+    // untouched, including for 400 VALIDATION_FAILED (checkout's own address form already
+    // validates required fields client-side, so this is a rare edge case handled generically).
+    if (req.context.get(SUPPRESS_ERROR_TOAST)) {
       return throwError(() => err);
     }
 

@@ -1,0 +1,71 @@
+// Shared card shell for the checkout page's stacked sections (Contact, Shipping Address,
+// Delivery Method) — same --surface/--r-lg/--shadow-sm card with a leading --ink icon
+// badge and a var(--display) title, used identically by three sibling components, so it
+// lives here once rather than duplicated per component (same reasoning as _auth-form.scss).
+@use 'breakpoints';
+
+.checkout-card {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--sp-5);
+
+  @include breakpoints.md {
+    padding: var(--sp-6);
+  }
+}
+
+.checkout-card__head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-block-end: var(--sp-5);
+}
+
+.checkout-card__badge {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  inline-size: 40px;
+  block-size: 40px;
+  border-radius: var(--r-md);
+  background: var(--ink);
+  color: var(--gold);
+
+  i {
+    font-size: 1.1rem;
+  }
+}
+
+.checkout-card__title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: var(--fs-h5);
+  color: var(--text);
+}
+
+.checkout-card-enter {
+  // --card-delay is set by the parent page on each section's host tag (a custom property
+  // set on a component's host element crosses the emulated-encapsulation boundary via
+  // normal CSS inheritance, unlike a descendant selector reaching into its template).
+  animation: checkout-fade-rise 300ms ease both;
+  animation-delay: var(--card-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .checkout-card-enter {
+    animation: none;
+  }
+}
+
+@keyframes checkout-fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,1 +1,29 @@
-<p>address-step works!</p>
+<section class="checkout-card checkout-card-enter">
+  <div class="checkout-card__head">
+    <span class="checkout-card__badge" aria-hidden="true"><i class="pi pi-map-marker"></i></span>
+    <h2 class="checkout-card__title">{{ 'checkout.address.heading' | translate }}</h2>
+  </div>
+
+  <ng-container *ngIf="isLoggedIn() && loadingAddresses()">
+    <div class="address-step__skeleton">
+      <p-skeleton height="4.5rem" borderRadius="var(--r-md)"></p-skeleton>
+      <p-skeleton height="4.5rem" borderRadius="var(--r-md)"></p-skeleton>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!(isLoggedIn() && loadingAddresses())">
+    <app-saved-address-picker
+      *ngIf="mode() === 'saved'"
+      [addresses]="addresses()"
+      [selectedId]="selectedAddressId()"
+      (select)="onSelect($event)"
+      (useDifferent)="onUseDifferent()"
+    ></app-saved-address-picker>
+
+    <app-guest-address-form
+      *ngIf="mode() === 'new'"
+      [governorates]="governorates"
+      (valueChange)="onGuestValueChange($event)"
+    ></app-guest-address-form>
+  </ng-container>
+</section>

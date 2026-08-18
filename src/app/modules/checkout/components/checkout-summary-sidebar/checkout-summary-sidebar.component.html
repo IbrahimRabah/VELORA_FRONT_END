@@ -1,1 +1,97 @@
-<p>checkout-summary-sidebar works!</p>
+<div class="checkout-summary" *ngIf="cartStore.cart() as cart">
+  <button
+    type="button"
+    class="checkout-summary__mobile-toggle"
+    (click)="toggleExpanded()"
+    [attr.aria-expanded]="expanded()"
+  >
+    <span>{{ 'checkout.summary.heading' | translate }}</span>
+    <span class="checkout-summary__mobile-total">
+      <app-vl-price [minPrice]="shippingQuote?.estimatedTotal ?? cart.estimatedTotal"></app-vl-price>
+    </span>
+    <i class="pi" [ngClass]="expanded() ? 'pi-chevron-up' : 'pi-chevron-down'" aria-hidden="true"></i>
+  </button>
+
+  <div class="checkout-summary__body" [class.checkout-summary__body--collapsed]="!expanded() && !submitError && !processing">
+  <h2 class="checkout-summary__heading">{{ 'checkout.summary.heading' | translate }}</h2>
+
+  <div class="checkout-summary__items">
+    <div class="checkout-summary__item" *ngFor="let item of cart.items">
+      <span class="checkout-summary__thumb">
+        <img [src]="item.imageUrl" [alt]="item.name" loading="lazy" decoding="async" />
+      </span>
+      <span class="checkout-summary__item-info">
+        <span class="checkout-summary__item-name">{{ item.name }}</span>
+        <span class="checkout-summary__item-variant">{{ item.variantSummary }}</span>
+        <span class="checkout-summary__item-qty">{{ 'checkout.summary.qty' | translate: { count: item.quantity } }}</span>
+      </span>
+      <span class="checkout-summary__item-total"><app-vl-price [minPrice]="item.lineTotal"></app-vl-price></span>
+    </div>
+  </div>
+
+  <div class="checkout-summary__totals">
+    <div class="checkout-summary__row">
+      <span class="checkout-summary__label">{{ 'checkout.summary.subtotal' | translate }}</span>
+      <span class="checkout-summary__value"><app-vl-price [minPrice]="cart.subtotal"></app-vl-price></span>
+    </div>
+
+    <div class="checkout-summary__row">
+      <span class="checkout-summary__label">{{ 'checkout.summary.shipping' | translate }}</span>
+
+      <span class="checkout-summary__value" *ngIf="!governorateSelected">{{ 'checkout.summary.selectGovernorate' | translate }}</span>
+      <p-skeleton *ngIf="governorateSelected && shippingLoading" width="4.5rem" height="1rem"></p-skeleton>
+      <span class="checkout-summary__value checkout-summary__value--fade" *ngIf="governorateSelected && !shippingLoading && shippingQuote">
+        <app-vl-price [minPrice]="shippingQuote!.shippingCost"></app-vl-price>
+      </span>
+    </div>
+
+    <p class="checkout-summary__delivery" *ngIf="governorateSelected && !shippingLoading && shippingQuote">
+      {{ 'checkout.summary.arrivesIn' | translate: { min: shippingQuote!.deliveryDaysMin, max: shippingQuote!.deliveryDaysMax } }}
+    </p>
+
+    <div class="checkout-summary__row" *ngIf="hasCodFee">
+      <span class="checkout-summary__label">{{ 'checkout.summary.codFee' | translate }}</span>
+      <span class="checkout-summary__value"><app-vl-price [minPrice]="shippingQuote!.codFee"></app-vl-price></span>
+    </div>
+
+    <div class="checkout-summary__total-row">
+      <div class="checkout-summary__total-label">
+        <span>{{ 'checkout.summary.total' | translate }}</span>
+        <small>{{ 'checkout.summary.includingVat' | translate }}</small>
+      </div>
+      <span class="checkout-summary__total-value">
+        <app-vl-price [minPrice]="shippingQuote?.estimatedTotal ?? cart.estimatedTotal"></app-vl-price>
+      </span>
+    </div>
+  </div>
+
+  <p class="checkout-summary__processing" *ngIf="processing">
+    <i class="pi pi-spin pi-spinner" aria-hidden="true"></i>
+    {{ 'checkout.errors.processing' | translate }}
+  </p>
+  <p class="checkout-summary__error" *ngIf="submitError && !processing">{{ submitError }}</p>
+
+  <button type="button" class="checkout-summary__submit" [disabled]="submitting || processing" (click)="placeOrder.emit()">
+    <span class="auth-submit__spinner" *ngIf="submitting" aria-hidden="true"></span>
+    <span *ngIf="!submitting">{{ 'checkout.summary.placeOrder' | translate }}</span>
+  </button>
+
+  <div class="checkout-summary__reassurance">
+    <div class="checkout-summary__reassurance-item">
+      <i class="pi pi-money-bill" aria-hidden="true"></i>
+      <span>{{ 'checkout.summary.reassurance.cod' | translate }}</span>
+    </div>
+    <div class="checkout-summary__reassurance-item">
+      <i class="pi pi-replay" aria-hidden="true"></i>
+      <span>
+        {{ 'checkout.summary.reassurance.cancelTitle' | translate }}
+        <small>{{ 'checkout.summary.reassurance.cancelSubtitle' | translate }}</small>
+      </span>
+    </div>
+    <div class="checkout-summary__reassurance-item">
+      <i class="pi pi-verified" aria-hidden="true"></i>
+      <span>{{ 'checkout.summary.reassurance.authentic' | translate }}</span>
+    </div>
+  </div>
+  </div>
+</div>

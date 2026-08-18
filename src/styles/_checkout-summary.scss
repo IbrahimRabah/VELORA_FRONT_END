@@ -1,0 +1,306 @@
+// Styles for app-checkout-summary-sidebar (modules/checkout/components/checkout-summary-sidebar).
+// Lives here rather than the component's own styleUrl to stay under the anyComponentStyle
+// budget (4kb) — this block alone compiles past that on its own.
+@use 'breakpoints';
+
+.checkout-summary {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--sp-5);
+  animation: checkout-fade-rise 300ms ease both;
+  animation-delay: var(--card-delay, 150ms);
+
+  @include breakpoints.lg {
+    padding: var(--sp-6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .checkout-summary {
+    animation: none;
+  }
+}
+
+.checkout-summary__mobile-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  inline-size: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--display);
+  font-size: var(--fs-h6);
+  color: var(--text);
+  cursor: pointer;
+
+  i {
+    color: var(--text-muted);
+  }
+
+  @include breakpoints.lg {
+    display: none;
+  }
+}
+
+.checkout-summary__mobile-total {
+  margin-inline-end: auto;
+  font-family: var(--body);
+  font-size: var(--fs-base);
+  font-weight: 700;
+}
+
+.checkout-summary__body {
+  margin-block-start: var(--sp-5);
+
+  @include breakpoints.lg {
+    margin-block-start: 0;
+  }
+}
+
+.checkout-summary__body--collapsed {
+  display: none;
+
+  @include breakpoints.lg {
+    display: block;
+  }
+}
+
+.checkout-summary__heading {
+  display: none;
+  margin: 0 0 var(--sp-5);
+  font-family: var(--display);
+  font-size: var(--fs-h5);
+  color: var(--text);
+
+  @include breakpoints.lg {
+    display: block;
+  }
+}
+
+.checkout-summary__items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  margin-block-end: var(--sp-5);
+  padding-block-end: var(--sp-5);
+  border-block-end: 1px solid var(--line-soft);
+}
+
+.checkout-summary__item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.checkout-summary__thumb {
+  flex-shrink: 0;
+  display: block;
+  inline-size: 56px;
+  block-size: 56px;
+  border-radius: var(--r-md);
+  background: var(--cream);
+  overflow: hidden;
+
+  img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+}
+
+.checkout-summary__item-info {
+  flex: 1;
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.checkout-summary__item-name {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.checkout-summary__item-variant,
+.checkout-summary__item-qty {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.checkout-summary__item-total {
+  flex-shrink: 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.checkout-summary__totals {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkout-summary__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding-block: var(--sp-2);
+  font-size: var(--fs-sm);
+}
+
+.checkout-summary__label {
+  color: var(--text-muted);
+}
+
+.checkout-summary__value {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.checkout-summary__value--fade {
+  animation: checkout-summary-fade 200ms ease;
+}
+
+@keyframes checkout-summary-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.checkout-summary__delivery {
+  margin: 0 0 var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  text-align: end;
+}
+
+.checkout-summary__total-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin-block-start: var(--sp-3);
+  padding-block-start: var(--sp-4);
+  border-block-start: 1px solid var(--line);
+}
+
+.checkout-summary__total-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: var(--fs-h4);
+  font-weight: 700;
+  color: var(--gold-dp);
+
+  small {
+    font-size: var(--fs-sm);
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+}
+
+.checkout-summary__total-value {
+  font-size: var(--fs-h4);
+  font-weight: 700;
+  color: var(--gold-dp);
+}
+
+.checkout-summary__processing {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin: var(--sp-5) 0 0;
+  padding: var(--sp-3) var(--sp-4);
+  border-inline-start: 2px solid var(--info);
+  background: var(--info-bg);
+  color: var(--info);
+  font-size: var(--fs-sm);
+}
+
+.checkout-summary__error {
+  margin: var(--sp-5) 0 0;
+  padding: var(--sp-3) var(--sp-4);
+  border-inline-start: 2px solid var(--stop);
+  background: var(--stop-bg);
+  color: var(--stop);
+  font-size: var(--fs-sm);
+}
+
+// `button.` (not just `.checkout-summary__submit`) to match the specificity of
+// _reset.scss's `button:not([class*='p-']) { color: inherit; }` — otherwise that rule
+// wins and the button's text inherits the page's dark ink color instead of --paper,
+// vanishing against the --ink background.
+button.checkout-summary__submit {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  inline-size: 100%;
+  margin-block-start: var(--sp-5);
+  padding: var(--sp-4);
+  border: none;
+  border-radius: var(--r-md);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: opacity 200ms ease;
+
+  @include breakpoints.lg {
+    display: flex;
+  }
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    opacity: 0.88;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.checkout-summary__reassurance {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-block-start: var(--sp-5);
+  padding-block-start: var(--sp-5);
+  border-block-start: 1px solid var(--line-soft);
+}
+
+.checkout-summary__reassurance-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--text);
+
+  i {
+    flex-shrink: 0;
+    margin-block-start: 2px;
+    color: var(--brand);
+  }
+
+  small {
+    display: block;
+    color: var(--text-muted);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .checkout-summary__value--fade {
+    animation: none;
+  }
+}

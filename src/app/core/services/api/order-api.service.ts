@@ -1,9 +1,10 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpContext, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { API_ROUTES } from '../../constants/api-routes';
 import { APP_CONFIG } from '../../constants/app-config';
+import { SUPPRESS_ERROR_TOAST } from '../../interceptors/error.interceptor';
 import { CancelOrderRequest, OrderResponse, OrderSummaryResponse, PageResponse, PlaceOrderRequest } from '../../models';
 
 @Injectable({
@@ -23,6 +24,7 @@ export class OrderApiService {
   place(body: PlaceOrderRequest, idempotencyKey: string): Observable<OrderResponse> {
     return this.http.post<OrderResponse>(API_ROUTES.orders.place(), body, {
       headers: { 'Idempotency-Key': idempotencyKey },
+      context: new HttpContext().set(SUPPRESS_ERROR_TOAST, true),
     });
   }
 

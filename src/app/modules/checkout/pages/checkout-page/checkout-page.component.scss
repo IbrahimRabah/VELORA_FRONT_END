@@ -1,0 +1,146 @@
+@use 'styles/breakpoints';
+
+.checkout-page {
+  background: var(--cream);
+  padding-block-end: calc(var(--sp-10) + 72px);
+
+  @include breakpoints.lg {
+    padding-block-end: var(--sp-10);
+  }
+}
+
+.checkout-page__banner {
+  inline-size: 100%;
+  block-size: 100px;
+  overflow: hidden;
+
+  @include breakpoints.md {
+    block-size: 140px;
+  }
+
+  img {
+    inline-size: 100%;
+    block-size: 100%;
+  }
+}
+
+.checkout-page__section {
+  padding-block-start: var(--sp-6);
+}
+
+.checkout-page__header {
+  margin-block-end: var(--sp-8);
+}
+
+.checkout-page__title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: var(--fs-h1);
+  color: var(--ink);
+}
+
+.checkout-page__rule {
+  display: block;
+  inline-size: 56px;
+  block-size: 2px;
+  background: var(--gold);
+  margin-block: var(--sp-4) var(--sp-3);
+}
+
+.checkout-page__sub {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--fs-base);
+}
+
+.checkout-page__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-6);
+  align-items: start;
+
+  @include breakpoints.lg {
+    grid-template-columns: 1.7fr 1fr;
+  }
+}
+
+.checkout-page__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+
+  app-review-step {
+    --card-delay: 0ms;
+  }
+
+  app-address-step {
+    --card-delay: 50ms;
+  }
+
+  app-shipping-step {
+    --card-delay: 100ms;
+  }
+}
+
+.checkout-page__sidebar {
+  app-checkout-summary-sidebar {
+    --card-delay: 150ms;
+    display: block;
+  }
+
+  @include breakpoints.lg {
+    position: sticky;
+    inset-block-start: var(--sp-6);
+  }
+}
+
+.checkout-page__mobile-bar {
+  position: fixed;
+  inset-inline: 0;
+  inset-block-end: 0;
+  z-index: var(--z-header);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+
+  @include breakpoints.lg {
+    display: none;
+  }
+}
+
+.checkout-page__mobile-bar-total {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--text);
+}
+
+// `button.` to match _reset.scss's `button:not([class*='p-']) { color: inherit; }`
+// specificity — otherwise that rule wins and the text goes invisible against --ink.
+button.checkout-page__mobile-bar-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-5);
+  border: none;
+  border-radius: var(--r-md);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}

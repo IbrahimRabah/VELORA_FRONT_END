@@ -1,1 +1,91 @@
-<p>order-confirmation-page works!</p>
+<div class="confirmation-page container-vl section">
+  <div class="confirmation-page__check" aria-hidden="true">
+    <i class="pi pi-check"></i>
+  </div>
+
+  <h1 class="confirmation-page__heading">{{ 'checkout.confirmation.heading' | translate }}</h1>
+
+  <div class="confirmation-page__number-tile">
+    <img class="confirmation-page__watermark" src="assets/images/shared/global.jpg" alt="" aria-hidden="true" />
+    <span class="confirmation-page__number">{{ orderNumber }}</span>
+    <button
+      type="button"
+      class="confirmation-page__copy"
+      (click)="copyOrderNumber()"
+      [attr.aria-label]="'checkout.confirmation.copyAria' | translate"
+    >
+      <i class="pi pi-copy" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <p class="confirmation-page__save-note" *ngIf="!authStore.isLoggedIn()">
+    {{ 'checkout.confirmation.saveNumberNote' | translate }}
+  </p>
+
+  <p class="confirmation-page__call-note">{{ 'checkout.confirmation.callNote' | translate }}</p>
+
+  <ng-container *ngIf="loading()">
+    <div class="confirmation-page__loading">
+      <p-skeleton height="6rem" borderRadius="var(--r-md)"></p-skeleton>
+      <p-skeleton height="6rem" borderRadius="var(--r-md)"></p-skeleton>
+    </div>
+  </ng-container>
+
+  <div class="confirmation-page__summary" *ngIf="order() as summaryOrder">
+    <h2 class="confirmation-page__summary-heading">{{ 'checkout.summary.heading' | translate }}</h2>
+
+    <div class="confirmation-page__items">
+      <div class="confirmation-page__item" *ngFor="let item of summaryOrder.items">
+        <span class="confirmation-page__thumb">
+          <img [src]="item.imageUrl" [alt]="item.name" loading="lazy" decoding="async" />
+        </span>
+        <span class="confirmation-page__item-info">
+          <span class="confirmation-page__item-name">{{ item.name }}</span>
+          <span class="confirmation-page__item-variant">{{ item.variantSummary }}</span>
+          <span class="confirmation-page__item-qty">{{ 'checkout.summary.qty' | translate: { count: item.quantity } }}</span>
+        </span>
+        <span class="confirmation-page__item-total"><app-vl-price [minPrice]="item.lineTotal"></app-vl-price></span>
+      </div>
+    </div>
+
+    <div class="confirmation-page__block">
+      <h3 class="confirmation-page__block-title">{{ 'checkout.address.heading' | translate }}</h3>
+      <p class="confirmation-page__address">{{ summaryOrder.shippingAddress.formatted }}</p>
+      <p class="confirmation-page__delivery">
+        {{ 'checkout.summary.arrivesIn' | translate: { min: summaryOrder.deliveryDaysMin, max: summaryOrder.deliveryDaysMax } }}
+      </p>
+    </div>
+
+    <div class="confirmation-page__totals">
+      <div class="confirmation-page__row">
+        <span>{{ 'checkout.summary.subtotal' | translate }}</span>
+        <app-vl-price [minPrice]="summaryOrder.subtotal"></app-vl-price>
+      </div>
+      <div class="confirmation-page__row">
+        <span>{{ 'checkout.summary.shipping' | translate }}</span>
+        <app-vl-price [minPrice]="summaryOrder.shippingCost"></app-vl-price>
+      </div>
+      <div class="confirmation-page__row" *ngIf="hasCodFee(summaryOrder)">
+        <span>{{ 'checkout.summary.codFee' | translate }}</span>
+        <app-vl-price [minPrice]="summaryOrder.codFee"></app-vl-price>
+      </div>
+      <div class="confirmation-page__row confirmation-page__row--total">
+        <span>{{ 'checkout.summary.total' | translate }}</span>
+        <app-vl-price [minPrice]="summaryOrder.grandTotal"></app-vl-price>
+      </div>
+    </div>
+  </div>
+
+  <p class="confirmation-page__unavailable" *ngIf="unavailable() && !order()">
+    {{ 'checkout.confirmation.unavailable' | translate }}
+  </p>
+
+  <div class="confirmation-page__actions">
+    <a routerLink="/products" class="confirmation-page__cta confirmation-page__cta--primary">
+      {{ 'checkout.confirmation.continueShopping' | translate }}
+    </a>
+    <a routerLink="/me/orders" class="confirmation-page__cta confirmation-page__cta--secondary" *ngIf="authStore.isLoggedIn()">
+      {{ 'checkout.confirmation.viewOrders' | translate }}
+    </a>
+  </div>
+</div>

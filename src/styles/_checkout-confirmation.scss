@@ -1,0 +1,283 @@
+// Styles for app-order-confirmation-page (modules/checkout/pages/order-confirmation-page).
+// Lives here rather than the component's own styleUrl to stay under the anyComponentStyle
+// budget (4kb) — this block alone compiles past that on its own.
+@use 'breakpoints';
+
+.confirmation-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-inline-size: 640px;
+  text-align: center;
+}
+
+.confirmation-page__check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 72px;
+  block-size: 72px;
+  border-radius: var(--r-full);
+  border: 2px solid var(--gold);
+  color: var(--gold-dp);
+  font-size: 1.75rem;
+  animation: confirmation-check-in 400ms ease both;
+}
+
+@keyframes confirmation-check-in {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confirmation-page__check {
+    animation: none;
+  }
+}
+
+.confirmation-page__heading {
+  margin: var(--sp-5) 0 0;
+  font-family: var(--display);
+  font-size: var(--fs-h3);
+  color: var(--ink);
+}
+
+.confirmation-page__number-tile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  inline-size: 100%;
+  margin-block-start: var(--sp-6);
+  padding: var(--sp-5);
+  border-radius: var(--r-md);
+  background: var(--cream);
+  overflow: hidden;
+}
+
+.confirmation-page__watermark {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: contain;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.confirmation-page__number {
+  position: relative;
+  font-family: var(--body);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+
+.confirmation-page__copy {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  border: none;
+  border-radius: var(--r-full);
+  background: var(--surface);
+  color: var(--gold-dp);
+  cursor: pointer;
+  transition: background 200ms ease;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--surface-alt);
+  }
+}
+
+.confirmation-page__save-note,
+.confirmation-page__call-note {
+  margin: var(--sp-4) 0 0;
+  max-inline-size: 46ch;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.confirmation-page__loading {
+  inline-size: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-block-start: var(--sp-8);
+}
+
+.confirmation-page__summary {
+  inline-size: 100%;
+  margin-block-start: var(--sp-8);
+  padding: var(--sp-6);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  text-align: start;
+}
+
+.confirmation-page__summary-heading {
+  margin: 0 0 var(--sp-5);
+  font-family: var(--display);
+  font-size: var(--fs-h5);
+  color: var(--text);
+}
+
+.confirmation-page__items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding-block-end: var(--sp-5);
+  border-block-end: 1px solid var(--line-soft);
+}
+
+.confirmation-page__item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.confirmation-page__thumb {
+  flex-shrink: 0;
+  display: block;
+  inline-size: 56px;
+  block-size: 56px;
+  border-radius: var(--r-md);
+  background: var(--cream);
+  overflow: hidden;
+
+  img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+}
+
+.confirmation-page__item-info {
+  flex: 1;
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: var(--fs-sm);
+}
+
+.confirmation-page__item-name {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.confirmation-page__item-variant,
+.confirmation-page__item-qty {
+  color: var(--text-muted);
+}
+
+.confirmation-page__item-total {
+  flex-shrink: 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.confirmation-page__block {
+  padding-block: var(--sp-5);
+  border-block-end: 1px solid var(--line-soft);
+}
+
+.confirmation-page__block-title {
+  margin: 0 0 var(--sp-2);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.confirmation-page__address {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.confirmation-page__delivery {
+  margin: var(--sp-2) 0 0;
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+
+.confirmation-page__totals {
+  padding-block-start: var(--sp-5);
+  display: flex;
+  flex-direction: column;
+}
+
+.confirmation-page__row {
+  display: flex;
+  justify-content: space-between;
+  padding-block: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.confirmation-page__row--total {
+  margin-block-start: var(--sp-2);
+  padding-block-start: var(--sp-3);
+  border-block-start: 1px solid var(--line);
+  font-size: var(--fs-h5);
+  font-weight: 700;
+  color: var(--gold-dp);
+}
+
+.confirmation-page__unavailable {
+  margin-block-start: var(--sp-6);
+  color: var(--text-muted);
+}
+
+.confirmation-page__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  inline-size: 100%;
+  margin-block-start: var(--sp-8);
+
+  @include breakpoints.sm {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.confirmation-page__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-3) var(--sp-6);
+  border-radius: var(--r-sm);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.confirmation-page__cta--primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.confirmation-page__cta--secondary {
+  border: 1px solid var(--line);
+  color: var(--text);
+}

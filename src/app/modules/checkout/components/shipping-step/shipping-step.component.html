@@ -1,1 +1,13 @@
-<p>shipping-step works!</p>
+<section class="checkout-card checkout-card-enter">
+  <div class="checkout-card__head">
+    <span class="checkout-card__badge" aria-hidden="true"><i class="pi pi-truck"></i></span>
+    <h2 class="checkout-card__title">{{ 'checkout.delivery.heading' | translate }}</h2>
+  </div>
+
+  <app-payment-method-selector></app-payment-method-selector>
+
+  <p class="shipping-step__reassurance">
+    <i class="pi pi-shield" aria-hidden="true"></i>
+    {{ 'checkout.delivery.reassurance' | translate }}
+  </p>
+</section>

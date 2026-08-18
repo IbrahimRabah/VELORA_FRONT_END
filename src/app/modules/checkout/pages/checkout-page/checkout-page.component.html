@@ -1,1 +1,47 @@
-<p>checkout-page works!</p>
+<div class="checkout-page">
+  <div class="checkout-page__banner">
+    <img src="assets/images/shared/velora-banner.jpg" alt="" fetchpriority="high" loading="eager" />
+  </div>
+
+  <div class="container-vl section checkout-page__section">
+    <header class="checkout-page__header">
+      <h1 class="checkout-page__title">{{ 'checkout.title' | translate }}</h1>
+      <span class="checkout-page__rule" aria-hidden="true"></span>
+      <p class="checkout-page__sub">{{ 'checkout.subtitle' | translate }}</p>
+    </header>
+
+    <div class="checkout-page__grid">
+      <div class="checkout-page__main">
+        <app-review-step (contactChange)="onContactChange($event)"></app-review-step>
+
+        <app-address-step [governorates]="governorates()" (addressChange)="onAddressChange($event)"></app-address-step>
+
+        <app-shipping-step></app-shipping-step>
+      </div>
+
+      <aside class="checkout-page__sidebar">
+        <app-checkout-summary-sidebar
+          [governorateSelected]="governorateSelected()"
+          [shippingQuote]="shippingQuote()"
+          [shippingLoading]="shippingLoading()"
+          [canSubmit]="canSubmit()"
+          [submitting]="submitting()"
+          [processing]="processing()"
+          [submitError]="submitError()"
+          (placeOrder)="onPlaceOrder()"
+        ></app-checkout-summary-sidebar>
+      </aside>
+    </div>
+  </div>
+
+  <div class="checkout-page__mobile-bar">
+    <div class="checkout-page__mobile-bar-total">
+      <span>{{ 'checkout.summary.total' | translate }}</span>
+      <app-vl-price [minPrice]="shippingQuote()?.estimatedTotal ?? cartStore.cart()?.estimatedTotal ?? 0"></app-vl-price>
+    </div>
+    <button type="button" class="checkout-page__mobile-bar-cta" [disabled]="!canSubmit()" (click)="onPlaceOrder()">
+      <span class="auth-submit__spinner" *ngIf="submitting()" aria-hidden="true"></span>
+      <span *ngIf="!submitting()">{{ 'checkout.summary.placeOrder' | translate }}</span>
+    </button>
+  </div>
+</div>

@@ -121,6 +121,60 @@
     "warningsPriceTitle": "تغيّرت أسعار بعض المنتجات في سلتك",
     "merged": "تم دمج سلتك"
   },
+  "checkout": {
+    "title": "إتمام الطلب",
+    "subtitle": "أكمل طلبك بكل أمان.",
+    "contact": {
+      "heading": "التواصل",
+      "phoneLabel": "رقم الهاتف",
+      "emailLabel": "البريد الإلكتروني (اختياري)",
+      "emailPlaceholder": "you@example.com"
+    },
+    "address": {
+      "heading": "عنوان الشحن",
+      "useDifferent": "استخدم عنوانًا آخر",
+      "noteLabel": "ملاحظة للطلب (اختياري)",
+      "notePlaceholder": "أي شيء يجب أن يعرفه المندوب أو فريقنا"
+    },
+    "delivery": {
+      "heading": "طريقة التوصيل",
+      "codTitle": "الدفع عند الاستلام",
+      "codSubtitle": "ادفع عند وصول طلبك.",
+      "reassurance": "لن تدفع شيئًا الآن — الدفع عند وصول طلبك."
+    },
+    "summary": {
+      "heading": "ملخص الطلب",
+      "qty": "الكمية: {{count}}",
+      "subtotal": "المجموع الفرعي",
+      "shipping": "الشحن",
+      "selectGovernorate": "اختر المحافظة",
+      "arrivesIn": "يصل خلال {{min}}-{{max}} أيام",
+      "codFee": "رسوم الدفع عند الاستلام",
+      "total": "الإجمالي",
+      "includingVat": "شامل الضريبة",
+      "placeOrder": "تأكيد الطلب",
+      "reassurance": {
+        "cod": "الدفع عند الاستلام",
+        "cancelTitle": "إلغاء مجاني",
+        "cancelSubtitle": "قبل الشحن",
+        "authentic": "منتجات أصلية"
+      }
+    },
+    "errors": {
+      "processing": "جاري معالجة طلبك",
+      "governorateNotServed": "التوصيل غير متاح لهذه المحافظة حالياً"
+    },
+    "confirmation": {
+      "heading": "شكرًا لطلبك",
+      "copyAria": "نسخ رقم الطلب",
+      "copied": "تم نسخ رقم الطلب",
+      "saveNumberNote": "احفظ هذا الرقم — ستحتاجه إذا تواصلت معنا بخصوص الطلب.",
+      "callNote": "سنتصل بك لتأكيد طلبك.",
+      "continueShopping": "متابعة التسوق",
+      "viewOrders": "عرض طلباتي",
+      "unavailable": "تعذّر تحميل تفاصيل هذا الطلب هنا. تابع هاتفك — سنتصل لتأكيده قريبًا."
+    }
+  },
   "auth": {
     "layout": {
       "tagline": "أناقة خالدة، تصلك إلى بابك."
