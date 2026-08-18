@@ -5,6 +5,7 @@ import { Popover } from 'primeng/popover';
 import { AuthApiService } from '../../../core/services/api/auth-api.service';
 import { TokenStorageService } from '../../../core/services/token-storage.service';
 import { AuthStoreService } from '../../../core/state/auth-store.service';
+import { PostAuthService } from '../../../modules/auth/services/post-auth.service';
 
 @Component({
   selector: 'app-user-menu',
@@ -16,6 +17,7 @@ export class UserMenuComponent {
   private readonly authStore = inject(AuthStoreService);
   private readonly authApi = inject(AuthApiService);
   private readonly tokenStorage = inject(TokenStorageService);
+  private readonly postAuth = inject(PostAuthService);
   private readonly router = inject(Router);
 
   @ViewChild('panel') private readonly panel!: Popover;
@@ -34,6 +36,7 @@ export class UserMenuComponent {
     // an expired/unreachable refresh token shouldn't be able to strand the user logged in.
     const finish = () => {
       this.authStore.clear();
+      this.postAuth.completeLogout();
       this.router.navigateByUrl('/');
     };
     if (!refreshToken) {

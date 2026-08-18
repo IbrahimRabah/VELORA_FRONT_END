@@ -8,6 +8,7 @@ import { AuthApiService } from '../../../../core/services/api/auth-api.service';
 import { ConfirmDialogService } from '../../../../core/services/confirm-dialog.service';
 import { AuthStoreService } from '../../../../core/state/auth-store.service';
 import { getDisplayName } from '../../../../shared/utils/display-name.util';
+import { PostAuthService } from '../../../auth/services/post-auth.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -20,6 +21,7 @@ export class ProfilePageComponent {
   private readonly authApi = inject(AuthApiService);
   private readonly authStore = inject(AuthStoreService);
   private readonly confirmDialogService = inject(ConfirmDialogService);
+  private readonly postAuth = inject(PostAuthService);
   private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
 
@@ -64,6 +66,7 @@ export class ProfilePageComponent {
         this.authApi.logoutAll().subscribe({
           next: () => {
             this.authStore.clear();
+            this.postAuth.completeLogout();
             this.router.navigateByUrl('/');
           },
           error: () => this.signingOutAll.set(false),

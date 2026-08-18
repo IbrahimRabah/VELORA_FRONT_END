@@ -7,6 +7,7 @@ import { AuthApiService } from '../../../../core/services/api/auth-api.service';
 import { TokenStorageService } from '../../../../core/services/token-storage.service';
 import { AuthStoreService } from '../../../../core/state/auth-store.service';
 import { getDisplayName } from '../../../../shared/utils/display-name.util';
+import { PostAuthService } from '../../../auth/services/post-auth.service';
 
 function isIndexUrl(url: string): boolean {
   const path = url.split('?')[0].split('#')[0];
@@ -24,6 +25,7 @@ export class AccountLayoutComponent {
   private readonly authApi = inject(AuthApiService);
   private readonly authStore = inject(AuthStoreService);
   private readonly tokenStorage = inject(TokenStorageService);
+  private readonly postAuth = inject(PostAuthService);
 
   readonly isIndex = toSignal(
     this.router.events.pipe(
@@ -40,6 +42,7 @@ export class AccountLayoutComponent {
     const refreshToken = this.tokenStorage.getRefreshToken();
     const finish = () => {
       this.authStore.clear();
+      this.postAuth.completeLogout();
       this.router.navigateByUrl('/');
     };
     if (!refreshToken) {

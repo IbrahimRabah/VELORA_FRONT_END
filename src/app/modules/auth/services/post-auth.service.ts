@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { catchError, of, tap } from 'rxjs';
+import { catchError, of, switchMap, tap } from 'rxjs';
 
 import { AuthResponse } from '../../../core/models';
 import { CartApiService } from '../../../core/services/api/cart-api.service';
@@ -66,5 +66,24 @@ export class PostAuthService {
         }),
       )
       .subscribe(() => this.router.navigateByUrl(returnUrl));
+  }
+
+  /**
+   * Runs after the session is cleared client-side, whichever logout flow triggered it.
+   * The guest token was deleted at login-merge time and nothing else ever re-issues it
+   * (app.initializer only runs once, at bootstrap) — without this, a signed-out visitor
+   * is left with neither a Bearer token nor a guest cookie, so /cart/** requests carry no
+   * identity at all and silently fail. Re-request a guest token and reload the cart so
+   * add-to-cart works again immediately, without needing a full page reload.
+   */
+  completeLogout(): void {
+    this.guestToken
+      .ensureToken()
+      .pipe(
+        switchMap(() => this.cartApi.getCart()),
+        tap((cart) => this.cartStore.set(cart)),
+        catchError(() => of(null)),
+      )
+      .subscribe();
   }
 }
