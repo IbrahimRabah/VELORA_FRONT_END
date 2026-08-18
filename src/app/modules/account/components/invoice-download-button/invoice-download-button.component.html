@@ -1,1 +1,5 @@
-<p>invoice-download-button works!</p>
+<button type="button" class="invoice-download-button" [disabled]="downloading()" (click)="download()">
+  <span class="invoice-download-button__spinner" *ngIf="downloading()" aria-hidden="true"></span>
+  <i class="pi pi-download" *ngIf="!downloading()" aria-hidden="true"></i>
+  <span>{{ (downloading() ? 'account.orderDetails.downloading' : 'account.orderDetails.downloadInvoice') | translate }}</span>
+</button>

@@ -1,1 +1,76 @@
-<p>orders-page works!</p>
+<div class="orders-page auth-page-enter">
+  <header class="orders-page__header">
+    <h1 class="orders-page__heading">{{ 'account.orders.heading' | translate }}</h1>
+    <span class="orders-page__rule" aria-hidden="true"></span>
+    <p class="orders-page__subline">{{ 'account.orders.subline' | translate }}</p>
+  </header>
+
+  <nav class="orders-page__tabs" role="tablist" *ngIf="!loading() && !error()">
+    <button
+      *ngFor="let tab of tabs"
+      type="button"
+      role="tab"
+      class="orders-page__tab"
+      [class.orders-page__tab--active]="activeTab() === tab.key"
+      [attr.aria-selected]="activeTab() === tab.key"
+      (click)="setTab(tab.key)"
+    >{{ tab.labelKey | translate }}</button>
+  </nav>
+
+  <app-vl-error-state
+    *ngIf="error()"
+    [title]="'account.orders.errorTitle' | translate"
+    [message]="'account.orders.errorMessage' | translate"
+    (retry)="retry()"
+  ></app-vl-error-state>
+
+  <ng-container *ngIf="!error()">
+    <ng-container *ngIf="!loading(); else skeletonTpl">
+      <div class="orders-page__list" *ngIf="filteredOrders().length">
+        <a
+          *ngFor="let order of filteredOrders(); let i = index"
+          class="order-card"
+          [routerLink]="['/me/orders', order.orderNumber]"
+          [style.animation-delay.ms]="i * 50"
+          [attr.aria-label]="'account.orders.viewOrderAria' | translate: { number: order.orderNumber }"
+        >
+          <span class="order-card__thumb">
+            <img *ngIf="order.thumbnailUrl" [src]="order.thumbnailUrl" alt="" loading="lazy" decoding="async" />
+          </span>
+          <span class="order-card__info">
+            <span class="order-card__number">{{ order.orderNumber }}</span>
+            <span class="order-card__date">{{ formatDate(order.placedAt) }}</span>
+          </span>
+          <span class="order-card__status">
+            <span class="status-pill status-pill--{{ pillTone(order.fulfillmentStatus) }}">
+              <span class="status-pill__dot" aria-hidden="true"></span>
+              {{ fulfillmentLabel(order.fulfillmentStatus) }}
+            </span>
+            <span class="order-card__payment">{{ paymentLabel(order.paymentStatus) }}</span>
+          </span>
+          <span class="order-card__total"><app-vl-price [minPrice]="order.grandTotal"></app-vl-price></span>
+          <i class="pi pi-chevron-right order-card__chevron" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <p class="orders-page__filtered-empty" *ngIf="!filteredOrders().length && !noOrdersAtAll()">
+        {{ 'account.orders.filteredEmptyMessage' | translate }}
+      </p>
+
+      <div class="orders-page__empty" *ngIf="noOrdersAtAll()">
+        <span class="orders-page__empty-icon" aria-hidden="true"><i class="pi pi-shopping-bag"></i></span>
+        <h2 class="orders-page__empty-heading">{{ 'account.orders.emptyHeading' | translate }}</h2>
+        <p class="orders-page__empty-message">{{ 'account.orders.emptyMessage' | translate }}</p>
+        <a routerLink="/products" class="orders-page__empty-cta">{{ 'account.orders.emptyCta' | translate }}</a>
+      </div>
+
+      <app-vl-pagination [page]="page()" [totalPages]="totalPages()" (pageChange)="onPageChange($event)"></app-vl-pagination>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #skeletonTpl>
+    <div class="orders-page__list">
+      <p-skeleton *ngFor="let row of [0, 1, 2]" height="104px" borderRadius="var(--r-lg)"></p-skeleton>
+    </div>
+  </ng-template>
+</div>

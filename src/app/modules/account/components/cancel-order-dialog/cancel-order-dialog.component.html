@@ -1,1 +1,67 @@
-<p>cancel-order-dialog works!</p>
+<div class="cancel-dialog" *ngIf="open">
+  <div class="cancel-dialog__backdrop" (click)="cancel()"></div>
+
+  <div
+    #panel
+    class="cancel-dialog__panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cancel-dialog-title"
+    tabindex="-1"
+    (keydown.escape)="cancel()"
+    (keydown.tab)="onTab($event)"
+  >
+    <header class="cancel-dialog__header" [class.cancel-dialog__header--scrolled]="scrolled()">
+      <div class="cancel-dialog__header-text">
+        <h2 id="cancel-dialog-title" class="cancel-dialog__title">{{ 'account.cancelDialog.title' | translate }}</h2>
+        <span class="cancel-dialog__title-rule" aria-hidden="true"></span>
+      </div>
+      <button
+        type="button"
+        class="cancel-dialog__close"
+        (click)="cancel()"
+        [attr.aria-label]="'common.close' | translate"
+      >
+        <i class="pi pi-times" aria-hidden="true"></i>
+      </button>
+    </header>
+
+    <div class="cancel-dialog__body" (scroll)="onBodyScroll($event)">
+      <p class="cancel-dialog__warning">
+        <i class="pi pi-exclamation-triangle" aria-hidden="true"></i>
+        {{ 'account.cancelDialog.warning' | translate }}
+      </p>
+
+      <div class="cancel-dialog__chips">
+        <button
+          *ngFor="let key of suggestedReasonKeys"
+          type="button"
+          class="cancel-dialog__chip"
+          (click)="fillReason(key)"
+        >{{ key | translate }}</button>
+      </div>
+
+      <label class="cancel-dialog__label" for="cancel-reason">{{ 'account.cancelDialog.reasonLabel' | translate }}</label>
+      <textarea
+        id="cancel-reason"
+        class="cancel-dialog__textarea"
+        rows="4"
+        [attr.maxlength]="maxLength"
+        [value]="reason()"
+        [placeholder]="'account.cancelDialog.reasonPlaceholder' | translate"
+        (input)="setReason($any($event.target).value)"
+      ></textarea>
+      <span class="cancel-dialog__counter">{{ reason().length }}/{{ maxLength }}</span>
+    </div>
+
+    <footer class="cancel-dialog__footer" [class.cancel-dialog__footer--scrolled]="scrolled()">
+      <button type="button" class="cancel-dialog__keep" [disabled]="saving()" (click)="cancel()">
+        {{ 'account.cancelDialog.keepOrder' | translate }}
+      </button>
+      <button type="button" class="cancel-dialog__confirm" [disabled]="saving() || !canSubmit" (click)="submit()">
+        <span class="auth-submit__spinner" *ngIf="saving()" aria-hidden="true"></span>
+        <span *ngIf="!saving()">{{ 'account.cancelDialog.confirmButton' | translate }}</span>
+      </button>
+    </footer>
+  </div>
+</div>

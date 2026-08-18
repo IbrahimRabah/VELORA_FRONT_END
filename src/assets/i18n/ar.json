@@ -560,6 +560,60 @@
       "makeDefaultLabel": "تعيين كافتراضي",
       "makeDefaultNote": "أول عنوان يُحفظ سيصبح افتراضيًا تلقائيًا.",
       "save": "حفظ العنوان"
+    },
+    "orders": {
+      "heading": "طلباتي",
+      "subline": "تتبع واطلع على جميع طلباتك السابقة.",
+      "tabs": {
+        "all": "الكل",
+        "processing": "قيد التجهيز",
+        "shipped": "تم الشحن",
+        "delivered": "تم التسليم",
+        "cancelled": "ملغي"
+      },
+      "emptyHeading": "لا توجد طلبات بعد",
+      "emptyMessage": "عندما تُتم طلبك، سيظهر هنا.",
+      "emptyCta": "تصفح المنتجات",
+      "filteredEmptyMessage": "لا توجد طلبات مطابقة لهذا التصنيف في هذه الصفحة.",
+      "errorTitle": "حدث خطأ ما",
+      "errorMessage": "تعذر تحميل طلباتك.",
+      "viewOrderAria": "عرض الطلب {{number}}"
+    },
+    "orderDetails": {
+      "backToOrders": "العودة إلى الطلبات",
+      "heading": "تفاصيل الطلب",
+      "metaDate": "تاريخ الطلب",
+      "metaPayment": "طريقة الدفع",
+      "metaGovernorate": "المحافظة",
+      "codLabel": "الدفع عند الاستلام",
+      "itemsHeading": "منتجات الطلب",
+      "subtotal": "المجموع الفرعي",
+      "shipping": "الشحن",
+      "codFee": "رسوم الدفع عند الاستلام",
+      "total": "الإجمالي",
+      "includingVat": "شامل الضريبة",
+      "shippingAddressHeading": "عنوان الشحن",
+      "cancelButton": "إلغاء الطلب",
+      "cancelledToast": "تم إلغاء الطلب",
+      "errorTitle": "حدث خطأ ما",
+      "errorMessage": "تعذر تحميل هذا الطلب.",
+      "invoiceHeading": "الفاتورة",
+      "downloadInvoice": "تحميل الفاتورة",
+      "downloading": "جارٍ التحميل…"
+    },
+    "cancelDialog": {
+      "title": "إلغاء الطلب",
+      "warning": "لا يمكن التراجع عن هذا الإجراء. سيتم إرجاع المنتجات إلى المخزون.",
+      "reasonLabel": "السبب",
+      "reasonPlaceholder": "أخبرنا لماذا تلغي هذا الطلب",
+      "chips": {
+        "changedMind": "غيرت رأيي",
+        "orderedByMistake": "طلبت بالخطأ",
+        "foundElsewhere": "وجدته في مكان آخر",
+        "deliveryTooLong": "التوصيل يستغرق وقتًا طويلًا"
+      },
+      "keepOrder": "احتفظ بالطلب",
+      "confirmButton": "تأكيد الإلغاء"
     }
   }
 }

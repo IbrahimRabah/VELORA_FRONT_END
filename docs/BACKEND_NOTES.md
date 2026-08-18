@@ -75,3 +75,15 @@ does today.
    exist) — the fix is on the backend/data side: either backfill STRAP_TYPE
    attribute-value links onto the existing variants, or stop surfacing
    STRAP_TYPE as a filter facet until they exist.
+
+6. **Invoice number missing from `OrderResponse`.** Problem: customers cannot
+   download their invoice. `GET /me/invoices/{invoiceNumber}/pdf` exists, but
+   there is no way for a customer to discover their invoice number — no field
+   on `OrderResponse` and no endpoint that returns it. Requested: add a
+   nullable `invoiceNumber` to `OrderResponse`, populated when the invoice is
+   issued at delivery and `null` before that. Impact: the invoice download
+   feature is entirely unreachable from the customer UI, even though the
+   endpoint works. Frontend note: `order-details-page` deliberately never
+   renders the Invoice section as a result — `invoice-download-button` is
+   built and functional (takes `invoiceNumber` as an `@Input`) but has no
+   current caller.

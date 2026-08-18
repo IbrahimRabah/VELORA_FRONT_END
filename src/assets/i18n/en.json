@@ -560,6 +560,60 @@
       "makeDefaultLabel": "Set as default",
       "makeDefaultNote": "Your first address is saved as default automatically.",
       "save": "Save Address"
+    },
+    "orders": {
+      "heading": "My Orders",
+      "subline": "Track and review all your past orders.",
+      "tabs": {
+        "all": "All",
+        "processing": "Processing",
+        "shipped": "Shipped",
+        "delivered": "Delivered",
+        "cancelled": "Cancelled"
+      },
+      "emptyHeading": "No orders yet",
+      "emptyMessage": "When you place an order, it will show up here.",
+      "emptyCta": "Browse Products",
+      "filteredEmptyMessage": "No orders match this filter on this page.",
+      "errorTitle": "Something went wrong",
+      "errorMessage": "We couldn't load your orders.",
+      "viewOrderAria": "View order {{number}}"
+    },
+    "orderDetails": {
+      "backToOrders": "Back to Orders",
+      "heading": "Order Details",
+      "metaDate": "Order Date",
+      "metaPayment": "Payment Method",
+      "metaGovernorate": "Governorate",
+      "codLabel": "Cash on Delivery",
+      "itemsHeading": "Order Items",
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "codFee": "COD Fee",
+      "total": "Total",
+      "includingVat": "Including VAT",
+      "shippingAddressHeading": "Shipping Address",
+      "cancelButton": "Cancel Order",
+      "cancelledToast": "Order cancelled",
+      "errorTitle": "Something went wrong",
+      "errorMessage": "We couldn't load this order.",
+      "invoiceHeading": "Invoice",
+      "downloadInvoice": "Download Invoice",
+      "downloading": "Downloading…"
+    },
+    "cancelDialog": {
+      "title": "Cancel Order",
+      "warning": "This cannot be undone. Your items will be released back to stock.",
+      "reasonLabel": "Reason",
+      "reasonPlaceholder": "Tell us why you're cancelling this order",
+      "chips": {
+        "changedMind": "Changed my mind",
+        "orderedByMistake": "Ordered by mistake",
+        "foundElsewhere": "Found it elsewhere",
+        "deliveryTooLong": "Delivery is taking too long"
+      },
+      "keepOrder": "Keep Order",
+      "confirmButton": "Cancel Order"
     }
   }
 }

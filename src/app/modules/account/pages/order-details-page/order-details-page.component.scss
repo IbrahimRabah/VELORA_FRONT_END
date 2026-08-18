@@ -1,0 +1,217 @@
+@use 'styles/breakpoints';
+
+@keyframes order-details-fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .order-details-page__header,
+  .order-details-page__meta,
+  .order-details-page__section,
+  .order-details-page__totals {
+    animation: none !important;
+  }
+}
+
+.order-details-page__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-block-end: var(--sp-5);
+  color: var(--gold-dp);
+  font-size: var(--fs-sm);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.order-details-page__loading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.order-details-page__header,
+.order-details-page__section,
+.order-details-page__totals {
+  animation: order-details-fade-rise 250ms ease both;
+}
+
+.order-details-page__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  margin-block-end: var(--sp-6);
+}
+
+.order-details-page__heading {
+  margin: 0;
+  font-family: var(--display);
+  font-size: var(--fs-h3);
+  color: var(--ink);
+}
+
+.order-details-page__number-tile {
+  padding: var(--sp-3) var(--sp-5);
+  background: var(--cream);
+  border-radius: var(--r-md);
+}
+
+.order-details-page__number {
+  font-family: monospace;
+  font-size: var(--fs-h4);
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+
+.order-details-page__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.order-details-page__meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-4);
+  padding-block: var(--sp-5);
+  margin-block-end: var(--sp-6);
+  border-block: 1px solid var(--line-soft);
+  animation: order-details-fade-rise 250ms ease 50ms both;
+
+  @include breakpoints.md {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.order-details-page__meta-cell {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+
+  i {
+    margin-block-start: 3px;
+    color: var(--gold-dp);
+  }
+}
+
+.order-details-page__meta-label {
+  display: block;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.order-details-page__meta-value {
+  display: block;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.order-details-page__section {
+  margin-block-end: var(--sp-6);
+}
+
+.order-details-page__section-heading {
+  margin: 0 0 var(--sp-3);
+  font-family: var(--display);
+  font-size: var(--fs-h5);
+  color: var(--ink);
+}
+
+.order-details-page__totals {
+  margin-block-end: var(--sp-6);
+}
+
+.order-details-page__totals-row {
+  display: flex;
+  justify-content: space-between;
+  padding-block: var(--sp-2);
+  color: var(--text-muted);
+  font-size: var(--fs-base);
+}
+
+.order-details-page__totals-divider {
+  display: block;
+  block-size: 1px;
+  margin-block: var(--sp-2);
+  background: var(--line-soft);
+}
+
+.order-details-page__totals-row--total {
+  color: var(--gold-dp);
+  font-size: var(--fs-h4);
+  font-weight: 700;
+}
+
+.order-details-page__totals-vat {
+  margin: var(--sp-1) 0 0;
+  text-align: end;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.order-details-page__address-tile {
+  padding: var(--sp-5);
+  background: var(--cream);
+  border-radius: var(--r-lg);
+}
+
+.order-details-page__address-name {
+  margin: 0 0 var(--sp-2);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.order-details-page__address-phone {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin: 0 0 var(--sp-1);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+
+  i {
+    color: var(--gold-dp);
+    font-size: 0.8rem;
+  }
+}
+
+.order-details-page__address-formatted {
+  margin: var(--sp-2) 0 0;
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+}
+
+.order-details-page__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.order-details-page__cancel {
+  padding: var(--sp-3) var(--sp-6);
+  border: 1px solid var(--stop);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--stop);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: 200ms ease;
+
+  &:hover {
+    background: var(--stop-bg);
+  }
+}

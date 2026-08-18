@@ -1,1 +1,122 @@
-<p>order-details-page works!</p>
+<div class="order-details-page auth-page-enter">
+  <a routerLink="/me/orders" class="order-details-page__back">
+    <i class="pi pi-arrow-left" aria-hidden="true"></i>
+    {{ 'account.orderDetails.backToOrders' | translate }}
+  </a>
+
+  <app-vl-error-state
+    *ngIf="error()"
+    [title]="'account.orderDetails.errorTitle' | translate"
+    [message]="'account.orderDetails.errorMessage' | translate"
+    (retry)="retry()"
+  ></app-vl-error-state>
+
+  <div class="order-details-page__loading" *ngIf="loading()">
+    <p-skeleton height="140px" borderRadius="var(--r-lg)"></p-skeleton>
+    <p-skeleton height="220px" borderRadius="var(--r-lg)"></p-skeleton>
+    <p-skeleton height="180px" borderRadius="var(--r-lg)"></p-skeleton>
+  </div>
+
+  <ng-container *ngIf="!loading() && !error() && order() as o">
+    <header class="order-details-page__header">
+      <h1 class="order-details-page__heading">{{ 'account.orderDetails.heading' | translate }}</h1>
+
+      <div class="order-details-page__number-tile">
+        <span class="order-details-page__number">{{ o.orderNumber }}</span>
+      </div>
+
+      <div class="order-details-page__pills">
+        <span class="status-pill status-pill--{{ fulfillmentTone(o.fulfillmentStatus) }}">
+          <span class="status-pill__dot" aria-hidden="true"></span>
+          {{ fulfillmentLabel(o.fulfillmentStatus) }}
+        </span>
+        <span class="status-pill status-pill--{{ paymentTone(o.paymentStatus) }}">
+          <span class="status-pill__dot" aria-hidden="true"></span>
+          {{ paymentLabel(o.paymentStatus) }}
+        </span>
+      </div>
+    </header>
+
+    <div class="order-details-page__meta">
+      <div class="order-details-page__meta-cell">
+        <i class="pi pi-calendar" aria-hidden="true"></i>
+        <div>
+          <span class="order-details-page__meta-label">{{ 'account.orderDetails.metaDate' | translate }}</span>
+          <span class="order-details-page__meta-value">{{ formatDate(o.placedAt) }}</span>
+        </div>
+      </div>
+      <div class="order-details-page__meta-cell">
+        <i class="pi pi-wallet" aria-hidden="true"></i>
+        <div>
+          <span class="order-details-page__meta-label">{{ 'account.orderDetails.metaPayment' | translate }}</span>
+          <span class="order-details-page__meta-value">{{ 'account.orderDetails.codLabel' | translate }}</span>
+        </div>
+      </div>
+      <div class="order-details-page__meta-cell">
+        <i class="pi pi-map-marker" aria-hidden="true"></i>
+        <div>
+          <span class="order-details-page__meta-label">{{ 'account.orderDetails.metaGovernorate' | translate }}</span>
+          <span class="order-details-page__meta-value">{{ o.shippingAddress.governorateName }}</span>
+        </div>
+      </div>
+    </div>
+
+    <app-order-timeline [entries]="o.timeline"></app-order-timeline>
+
+    <section class="order-details-page__section">
+      <h2 class="order-details-page__section-heading">{{ 'account.orderDetails.itemsHeading' | translate }}</h2>
+      <app-order-items-list [items]="o.items"></app-order-items-list>
+    </section>
+
+    <section class="order-details-page__totals">
+      <div class="order-details-page__totals-row">
+        <span>{{ 'account.orderDetails.subtotal' | translate }}</span>
+        <app-vl-price [minPrice]="o.subtotal"></app-vl-price>
+      </div>
+      <div class="order-details-page__totals-row">
+        <span>{{ 'account.orderDetails.shipping' | translate }}</span>
+        <app-vl-price [minPrice]="o.shippingCost"></app-vl-price>
+      </div>
+      <div class="order-details-page__totals-row" *ngIf="hasCodFee(o)">
+        <span>{{ 'account.orderDetails.codFee' | translate }}</span>
+        <app-vl-price [minPrice]="o.codFee"></app-vl-price>
+      </div>
+      <span class="order-details-page__totals-divider" aria-hidden="true"></span>
+      <div class="order-details-page__totals-row order-details-page__totals-row--total">
+        <span>{{ 'account.orderDetails.total' | translate }}</span>
+        <app-vl-price [minPrice]="o.grandTotal"></app-vl-price>
+      </div>
+      <p class="order-details-page__totals-vat">{{ 'account.orderDetails.includingVat' | translate }}</p>
+    </section>
+
+    <section class="order-details-page__section">
+      <h2 class="order-details-page__section-heading">{{ 'account.orderDetails.shippingAddressHeading' | translate }}</h2>
+      <div class="order-details-page__address-tile">
+        <p class="order-details-page__address-name">{{ o.contactName }}</p>
+        <p class="order-details-page__address-phone">
+          <i class="pi pi-phone" aria-hidden="true"></i>
+          {{ o.contactPhone }}
+        </p>
+        <p class="order-details-page__address-phone" *ngIf="o.contactAltPhone">
+          <i class="pi pi-phone" aria-hidden="true"></i>
+          {{ o.contactAltPhone }}
+        </p>
+        <p class="order-details-page__address-formatted">{{ o.shippingAddress.formatted }}</p>
+      </div>
+    </section>
+
+    <div class="order-details-page__actions" *ngIf="o.cancellable">
+      <button type="button" class="order-details-page__cancel" (click)="openCancelDialog()">
+        {{ 'account.orderDetails.cancelButton' | translate }}
+      </button>
+    </div>
+
+    <app-cancel-order-dialog
+      [open]="cancelDialogOpen()"
+      [orderNumber]="o.orderNumber"
+      (closed)="onDialogClosed()"
+      (cancelled)="onCancelled($event)"
+      (orderStale)="onOrderStale()"
+    ></app-cancel-order-dialog>
+  </ng-container>
+</div>

@@ -1,3 +1,5 @@
+@use 'breakpoints';
+
 // Corrections for PrimeNG components whose CSS hardcodes a physical direction.
 //
 // STRICT RULE: in all NEW code (components, future styles), use logical properties —
@@ -34,3 +36,22 @@
 //   html[dir='rtl'] .some-primeng-class {
 //     transform: scaleX(-1); // or whatever physical property can't be made logical
 //   }
+
+// order-card's trailing chevron is a "go forward" affordance, not a fixed left/right
+// glyph — it should point toward the end of the reading direction, which a single pi
+// icon class can't express on its own.
+html[dir='rtl'] .order-card__chevron {
+  transform: scaleX(-1);
+}
+
+// order-timeline's connector fill animates from the timeline's start toward the current
+// node on the horizontal (desktop) layout only; transform-origin isn't a logical
+// property, so the LTR default (left) needs an explicit RTL flip to keep the fill
+// growing in the reading direction. Scoped to the same min-width the component switches
+// to a horizontal connector at — the mobile vertical connector uses a top-to-bottom fill
+// that's already direction-agnostic and must not be touched here.
+@include breakpoints.md {
+  html[dir='rtl'] .order-timeline__connector--filled {
+    transform-origin: right;
+  }
+}

@@ -1,1 +1,13 @@
-<p>order-items-list works!</p>
+<div class="order-items-list">
+  <div class="order-items-list__row" *ngFor="let item of items">
+    <a class="order-items-list__thumb" [routerLink]="['/products', item.productSlug]">
+      <img [src]="item.imageUrl" [alt]="item.name" loading="lazy" decoding="async" />
+    </a>
+    <div class="order-items-list__info">
+      <a class="order-items-list__name" [routerLink]="['/products', item.productSlug]">{{ item.name }}</a>
+      <span class="order-items-list__variant">{{ item.variantSummary }}</span>
+      <span class="order-items-list__qty">{{ 'checkout.summary.qty' | translate: { count: item.quantity } }}</span>
+    </div>
+    <div class="order-items-list__total"><app-vl-price [minPrice]="item.lineTotal"></app-vl-price></div>
+  </div>
+</div>

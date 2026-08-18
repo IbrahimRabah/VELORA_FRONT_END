@@ -1,0 +1,47 @@
+.invoice-download-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-5);
+  border: none;
+  border-radius: var(--r-sm);
+  background: var(--gold);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: transform 200ms ease, opacity 200ms ease;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+}
+
+.invoice-download-button__spinner {
+  inline-size: 14px;
+  block-size: 14px;
+  border: 2px solid rgba(13, 13, 13, 0.3);
+  border-block-start-color: var(--ink);
+  border-radius: 50%;
+  animation: invoice-download-spin 700ms linear infinite;
+}
+
+@keyframes invoice-download-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .invoice-download-button__spinner {
+    animation-duration: 1400ms;
+  }
+}

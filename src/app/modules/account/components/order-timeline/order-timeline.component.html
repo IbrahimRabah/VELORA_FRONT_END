@@ -1,1 +1,19 @@
-<p>order-timeline works!</p>
+<div class="order-timeline" *ngIf="nodes().length">
+  <ng-container *ngFor="let node of nodes(); let i = index; let first = first">
+    <span class="order-timeline__connector order-timeline__connector--filled" *ngIf="!first" aria-hidden="true"></span>
+    <div
+      class="order-timeline__item"
+      [class.order-timeline__item--payment]="node.isPayment"
+      [class.order-timeline__item--current]="i === currentIndex()"
+    >
+      <span class="order-timeline__node">
+        <i class="pi" [ngClass]="node.icon" aria-hidden="true"></i>
+      </span>
+      <span class="order-timeline__text">
+        <span class="order-timeline__label">{{ node.label }}</span>
+        <span class="order-timeline__date">{{ node.date }}</span>
+        <span class="order-timeline__note" *ngIf="node.entry.note">{{ node.entry.note }}</span>
+      </span>
+    </div>
+  </ng-container>
+</div>

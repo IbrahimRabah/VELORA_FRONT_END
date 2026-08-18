@@ -1,0 +1,229 @@
+@keyframes orders-fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orders-page__header,
+  .orders-page__tabs,
+  .order-card {
+    animation: none !important;
+  }
+}
+
+.orders-page__header {
+  margin-block-end: var(--sp-6);
+  animation: orders-fade-rise 250ms ease both;
+}
+
+.orders-page__heading {
+  margin: 0;
+  font-family: var(--display);
+  font-size: var(--fs-h3);
+  color: var(--ink);
+}
+
+.orders-page__rule {
+  display: block;
+  inline-size: 40px;
+  block-size: 2px;
+  margin-block: var(--sp-3);
+  background: var(--gold);
+}
+
+.orders-page__subline {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--fs-base);
+}
+
+.orders-page__tabs {
+  display: flex;
+  gap: var(--sp-2);
+  overflow-x: auto;
+  margin-block-end: var(--sp-6);
+  animation: orders-fade-rise 250ms ease 50ms both;
+}
+
+.orders-page__tab {
+  flex-shrink: 0;
+  padding: var(--sp-2) var(--sp-1);
+  border: none;
+  border-block-end: 2px solid transparent;
+  background: none;
+  font: inherit;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 200ms ease;
+
+  &:hover {
+    color: var(--gold-dp);
+  }
+}
+
+.orders-page__tab--active {
+  color: var(--gold-dp);
+  border-block-end-color: var(--gold);
+  font-weight: 600;
+}
+
+.orders-page__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  margin-block-end: var(--sp-6);
+}
+
+.order-card {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  padding: var(--sp-4);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  text-decoration: none;
+  animation: orders-fade-rise 300ms ease both;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.order-card__thumb {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 64px;
+  block-size: 64px;
+  background: var(--cream);
+  border-radius: var(--r-md);
+  overflow: hidden;
+
+  img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+}
+
+.order-card__info {
+  flex: 1 1 140px;
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.order-card__number {
+  font-family: monospace;
+  font-size: var(--fs-base);
+  letter-spacing: 0.03em;
+  color: var(--ink);
+}
+
+.order-card__date {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.order-card__status {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--sp-1);
+}
+
+.order-card__payment {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.order-card__total {
+  flex-shrink: 0;
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.order-card__chevron {
+  flex-shrink: 0;
+  color: var(--text-muted);
+  margin-inline-start: auto;
+}
+
+.orders-page__filtered-empty {
+  padding-block: var(--sp-6);
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  text-align: center;
+}
+
+.orders-page__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-3);
+  padding-block: var(--sp-8);
+}
+
+.orders-page__empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 72px;
+  block-size: 72px;
+  margin-block-end: var(--sp-2);
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  color: var(--gold-dp);
+  font-size: 1.5rem;
+}
+
+.orders-page__empty-heading {
+  margin: 0;
+  font-family: var(--display);
+  font-size: var(--fs-h5);
+  color: var(--ink);
+}
+
+.orders-page__empty-message {
+  margin: 0;
+  max-inline-size: 40ch;
+  color: var(--text-muted);
+}
+
+.orders-page__empty-cta {
+  display: inline-flex;
+  align-items: center;
+  margin-block-start: var(--sp-2);
+  padding: var(--sp-3) var(--sp-5);
+  border: none;
+  border-radius: var(--r-sm);
+  background: var(--gold);
+  color: var(--ink);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: transform 200ms ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+}

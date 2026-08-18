@@ -49,11 +49,8 @@
 
 // Header/footer — fixed, never scroll; the form body between them is the only
 // scrollable region. Hairlines fade in via .address-dialog__*--scrolled once the body
-// has actually scrolled (bound from the component on the body's scroll event). The VELORA
-// mark behind the title is a texture, not a picture: z-index: -1 keeps the low-opacity
-// watermark behind the title/close button without fading them too.
+// has actually scrolled (bound from the component on the body's scroll event).
 .address-dialog__header {
-  position: relative;
   flex-shrink: 0;
   display: flex;
   justify-content: space-between;
@@ -61,15 +58,6 @@
   padding: var(--sp-5) var(--sp-6);
   border-block-end: 1px solid transparent;
   transition: 200ms ease;
-
-  &::before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    inset: 0;
-    background: url('/assets/images/shared/global.jpg') center / cover no-repeat;
-    opacity: 0.08;
-  }
 }
 
 .address-dialog__title {
