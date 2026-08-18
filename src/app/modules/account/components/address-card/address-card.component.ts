@@ -10,9 +10,15 @@ import { AddressResponse } from '../../../../core/models';
 })
 export class AddressCardComponent {
   @Input({ required: true }) address!: AddressResponse;
+  @Input() deleting = false;
+  @Input() settingDefault = false;
   @Output() readonly edit = new EventEmitter<void>();
   @Output() readonly deleteAddress = new EventEmitter<void>();
   @Output() readonly setDefault = new EventEmitter<void>();
+
+  get busy(): boolean {
+    return this.deleting || this.settingDefault;
+  }
 
   // label is free text in the contract (max 30 chars) — HOME/WORK/OTHER are only the
   // suggested values our own form writes. Anything else falls back to a generic icon and

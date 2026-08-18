@@ -60,7 +60,7 @@ export class OrderDetailsPageComponent {
   onCancelled(order: OrderResponse): void {
     this.cancelDialogOpen.set(false);
     this.order.set(order);
-    this.toast.success(this.translate.instant('account.orderDetails.cancelledToast'));
+    this.toast.success(this.translate.instant('toast.orders.cancelled'));
   }
 
   onOrderStale(): void {

@@ -56,7 +56,6 @@
   },
   "product": {
     "addToCart": "Add to Cart",
-    "addedToCart": "Added to cart",
     "outOfStock": "Out of Stock",
     "outOfStockBadge": "Sold Out",
     "inStock": "In Stock",
@@ -118,8 +117,7 @@
     "confirmClearTitle": "Clear cart?",
     "confirmClearMessage": "This removes every item from your cart. This can't be undone.",
     "warningsBlockingTitle": "These items need attention before checkout",
-    "warningsPriceTitle": "Prices have changed since you added these items",
-    "merged": "Your cart has been merged"
+    "warningsPriceTitle": "Prices have changed since you added these items"
   },
   "checkout": {
     "title": "Checkout",
@@ -167,7 +165,6 @@
     "confirmation": {
       "heading": "Thank you for your order",
       "copyAria": "Copy order number",
-      "copied": "Order number copied",
       "saveNumberNote": "Save this number — you'll need it if you contact us about this order.",
       "callNote": "We'll call you to confirm your order.",
       "continueShopping": "Continue Shopping",
@@ -220,8 +217,7 @@
       "backToLogin": "Back to Sign In",
       "requestNewLink": "Request a new link",
       "invalidHeading": "Link Invalid or Expired",
-      "invalidMessage": "This password reset link is no longer valid. Request a new one.",
-      "successToast": "Password updated. Please sign in again"
+      "invalidMessage": "This password reset link is no longer valid. Request a new one."
     },
     "passwordStrength": {
       "weak": "Weak",
@@ -517,9 +513,6 @@
       "limitReached": "You've reached the 10-address limit",
       "emptyHeading": "No addresses yet",
       "emptyMessage": "Add your first delivery address to speed up checkout.",
-      "savedToast": "Address saved",
-      "deletedToast": "Address removed",
-      "defaultUpdatedToast": "Default address updated",
       "confirmDeleteTitle": "Delete address?",
       "confirmDeleteMessage": "This address will be permanently removed.",
       "untitledLabel": "Address",
@@ -594,7 +587,6 @@
       "includingVat": "Including VAT",
       "shippingAddressHeading": "Shipping Address",
       "cancelButton": "Cancel Order",
-      "cancelledToast": "Order cancelled",
       "errorTitle": "Something went wrong",
       "errorMessage": "We couldn't load this order.",
       "invoiceHeading": "Invoice",
@@ -614,6 +606,33 @@
       },
       "keepOrder": "Keep Order",
       "confirmButton": "Cancel Order"
+    }
+  },
+  "toast": {
+    "cart": {
+      "itemAdded": "Added to cart",
+      "itemRemoved": "Item removed from cart",
+      "cleared": "Cart cleared",
+      "merged": "Your cart has been merged"
+    },
+    "auth": {
+      "signedIn": "Signed in",
+      "accountCreated": "Account created",
+      "signedOut": "Signed out",
+      "resetLinkSent": "Reset link sent",
+      "passwordChanged": "Password changed. Please sign in again"
+    },
+    "addresses": {
+      "saved": "Address saved",
+      "updated": "Address updated",
+      "deleted": "Address removed",
+      "defaultChanged": "Default address updated"
+    },
+    "orders": {
+      "cancelled": "Order cancelled"
+    },
+    "checkout": {
+      "orderNumberCopied": "Order number copied"
     }
   }
 }

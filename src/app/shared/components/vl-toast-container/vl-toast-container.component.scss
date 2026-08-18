@@ -1,0 +1,116 @@
+@use 'styles/breakpoints';
+
+.vl-toast-container {
+  position: fixed;
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  inset-inline: var(--sp-4);
+  inset-block-end: var(--sp-4);
+  pointer-events: none;
+
+  @include breakpoints.md {
+    inset-inline-start: auto;
+    inset-inline-end: var(--sp-5);
+    inset-block-end: auto;
+    inset-block-start: var(--sp-5);
+    inline-size: min(380px, calc(100vw - 2 * var(--sp-5)));
+    flex-direction: column-reverse;
+  }
+}
+
+.vl-toast {
+  --toast-accent: var(--info);
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  background: var(--surface);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-md);
+  border-inline-start: 3px solid var(--toast-accent);
+  pointer-events: auto;
+  animation: vl-toast-in 250ms ease both;
+}
+
+.vl-toast--success {
+  --toast-accent: var(--ok);
+}
+
+.vl-toast--error {
+  --toast-accent: var(--stop);
+}
+
+.vl-toast--warning {
+  --toast-accent: var(--warn);
+}
+
+.vl-toast--info {
+  --toast-accent: var(--info);
+}
+
+.vl-toast__icon {
+  flex-shrink: 0;
+  margin-block-start: 1px;
+  font-size: 1.05rem;
+  color: var(--toast-accent);
+}
+
+.vl-toast__body {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.vl-toast__summary {
+  margin: 0 0 2px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.vl-toast__message {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.vl-toast__close {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: var(--r-full);
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--surface-alt);
+    color: var(--ink);
+  }
+}
+
+@keyframes vl-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vl-toast {
+    animation: none;
+  }
+}

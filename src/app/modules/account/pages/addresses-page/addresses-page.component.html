@@ -28,6 +28,8 @@
       <app-address-card
         *ngFor="let address of addresses(); let i = index"
         [address]="address"
+        [deleting]="isDeleting(address.id)"
+        [settingDefault]="isSettingDefault(address.id)"
         [style.animation-delay.ms]="i * 40"
         (edit)="openEdit(address)"
         (deleteAddress)="onDelete(address)"

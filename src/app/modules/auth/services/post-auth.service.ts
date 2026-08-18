@@ -12,9 +12,9 @@ import { CartStoreService } from '../../../core/state/cart-store.service';
 
 /**
  * Runs the fixed sequence the contract requires after a successful login/register:
- * 1. Save the session, 2. merge the guest cart (if any), 3. drop the guest token,
- * 4. push the merged cart into the store, 5. toast only if the merge added items,
- * 6. navigate. Must run exactly once per sign-in — calling POST /cart/merge twice with
+ * 1. Save the session, toast signed-in/account-created, 2. merge the guest cart (if any),
+ * 3. drop the guest token, 4. push the merged cart into the store, 5. toast only if the
+ * merge added items, 6. navigate. Must run exactly once per sign-in — calling POST /cart/merge twice with
  * the same guest token double-adds its quantities, so the guest token is only ever read
  * and cleared here, never re-issued mid-flow.
  *
@@ -35,8 +35,9 @@ export class PostAuthService {
   private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
 
-  completeAuth(auth: AuthResponse, returnUrl: string): void {
+  completeAuth(auth: AuthResponse, returnUrl: string, kind: 'login' | 'register'): void {
     this.authStore.setSession(auth);
+    this.toast.success(this.translate.instant(kind === 'login' ? 'toast.auth.signedIn' : 'toast.auth.accountCreated'));
 
     const token = this.guestToken.getToken();
     if (!token) {
@@ -51,7 +52,7 @@ export class PostAuthService {
           this.guestToken.clear();
           this.cartStore.set(cart);
           if (cart.itemCount > 0) {
-            this.toast.success(this.translate.instant('cart.merged'));
+            this.toast.success(this.translate.instant('toast.cart.merged'));
           }
         }),
         catchError((err: unknown) => {

@@ -68,7 +68,7 @@ export class RegisterPageComponent {
     };
 
     this.authApi.register(payload).subscribe({
-      next: (auth) => this.postAuth.completeAuth(auth, this.returnUrl),
+      next: (auth) => this.postAuth.completeAuth(auth, this.returnUrl, 'register'),
       error: (err: unknown) => {
         this.loading.set(false);
         if (isValidationFailedError(err)) {

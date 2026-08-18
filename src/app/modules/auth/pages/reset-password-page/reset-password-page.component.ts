@@ -68,7 +68,7 @@ export class ResetPasswordPageComponent {
     const { newPassword } = this.form.getRawValue();
     this.authApi.resetPassword({ token: this.token, newPassword }).subscribe({
       next: () => {
-        this.toast.success(this.translate.instant('auth.resetPassword.successToast'));
+        this.toast.success(this.translate.instant('toast.auth.passwordChanged'));
         void this.router.navigateByUrl('/auth/login');
       },
       error: (err: unknown) => {

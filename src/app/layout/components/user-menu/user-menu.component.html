@@ -23,8 +23,13 @@
         {{ 'userMenu.addresses' | translate }}
       </a>
       <hr class="user-menu__divider" />
-      <button type="button" class="user-menu__link user-menu__link--button" (click)="logout()">
-        <i class="pi pi-sign-out" aria-hidden="true"></i>
+      <button
+        type="button"
+        class="user-menu__link user-menu__link--button"
+        [disabled]="loggingOut()"
+        (click)="logout()"
+      >
+        <i class="pi" [ngClass]="loggingOut() ? 'pi-spin pi-spinner' : 'pi-sign-out'" aria-hidden="true"></i>
         {{ 'userMenu.logout' | translate }}
       </button>
     </ng-container>

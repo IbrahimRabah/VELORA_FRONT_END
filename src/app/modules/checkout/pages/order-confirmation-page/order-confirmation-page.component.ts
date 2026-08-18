@@ -67,7 +67,7 @@ export class OrderConfirmationPageComponent {
       return;
     }
     navigator.clipboard.writeText(this.orderNumber).then(() => {
-      this.toast.success(this.translate.instant('checkout.confirmation.copied'));
+      this.toast.success(this.translate.instant('toast.checkout.orderNumberCopied'));
     });
   }
 }

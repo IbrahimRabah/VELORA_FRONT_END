@@ -56,7 +56,6 @@
   },
   "product": {
     "addToCart": "أضف إلى السلة",
-    "addedToCart": "تمت الإضافة إلى السلة",
     "outOfStock": "غير متوفر",
     "outOfStockBadge": "نفد",
     "inStock": "متوفر",
@@ -118,8 +117,7 @@
     "confirmClearTitle": "إفراغ السلة؟",
     "confirmClearMessage": "سيتم حذف كل المنتجات من سلتك. لا يمكن التراجع عن هذا.",
     "warningsBlockingTitle": "بعض المنتجات تحتاج مراجعة قبل إتمام الطلب",
-    "warningsPriceTitle": "تغيّرت أسعار بعض المنتجات في سلتك",
-    "merged": "تم دمج سلتك"
+    "warningsPriceTitle": "تغيّرت أسعار بعض المنتجات في سلتك"
   },
   "checkout": {
     "title": "إتمام الطلب",
@@ -167,7 +165,6 @@
     "confirmation": {
       "heading": "شكرًا لطلبك",
       "copyAria": "نسخ رقم الطلب",
-      "copied": "تم نسخ رقم الطلب",
       "saveNumberNote": "احفظ هذا الرقم — ستحتاجه إذا تواصلت معنا بخصوص الطلب.",
       "callNote": "سنتصل بك لتأكيد طلبك.",
       "continueShopping": "متابعة التسوق",
@@ -220,8 +217,7 @@
       "backToLogin": "العودة لتسجيل الدخول",
       "requestNewLink": "اطلب رابطاً جديداً",
       "invalidHeading": "الرابط غير صالح أو منتهي الصلاحية",
-      "invalidMessage": "رابط إعادة تعيين كلمة المرور هذا لم يعد صالحاً. اطلب رابطاً جديداً.",
-      "successToast": "تم تحديث كلمة المرور، برجاء تسجيل الدخول مرة أخرى"
+      "invalidMessage": "رابط إعادة تعيين كلمة المرور هذا لم يعد صالحاً. اطلب رابطاً جديداً."
     },
     "passwordStrength": {
       "weak": "ضعيفة",
@@ -517,9 +513,6 @@
       "limitReached": "لقد وصلت إلى الحد الأقصى (10 عناوين)",
       "emptyHeading": "لا توجد عناوين بعد",
       "emptyMessage": "أضف أول عنوان توصيل لتسريع إتمام الطلب.",
-      "savedToast": "تم حفظ العنوان",
-      "deletedToast": "تم حذف العنوان",
-      "defaultUpdatedToast": "تم تحديث العنوان الافتراضي",
       "confirmDeleteTitle": "حذف العنوان؟",
       "confirmDeleteMessage": "سيتم حذف هذا العنوان نهائياً.",
       "untitledLabel": "عنوان",
@@ -594,7 +587,6 @@
       "includingVat": "شامل الضريبة",
       "shippingAddressHeading": "عنوان الشحن",
       "cancelButton": "إلغاء الطلب",
-      "cancelledToast": "تم إلغاء الطلب",
       "errorTitle": "حدث خطأ ما",
       "errorMessage": "تعذر تحميل هذا الطلب.",
       "invoiceHeading": "الفاتورة",
@@ -614,6 +606,33 @@
       },
       "keepOrder": "احتفظ بالطلب",
       "confirmButton": "تأكيد الإلغاء"
+    }
+  },
+  "toast": {
+    "cart": {
+      "itemAdded": "أُضيف إلى السلة",
+      "itemRemoved": "تمت إزالة المنتج من السلة",
+      "cleared": "تم إفراغ السلة",
+      "merged": "تم دمج سلتك"
+    },
+    "auth": {
+      "signedIn": "تم تسجيل الدخول",
+      "accountCreated": "تم إنشاء الحساب",
+      "signedOut": "تم تسجيل الخروج",
+      "resetLinkSent": "تم إرسال رابط إعادة التعيين",
+      "passwordChanged": "تم تغيير كلمة المرور، برجاء تسجيل الدخول مرة أخرى"
+    },
+    "addresses": {
+      "saved": "تم حفظ العنوان",
+      "updated": "تم تحديث العنوان",
+      "deleted": "تم حذف العنوان",
+      "defaultChanged": "تم تحديث العنوان الافتراضي"
+    },
+    "orders": {
+      "cancelled": "تم إلغاء الطلب"
+    },
+    "checkout": {
+      "orderNumberCopied": "تم نسخ رقم الطلب"
     }
   }
 }

@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 import { AuthApiService } from '../../../../core/services/api/auth-api.service';
+import { ToastService } from '../../../../core/services/toast.service';
 import { bindServerFieldErrors, isValidationFailedError } from '../../../../shared/utils/bind-field-errors.util';
 import { getFieldErrorKey } from '../../../../shared/utils/field-error-key.util';
 import { identifierValidator } from '../../../../shared/validators/identifier.validator';
@@ -15,6 +17,8 @@ import { identifierValidator } from '../../../../shared/validators/identifier.va
 export class ForgotPasswordPageComponent {
   private readonly fb = inject(FormBuilder);
   private readonly authApi = inject(AuthApiService);
+  private readonly toast = inject(ToastService);
+  private readonly translate = inject(TranslateService);
 
   readonly form = this.fb.nonNullable.group({
     identifier: ['', [Validators.required, identifierValidator()]],
@@ -44,6 +48,7 @@ export class ForgotPasswordPageComponent {
       next: () => {
         this.loading.set(false);
         this.submitted.set(true);
+        this.toast.success(this.translate.instant('toast.auth.resetLinkSent'));
       },
       error: (err: unknown) => {
         this.loading.set(false);

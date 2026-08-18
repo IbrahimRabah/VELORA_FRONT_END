@@ -1,4 +1,8 @@
 <button type="button" class="add-to-cart-box" [disabled]="disabled || loading" (click)="onClick()">
-  <i class="pi pi-shopping-bag" aria-hidden="true"></i>
+  <i
+    class="pi"
+    [ngClass]="loading ? 'pi-spin pi-spinner' : success ? 'pi-check' : 'pi-shopping-bag'"
+    aria-hidden="true"
+  ></i>
   <span>{{ (disabled ? 'product.outOfStock' : 'product.addToCart') | translate }}</span>
 </button>

@@ -59,7 +59,7 @@ export class LoginPageComponent {
     this.loading.set(true);
     const { identifier, password } = this.form.getRawValue();
     this.authApi.login({ identifier, password }).subscribe({
-      next: (auth) => this.postAuth.completeAuth(auth, this.returnUrl),
+      next: (auth) => this.postAuth.completeAuth(auth, this.returnUrl, 'login'),
       error: (err: unknown) => {
         this.loading.set(false);
         if (isValidationFailedError(err)) {

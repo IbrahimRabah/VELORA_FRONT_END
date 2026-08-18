@@ -45,6 +45,11 @@
     background: var(--surface-alt);
     color: var(--brand);
   }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 .user-menu__link--button {

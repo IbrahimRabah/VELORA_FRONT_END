@@ -1,4 +1,4 @@
-<article class="address-card" [class.address-card--default]="address.isDefault">
+<article class="address-card" [class.address-card--default]="address.isDefault" [class.address-card--busy]="busy">
   <div class="address-card__top">
     <span class="address-card__icon-wrap" aria-hidden="true">
       <i class="pi" [ngClass]="labelIcon"></i>
@@ -27,22 +27,22 @@
   <p class="address-card__formatted">{{ address.formatted }}</p>
 
   <div class="address-card__footer">
-    <button type="button" class="address-card__action" (click)="edit.emit()">
+    <button type="button" class="address-card__action" [disabled]="busy" (click)="edit.emit()">
       <i class="pi pi-pencil" aria-hidden="true"></i>
       {{ 'account.addresses.edit' | translate }}
     </button>
-    <button type="button" class="address-card__action" (click)="deleteAddress.emit()">
-      <i class="pi pi-trash" aria-hidden="true"></i>
+    <button type="button" class="address-card__action" [disabled]="busy" (click)="deleteAddress.emit()">
+      <i class="pi" [ngClass]="deleting ? 'pi-spin pi-spinner' : 'pi-trash'" aria-hidden="true"></i>
       {{ 'account.addresses.delete' | translate }}
     </button>
     <button
       type="button"
       class="address-card__action"
-      [disabled]="address.isDefault"
+      [disabled]="address.isDefault || busy"
       [attr.title]="address.isDefault ? ('account.addresses.alreadyDefault' | translate) : null"
       (click)="setDefault.emit()"
     >
-      <i class="pi pi-star" aria-hidden="true"></i>
+      <i class="pi" [ngClass]="settingDefault ? 'pi-spin pi-spinner' : 'pi-star'" aria-hidden="true"></i>
       {{ 'account.addresses.setDefault' | translate }}
     </button>
   </div>

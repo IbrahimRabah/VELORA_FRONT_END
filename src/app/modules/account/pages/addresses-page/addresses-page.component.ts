@@ -31,6 +31,8 @@ export class AddressesPageComponent {
 
   readonly dialogOpen = signal(false);
   readonly editingAddress = signal<AddressResponse | null>(null);
+  readonly deletingIds = signal<ReadonlySet<number>>(new Set());
+  readonly settingDefaultIds = signal<ReadonlySet<number>>(new Set());
 
   readonly maxAddresses = MAX_ADDRESSES;
   readonly canAddMore = computed(() => this.addresses().length < MAX_ADDRESSES);
@@ -62,8 +64,17 @@ export class AddressesPageComponent {
 
   onDialogSaved(): void {
     this.dialogOpen.set(false);
-    this.toast.success(this.translate.instant('account.addresses.savedToast'));
+    const key = this.editingAddress() ? 'toast.addresses.updated' : 'toast.addresses.saved';
+    this.toast.success(this.translate.instant(key));
     this.fetchAddresses();
+  }
+
+  isDeleting(addressId: number): boolean {
+    return this.deletingIds().has(addressId);
+  }
+
+  isSettingDefault(addressId: number): boolean {
+    return this.settingDefaultIds().has(addressId);
   }
 
   onDelete(address: AddressResponse): void {
@@ -79,17 +90,51 @@ export class AddressesPageComponent {
         if (!confirmed) {
           return;
         }
-        this.addressApi.remove(address.id).subscribe(() => {
-          this.toast.success(this.translate.instant('account.addresses.deletedToast'));
-          this.fetchAddresses();
+        this.setDeleting(address.id, true);
+        this.addressApi.remove(address.id).subscribe({
+          next: () => {
+            this.setDeleting(address.id, false);
+            this.toast.success(this.translate.instant('toast.addresses.deleted'));
+            this.fetchAddresses();
+          },
+          error: () => this.setDeleting(address.id, false),
         });
       });
   }
 
   onSetDefault(address: AddressResponse): void {
-    this.addressApi.setDefault(address.id).subscribe(() => {
-      this.toast.success(this.translate.instant('account.addresses.defaultUpdatedToast'));
-      this.fetchAddresses();
+    this.setSettingDefault(address.id, true);
+    this.addressApi.setDefault(address.id).subscribe({
+      next: () => {
+        this.setSettingDefault(address.id, false);
+        this.toast.success(this.translate.instant('toast.addresses.defaultChanged'));
+        this.fetchAddresses();
+      },
+      error: () => this.setSettingDefault(address.id, false),
+    });
+  }
+
+  private setDeleting(addressId: number, deleting: boolean): void {
+    this.deletingIds.update((current) => {
+      const next = new Set(current);
+      if (deleting) {
+        next.add(addressId);
+      } else {
+        next.delete(addressId);
+      }
+      return next;
+    });
+  }
+
+  private setSettingDefault(addressId: number, settingDefault: boolean): void {
+    this.settingDefaultIds.update((current) => {
+      const next = new Set(current);
+      if (settingDefault) {
+        next.add(addressId);
+      } else {
+        next.delete(addressId);
+      }
+      return next;
     });
   }
 

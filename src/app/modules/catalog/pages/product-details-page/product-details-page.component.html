@@ -34,6 +34,7 @@
           <app-add-to-cart-box
             [disabled]="!inStock()"
             [loading]="addingToCart()"
+            [success]="justAddedToCart()"
             (addToCart)="addToCart()"
           ></app-add-to-cart-box>
 

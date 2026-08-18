@@ -9,6 +9,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 export class AddToCartBoxComponent {
   @Input() disabled = false;
   @Input() loading = false;
+  @Input() success = false;
   @Output() readonly addToCart = new EventEmitter<void>();
 
   onClick(): void {

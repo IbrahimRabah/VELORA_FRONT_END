@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { UserResponse } from '../../../../core/models';
 import { AuthApiService } from '../../../../core/services/api/auth-api.service';
 import { ConfirmDialogService } from '../../../../core/services/confirm-dialog.service';
+import { ToastService } from '../../../../core/services/toast.service';
 import { AuthStoreService } from '../../../../core/state/auth-store.service';
 import { getDisplayName } from '../../../../shared/utils/display-name.util';
 import { PostAuthService } from '../../../auth/services/post-auth.service';
@@ -22,6 +23,7 @@ export class ProfilePageComponent {
   private readonly authStore = inject(AuthStoreService);
   private readonly confirmDialogService = inject(ConfirmDialogService);
   private readonly postAuth = inject(PostAuthService);
+  private readonly toast = inject(ToastService);
   private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
 
@@ -67,6 +69,8 @@ export class ProfilePageComponent {
           next: () => {
             this.authStore.clear();
             this.postAuth.completeLogout();
+            this.signingOutAll.set(false);
+            this.toast.success(this.translate.instant('toast.auth.signedOut'));
             this.router.navigateByUrl('/');
           },
           error: () => this.signingOutAll.set(false),

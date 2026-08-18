@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CartWarningEntry } from '../../../../core/models';
 import { CartApiService } from '../../../../core/services/api/cart-api.service';
 import { ConfirmDialogService } from '../../../../core/services/confirm-dialog.service';
+import { ToastService } from '../../../../core/services/toast.service';
 import { CartStoreService } from '../../../../core/state/cart-store.service';
 
 @Component({
@@ -18,6 +19,7 @@ import { CartStoreService } from '../../../../core/state/cart-store.service';
 export class CartPageComponent {
   private readonly cartApi = inject(CartApiService);
   private readonly confirmDialogService = inject(ConfirmDialogService);
+  private readonly toast = inject(ToastService);
   private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
   private readonly platformId = inject(PLATFORM_ID);
@@ -74,7 +76,15 @@ export class CartPageComponent {
   }
 
   onRemoveItem(itemId: number): void {
-    this.cartApi.removeItem(itemId).subscribe((cart) => this.cartStore.set(cart));
+    this.setPending(itemId, true);
+    this.cartApi.removeItem(itemId).subscribe({
+      next: (cart) => {
+        this.cartStore.set(cart);
+        this.setPending(itemId, false);
+        this.toast.success(this.translate.instant('toast.cart.itemRemoved'));
+      },
+      error: () => this.setPending(itemId, false),
+    });
   }
 
   onClearCart(): void {
@@ -95,6 +105,7 @@ export class CartPageComponent {
           next: (cart) => {
             this.cartStore.set(cart);
             this.clearing.set(false);
+            this.toast.success(this.translate.instant('toast.cart.cleared'));
           },
           error: () => this.clearing.set(false),
         });

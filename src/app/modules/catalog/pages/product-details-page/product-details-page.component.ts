@@ -53,6 +53,7 @@ export class ProductDetailsPageComponent {
   readonly relatedProducts = signal<ProductSummaryResponse[]>([]);
   readonly selectedValueId = signal<number | null>(null);
   readonly addingToCart = signal(false);
+  readonly justAddedToCart = signal(false);
 
   readonly colorGroup = computed<AttributeGroupResponse | null>(() => {
     const product = this.product();
@@ -177,7 +178,9 @@ export class ProductDetailsPageComponent {
       next: (cart) => {
         this.cartStore.set(cart);
         this.addingToCart.set(false);
-        this.toast.success(this.translate.instant('product.addedToCart'));
+        this.justAddedToCart.set(true);
+        this.toast.success(this.translate.instant('toast.cart.itemAdded'));
+        setTimeout(() => this.justAddedToCart.set(false), 1500);
       },
       error: () => this.addingToCart.set(false),
     });

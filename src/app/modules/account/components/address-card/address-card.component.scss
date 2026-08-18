@@ -29,10 +29,21 @@
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
+  transition: opacity 200ms ease;
 }
 
 .address-card--default {
   border-color: var(--gold);
+}
+
+.address-card--busy {
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .address-card {
+    transition: none;
+  }
 }
 
 .address-card__top {

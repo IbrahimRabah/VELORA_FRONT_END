@@ -32,6 +32,7 @@ import { VlErrorStateComponent } from './components/vl-error-state/vl-error-stat
 import { VlConfirmDialogComponent } from './components/vl-confirm-dialog/vl-confirm-dialog.component';
 import { VlBreadcrumbComponent } from './components/vl-breadcrumb/vl-breadcrumb.component';
 import { VlToastContainerComponent } from './components/vl-toast-container/vl-toast-container.component';
+import { VlProgressBarComponent } from './components/vl-progress-bar/vl-progress-bar.component';
 import { VlPriceComponent } from './components/vl-price/vl-price.component';
 import { VlQuantityStepperComponent } from './components/vl-quantity-stepper/vl-quantity-stepper.component';
 import { VlStatusBadgeComponent } from './components/vl-status-badge/vl-status-badge.component';
@@ -90,6 +91,7 @@ import { ScrollRevealDirective } from './directives/scroll-reveal.directive';
     VlConfirmDialogComponent,
     VlBreadcrumbComponent,
     VlToastContainerComponent,
+    VlProgressBarComponent,
     VlPriceComponent,
     VlQuantityStepperComponent,
     VlStatusBadgeComponent,
@@ -158,6 +160,7 @@ import { ScrollRevealDirective } from './directives/scroll-reveal.directive';
     VlConfirmDialogComponent,
     VlBreadcrumbComponent,
     VlToastContainerComponent,
+    VlProgressBarComponent,
     VlPriceComponent,
     VlQuantityStepperComponent,
     VlStatusBadgeComponent,
