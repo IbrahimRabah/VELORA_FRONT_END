@@ -1,1 +1,14 @@
-<p>not-found works!</p>
+<section class="error-page section">
+  <div class="container-vl error-page__inner">
+    <span class="error-page__icon-ring">
+      <i class="pi pi-search error-page__icon" aria-hidden="true"></i>
+    </span>
+
+    <h1 class="error-page__title">{{ 'errorPage.notFound.title' | translate }}</h1>
+    <p class="error-page__message">{{ 'errorPage.notFound.message' | translate }}</p>
+
+    <div class="error-page__actions">
+      <a routerLink="/products" pButton pRipple [label]="'errorPage.notFound.cta' | translate" class="error-page__cta"></a>
+    </div>
+  </div>
+</section>

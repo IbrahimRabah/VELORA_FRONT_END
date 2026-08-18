@@ -46,6 +46,7 @@ import { VlDataTableComponent } from './components/vl-data-table/vl-data-table.c
 import { VlFilterChipComponent } from './components/vl-filter-chip/vl-filter-chip.component';
 import { VlLanguageSwitcherComponent } from './components/vl-language-switcher/vl-language-switcher.component';
 import { VlReasonFieldComponent } from './components/vl-reason-field/vl-reason-field.component';
+import { VlCarouselComponent } from './components/vl-carousel/vl-carousel.component';
 import { LocalizedPipe } from './pipes/localized.pipe';
 import { EgpPipe } from './pipes/egp.pipe';
 import { FulfillmentStatusPipe } from './pipes/fulfillment-status.pipe';
@@ -105,6 +106,7 @@ import { ScrollRevealDirective } from './directives/scroll-reveal.directive';
     VlFilterChipComponent,
     VlLanguageSwitcherComponent,
     VlReasonFieldComponent,
+    VlCarouselComponent,
     LocalizedPipe,
     EgpPipe,
     FulfillmentStatusPipe,
@@ -174,6 +176,7 @@ import { ScrollRevealDirective } from './directives/scroll-reveal.directive';
     VlFilterChipComponent,
     VlLanguageSwitcherComponent,
     VlReasonFieldComponent,
+    VlCarouselComponent,
     LocalizedPipe,
     EgpPipe,
     FulfillmentStatusPipe,

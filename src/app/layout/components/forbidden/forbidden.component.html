@@ -1,0 +1,23 @@
+<section class="error-page section">
+  <div class="container-vl error-page__inner">
+    <span class="error-page__icon-ring">
+      <i class="pi pi-lock error-page__icon" aria-hidden="true"></i>
+    </span>
+
+    <h1 class="error-page__title">{{ 'errorPage.forbidden.title' | translate }}</h1>
+    <p class="error-page__message">{{ 'errorPage.forbidden.message' | translate }}</p>
+
+    <div class="error-page__actions">
+      <a routerLink="/" pButton pRipple [label]="'errorPage.forbidden.goHome' | translate" class="error-page__cta"></a>
+      <a
+        *ngIf="!isLoggedIn()"
+        routerLink="/auth/login"
+        pButton
+        pRipple
+        outlined
+        [label]="'errorPage.forbidden.signIn' | translate"
+        class="error-page__cta error-page__cta--outlined"
+      ></a>
+    </div>
+  </div>
+</section>

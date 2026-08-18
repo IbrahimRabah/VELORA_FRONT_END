@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CustomerLayoutComponent } from './layout/customer-layout/customer-layout.component';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { NotFoundComponent } from './layout/components/not-found/not-found.component';
+import { ForbiddenComponent } from './layout/components/forbidden/forbidden.component';
 import { adminGuard } from './core/guards/admin.guard';
 import { authGuard } from './core/guards/auth.guard';
 
@@ -33,8 +34,7 @@ const routes: Routes = [
     canActivateChild: [adminGuard],
     loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)
   },
-  // Placeholder page component until a dedicated 403/Forbidden page is built.
-  { path: '403', component: NotFoundComponent },
+  { path: '403', component: ForbiddenComponent },
   { path: '**', component: NotFoundComponent }
 ];
 

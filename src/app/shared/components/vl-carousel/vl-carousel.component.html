@@ -1,0 +1,48 @@
+<div class="vl-carousel">
+  <button
+    type="button"
+    class="vl-carousel__nav vl-carousel__nav--prev"
+    [disabled]="atStart"
+    [attr.aria-label]="'common.carousel.previous' | translate"
+    (click)="scrollByPage(-1)"
+  >
+    <i class="pi pi-chevron-left" aria-hidden="true"></i>
+  </button>
+
+  <div
+    class="vl-carousel__viewport"
+    tabindex="0"
+    role="region"
+    [attr.aria-label]="ariaLabel"
+    #viewport
+    (scroll)="onScroll()"
+    (keydown)="onKeydown($event)"
+  >
+    <div class="vl-carousel__track">
+      <div class="vl-carousel__slide" *ngFor="let item of items; let i = index">
+        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
+      </div>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    class="vl-carousel__nav vl-carousel__nav--next"
+    [disabled]="atEnd"
+    [attr.aria-label]="'common.carousel.next' | translate"
+    (click)="scrollByPage(1)"
+  >
+    <i class="pi pi-chevron-right" aria-hidden="true"></i>
+  </button>
+</div>
+
+<div class="vl-carousel__dots" *ngIf="pageCount > 1">
+  <button
+    type="button"
+    *ngFor="let page of pagesArray; let i = index"
+    class="vl-carousel__dot"
+    [class.vl-carousel__dot--active]="i === activePage"
+    [attr.aria-label]="'common.carousel.goToPage' | translate: { page: i + 1 }"
+    (click)="scrollToPage(i)"
+  ></button>
+</div>

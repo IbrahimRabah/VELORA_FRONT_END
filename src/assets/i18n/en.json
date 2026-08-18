@@ -13,7 +13,12 @@
     "confirm": "Confirm",
     "cancel": "Cancel",
     "remove": "Remove",
-    "retry": "Retry"
+    "retry": "Retry",
+    "carousel": {
+      "previous": "Previous",
+      "next": "Next",
+      "goToPage": "Go to slide {{page}}"
+    }
   },
   "header": {
     "logoAlt": "VELORA",
@@ -633,6 +638,19 @@
     },
     "checkout": {
       "orderNumberCopied": "Order number copied"
+    }
+  },
+  "errorPage": {
+    "notFound": {
+      "title": "Page Not Found",
+      "message": "The page you're looking for doesn't exist or has moved.",
+      "cta": "Browse Products"
+    },
+    "forbidden": {
+      "title": "Access Denied",
+      "message": "You don't have permission to view this page.",
+      "goHome": "Go Home",
+      "signIn": "Sign In"
     }
   }
 }

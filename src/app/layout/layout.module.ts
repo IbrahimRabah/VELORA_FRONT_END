@@ -18,6 +18,7 @@ import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.component';
 import { AdminTopbarComponent } from './components/admin-topbar/admin-topbar.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 
 
 
@@ -34,7 +35,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     UserMenuComponent,
     AdminSidebarComponent,
     AdminTopbarComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ForbiddenComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +49,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
   exports: [
     CustomerLayoutComponent,
     AdminLayoutComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ForbiddenComponent
   ]
 })
 export class LayoutModule { }

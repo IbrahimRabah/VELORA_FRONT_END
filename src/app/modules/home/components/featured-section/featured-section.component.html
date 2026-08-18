@@ -7,13 +7,14 @@
       </a>
     </div>
 
-    <div class="featured-section__grid">
-      <ng-container *ngIf="loading; else productsTpl">
-        <app-vl-skeleton *ngFor="let placeholder of skeletonPlaceholders"></app-vl-skeleton>
-      </ng-container>
-      <ng-template #productsTpl>
-        <app-vl-product-card *ngFor="let product of products" [product]="product"></app-vl-product-card>
-      </ng-template>
+    <div class="featured-section__skeletons" *ngIf="loading">
+      <app-vl-skeleton *ngFor="let placeholder of skeletonPlaceholders"></app-vl-skeleton>
     </div>
+
+    <app-vl-carousel *ngIf="!loading" [items]="products" [ariaLabel]="'home.featured.title' | translate">
+      <ng-template let-product>
+        <app-vl-product-card [product]="product"></app-vl-product-card>
+      </ng-template>
+    </app-vl-carousel>
   </div>
 </section>

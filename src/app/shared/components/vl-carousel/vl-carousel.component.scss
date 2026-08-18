@@ -1,0 +1,119 @@
+@use 'styles/breakpoints';
+
+:host {
+  display: block;
+}
+
+.vl-carousel {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.vl-carousel__viewport {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  overflow-inline: auto;
+  overflow-block: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  border-radius: var(--r-md);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 4px;
+  }
+}
+
+.vl-carousel__track {
+  display: flex;
+  gap: var(--sp-5);
+}
+
+.vl-carousel__slide {
+  flex: 0 0 auto;
+  inline-size: 100%;
+  scroll-snap-align: start;
+
+  @include breakpoints.md {
+    inline-size: calc((100% - var(--sp-5)) / 2);
+  }
+
+  @include breakpoints.lg {
+    inline-size: calc((100% - 2 * var(--sp-5)) / 3);
+  }
+}
+
+.vl-carousel__nav {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 44px;
+  block-size: 44px;
+  border-radius: var(--r-full);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-lg);
+  cursor: pointer;
+  transition: background 220ms ease, color 220ms ease, border-color 220ms ease, opacity 220ms ease;
+
+  i {
+    display: inline-block;
+  }
+
+  &:hover:not(:disabled),
+  &:focus-visible {
+    background: var(--brand);
+    border-color: var(--brand);
+    color: var(--ink);
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+}
+
+[dir='rtl'] .vl-carousel__nav i {
+  transform: scaleX(-1);
+}
+
+.vl-carousel__dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  margin-block-start: var(--sp-5);
+}
+
+.vl-carousel__dot {
+  inline-size: 8px;
+  block-size: 8px;
+  padding: 0;
+  border: none;
+  border-radius: var(--r-full);
+  background: var(--border);
+  cursor: pointer;
+  transition: background 220ms ease, transform 220ms ease;
+
+  &--active {
+    background: var(--brand);
+    transform: scale(1.25);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vl-carousel__nav,
+  .vl-carousel__dot {
+    transition: none;
+  }
+}
