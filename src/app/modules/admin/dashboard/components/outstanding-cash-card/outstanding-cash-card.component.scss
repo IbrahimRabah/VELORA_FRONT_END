@@ -1,0 +1,85 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.outstanding-cash-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-1);
+  height: 100%;
+  padding: var(--admin-card-pad);
+  background: color-mix(in srgb, var(--warn) 4%, var(--admin-surface));
+  border: 1px solid var(--admin-border);
+  border-radius: var(--r-lg);
+  transition: border-color 180ms ease, background 180ms ease;
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--warn) 30%, var(--admin-border));
+  }
+}
+
+.outstanding-cash-card__icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 44px;
+  block-size: 44px;
+  border-radius: var(--r-md);
+  background: var(--warn);
+  color: #fff;
+  font-size: 1.25rem;
+  margin-block-end: var(--sp-1);
+}
+
+.outstanding-cash-card__label {
+  font-size: var(--fs-sm);
+  color: var(--admin-text-muted);
+}
+
+.outstanding-cash-card__figure-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+}
+
+.outstanding-cash-card__figure {
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--admin-text);
+}
+
+.outstanding-cash-card__currency {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--admin-text-muted);
+}
+
+.outstanding-cash-card__sub {
+  font-size: var(--fs-sm);
+  color: var(--admin-text-muted);
+}
+
+// Escalated state once the courier has held cash for more than a week — a stronger wash
+// than the card's always-on 4% tint, plus the border and figure turn fully --warn.
+.outstanding-cash-card--warn {
+  border-color: var(--warn);
+  background: var(--warn-bg);
+
+  &:hover {
+    border-color: var(--warn);
+  }
+
+  .outstanding-cash-card__figure,
+  .outstanding-cash-card__label {
+    color: var(--warn);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .outstanding-cash-card {
+    transition: none;
+  }
+}

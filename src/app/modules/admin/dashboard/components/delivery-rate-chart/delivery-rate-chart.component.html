@@ -1,1 +1,39 @@
-<p>delivery-rate-chart works!</p>
+<div class="delivery-rate-chart" [class.delivery-rate-chart--alarm]="isAlarm">
+  <div class="delivery-rate-chart__icon-badge">
+    <i class="pi pi-shield" aria-hidden="true"></i>
+  </div>
+  <span class="delivery-rate-chart__label">{{ 'admin.dashboard.delivery.heading' | translate }}</span>
+
+  <div class="delivery-rate-chart__body">
+    <svg class="delivery-rate-chart__donut" viewBox="0 0 100 100" aria-hidden="true">
+      <circle class="delivery-rate-chart__track" cx="50" cy="50" [attr.r]="radius" />
+      <circle
+        class="delivery-rate-chart__progress"
+        cx="50"
+        cy="50"
+        [attr.r]="radius"
+        [attr.stroke-dasharray]="circumference"
+        [attr.stroke-dashoffset]="dashOffset"
+      />
+    </svg>
+    <span class="delivery-rate-chart__figure">{{ data.successRatePercent }}%</span>
+  </div>
+
+  <div class="delivery-rate-chart__legend">
+    <div class="delivery-rate-chart__stat">
+      <span class="delivery-rate-chart__dot delivery-rate-chart__dot--ok"></span>
+      <span class="delivery-rate-chart__stat-value">{{ data.delivered }}</span>
+      <span class="delivery-rate-chart__stat-label">{{ 'admin.dashboard.delivery.delivered' | translate }}</span>
+    </div>
+    <div class="delivery-rate-chart__stat">
+      <span class="delivery-rate-chart__dot delivery-rate-chart__dot--stop"></span>
+      <span class="delivery-rate-chart__stat-value">{{ data.failed }}</span>
+      <span class="delivery-rate-chart__stat-label">{{ 'admin.dashboard.delivery.failed' | translate }}</span>
+    </div>
+    <div class="delivery-rate-chart__stat">
+      <span class="delivery-rate-chart__dot delivery-rate-chart__dot--warn"></span>
+      <span class="delivery-rate-chart__stat-value">{{ data.refused }}</span>
+      <span class="delivery-rate-chart__stat-label">{{ 'admin.dashboard.delivery.refused' | translate }}</span>
+    </div>
+  </div>
+</div>

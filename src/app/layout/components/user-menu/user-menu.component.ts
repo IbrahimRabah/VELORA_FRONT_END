@@ -27,6 +27,7 @@ export class UserMenuComponent {
   @ViewChild('panel') private readonly panel!: Popover;
 
   readonly isLoggedIn = this.authStore.isLoggedIn;
+  readonly isAdmin = this.authStore.isAdmin;
   readonly user = this.authStore.user;
   readonly loggingOut = signal(false);
 

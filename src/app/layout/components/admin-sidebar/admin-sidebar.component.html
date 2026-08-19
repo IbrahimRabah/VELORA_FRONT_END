@@ -1,1 +1,80 @@
-<p>admin-sidebar works!</p>
+<ng-template #navList>
+  <div class="admin-sidebar__group" *ngFor="let group of navGroups">
+    <span class="admin-sidebar__group-label">{{ group.labelKey | translate }}</span>
+    <a
+      *ngFor="let item of group.items"
+      [routerLink]="item.route"
+      routerLinkActive="admin-sidebar__link--active"
+      class="admin-sidebar__link"
+      [attr.data-tooltip]="item.labelKey | translate"
+      (click)="closeMobile()"
+    >
+      <i class="pi {{ item.icon }} admin-sidebar__icon" aria-hidden="true"></i>
+      <span class="admin-sidebar__label">{{ item.labelKey | translate }}</span>
+      <span
+        *ngIf="item.badge && pendingOrderCount() > 0"
+        class="admin-sidebar__badge"
+      >{{ pendingOrderCount() }}</span>
+    </a>
+  </div>
+</ng-template>
+
+<aside class="admin-sidebar admin-sidebar--desktop" [class.admin-sidebar--collapsed]="collapsed">
+  <div class="admin-sidebar__header">
+    <a routerLink="/admin/dashboard" class="admin-sidebar__logo">
+      <img src="assets/images/shared/logo.png" [alt]="'admin.sidebar.logoAlt' | translate" />
+      <span class="admin-sidebar__wordmark">{{ 'admin.sidebar.logoAlt' | translate }}</span>
+    </a>
+
+    <button
+      type="button"
+      class="admin-sidebar__collapse-toggle"
+      [attr.data-tooltip]="(collapsed ? 'admin.nav.expand' : 'admin.nav.collapse') | translate"
+      [attr.aria-label]="(collapsed ? 'admin.nav.expand' : 'admin.nav.collapse') | translate"
+      (click)="collapseToggle.emit()"
+    >
+      <i class="pi pi-chevron-left" [class.admin-sidebar__collapse-icon--flipped]="collapsed" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <nav class="admin-sidebar__nav">
+    <ng-container *ngTemplateOutlet="navList"></ng-container>
+  </nav>
+</aside>
+
+<div
+  class="admin-sidebar__backdrop"
+  [class.admin-sidebar__backdrop--visible]="mobileOpen"
+  [attr.inert]="mobileOpen ? null : ''"
+  (click)="closeMobile()"
+></div>
+
+<aside
+  class="admin-sidebar admin-sidebar--mobile"
+  [class.admin-sidebar--open]="mobileOpen"
+  [attr.inert]="mobileOpen ? null : ''"
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-label]="'common.menu' | translate"
+  (keydown.escape)="closeMobile()"
+>
+  <div class="admin-sidebar__mobile-header">
+    <div class="admin-sidebar__mobile-brand">
+      <img src="assets/images/shared/logo.png" [alt]="'admin.sidebar.logoAlt' | translate" class="admin-sidebar__mobile-logo" />
+      <span class="admin-sidebar__wordmark">{{ 'admin.sidebar.logoAlt' | translate }}</span>
+    </div>
+    <button
+      #mobileCloseBtn
+      type="button"
+      class="admin-sidebar__mobile-close"
+      (click)="closeMobile()"
+      [attr.aria-label]="'common.close' | translate"
+    >
+      <i class="pi pi-times" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <nav class="admin-sidebar__nav">
+    <ng-container *ngTemplateOutlet="navList"></ng-container>
+  </nav>
+</aside>

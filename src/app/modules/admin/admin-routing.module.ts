@@ -13,6 +13,7 @@ const routes: Routes = [
     canActivate: [adminGuard],
     canActivateChild: [adminGuard],
     children: [
+      { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
       { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
       { path: 'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule) },
       { path: 'taxonomy', loadChildren: () => import('./taxonomy/taxonomy.module').then(m => m.TaxonomyModule) },

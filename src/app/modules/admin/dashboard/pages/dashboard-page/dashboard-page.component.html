@@ -1,1 +1,244 @@
-<p>dashboard-page works!</p>
+<div class="dashboard-page">
+  <header class="dashboard-page__header">
+    <h1 class="dashboard-page__title">{{ 'admin.dashboard.title' | translate }}</h1>
+    <div class="dashboard-page__header-end" *ngIf="data() as d">
+      <span class="dashboard-page__updated">
+        {{ 'admin.dashboard.updated' | translate: { time: formattedUpdatedAt(d.generatedAt) } }}
+      </span>
+      <button type="button" class="dashboard-page__refresh" (click)="refresh()" [disabled]="loading()">
+        <i class="pi" [ngClass]="loading() ? 'pi-spin pi-spinner' : 'pi-refresh'" aria-hidden="true"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Error -->
+  <div class="dashboard-page__error" *ngIf="error() && !loading()">
+    <i class="pi pi-exclamation-triangle" aria-hidden="true"></i>
+    <div class="dashboard-page__error-text">
+      <p class="dashboard-page__error-title">{{ 'admin.dashboard.error.title' | translate }}</p>
+      <p class="dashboard-page__error-message">{{ 'admin.dashboard.error.message' | translate }}</p>
+    </div>
+    <button type="button" class="dashboard-page__error-retry" (click)="refresh()">
+      {{ 'common.retry' | translate }}
+    </button>
+  </div>
+
+  <!-- Loading skeleton -->
+  <div class="dashboard-page__skeleton" *ngIf="loading() && !data()">
+    <p-skeleton height="140px" borderRadius="8px"></p-skeleton>
+    <div class="dashboard-page__skeleton-row">
+      <p-skeleton height="150px" borderRadius="8px"></p-skeleton>
+      <p-skeleton height="150px" borderRadius="8px"></p-skeleton>
+      <p-skeleton height="150px" borderRadius="8px"></p-skeleton>
+      <p-skeleton height="150px" borderRadius="8px"></p-skeleton>
+    </div>
+    <div class="dashboard-page__skeleton-row">
+      <p-skeleton height="240px" borderRadius="8px"></p-skeleton>
+      <p-skeleton height="240px" borderRadius="8px"></p-skeleton>
+      <p-skeleton height="240px" borderRadius="8px"></p-skeleton>
+    </div>
+  </div>
+
+  <ng-container *ngIf="data() as d">
+    <!-- Section 1: Action queues -->
+    <section class="dashboard-page__card dashboard-page__action-queues" style="animation-delay: 0ms">
+      <h2 class="dashboard-page__section-heading dashboard-page__section-heading--rule">
+        <i class="pi pi-bell" aria-hidden="true"></i>
+        {{ 'admin.dashboard.actionQueues.heading' | translate }}
+        <span class="dashboard-page__section-count">{{ totalActionQueueCount(d) }}</span>
+      </h2>
+
+      <div class="dashboard-page__queue-grid">
+        <a
+          *ngFor="let queue of d.actionQueues; let i = index"
+          [routerLink]="['/admin/orders']"
+          [queryParams]="{ status: queue.status }"
+          class="dashboard-page__queue-tile dashboard-page__queue-tile--{{ actionQueueTone(queue.status) }}"
+          [style.animation-delay.ms]="i * 40"
+        >
+          <div class="dashboard-page__queue-bar"></div>
+          <div class="dashboard-page__queue-body">
+            <span class="dashboard-page__queue-count">{{ queue.count }}</span>
+            <span class="dashboard-page__queue-label">{{ queue.label }}</span>
+            <span class="dashboard-page__queue-link">
+              {{ 'admin.dashboard.actionQueues.viewOrders' | translate }}
+              <i class="pi pi-arrow-right" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div class="dashboard-page__queue-icon-badge">
+            <i class="pi {{ actionQueueIcon(queue.status) }}" aria-hidden="true"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- Order status distribution — a proportional view of the same actionQueues data,
+           the page's one real chart beyond delivery health. -->
+      <div class="dashboard-page__distribution" *ngIf="d.actionQueues.length">
+        <div class="dashboard-page__distribution-scroll">
+          <div class="dashboard-page__distribution-bar">
+            <span
+              *ngFor="let queue of d.actionQueues"
+              class="dashboard-page__distribution-segment dashboard-page__distribution-segment--{{ actionQueueTone(queue.status) }}"
+              [style.width.%]="distributionPercent(d, queue.count)"
+              [attr.title]="queue.label + ': ' + queue.count"
+            ></span>
+          </div>
+        </div>
+        <div class="dashboard-page__distribution-legend">
+          <span *ngFor="let queue of d.actionQueues" class="dashboard-page__distribution-legend-item">
+            <span class="dashboard-page__distribution-dot dashboard-page__distribution-dot--{{ actionQueueTone(queue.status) }}"></span>
+            {{ queue.label }}
+            <strong>{{ queue.count }}</strong>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Money and health -->
+    <section class="dashboard-page__row dashboard-page__row--4">
+      <div style="animation-delay: 40ms" class="dashboard-page__fade">
+        <app-outstanding-cash-card [data]="d.codPosition"></app-outstanding-cash-card>
+      </div>
+      <div style="animation-delay: 80ms" class="dashboard-page__fade">
+        <app-delivery-rate-chart [data]="d.deliveryHealth"></app-delivery-rate-chart>
+      </div>
+      <div style="animation-delay: 120ms" class="dashboard-page__fade">
+        <app-kpi-card
+          titleKey="admin.dashboard.sales.today"
+          icon="pi-calendar"
+          [revenue]="d.sales.revenueToday"
+          [orderCount]="d.sales.ordersToday"
+        ></app-kpi-card>
+      </div>
+      <div style="animation-delay: 160ms" class="dashboard-page__fade">
+        <app-kpi-card
+          titleKey="admin.dashboard.sales.thisMonth"
+          icon="pi-chart-bar"
+          [revenue]="d.sales.revenueThisMonth"
+          [orderCount]="d.sales.ordersThisMonth"
+        ></app-kpi-card>
+      </div>
+    </section>
+
+    <!-- Section 3: Alerts / Stale orders / Low stock -->
+    <section class="dashboard-page__row dashboard-page__row--3">
+      <div class="dashboard-page__card dashboard-page__panel dashboard-page__card--stop dashboard-page__fade" style="animation-delay: 200ms">
+        <div class="dashboard-page__panel-header">
+          <div class="dashboard-page__panel-icon-badge dashboard-page__panel-icon-badge--stop">
+            <i class="pi pi-bell" aria-hidden="true"></i>
+          </div>
+          <h2 class="dashboard-page__panel-heading">{{ 'admin.dashboard.alerts.heading' | translate }}</h2>
+          <span class="dashboard-page__panel-count-pill dashboard-page__panel-count-pill--stop">{{ d.alerts.length }}</span>
+        </div>
+
+        <div class="dashboard-page__alert-rows">
+          <a
+            *ngFor="let alert of d.alerts"
+            [routerLink]="alert.actionPath"
+            class="dashboard-page__alert-row"
+          >
+            <span class="dashboard-page__alert-dot dashboard-page__alert-dot--{{ severityTone(alert.severity) }}"></span>
+            <span class="dashboard-page__alert-message">{{ alert.message }}</span>
+            <i class="pi pi-chevron-right dashboard-page__panel-chevron" aria-hidden="true"></i>
+          </a>
+          <div *ngIf="!d.alerts.length" class="dashboard-page__panel-empty">
+            <i class="pi pi-check-circle" aria-hidden="true"></i>
+            <span>{{ 'admin.dashboard.alerts.empty' | translate }}</span>
+          </div>
+        </div>
+
+        <!-- No dedicated alerts page exists among the admin modules — Audit is the closest
+             destination for a running list of system events, so "View all" routes there. -->
+        <a routerLink="/admin/audit" class="dashboard-page__panel-footer">
+          {{ 'admin.dashboard.alerts.viewAll' | translate }}
+          <i class="pi pi-arrow-right dashboard-page__panel-footer-arrow" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="dashboard-page__fade" style="animation-delay: 240ms">
+        <app-recent-orders-widget [items]="d.staleOrders"></app-recent-orders-widget>
+      </div>
+
+      <div class="dashboard-page__fade" style="animation-delay: 280ms">
+        <app-low-stock-widget [items]="d.lowStock"></app-low-stock-widget>
+      </div>
+    </section>
+
+    <!-- Section 4: Reference figures -->
+    <section class="dashboard-page__row dashboard-page__row--3">
+      <div class="dashboard-page__card dashboard-page__card--info dashboard-page__fade" style="animation-delay: 320ms">
+        <div class="dashboard-page__panel-header dashboard-page__panel-header--tight">
+          <div class="dashboard-page__panel-icon-badge dashboard-page__panel-icon-badge--info">
+            <i class="pi pi-users" aria-hidden="true"></i>
+          </div>
+          <h2 class="dashboard-page__panel-heading">{{ 'admin.dashboard.customers.heading' | translate }}</h2>
+          <span class="dashboard-page__panel-count-pill dashboard-page__panel-count-pill--info">{{ d.customers.total }}</span>
+        </div>
+        <div class="dashboard-page__stat-list">
+          <div class="dashboard-page__stat">
+            <span class="dashboard-page__stat-value">{{ d.customers.total }}</span>
+            <span class="dashboard-page__stat-label">{{ 'admin.dashboard.customers.total' | translate }}</span>
+          </div>
+          <div class="dashboard-page__stat">
+            <span class="dashboard-page__stat-value">{{ d.customers.newThisMonth }}</span>
+            <span class="dashboard-page__stat-label">{{ 'admin.dashboard.customers.newThisMonth' | translate }}</span>
+          </div>
+          <div class="dashboard-page__stat">
+            <span class="dashboard-page__stat-value">{{ d.customers.repeatCustomers }}</span>
+            <span class="dashboard-page__stat-label">{{ 'admin.dashboard.customers.repeat' | translate }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-page__card dashboard-page__card--violet dashboard-page__fade" style="animation-delay: 360ms">
+        <div class="dashboard-page__panel-header dashboard-page__panel-header--tight">
+          <div class="dashboard-page__panel-icon-badge dashboard-page__panel-icon-badge--violet">
+            <i class="pi pi-tag" aria-hidden="true"></i>
+          </div>
+          <h2 class="dashboard-page__panel-heading">{{ 'admin.dashboard.catalog.heading' | translate }}</h2>
+          <span class="dashboard-page__panel-count-pill dashboard-page__panel-count-pill--violet">{{ d.catalog.activeProducts }}</span>
+        </div>
+        <div class="dashboard-page__stat-list">
+          <div class="dashboard-page__stat">
+            <span class="dashboard-page__stat-value">{{ d.catalog.activeProducts }}</span>
+            <span class="dashboard-page__stat-label">{{ 'admin.dashboard.catalog.activeProducts' | translate }}</span>
+          </div>
+          <div class="dashboard-page__stat">
+            <span class="dashboard-page__stat-value">{{ d.catalog.draftProducts }}</span>
+            <span class="dashboard-page__stat-label">{{ 'admin.dashboard.catalog.draftProducts' | translate }}</span>
+          </div>
+          <div class="dashboard-page__stat">
+            <span class="dashboard-page__stat-value">{{ d.catalog.outOfStockVariants }}</span>
+            <span class="dashboard-page__stat-label">{{ 'admin.dashboard.catalog.outOfStock' | translate }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-page__card dashboard-page__card--gold dashboard-page__fade" style="animation-delay: 400ms">
+        <div class="dashboard-page__panel-header dashboard-page__panel-header--tight">
+          <div class="dashboard-page__panel-icon-badge dashboard-page__panel-icon-badge--gold">
+            <i class="pi pi-crown" aria-hidden="true"></i>
+          </div>
+          <h2 class="dashboard-page__panel-heading">{{ 'admin.dashboard.topProducts.heading' | translate }}</h2>
+          <span class="dashboard-page__panel-count-pill dashboard-page__panel-count-pill--gold">{{ d.topProducts.length }}</span>
+        </div>
+        <table class="dashboard-page__top-products">
+          <thead>
+            <tr>
+              <th>{{ 'admin.dashboard.topProducts.name' | translate }}</th>
+              <th>{{ 'admin.dashboard.topProducts.units' | translate }}</th>
+              <th>{{ 'admin.dashboard.topProducts.revenue' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of d.topProducts.slice(0, 4)">
+              <td>{{ product.productName }}</td>
+              <td>{{ product.unitsSold }}</td>
+              <td>{{ formatMoney(product.revenue) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </ng-container>
+</div>

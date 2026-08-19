@@ -53,6 +53,7 @@
 
   // Fluid type scale (mobile → desktop), min-content-max via clamp() so
   // _typography.scss never needs a literal font-size or a media query.
+  --fs-xs: clamp(0.6875rem, 0.66rem + 0.15vw, 0.75rem);
   --fs-sm: clamp(0.8125rem, 0.775rem + 0.2vw, 0.875rem);
   --fs-base: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem);
   --fs-lg: clamp(1.0625rem, 1rem + 0.3vw, 1.125rem);
@@ -66,6 +67,25 @@
   // Modal/overlay backdrop — --line-soft (0.08 alpha) is too light to dim page
   // content behind a dialog, so this is a separate token rather than reusing it.
   --overlay: rgba(13, 13, 13, 0.5);
+
+  /* Admin surfaces — cooler and flatter than the storefront */
+  --admin-bg: #F6F5F3;
+  --admin-surface: #FFFFFF;
+  --admin-surface-alt: #FAFAFB;
+  --admin-sidebar: #1B1F24;
+  --admin-sidebar-grad-end: #16181B;
+  --admin-sidebar-hover: #262B31;
+  --admin-border: #E3E5E8;
+  --admin-border-strong: #C9CDD2;
+  --admin-text: #16181B;
+  --admin-text-muted: #6B7280;
+  --admin-text-invert: #E8EAED;
+  --admin-row-height: 44px;
+  --admin-card-pad: var(--sp-5);
+  // Two extra status accents beyond the shared semantic set (--ok/--warn/--stop/--info) —
+  // the admin order-status palette needs to read as a spectrum across 6 distinct states.
+  --admin-violet: #7C3AED;
+  --admin-blue: #2563EB;
 }
 html[dir="rtl"] {
   --display: "Reem Kufi", sans-serif;

@@ -22,6 +22,13 @@
         <i class="pi pi-map-marker" aria-hidden="true"></i>
         {{ 'userMenu.addresses' | translate }}
       </a>
+      <ng-container *ngIf="isAdmin()">
+        <hr class="user-menu__divider" />
+        <a routerLink="/admin/dashboard" class="user-menu__link">
+          <i class="pi pi-shield" aria-hidden="true"></i>
+          {{ 'userMenu.admin' | translate }}
+        </a>
+      </ng-container>
       <hr class="user-menu__divider" />
       <button
         type="button"

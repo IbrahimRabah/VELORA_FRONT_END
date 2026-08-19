@@ -38,6 +38,7 @@
     "profile": "الملف الشخصي",
     "orders": "طلباتي",
     "addresses": "العناوين",
+    "admin": "لوحة تحكم الأدمن",
     "logout": "تسجيل الخروج"
   },
   "footer": {
@@ -651,6 +652,101 @@
       "message": "ليس لديك صلاحية لعرض هذه الصفحة.",
       "goHome": "الرئيسية",
       "signIn": "تسجيل الدخول"
+    }
+  },
+  "admin": {
+    "nav": {
+      "dashboard": "لوحة التحكم",
+      "orders": "الطلبات",
+      "products": "المنتجات",
+      "categories": "التصنيفات",
+      "inventory": "المخزون",
+      "invoices": "الفواتير",
+      "remittances": "التحصيلات",
+      "customers": "العملاء",
+      "shipping": "الشحن",
+      "exports": "التصدير",
+      "audit": "سجل المراجعة",
+      "settings": "الإعدادات",
+      "collapse": "طي الشريط الجانبي",
+      "expand": "توسيع الشريط الجانبي",
+      "groups": {
+        "operations": "العمليات",
+        "catalog": "الكتالوج",
+        "finance": "المالية",
+        "system": "النظام"
+      }
+    },
+    "sidebar": {
+      "logoAlt": "فيلورا"
+    },
+    "topbar": {
+      "viewStore": "عرض المتجر",
+      "account": "حساب الأدمن",
+      "signOut": "تسجيل الخروج"
+    },
+    "dashboard": {
+      "title": "لوحة التحكم",
+      "updated": "آخر تحديث {{time}}",
+      "refresh": "تحديث",
+      "error": {
+        "title": "تعذر تحميل لوحة التحكم",
+        "message": "حدث خطأ أثناء جلب أحدث الأرقام."
+      },
+      "actionQueues": {
+        "heading": "يتطلب إجراء",
+        "viewOrders": "عرض الطلبات"
+      },
+      "outstandingCash": {
+        "heading": "مع الكوريير",
+        "supportingLine": "{{orderCount}} طلبات · أقدمها من {{oldestDays}} أيام"
+      },
+      "delivery": {
+        "heading": "معدل التسليم",
+        "delivered": "تم التسليم",
+        "failed": "فشل التسليم",
+        "refused": "مرفوض"
+      },
+      "sales": {
+        "today": "اليوم",
+        "thisMonth": "هذا الشهر",
+        "orders": "{{count}} طلبات"
+      },
+      "alerts": {
+        "heading": "التنبيهات",
+        "viewAll": "عرض الكل",
+        "empty": "لا توجد تنبيهات حالياً"
+      },
+      "staleOrders": {
+        "heading": "طلبات متأخرة",
+        "viewAll": "عرض الكل",
+        "empty": "لا توجد طلبات متأخرة",
+        "daysWaiting": "منذ {{days}} أيام"
+      },
+      "lowStock": {
+        "heading": "مخزون منخفض",
+        "viewAll": "عرض الكل",
+        "empty": "لا يوجد نقص في المخزون",
+        "available": "المتبقي: {{count}} قطع"
+      },
+      "customers": {
+        "heading": "العملاء",
+        "total": "الإجمالي",
+        "newThisMonth": "جدد هذا الشهر",
+        "repeat": "عملاء متكررون"
+      },
+      "catalog": {
+        "heading": "الكتالوج",
+        "activeProducts": "منتجات نشطة",
+        "draftProducts": "مسودات",
+        "outOfStock": "متغيرات نفدت من المخزون"
+      },
+      "topProducts": {
+        "heading": "الأكثر مبيعاً",
+        "name": "المنتج",
+        "units": "الوحدات المباعة",
+        "revenue": "الإيرادات"
+      }
     }
   }
 }

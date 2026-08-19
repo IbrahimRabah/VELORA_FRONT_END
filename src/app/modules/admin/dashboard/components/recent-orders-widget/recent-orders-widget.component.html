@@ -1,1 +1,39 @@
-<p>recent-orders-widget works!</p>
+<div class="recent-orders-widget">
+  <div class="recent-orders-widget__header">
+    <div class="recent-orders-widget__icon-badge">
+      <i class="pi pi-clock" aria-hidden="true"></i>
+    </div>
+    <h2 class="recent-orders-widget__heading">{{ 'admin.dashboard.staleOrders.heading' | translate }}</h2>
+    <span class="recent-orders-widget__count-pill">{{ items.length }}</span>
+  </div>
+
+  <div class="recent-orders-widget__rows">
+    <a
+      *ngFor="let order of items"
+      [routerLink]="['/admin/orders', order.orderId]"
+      class="recent-orders-widget__row"
+    >
+      <span class="recent-orders-widget__number">{{ order.orderNumber }}</span>
+      <span class="recent-orders-widget__customer">{{ order.customerName }}</span>
+      <span class="recent-orders-widget__status recent-orders-widget__status--{{ statusTone(order.status) }}">
+        <span class="recent-orders-widget__status-dot"></span>
+        {{ order.statusLabel }}
+      </span>
+      <span class="recent-orders-widget__total">{{ formattedTotal(order) }}</span>
+      <span class="recent-orders-widget__waiting">
+        {{ 'admin.dashboard.staleOrders.daysWaiting' | translate: { days: daysWaiting(order) } }}
+      </span>
+      <i class="pi pi-chevron-right recent-orders-widget__chevron" aria-hidden="true"></i>
+    </a>
+
+    <div *ngIf="!items.length" class="recent-orders-widget__empty">
+      <i class="pi pi-check-circle" aria-hidden="true"></i>
+      <span>{{ 'admin.dashboard.staleOrders.empty' | translate }}</span>
+    </div>
+  </div>
+
+  <a routerLink="/admin/orders" class="recent-orders-widget__footer">
+    {{ 'admin.dashboard.staleOrders.viewAll' | translate }}
+    <i class="pi pi-arrow-right recent-orders-widget__footer-arrow" aria-hidden="true"></i>
+  </a>
+</div>

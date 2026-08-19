@@ -1,1 +1,13 @@
-<p>outstanding-cash-card works!</p>
+<div class="outstanding-cash-card" [class.outstanding-cash-card--warn]="isStale">
+  <div class="outstanding-cash-card__icon-badge">
+    <i class="pi pi-wallet" aria-hidden="true"></i>
+  </div>
+  <span class="outstanding-cash-card__label">{{ 'admin.dashboard.outstandingCash.heading' | translate }}</span>
+  <div class="outstanding-cash-card__figure-row">
+    <span class="outstanding-cash-card__figure">{{ formattedAmount }}</span>
+    <span class="outstanding-cash-card__currency">EGP</span>
+  </div>
+  <span class="outstanding-cash-card__sub">
+    {{ 'admin.dashboard.outstandingCash.supportingLine' | translate: { orderCount: data.orderCount, oldestDays: data.oldestDays } }}
+  </span>
+</div>

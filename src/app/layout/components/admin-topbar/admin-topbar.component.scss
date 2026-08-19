@@ -1,0 +1,149 @@
+@use 'styles/breakpoints';
+
+:host {
+  display: block;
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-header);
+}
+
+.admin-topbar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-block-size: 60px;
+  padding-inline: var(--sp-4);
+  background: var(--admin-surface);
+  border-block-end: 2px solid var(--gold);
+}
+
+.admin-topbar__menu-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  // 44px — a real tap target on mobile, where this is the only way to open the sidebar.
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  border: none;
+  background: transparent;
+  color: var(--admin-text);
+  font-size: 1.125rem;
+  cursor: pointer;
+  border-radius: var(--r-sm);
+
+  &:hover,
+  &:focus-visible {
+    background: var(--admin-surface-alt);
+  }
+}
+
+@include breakpoints.md {
+  .admin-topbar__menu-btn {
+    display: none;
+  }
+}
+
+.admin-topbar__title {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  margin: 0;
+  font-family: var(--body);
+  font-size: var(--fs-h5);
+  font-weight: 700;
+  color: var(--admin-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin-topbar__end {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-shrink: 0;
+}
+
+.admin-topbar__lang {
+  display: none;
+}
+
+.admin-topbar__view-store {
+  display: none;
+  align-items: center;
+  gap: var(--sp-2);
+  color: var(--admin-text-muted);
+  text-decoration: none;
+  font-size: var(--fs-sm);
+  white-space: nowrap;
+  transition: color 180ms ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--admin-text);
+  }
+}
+
+@include breakpoints.sm {
+  .admin-topbar__lang,
+  .admin-topbar__view-store {
+    display: inline-flex;
+  }
+}
+
+.admin-topbar__account-trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--r-full);
+  background: transparent;
+  color: var(--admin-text);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  transition: background 180ms ease;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--admin-surface-alt);
+  }
+}
+
+.admin-topbar__account-name {
+  max-inline-size: 10rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-topbar__account-panel {
+  min-inline-size: 160px;
+  padding: var(--sp-1);
+}
+
+.admin-topbar__signout {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  inline-size: 100%;
+  padding: var(--sp-3);
+  border: none;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--admin-text);
+  font-size: var(--fs-sm);
+  text-align: start;
+  cursor: pointer;
+  transition: background 180ms ease;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--admin-surface-alt);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+}

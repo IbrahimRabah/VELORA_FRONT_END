@@ -38,6 +38,7 @@
     "profile": "Profile",
     "orders": "My Orders",
     "addresses": "Addresses",
+    "admin": "Admin Dashboard",
     "logout": "Logout"
   },
   "footer": {
@@ -651,6 +652,101 @@
       "message": "You don't have permission to view this page.",
       "goHome": "Go Home",
       "signIn": "Sign In"
+    }
+  },
+  "admin": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "orders": "Orders",
+      "products": "Products",
+      "categories": "Categories",
+      "inventory": "Inventory",
+      "invoices": "Invoices",
+      "remittances": "Remittances",
+      "customers": "Customers",
+      "shipping": "Shipping",
+      "exports": "Exports",
+      "audit": "Audit",
+      "settings": "Settings",
+      "collapse": "Collapse sidebar",
+      "expand": "Expand sidebar",
+      "groups": {
+        "operations": "Operations",
+        "catalog": "Catalog",
+        "finance": "Finance",
+        "system": "System"
+      }
+    },
+    "sidebar": {
+      "logoAlt": "VELORA"
+    },
+    "topbar": {
+      "viewStore": "View Store",
+      "account": "Admin account",
+      "signOut": "Sign out"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "updated": "Updated {{time}}",
+      "refresh": "Refresh",
+      "error": {
+        "title": "Couldn't load the dashboard",
+        "message": "Something went wrong while fetching the latest numbers."
+      },
+      "actionQueues": {
+        "heading": "Needs Action",
+        "viewOrders": "View orders"
+      },
+      "outstandingCash": {
+        "heading": "With the Courier",
+        "supportingLine": "{{orderCount}} orders · oldest {{oldestDays}} days"
+      },
+      "delivery": {
+        "heading": "Delivery Health",
+        "delivered": "Delivered",
+        "failed": "Failed",
+        "refused": "Refused"
+      },
+      "sales": {
+        "today": "Today",
+        "thisMonth": "This Month",
+        "orders": "{{count}} orders"
+      },
+      "alerts": {
+        "heading": "Alerts",
+        "viewAll": "View all",
+        "empty": "No alerts right now"
+      },
+      "staleOrders": {
+        "heading": "Stale Orders",
+        "viewAll": "View all",
+        "empty": "No stale orders",
+        "daysWaiting": "{{days}} days"
+      },
+      "lowStock": {
+        "heading": "Low Stock",
+        "viewAll": "View all",
+        "empty": "Nothing running low",
+        "available": "{{count}} left"
+      },
+      "customers": {
+        "heading": "Customers",
+        "total": "Total",
+        "newThisMonth": "New this month",
+        "repeat": "Repeat customers"
+      },
+      "catalog": {
+        "heading": "Catalog",
+        "activeProducts": "Active products",
+        "draftProducts": "Drafts",
+        "outOfStock": "Out of stock variants"
+      },
+      "topProducts": {
+        "heading": "Top Products",
+        "name": "Product",
+        "units": "Units sold",
+        "revenue": "Revenue"
+      }
     }
   }
 }

@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
+import { DashboardCodPosition, money } from '../../../../../core/models';
+
+// Latin digits, no currency symbol — "EGP" is rendered separately (smaller, muted)
+// beside the figure, matching the kpi-card treatment.
+const NUMBER_FORMATTER = new Intl.NumberFormat('en-US-u-nu-latn', {
+  maximumFractionDigits: 0,
+});
+
+const STALE_AFTER_DAYS = 7;
 
 @Component({
   selector: 'app-outstanding-cash-card',
@@ -7,5 +17,13 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OutstandingCashCardComponent {
+  @Input({ required: true }) data!: DashboardCodPosition;
 
+  get formattedAmount(): string {
+    return NUMBER_FORMATTER.format(money(this.data.amount));
+  }
+
+  get isStale(): boolean {
+    return this.data.oldestDays > STALE_AFTER_DAYS;
+  }
 }

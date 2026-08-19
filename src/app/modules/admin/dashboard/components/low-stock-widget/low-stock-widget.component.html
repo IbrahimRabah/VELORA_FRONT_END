@@ -1,1 +1,34 @@
-<p>low-stock-widget works!</p>
+<div class="low-stock-widget">
+  <div class="low-stock-widget__header">
+    <div class="low-stock-widget__icon-badge">
+      <i class="pi pi-box" aria-hidden="true"></i>
+    </div>
+    <h2 class="low-stock-widget__heading">{{ 'admin.dashboard.lowStock.heading' | translate }}</h2>
+    <span class="low-stock-widget__count-pill">{{ items.length }}</span>
+  </div>
+
+  <div class="low-stock-widget__rows">
+    <a
+      *ngFor="let item of items"
+      routerLink="/admin/inventory/low-stock"
+      class="low-stock-widget__row"
+    >
+      <span class="low-stock-widget__sku">{{ item.sku }}</span>
+      <span class="low-stock-widget__name">{{ item.productName }}</span>
+      <span class="low-stock-widget__available">
+        {{ 'admin.dashboard.lowStock.available' | translate: { count: item.available } }}
+      </span>
+      <i class="pi pi-chevron-right low-stock-widget__chevron" aria-hidden="true"></i>
+    </a>
+
+    <div *ngIf="!items.length" class="low-stock-widget__empty">
+      <i class="pi pi-check-circle" aria-hidden="true"></i>
+      <span>{{ 'admin.dashboard.lowStock.empty' | translate }}</span>
+    </div>
+  </div>
+
+  <a routerLink="/admin/inventory/low-stock" class="low-stock-widget__footer">
+    {{ 'admin.dashboard.lowStock.viewAll' | translate }}
+    <i class="pi pi-arrow-right low-stock-widget__footer-arrow" aria-hidden="true"></i>
+  </a>
+</div>

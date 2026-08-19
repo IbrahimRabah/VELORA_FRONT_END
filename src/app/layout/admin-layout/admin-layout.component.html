@@ -1,1 +1,20 @@
-<router-outlet></router-outlet>
+<app-vl-progress-bar></app-vl-progress-bar>
+
+<div class="admin-layout">
+  <app-admin-sidebar
+    [collapsed]="sidebarCollapsed()"
+    (collapseToggle)="toggleSidebarCollapsed()"
+    [mobileOpen]="mobileNavOpen()"
+    (mobileOpenChange)="mobileNavOpen.set($event)"
+  ></app-admin-sidebar>
+
+  <div class="admin-layout__main">
+    <app-admin-topbar (menuToggle)="mobileNavOpen.set(true)"></app-admin-topbar>
+    <main class="admin-layout__content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
+
+<app-vl-confirm-dialog></app-vl-confirm-dialog>
+<app-vl-toast-container></app-vl-toast-container>

@@ -6,6 +6,7 @@ $breakpoints: (
   md: 768px,
   lg: 992px,
   xl: 1200px,
+  xxl: 1400px,
 );
 
 @mixin from($name) {
@@ -34,6 +35,12 @@ $breakpoints: (
 
 @mixin xl {
   @include from(xl) {
+    @content;
+  }
+}
+
+@mixin xxl {
+  @include from(xxl) {
     @content;
   }
 }

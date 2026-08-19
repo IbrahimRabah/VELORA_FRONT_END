@@ -1,1 +1,11 @@
-<p>kpi-card works!</p>
+<div class="kpi-card">
+  <div class="kpi-card__icon-badge">
+    <i class="pi {{ icon }}" aria-hidden="true"></i>
+  </div>
+  <span class="kpi-card__label">{{ titleKey | translate }}</span>
+  <div class="kpi-card__figure-row">
+    <span class="kpi-card__figure">{{ formattedRevenue }}</span>
+    <span class="kpi-card__currency">EGP</span>
+  </div>
+  <span class="kpi-card__pill">{{ 'admin.dashboard.sales.orders' | translate: { count: orderCount } }}</span>
+</div>

@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
+import { DashboardLowStockItem } from '../../../../../core/models';
 
 @Component({
   selector: 'app-low-stock-widget',
@@ -7,5 +9,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LowStockWidgetComponent {
-
+  @Input({ required: true }) items!: DashboardLowStockItem[];
 }

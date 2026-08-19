@@ -1,0 +1,142 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.delivery-rate-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  height: 100%;
+  padding: var(--admin-card-pad);
+  background: color-mix(in srgb, var(--ok) 4%, var(--admin-surface));
+  border: 1px solid var(--admin-border);
+  border-radius: var(--r-lg);
+  transition: border-color 180ms ease, background 180ms ease;
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--ok) 30%, var(--admin-border));
+  }
+}
+
+.delivery-rate-chart__icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 44px;
+  block-size: 44px;
+  border-radius: var(--r-md);
+  background: var(--ok);
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+// Below 80%, the whole card escalates — wash, hover border, badge, ring and figure all
+// turn --stop so the alarm is unmistakable rather than a quiet statistic.
+.delivery-rate-chart--alarm {
+  background: color-mix(in srgb, var(--stop) 6%, var(--admin-surface));
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--stop) 30%, var(--admin-border));
+  }
+}
+
+.delivery-rate-chart--alarm .delivery-rate-chart__icon-badge {
+  background: var(--stop);
+}
+
+.delivery-rate-chart__label {
+  font-size: var(--fs-sm);
+  color: var(--admin-text-muted);
+}
+
+.delivery-rate-chart__body {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // Sized to comfortably fit the --fs-h2 figure inside the ring without the text
+  // overlapping the stroke — a smaller donut and --fs-h2 don't fit together.
+  inline-size: 160px;
+  block-size: 160px;
+  align-self: center;
+}
+
+.delivery-rate-chart__donut {
+  inline-size: 100%;
+  block-size: 100%;
+  transform: rotate(-90deg);
+}
+
+.delivery-rate-chart__track {
+  fill: none;
+  stroke: var(--admin-border);
+  stroke-width: 16;
+}
+
+.delivery-rate-chart__progress {
+  fill: none;
+  stroke: var(--ok);
+  stroke-width: 16;
+  stroke-linecap: round;
+}
+
+.delivery-rate-chart--alarm .delivery-rate-chart__progress {
+  stroke: var(--stop);
+}
+
+.delivery-rate-chart__figure {
+  position: absolute;
+  // font-size: var(--fs-h2);
+  font-weight: 700;
+  color: var(--admin-text);
+}
+
+.delivery-rate-chart--alarm .delivery-rate-chart__figure {
+  color: var(--stop);
+}
+
+.delivery-rate-chart__legend {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  inline-size: 100%;
+  padding-block-start: var(--sp-3);
+  border-block-start: 1px solid var(--admin-border);
+}
+
+.delivery-rate-chart__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.delivery-rate-chart__dot {
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: var(--r-full);
+  margin-block-end: 2px;
+
+  &--ok { background: var(--ok); }
+  &--stop { background: var(--stop); }
+  &--warn { background: var(--warn); }
+}
+
+.delivery-rate-chart__stat-value {
+  font-size: var(--fs-base);
+  font-weight: 700;
+  color: var(--admin-text);
+}
+
+.delivery-rate-chart__stat-label {
+  font-size: var(--fs-sm);
+  color: var(--admin-text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .delivery-rate-chart {
+    transition: none;
+  }
+}

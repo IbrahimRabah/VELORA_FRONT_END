@@ -1,0 +1,202 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.low-stock-widget {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: border-color 180ms ease;
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--warn) 30%, var(--admin-border));
+  }
+}
+
+.low-stock-widget__header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--admin-card-pad) var(--admin-card-pad) var(--sp-3);
+}
+
+.low-stock-widget__icon-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 44px;
+  block-size: 44px;
+  border-radius: var(--r-md);
+  background: var(--warn);
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.low-stock-widget__heading {
+  flex: 1 1 auto;
+  margin: 0;
+  font-family: var(--body);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--admin-text);
+}
+
+.low-stock-widget__count-pill {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 1.5rem;
+  block-size: 1.5rem;
+  padding-inline: var(--sp-2);
+  border-radius: var(--r-full);
+  background: color-mix(in srgb, var(--warn) 12%, transparent);
+  color: var(--warn);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+}
+
+.low-stock-widget__rows {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.low-stock-widget__row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-block-size: var(--admin-row-height);
+  padding-inline: var(--admin-card-pad);
+  border-block-start: 1px solid var(--admin-border);
+  color: inherit;
+  text-decoration: none;
+  transition: background 150ms ease;
+
+  &:nth-child(even) {
+    background: var(--admin-surface-alt);
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: var(--admin-surface-alt);
+
+    .low-stock-widget__chevron {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+.low-stock-widget__sku {
+  flex-shrink: 0;
+  font-size: var(--fs-sm);
+  color: var(--admin-text-muted);
+}
+
+.low-stock-widget__name {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--fs-sm);
+  color: var(--admin-text);
+}
+
+.low-stock-widget__available {
+  flex-shrink: 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--warn);
+}
+
+.low-stock-widget__chevron {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  color: var(--admin-text-muted);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 150ms ease, transform 150ms ease;
+
+  :host-context([dir='rtl']) & {
+    transform: scaleX(-1) translateX(-4px);
+  }
+}
+
+.low-stock-widget__row:hover .low-stock-widget__chevron,
+.low-stock-widget__row:focus-visible .low-stock-widget__chevron {
+  :host-context([dir='rtl']) & {
+    transform: scaleX(-1) translateX(0);
+  }
+}
+
+.low-stock-widget__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-6) var(--admin-card-pad);
+  color: var(--admin-text-muted);
+  font-size: var(--fs-sm);
+  text-align: center;
+
+  i {
+    font-size: 1.5rem;
+    color: var(--ok);
+  }
+}
+
+.low-stock-widget__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--admin-card-pad);
+  border-block-start: 1px solid var(--admin-border);
+  color: var(--gold);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--admin-surface-alt);
+
+    .low-stock-widget__footer-arrow {
+      transform: translateX(4px);
+    }
+  }
+}
+
+.low-stock-widget__footer-arrow {
+  font-size: 0.75rem;
+  transition: transform 150ms ease;
+
+  :host-context([dir='rtl']) & {
+    transform: scaleX(-1);
+  }
+}
+
+.low-stock-widget__footer:hover .low-stock-widget__footer-arrow,
+.low-stock-widget__footer:focus-visible .low-stock-widget__footer-arrow {
+  :host-context([dir='rtl']) & {
+    transform: scaleX(-1) translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .low-stock-widget,
+  .low-stock-widget__row,
+  .low-stock-widget__chevron,
+  .low-stock-widget__footer-arrow {
+    transition: none;
+  }
+}
