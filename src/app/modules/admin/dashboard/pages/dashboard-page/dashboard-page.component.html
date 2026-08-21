@@ -118,6 +118,23 @@
           [orderCount]="d.sales.ordersThisMonth"
         ></app-kpi-card>
       </div>
+
+      <!-- Stock locked by orders that are confirmed but haven't shipped — hidden entirely
+           when nothing is stuck, since a zero-value alarm card is just noise. -->
+      <a
+        *ngIf="d.stuckReservations > 0"
+        routerLink="/admin/orders"
+        [queryParams]="{ status: 'CONFIRMED' }"
+        class="dashboard-page__stuck-card dashboard-page__fade"
+        style="animation-delay: 200ms"
+      >
+        <div class="dashboard-page__stuck-icon-badge">
+          <i class="pi pi-lock" aria-hidden="true"></i>
+        </div>
+        <span class="dashboard-page__stuck-label">{{ 'admin.dashboard.stuckReservations.heading' | translate }}</span>
+        <span class="dashboard-page__stuck-figure">{{ d.stuckReservations }}</span>
+        <span class="dashboard-page__stuck-sub">{{ 'admin.dashboard.stuckReservations.supportingLine' | translate }}</span>
+      </a>
     </section>
 
     <!-- Section 3: Alerts / Stale orders / Low stock -->

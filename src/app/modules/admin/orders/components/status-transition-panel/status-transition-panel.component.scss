@@ -1,0 +1,356 @@
+:host {
+  display: block;
+}
+
+.status-transition-panel {
+  padding: var(--sp-5);
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--r-lg);
+}
+
+.status-transition-panel__current {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding-block-end: var(--sp-4);
+  margin-block-end: var(--sp-4);
+  border-block-end: 1px solid var(--admin-border);
+}
+
+.status-transition-panel__current-label {
+  font-size: var(--fs-sm);
+  color: var(--admin-text-muted);
+}
+
+.status-transition-panel__current-badge {
+  align-self: flex-start;
+  font-size: var(--fs-base);
+}
+
+.status-transition-panel__error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  padding: var(--sp-3);
+  margin-block-end: var(--sp-3);
+  background: var(--stop-bg);
+  border: 1px solid var(--stop);
+  border-radius: var(--r-md);
+  color: var(--stop);
+  font-size: var(--fs-sm);
+  line-height: 1.4;
+
+  i {
+    flex-shrink: 0;
+    font-size: 1rem;
+    margin-block-start: 1px;
+  }
+}
+
+.status-transition-panel__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.status-transition-panel__terminal {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--admin-text-muted);
+}
+
+.status-transition-panel__btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  inline-size: 100%;
+  padding-block: var(--sp-3);
+  padding-inline: var(--sp-4);
+  border-radius: var(--r-md);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  cursor: pointer;
+  text-align: start;
+  transition: background 180ms ease, color 180ms ease;
+
+  > i:first-child {
+    flex-shrink: 0;
+    font-size: 1rem;
+  }
+
+  span {
+    flex: 1 1 auto;
+  }
+}
+
+.status-transition-panel__btn-warn {
+  flex: 0 0 auto;
+  color: var(--warn);
+}
+
+@each $tone in "warn", "info", "violet", "blue", "ok", "stop" {
+  .status-transition-panel__btn--#{$tone} {
+    $color: var(--#{if($tone == "violet" or $tone == "blue", admin-#{$tone}, #{$tone})});
+
+    border: 1px solid $color;
+    background: color-mix(in srgb, $color 10%, transparent);
+    color: $color;
+
+    &:hover,
+    &:focus-visible {
+      background: $color;
+      color: #fff;
+
+      .status-transition-panel__btn-warn {
+        color: #fff;
+      }
+    }
+  }
+}
+
+// ═══ Inline generic reason/consequence dialog ═══
+
+.admin-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-4);
+}
+
+.admin-dialog__backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--overlay);
+  backdrop-filter: blur(4px);
+}
+
+.admin-dialog__panel {
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+  max-inline-size: 560px;
+  max-block-size: 88vh;
+  background: var(--admin-surface);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  animation: admin-dialog-in 220ms ease both;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.admin-dialog__panel--sm {
+  max-inline-size: 440px;
+}
+
+@keyframes admin-dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.admin-dialog__header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
+  border-block-end: 1px solid var(--admin-border);
+}
+
+.admin-dialog__title {
+  margin: 0;
+  font-family: var(--body);
+  font-size: var(--fs-h6);
+  font-weight: 700;
+  color: var(--admin-text);
+}
+
+.admin-dialog__close {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 32px;
+  block-size: 32px;
+  border: none;
+  border-radius: var(--r-full);
+  background: none;
+  color: var(--admin-text-muted);
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--admin-surface-alt);
+  }
+}
+
+.admin-dialog__body {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  overflow-y: auto;
+  padding: var(--sp-5);
+}
+
+.admin-dialog__field-label {
+  display: block;
+  margin-block-end: var(--sp-2);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--admin-text);
+}
+
+.admin-dialog__textarea {
+  inline-size: 100%;
+  padding: var(--sp-3);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--r-md);
+  background: var(--admin-surface);
+  color: var(--admin-text);
+  font-family: var(--body);
+  font-size: var(--fs-sm);
+  resize: vertical;
+
+  &:focus {
+    outline: 2px solid var(--gold);
+    outline-offset: -1px;
+  }
+}
+
+.admin-dialog__counter {
+  display: block;
+  margin-block-start: var(--sp-1);
+  font-size: var(--fs-xs);
+  color: var(--admin-text-muted);
+  text-align: end;
+}
+
+.admin-dialog__inline-error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  padding: var(--sp-3);
+  margin-block-end: var(--sp-4);
+  background: var(--stop-bg);
+  border: 1px solid var(--stop);
+  border-radius: var(--r-md);
+  color: var(--stop);
+  font-size: var(--fs-sm);
+  line-height: 1.4;
+
+  i {
+    flex-shrink: 0;
+    font-size: 1rem;
+    margin-block-start: 1px;
+  }
+}
+
+.admin-dialog__warning {
+  display: flex;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  background: var(--warn-bg);
+  border: 1px solid var(--warn);
+  border-radius: var(--r-md);
+  color: var(--warn);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1.5;
+
+  i {
+    flex-shrink: 0;
+    font-size: 1.125rem;
+  }
+}
+
+.admin-dialog__footer {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--admin-surface-alt);
+  border-block-start: 1px solid var(--admin-border);
+}
+
+.admin-dialog__cancel,
+.admin-dialog__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-5);
+  border-radius: var(--r-md);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 180ms ease;
+}
+
+.admin-dialog__cancel {
+  border: 1px solid var(--admin-border);
+  background: transparent;
+  color: var(--admin-text);
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    background: var(--admin-surface-alt);
+  }
+}
+
+.admin-dialog__submit {
+  border: none;
+  color: #fff;
+}
+
+@each $tone in "warn", "info", "violet", "blue", "ok", "stop" {
+  .admin-dialog__submit--#{$tone} {
+    background: var(--#{if($tone == "violet" or $tone == "blue", admin-#{$tone}, #{$tone})});
+  }
+}
+
+.admin-dialog__submit:hover:not(:disabled),
+.admin-dialog__submit:focus-visible:not(:disabled) {
+  opacity: 0.88;
+}
+
+.admin-dialog__cancel:disabled,
+.admin-dialog__submit:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+@media (max-width: 639px) {
+  .admin-dialog {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .admin-dialog__panel {
+    max-inline-size: 100%;
+    max-block-size: 92vh;
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-dialog__panel,
+  .status-transition-panel__btn {
+    animation: none;
+    transition: none;
+  }
+}

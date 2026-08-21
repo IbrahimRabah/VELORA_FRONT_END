@@ -1,1 +1,72 @@
-<p>payment-status-dialog works!</p>
+<div class="admin-dialog" *ngIf="open">
+  <div class="admin-dialog__backdrop" (click)="cancel()"></div>
+
+  <div
+    #panel
+    class="admin-dialog__panel admin-dialog__panel--sm"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="payment-status-dialog-title"
+    tabindex="-1"
+    (keydown.escape)="cancel()"
+    (keydown.tab)="onTab($event)"
+  >
+    <header class="admin-dialog__header" [class.admin-dialog__header--scrolled]="scrolled()">
+      <h2 id="payment-status-dialog-title" class="admin-dialog__title">
+        {{ 'admin.orders.paymentDialog.title' | translate }}
+      </h2>
+      <button type="button" class="admin-dialog__close" (click)="cancel()" [attr.aria-label]="'common.close' | translate">
+        <i class="pi pi-times" aria-hidden="true"></i>
+      </button>
+    </header>
+
+    <div class="admin-dialog__body" (scroll)="onBodyScroll($event)">
+      <div class="admin-dialog__inline-error" *ngIf="errorMessage()">
+        <i class="pi pi-exclamation-circle" aria-hidden="true"></i>
+        <span>{{ errorMessage() }}</span>
+      </div>
+
+      <label class="admin-dialog__field-label" for="payment-status-select">
+        {{ 'admin.orders.paymentDialog.statusLabel' | translate }}
+      </label>
+      <p-select
+        inputId="payment-status-select"
+        [options]="options()"
+        optionLabel="label"
+        optionValue="status"
+        [ngModel]="selectedStatus()"
+        (onChange)="selectedStatus.set($event.value)"
+        [placeholder]="'admin.orders.paymentDialog.statusPlaceholder' | translate"
+        appendTo="self"
+        styleClass="admin-dialog__select"
+      ></p-select>
+
+      <label class="admin-dialog__field-label admin-dialog__field-label--spaced" for="payment-note">
+        {{ 'admin.orders.paymentDialog.noteLabel' | translate }}
+      </label>
+      <textarea
+        id="payment-note"
+        class="admin-dialog__textarea"
+        rows="3"
+        [ngModel]="note()"
+        (ngModelChange)="note.set($event)"
+        [placeholder]="'admin.orders.paymentDialog.notePlaceholder' | translate"
+      ></textarea>
+    </div>
+
+    <footer class="admin-dialog__footer" [class.admin-dialog__footer--scrolled]="scrolled()">
+      <button type="button" class="admin-dialog__cancel" [disabled]="saving()" (click)="cancel()">
+        {{ 'common.cancel' | translate }}
+      </button>
+      <button
+        type="button"
+        class="admin-dialog__submit admin-dialog__submit--ok"
+        [disabled]="saving() || !selectedStatus()"
+        (click)="submit()"
+      >
+        <i class="pi" [ngClass]="saving() ? 'pi-spin pi-spinner' : 'pi-check'" aria-hidden="true"></i>
+        {{ 'admin.orders.paymentDialog.submit' | translate }}
+      </button>
+    </footer>
+  </div>
+</div>

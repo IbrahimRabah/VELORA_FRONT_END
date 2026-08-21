@@ -1,1 +1,56 @@
-<p>confirm-call-dialog works!</p>
+<div class="admin-dialog" *ngIf="open">
+  <div class="admin-dialog__backdrop" (click)="cancel()"></div>
+
+  <div
+    #panel
+    class="admin-dialog__panel admin-dialog__panel--sm"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="confirm-call-dialog-title"
+    tabindex="-1"
+    (keydown.escape)="cancel()"
+    (keydown.tab)="onTab($event)"
+  >
+    <header class="admin-dialog__header" [class.admin-dialog__header--scrolled]="scrolled()">
+      <h2 id="confirm-call-dialog-title" class="admin-dialog__title">
+        {{ 'admin.orders.confirmDialog.title' | translate }}
+      </h2>
+      <button type="button" class="admin-dialog__close" (click)="cancel()" [attr.aria-label]="'common.close' | translate">
+        <i class="pi pi-times" aria-hidden="true"></i>
+      </button>
+    </header>
+
+    <div class="admin-dialog__body" (scroll)="onBodyScroll($event)">
+      <p class="admin-dialog__lead">{{ 'admin.orders.confirmDialog.lead' | translate }}</p>
+
+      <div class="admin-dialog__inline-error" *ngIf="errorMessage()">
+        <i class="pi pi-exclamation-circle" aria-hidden="true"></i>
+        <span>{{ errorMessage() }}</span>
+      </div>
+
+      <label class="admin-dialog__field-label" for="confirm-note">
+        {{ 'admin.orders.confirmDialog.noteLabel' | translate }}
+      </label>
+      <textarea
+        id="confirm-note"
+        class="admin-dialog__textarea"
+        rows="3"
+        [maxLength]="noteMaxLength"
+        [ngModel]="note()"
+        (ngModelChange)="note.set($event)"
+        [placeholder]="'admin.orders.confirmDialog.notePlaceholder' | translate"
+      ></textarea>
+      <span class="admin-dialog__counter">{{ note().length }}/{{ noteMaxLength }}</span>
+    </div>
+
+    <footer class="admin-dialog__footer" [class.admin-dialog__footer--scrolled]="scrolled()">
+      <button type="button" class="admin-dialog__cancel" [disabled]="saving()" (click)="cancel()">
+        {{ 'common.cancel' | translate }}
+      </button>
+      <button type="button" class="admin-dialog__submit admin-dialog__submit--ok" [disabled]="saving()" (click)="submit()">
+        <i class="pi" [ngClass]="saving() ? 'pi-spin pi-spinner' : 'pi-check'" aria-hidden="true"></i>
+        {{ 'admin.orders.confirmDialog.submit' | translate }}
+      </button>
+    </footer>
+  </div>
+</div>

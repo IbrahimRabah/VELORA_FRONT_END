@@ -1,1 +1,24 @@
-<p>order-audit-panel works!</p>
+<div class="order-audit-panel">
+  <div class="order-audit-panel__icon-badge">
+    <i class="pi pi-history" aria-hidden="true"></i>
+  </div>
+  <h2 class="order-audit-panel__heading">{{ 'admin.orders.detail.timeline.heading' | translate }}</h2>
+
+  <ol class="order-audit-panel__list">
+    <li *ngFor="let entry of timeline" class="order-audit-panel__item">
+      <span class="order-audit-panel__dot order-audit-panel__dot--{{ entryTone(entry.to) }}"></span>
+      <div class="order-audit-panel__content">
+        <div class="order-audit-panel__transition">
+          <span *ngIf="entry.from as from">{{ entryLabel(from) }} → </span>
+          <strong>{{ entryLabel(entry.to) }}</strong>
+        </div>
+        <span class="order-audit-panel__time">{{ formattedAt(entry.at) }}</span>
+        <p *ngIf="entry.note" class="order-audit-panel__note">{{ entry.note }}</p>
+      </div>
+    </li>
+
+    <li *ngIf="!timeline.length" class="order-audit-panel__empty">
+      {{ 'admin.orders.detail.timeline.empty' | translate }}
+    </li>
+  </ol>
+</div>

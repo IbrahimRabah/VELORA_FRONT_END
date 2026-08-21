@@ -1,1 +1,196 @@
-<p>order-details-page works!</p>
+<div class="order-details-page">
+  <!-- Loading -->
+  <div class="order-details-page__skeleton" *ngIf="loading() && !order()">
+    <p-skeleton height="90px" borderRadius="12px"></p-skeleton>
+    <div class="order-details-page__skeleton-grid">
+      <p-skeleton height="320px" borderRadius="12px"></p-skeleton>
+      <p-skeleton height="320px" borderRadius="12px"></p-skeleton>
+    </div>
+  </div>
+
+  <!-- Error -->
+  <div class="order-details-page__error" *ngIf="error() && !loading()">
+    <i class="pi pi-exclamation-triangle" aria-hidden="true"></i>
+    <span>{{ 'admin.orders.detail.errorMessage' | translate }}</span>
+    <button type="button" class="order-details-page__retry" (click)="retry()">{{ 'common.retry' | translate }}</button>
+  </div>
+
+  <ng-container *ngIf="order() as o">
+    <!-- Header strip -->
+    <header class="order-details-page__header">
+      <div class="order-details-page__header-main">
+        <h1 class="order-details-page__number">{{ o.orderNumber }}</h1>
+        <div class="order-details-page__header-badges">
+          <app-vl-status-badge [label]="statusLabel(o.fulfillmentStatus)" [tone]="statusTone(o.fulfillmentStatus)"></app-vl-status-badge>
+          <app-vl-status-badge [label]="paymentStatusLabel(o.paymentStatus)" [tone]="paymentStatusTone(o.paymentStatus)"></app-vl-status-badge>
+        </div>
+        <button type="button" class="order-details-page__payment-link" (click)="openPaymentDialog()">
+          {{ 'admin.orders.detail.changePaymentStatus' | translate }}
+        </button>
+      </div>
+      <div class="order-details-page__header-end">
+        <span class="order-details-page__date">{{ formatDate(o.placedAt) }}</span>
+        <a [href]="'tel:' + o.contactPhone" class="order-details-page__call-btn">
+          <i class="pi pi-phone" aria-hidden="true"></i>
+          {{ 'admin.orders.detail.callCustomer' | translate }}
+        </a>
+      </div>
+    </header>
+
+    <div class="order-details-page__layout">
+      <!-- MAIN COLUMN -->
+      <div class="order-details-page__main">
+        <!-- Address -->
+        <section class="order-details-page__card">
+          <div class="order-details-page__card-header">
+            <div class="order-details-page__icon-badge order-details-page__icon-badge--info">
+              <i class="pi pi-map-marker" aria-hidden="true"></i>
+            </div>
+            <h2 class="order-details-page__card-title">{{ 'admin.orders.detail.address.heading' | translate }}</h2>
+            <button type="button" class="order-details-page__copy-btn" (click)="copyAddress()">
+              <i class="pi pi-copy" aria-hidden="true"></i>
+              {{ 'admin.orders.detail.address.copy' | translate }}
+            </button>
+          </div>
+          <p class="order-details-page__address-text">{{ o.shippingAddress.formatted }}</p>
+          <p class="order-details-page__address-meta" *ngIf="o.shippingAddress.landmark">
+            <i class="pi pi-flag" aria-hidden="true"></i>
+            {{ o.shippingAddress.landmark }}
+          </p>
+        </section>
+
+        <!-- Customer -->
+        <section class="order-details-page__card">
+          <div class="order-details-page__card-header">
+            <div class="order-details-page__icon-badge order-details-page__icon-badge--violet">
+              <i class="pi pi-user" aria-hidden="true"></i>
+            </div>
+            <h2 class="order-details-page__card-title">{{ 'admin.orders.detail.customer.heading' | translate }}</h2>
+          </div>
+          <dl class="order-details-page__customer-grid">
+            <div class="order-details-page__customer-row">
+              <dt>{{ 'admin.orders.detail.customer.name' | translate }}</dt>
+              <dd>{{ o.contactName }}</dd>
+            </div>
+            <div class="order-details-page__customer-row">
+              <dt>{{ 'admin.orders.detail.customer.phone' | translate }}</dt>
+              <dd><a [href]="'tel:' + o.contactPhone">{{ o.contactPhone }}</a></dd>
+            </div>
+            <div class="order-details-page__customer-row" *ngIf="o.contactAltPhone">
+              <dt>{{ 'admin.orders.detail.customer.altPhone' | translate }}</dt>
+              <dd><a [href]="'tel:' + o.contactAltPhone">{{ o.contactAltPhone }}</a></dd>
+            </div>
+            <div class="order-details-page__customer-row" *ngIf="o.contactEmail">
+              <dt>{{ 'admin.orders.detail.customer.email' | translate }}</dt>
+              <dd>{{ o.contactEmail }}</dd>
+            </div>
+          </dl>
+        </section>
+
+        <!-- Items -->
+        <section class="order-details-page__card">
+          <div class="order-details-page__card-header">
+            <div class="order-details-page__icon-badge order-details-page__icon-badge--gold">
+              <i class="pi pi-box" aria-hidden="true"></i>
+            </div>
+            <h2 class="order-details-page__card-title">{{ 'admin.orders.detail.items.heading' | translate }}</h2>
+          </div>
+          <div class="order-details-page__items-table-wrap">
+            <table class="order-details-page__items-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>{{ 'admin.orders.detail.items.product' | translate }}</th>
+                  <th>{{ 'admin.orders.detail.items.sku' | translate }}</th>
+                  <th>{{ 'admin.orders.detail.items.qty' | translate }}</th>
+                  <th>{{ 'admin.orders.detail.items.unitPrice' | translate }}</th>
+                  <th>{{ 'admin.orders.detail.items.lineTotal' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of o.items">
+                  <td class="order-details-page__item-image">
+                    <img [src]="item.imageUrl" [alt]="item.name" loading="lazy" />
+                  </td>
+                  <td>
+                    <div class="order-details-page__item-name">{{ item.name }}</div>
+                    <div class="order-details-page__item-variant">{{ item.variantSummary }}</div>
+                  </td>
+                  <td class="order-details-page__item-sku">{{ item.sku }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>{{ formatMoney(item.unitPrice) }}</td>
+                  <td class="order-details-page__item-total">{{ formatMoney(item.lineTotal) }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Totals -->
+        <section class="order-details-page__card order-details-page__totals">
+          <div class="order-details-page__totals-row">
+            <span>{{ 'admin.orders.detail.totals.subtotal' | translate }}</span>
+            <span>{{ formatMoney(o.subtotal) }}</span>
+          </div>
+          <div class="order-details-page__totals-row">
+            <span>{{ 'admin.orders.detail.totals.shipping' | translate }}</span>
+            <span>{{ formatMoney(o.shippingCost) }}</span>
+          </div>
+          <div class="order-details-page__totals-row">
+            <span>{{ 'admin.orders.detail.totals.codFee' | translate }}</span>
+            <span>{{ formatMoney(o.codFee) }}</span>
+          </div>
+          <div class="order-details-page__totals-row">
+            <span>{{ 'admin.orders.detail.totals.tax' | translate }}</span>
+            <span>{{ formatMoney(o.taxTotal) }}</span>
+          </div>
+          <div class="order-details-page__totals-row order-details-page__totals-row--grand">
+            <span>{{ 'admin.orders.detail.totals.grandTotal' | translate }}</span>
+            <span>{{ formatMoney(o.grandTotal) }}</span>
+          </div>
+        </section>
+
+        <!-- Customer note -->
+        <section class="order-details-page__card" *ngIf="o.customerNote">
+          <div class="order-details-page__card-header">
+            <div class="order-details-page__icon-badge order-details-page__icon-badge--warn">
+              <i class="pi pi-comment" aria-hidden="true"></i>
+            </div>
+            <h2 class="order-details-page__card-title">{{ 'admin.orders.detail.note.heading' | translate }}</h2>
+          </div>
+          <p class="order-details-page__note-text">{{ o.customerNote }}</p>
+        </section>
+
+        <!-- Timeline -->
+        <app-order-audit-panel [timeline]="o.timeline"></app-order-audit-panel>
+      </div>
+
+      <!-- SIDE COLUMN -->
+      <div class="order-details-page__side">
+        <app-status-transition-panel [order]="o" (changed)="onTransitionChanged()"></app-status-transition-panel>
+
+        <!-- Invoice -->
+        <section class="order-details-page__card" *ngIf="o.fulfillmentStatus === 'DELIVERED' && invoice() as inv">
+          <div class="order-details-page__card-header">
+            <div class="order-details-page__icon-badge order-details-page__icon-badge--ok">
+              <i class="pi pi-file-pdf" aria-hidden="true"></i>
+            </div>
+            <h2 class="order-details-page__card-title">{{ 'admin.orders.detail.invoice.heading' | translate }}</h2>
+          </div>
+          <p class="order-details-page__invoice-number">{{ inv.invoiceNumber }}</p>
+          <button type="button" class="order-details-page__invoice-download" [disabled]="downloadingInvoice()" (click)="downloadInvoice()">
+            <i class="pi" [ngClass]="downloadingInvoice() ? 'pi-spin pi-spinner' : 'pi-download'" aria-hidden="true"></i>
+            {{ 'admin.orders.detail.invoice.download' | translate }}
+          </button>
+        </section>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<app-payment-status-dialog
+  [orderId]="paymentDialogOpen() && order() ? order()!.id : null"
+  [currentStatus]="order()?.paymentStatus ?? null"
+  (closed)="paymentDialogOpen.set(false)"
+  (updated)="onPaymentUpdated()"
+></app-payment-status-dialog>

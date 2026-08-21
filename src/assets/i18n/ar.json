@@ -14,6 +14,7 @@
     "cancel": "إلغاء",
     "remove": "إزالة",
     "retry": "إعادة المحاولة",
+    "clear": "مسح",
     "carousel": {
       "previous": "السابق",
       "next": "التالي",
@@ -635,7 +636,10 @@
       "defaultChanged": "تم تحديث العنوان الافتراضي"
     },
     "orders": {
-      "cancelled": "تم إلغاء الطلب"
+      "cancelled": "تم إلغاء الطلب",
+      "confirmed": "تم تأكيد الطلب",
+      "statusChanged": "تم تغيير الحالة إلى {{status}}",
+      "paymentChanged": "تم تغيير حالة الدفع إلى {{status}}"
     },
     "checkout": {
       "orderNumberCopied": "تم نسخ رقم الطلب"
@@ -701,11 +705,17 @@
         "heading": "مع الكوريير",
         "supportingLine": "{{orderCount}} طلبات · أقدمها من {{oldestDays}} أيام"
       },
+      "stuckReservations": {
+        "heading": "حجوزات معلّقة",
+        "supportingLine": "مخزون محجوز لطلبات لم تُشحن"
+      },
       "delivery": {
         "heading": "معدل التسليم",
         "delivered": "تم التسليم",
         "failed": "فشل التسليم",
-        "refused": "مرفوض"
+        "refused": "مرفوض",
+        "cancelled": "ملغي",
+        "returnedToSeller": "مرتجع"
       },
       "sales": {
         "today": "اليوم",
@@ -746,6 +756,125 @@
         "name": "المنتج",
         "units": "الوحدات المباعة",
         "revenue": "الإيرادات"
+      }
+    },
+    "orders": {
+      "tabs": {
+        "all": "الكل",
+        "pendingConfirmation": "بانتظار التأكيد",
+        "confirmed": "مؤكد",
+        "processing": "جاري التجهيز",
+        "shipped": "تم الشحن",
+        "delivered": "تم التوصيل",
+        "failedCancelled": "فشل/ملغي"
+      },
+      "filters": {
+        "dateFrom": "من تاريخ",
+        "dateTo": "إلى تاريخ",
+        "governorate": "المحافظة",
+        "allGovernorates": "كل المحافظات",
+        "paymentStatus": "حالة الدفع",
+        "allPaymentStatuses": "كل حالات الدفع",
+        "apply": "تطبيق"
+      },
+      "list": {
+        "title": "الطلبات",
+        "searchPlaceholder": "ابحث برقم الطلب أو رقم التليفون",
+        "errorMessage": "تعذر تحميل الطلبات.",
+        "empty": "لا توجد طلبات مطابقة لهذه الفلاتر.",
+        "confirmOrder": "تأكيد الطلب",
+        "viewDetails": "عرض التفاصيل",
+        "moreActions": "المزيد من الإجراءات",
+        "statusUpdated": "تم تحديث حالة الطلب",
+        "waitingHours": "منذ {{hours}} ساعة",
+        "waitingDays": "منذ {{days}} أيام",
+        "columns": {
+          "orderNumber": "الطلب",
+          "customer": "العميل",
+          "governorate": "المحافظة",
+          "items": "المنتجات",
+          "total": "الإجمالي",
+          "fulfilment": "حالة التنفيذ",
+          "payment": "الدفع",
+          "waiting": "الانتظار"
+        }
+      },
+      "confirmDialog": {
+        "title": "تأكيد بعد المكالمة",
+        "lead": "أكّد هذا الطلب بعد التحدث مع العميل.",
+        "noteLabel": "ملاحظة (اختياري)",
+        "notePlaceholder": "أي شيء يستحق التسجيل عن المكالمة",
+        "submit": "تأكيد الطلب"
+      },
+      "paymentDialog": {
+        "title": "تحديث حالة الدفع",
+        "statusLabel": "الحالة الجديدة",
+        "statusPlaceholder": "اختر حالة",
+        "noteLabel": "ملاحظة (اختياري)",
+        "notePlaceholder": "سبب هذا التصحيح",
+        "submit": "تحديث"
+      },
+      "cancelDialog": {
+        "title": "إلغاء الطلب",
+        "stockNote": "سيتم إرجاع الكمية إلى المخزون.",
+        "reasonLabel": "السبب",
+        "reasonPlaceholder": "دوّن سبب إلغاء هذا الطلب",
+        "keepOrder": "الإبقاء على الطلب",
+        "submit": "إلغاء الطلب"
+      },
+      "detail": {
+        "errorMessage": "تعذر تحميل هذا الطلب.",
+        "currentStatus": "الحالة الحالية",
+        "confirmAfterCall": "تأكيد بعد المكالمة",
+        "noFurtherTransitions": "وصل هذا الطلب إلى حالة نهائية — لا توجد تحويلات أخرى.",
+        "reasonLabel": "السبب",
+        "reasonPlaceholder": "مطلوب — اشرح السبب",
+        "confirmTransition": "تأكيد",
+        "statusUpdated": "تم تحديث حالة الطلب",
+        "changePaymentStatus": "تغيير حالة الدفع",
+        "callCustomer": "اتصل بالعميل",
+        "consequence": {
+          "shipped": "سيتم خصم الكمية من المخزون. لا يمكن التراجع.",
+          "delivered": "سيتم إصدار فاتورة برقم متسلسل نهائي. لا يمكن التراجع."
+        },
+        "address": {
+          "heading": "عنوان التوصيل",
+          "copy": "نسخ للمندوب",
+          "copied": "تم نسخ العنوان"
+        },
+        "customer": {
+          "heading": "العميل",
+          "name": "الاسم",
+          "phone": "الهاتف",
+          "altPhone": "هاتف بديل",
+          "email": "البريد الإلكتروني"
+        },
+        "items": {
+          "heading": "المنتجات",
+          "product": "المنتج",
+          "sku": "SKU",
+          "qty": "الكمية",
+          "unitPrice": "سعر الوحدة",
+          "lineTotal": "إجمالي السطر"
+        },
+        "totals": {
+          "subtotal": "الإجمالي الفرعي",
+          "shipping": "الشحن",
+          "codFee": "رسوم الدفع عند الاستلام",
+          "tax": "الضريبة",
+          "grandTotal": "الإجمالي الكلي"
+        },
+        "note": {
+          "heading": "ملاحظة العميل"
+        },
+        "invoice": {
+          "heading": "الفاتورة",
+          "download": "تحميل PDF"
+        },
+        "timeline": {
+          "heading": "السجل الزمني",
+          "empty": "لا يوجد سجل بعد."
+        }
       }
     }
   }

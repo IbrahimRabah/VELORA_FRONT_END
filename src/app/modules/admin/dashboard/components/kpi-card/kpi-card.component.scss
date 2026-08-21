@@ -10,9 +10,11 @@
   gap: var(--sp-2);
   height: 100%;
   padding: var(--admin-card-pad);
-  // A soft ~4% wash of the card's accent colour instead of plain white — so the revenue
-  // row reads as distinct coloured surfaces rather than four identical white boxes.
-  background: color-mix(in srgb, var(--info) 4%, var(--admin-surface));
+  // A soft wash of the card's accent colour instead of plain white — so the revenue row
+  // reads as distinct coloured surfaces rather than four identical white boxes. --info is
+  // a muted blue-grey; at a literal ~4% mix the shift is only a few RGB units and doesn't
+  // actually read on screen, so this needs more than the nominal 4% to be visible at all.
+  background: color-mix(in srgb, var(--info) 8%, var(--admin-surface));
   border: 1px solid var(--admin-border);
   border-radius: var(--r-lg);
   transition: border-color 180ms ease;

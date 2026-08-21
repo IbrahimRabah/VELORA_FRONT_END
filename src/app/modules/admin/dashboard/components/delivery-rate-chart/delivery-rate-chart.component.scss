@@ -10,7 +10,7 @@
   gap: var(--sp-3);
   height: 100%;
   padding: var(--admin-card-pad);
-  background: color-mix(in srgb, var(--ok) 4%, var(--admin-surface));
+  background: color-mix(in srgb, var(--ok) 8%, var(--admin-surface));
   border: 1px solid var(--admin-border);
   border-radius: var(--r-lg);
   transition: border-color 180ms ease, background 180ms ease;
@@ -35,7 +35,7 @@
 // Below 80%, the whole card escalates — wash, hover border, badge, ring and figure all
 // turn --stop so the alarm is unmistakable rather than a quiet statistic.
 .delivery-rate-chart--alarm {
-  background: color-mix(in srgb, var(--stop) 6%, var(--admin-surface));
+  background: color-mix(in srgb, var(--stop) 8%, var(--admin-surface));
 
   &:hover {
     border-color: color-mix(in srgb, var(--stop) 30%, var(--admin-border));
@@ -97,10 +97,12 @@
   color: var(--stop);
 }
 
+// Grid rather than a single flex row — five figures no longer fit comfortably on one
+// line, so this settles into 3 + 2 instead of squeezing or wrapping unevenly.
 .delivery-rate-chart__legend {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--sp-2);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-3) var(--sp-2);
   inline-size: 100%;
   padding-block-start: var(--sp-3);
   border-block-start: 1px solid var(--admin-border);

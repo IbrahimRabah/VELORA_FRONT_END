@@ -82,13 +82,16 @@ export const FULFILLMENT_STATUS_LABELS_EN: Record<FulfillmentStatus, string> = {
   [FulfillmentStatus.PARTIALLY_RETURNED]: 'Partially returned',
 };
 
+// Kept short deliberately — these sit as a pill beside the (also-short) fulfilment badge
+// in a fixed-width table column; the longer, more formal phrasing used elsewhere (e.g.
+// account order history) would wrap or force the column wide.
 export const PAYMENT_STATUS_LABELS_AR: Record<PaymentStatus, string> = {
-  [PaymentStatus.PENDING]: 'قيد الانتظار',
+  [PaymentStatus.PENDING]: 'معلّق',
   [PaymentStatus.AUTHORIZED]: 'معتمد',
   [PaymentStatus.PAID]: 'مدفوع',
   [PaymentStatus.PARTIALLY_REFUNDED]: 'مسترد جزئياً',
   [PaymentStatus.REFUNDED]: 'مسترد',
-  [PaymentStatus.FAILED]: 'فشل الدفع',
+  [PaymentStatus.FAILED]: 'فشل',
   [PaymentStatus.EXPIRED]: 'منتهي الصلاحية',
 };
 
@@ -101,3 +104,40 @@ export const PAYMENT_STATUS_LABELS_EN: Record<PaymentStatus, string> = {
   [PaymentStatus.FAILED]: 'Failed',
   [PaymentStatus.EXPIRED]: 'Expired',
 };
+
+// Shared admin colour spectrum for status badges — matches the palette already used on
+// the admin dashboard's action-queue cards, so a given status reads as the same colour
+// everywhere in the admin.
+export type StatusTone = 'warn' | 'info' | 'violet' | 'blue' | 'ok' | 'stop';
+
+export const FULFILLMENT_STATUS_TONE: Record<FulfillmentStatus, StatusTone> = {
+  [FulfillmentStatus.PENDING]: 'warn',
+  [FulfillmentStatus.CONFIRMED]: 'info',
+  [FulfillmentStatus.PROCESSING]: 'violet',
+  [FulfillmentStatus.SHIPPED]: 'blue',
+  [FulfillmentStatus.OUT_FOR_DELIVERY]: 'blue',
+  [FulfillmentStatus.DELIVERED]: 'ok',
+  [FulfillmentStatus.DELIVERY_FAILED]: 'stop',
+  [FulfillmentStatus.REFUSED_ON_DELIVERY]: 'stop',
+  [FulfillmentStatus.RETURNED_TO_SELLER]: 'stop',
+  [FulfillmentStatus.CANCELLED]: 'stop',
+  [FulfillmentStatus.RETURNED]: 'stop',
+  [FulfillmentStatus.PARTIALLY_RETURNED]: 'stop',
+};
+
+export const PAYMENT_STATUS_TONE: Record<PaymentStatus, StatusTone> = {
+  [PaymentStatus.PENDING]: 'warn',
+  [PaymentStatus.AUTHORIZED]: 'info',
+  [PaymentStatus.PAID]: 'ok',
+  [PaymentStatus.PARTIALLY_REFUNDED]: 'warn',
+  [PaymentStatus.REFUNDED]: 'info',
+  [PaymentStatus.FAILED]: 'stop',
+  [PaymentStatus.EXPIRED]: 'stop',
+};
+
+// Statuses whose next transition is irreversible and needs a plain-language consequence
+// warning before the operator commits (see status-transition-panel).
+export const CONSEQUENCE_STATUSES: readonly FulfillmentStatus[] = [
+  FulfillmentStatus.SHIPPED,
+  FulfillmentStatus.DELIVERED,
+];

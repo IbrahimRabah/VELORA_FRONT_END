@@ -35,5 +35,15 @@
       <span class="delivery-rate-chart__stat-value">{{ data.refused }}</span>
       <span class="delivery-rate-chart__stat-label">{{ 'admin.dashboard.delivery.refused' | translate }}</span>
     </div>
+    <div class="delivery-rate-chart__stat">
+      <span class="delivery-rate-chart__dot delivery-rate-chart__dot--stop"></span>
+      <span class="delivery-rate-chart__stat-value">{{ data.cancelled }}</span>
+      <span class="delivery-rate-chart__stat-label">{{ 'admin.dashboard.delivery.cancelled' | translate }}</span>
+    </div>
+    <div class="delivery-rate-chart__stat">
+      <span class="delivery-rate-chart__dot delivery-rate-chart__dot--warn"></span>
+      <span class="delivery-rate-chart__stat-value">{{ data.returnedToSeller }}</span>
+      <span class="delivery-rate-chart__stat-label">{{ 'admin.dashboard.delivery.returnedToSeller' | translate }}</span>
+    </div>
   </div>
 </div>

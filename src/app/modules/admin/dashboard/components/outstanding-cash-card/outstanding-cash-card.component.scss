@@ -10,7 +10,7 @@
   gap: var(--sp-1);
   height: 100%;
   padding: var(--admin-card-pad);
-  background: color-mix(in srgb, var(--warn) 4%, var(--admin-surface));
+  background: color-mix(in srgb, var(--warn) 6%, var(--admin-surface));
   border: 1px solid var(--admin-border);
   border-radius: var(--r-lg);
   transition: border-color 180ms ease, background 180ms ease;

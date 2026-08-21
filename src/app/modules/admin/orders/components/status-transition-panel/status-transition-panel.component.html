@@ -1,1 +1,113 @@
-<p>status-transition-panel works!</p>
+<div class="status-transition-panel">
+  <div class="status-transition-panel__current">
+    <span class="status-transition-panel__current-label">{{ 'admin.orders.detail.currentStatus' | translate }}</span>
+    <app-vl-status-badge
+      class="status-transition-panel__current-badge"
+      [label]="statusLabel(order.fulfillmentStatus)"
+      [tone]="statusTone(order.fulfillmentStatus)"
+    ></app-vl-status-badge>
+  </div>
+
+  <div class="status-transition-panel__error" *ngIf="panelError() && !pendingStatus()">
+    <i class="pi pi-exclamation-circle" aria-hidden="true"></i>
+    <span>{{ panelError() }}</span>
+  </div>
+
+  <div class="status-transition-panel__actions" *ngIf="transitions.length; else terminal">
+    <button
+      *ngFor="let status of transitions"
+      type="button"
+      class="status-transition-panel__btn status-transition-panel__btn--{{ statusTone(status) }}"
+      [disabled]="saving() || firingStatus() !== null"
+      (click)="onTransitionClick(status)"
+    >
+      <i class="pi" [ngClass]="firingStatus() === status ? 'pi-spin pi-spinner' : transitionIcon(status)" aria-hidden="true"></i>
+      <span>{{ status === 'CONFIRMED' && order.fulfillmentStatus === 'PENDING' ? ('admin.orders.detail.confirmAfterCall' | translate) : statusLabel(status) }}</span>
+      <i *ngIf="isConsequence(status)" class="pi pi-exclamation-triangle status-transition-panel__btn-warn" aria-hidden="true"></i>
+    </button>
+  </div>
+  <ng-template #terminal>
+    <p class="status-transition-panel__terminal">{{ 'admin.orders.detail.noFurtherTransitions' | translate }}</p>
+  </ng-template>
+</div>
+
+<!-- Portalled to <body> in ngAfterViewInit — see the component for why. -->
+<div #dialogRoot>
+  <app-confirm-call-dialog
+    [orderId]="confirmDialogOpen() ? order.id : null"
+    (closed)="confirmDialogOpen.set(false)"
+    (confirmed)="onConfirmed()"
+    (conflict)="onChildConflict()"
+  ></app-confirm-call-dialog>
+
+  <app-admin-cancel-dialog
+    [orderId]="cancelOrderId()"
+    (closed)="cancelOrderId.set(null)"
+    (cancelled)="onCancelled()"
+    (conflict)="onChildConflict()"
+  ></app-admin-cancel-dialog>
+
+  <div class="admin-dialog" *ngIf="pendingStatus() as status">
+    <div class="admin-dialog__backdrop" (click)="closePendingDialog()"></div>
+
+    <div
+      #dialogPanel
+      class="admin-dialog__panel admin-dialog__panel--sm"
+      role="dialog"
+      aria-modal="true"
+      tabindex="-1"
+      (keydown.escape)="closePendingDialog()"
+    >
+      <header class="admin-dialog__header">
+        <h2 class="admin-dialog__title">{{ statusLabel(status) }}</h2>
+        <button type="button" class="admin-dialog__close" (click)="closePendingDialog()" [attr.aria-label]="'common.close' | translate">
+          <i class="pi pi-times" aria-hidden="true"></i>
+        </button>
+      </header>
+
+      <div class="admin-dialog__body">
+        <div class="admin-dialog__warning" *ngIf="pendingKind === 'consequence'">
+          <i class="pi pi-exclamation-triangle" aria-hidden="true"></i>
+          <span>{{ consequenceCopyKey(status) | translate }}</span>
+        </div>
+
+        <div class="admin-dialog__inline-error" *ngIf="panelError()">
+          <i class="pi pi-exclamation-circle" aria-hidden="true"></i>
+          <span>{{ panelError() }}</span>
+        </div>
+
+        <ng-container *ngIf="pendingKind === 'reason'">
+          <label class="admin-dialog__field-label" for="transition-note">
+            {{ 'admin.orders.detail.reasonLabel' | translate }}
+          </label>
+          <textarea
+            id="transition-note"
+            class="admin-dialog__textarea"
+            rows="3"
+            required
+            [maxLength]="noteMaxLength"
+            [ngModel]="note()"
+            (ngModelChange)="note.set($event)"
+            [placeholder]="'admin.orders.detail.reasonPlaceholder' | translate"
+          ></textarea>
+          <span class="admin-dialog__counter">{{ note().length }}/{{ noteMaxLength }}</span>
+        </ng-container>
+      </div>
+
+      <footer class="admin-dialog__footer">
+        <button type="button" class="admin-dialog__cancel" [disabled]="saving()" (click)="closePendingDialog()">
+          {{ 'common.cancel' | translate }}
+        </button>
+        <button
+          type="button"
+          class="admin-dialog__submit admin-dialog__submit--{{ statusTone(status) }}"
+          [disabled]="saving() || (pendingKind === 'reason' && !note().trim())"
+          (click)="submitPendingDialog()"
+        >
+          <i class="pi" [ngClass]="saving() ? 'pi-spin pi-spinner' : 'pi-check'" aria-hidden="true"></i>
+          {{ 'admin.orders.detail.confirmTransition' | translate }}
+        </button>
+      </footer>
+    </div>
+  </div>
+</div>

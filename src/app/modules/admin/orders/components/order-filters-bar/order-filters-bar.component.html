@@ -1,1 +1,60 @@
-<p>order-filters-bar works!</p>
+<div class="order-filters-bar">
+  <div class="order-filters-bar__field">
+    <label class="order-filters-bar__label">{{ 'admin.orders.filters.dateFrom' | translate }}</label>
+    <p-datepicker
+      [(ngModel)]="dateFrom"
+      dateFormat="yy-mm-dd"
+      [showIcon]="true"
+      [iconDisplay]="'input'"
+      appendTo="body"
+      [placeholder]="'admin.orders.filters.dateFrom' | translate"
+    ></p-datepicker>
+  </div>
+
+  <div class="order-filters-bar__field">
+    <label class="order-filters-bar__label">{{ 'admin.orders.filters.dateTo' | translate }}</label>
+    <p-datepicker
+      [(ngModel)]="dateTo"
+      dateFormat="yy-mm-dd"
+      [showIcon]="true"
+      [iconDisplay]="'input'"
+      appendTo="body"
+      [placeholder]="'admin.orders.filters.dateTo' | translate"
+    ></p-datepicker>
+  </div>
+
+  <div class="order-filters-bar__field">
+    <label class="order-filters-bar__label">{{ 'admin.orders.filters.governorate' | translate }}</label>
+    <p-select
+      [(ngModel)]="governorateId"
+      [options]="governorates"
+      optionLabel="name"
+      optionValue="id"
+      [showClear]="true"
+      appendTo="self"
+      [placeholder]="'admin.orders.filters.allGovernorates' | translate"
+    ></p-select>
+  </div>
+
+  <div class="order-filters-bar__field">
+    <label class="order-filters-bar__label">{{ 'admin.orders.filters.paymentStatus' | translate }}</label>
+    <p-select
+      [(ngModel)]="paymentStatus"
+      [options]="paymentStatusOptions()"
+      optionLabel="label"
+      optionValue="status"
+      [showClear]="true"
+      appendTo="self"
+      [placeholder]="'admin.orders.filters.allPaymentStatuses' | translate"
+    ></p-select>
+  </div>
+
+  <div class="order-filters-bar__actions">
+    <button type="button" class="order-filters-bar__clear" (click)="clearAll()">
+      {{ 'common.clear' | translate }}
+    </button>
+    <button type="button" class="order-filters-bar__apply" (click)="submit()">
+      {{ 'admin.orders.filters.apply' | translate }}
+    </button>
+  </div>
+</div>

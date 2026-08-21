@@ -1,0 +1,459 @@
+@use 'styles/breakpoints';
+
+:host {
+  display: block;
+}
+
+.order-list-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.order-list-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.order-list-page__title {
+  margin: 0;
+  font-family: var(--body);
+  font-size: var(--fs-h2);
+  font-weight: 800;
+  color: var(--admin-text);
+}
+
+// ═══ Tabs ═══
+
+.order-list-page__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  border-block-end: 1px solid var(--admin-border);
+}
+
+.order-list-page__tab {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-1);
+  margin-inline-end: var(--sp-4);
+  border: none;
+  border-block-end: 2px solid transparent;
+  background: transparent;
+  color: var(--admin-text-muted);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--admin-text);
+  }
+}
+
+.order-list-page__tab--active {
+  color: var(--admin-text);
+  border-block-end-color: var(--gold);
+}
+
+.order-list-page__tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 1.375rem;
+  block-size: 1.375rem;
+  padding-inline: var(--sp-2);
+  border-radius: var(--r-full);
+  background: var(--admin-surface-alt);
+  color: var(--admin-text-muted);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+}
+
+.order-list-page__tab--active .order-list-page__tab-count {
+  background: color-mix(in srgb, var(--gold) 16%, transparent);
+  color: var(--gold);
+}
+
+// ═══ Search ═══
+
+.order-list-page__search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.order-list-page__search-icon {
+  position: absolute;
+  inset-inline-start: var(--sp-4);
+  color: var(--admin-text-muted);
+  font-size: 1.125rem;
+  pointer-events: none;
+}
+
+.order-list-page__search-input {
+  inline-size: 100%;
+  padding: var(--sp-4) var(--sp-4) var(--sp-4) calc(var(--sp-4) * 2 + 1.125rem);
+  padding-inline-start: calc(var(--sp-4) * 2 + 1.125rem);
+  padding-inline-end: var(--sp-4);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--r-lg);
+  background: var(--admin-surface);
+  color: var(--admin-text);
+  font-size: var(--fs-lg);
+  font-family: var(--body);
+
+  &:focus {
+    outline: 2px solid var(--gold);
+    outline-offset: -1px;
+  }
+
+  &::placeholder {
+    color: var(--admin-text-muted);
+  }
+}
+
+// ═══ Error ═══
+
+.order-list-page__error {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-5);
+  background: var(--stop-bg);
+  border: 1px solid var(--stop);
+  border-radius: var(--r-lg);
+  color: var(--stop);
+}
+
+.order-list-page__retry {
+  margin-inline-start: auto;
+  padding: var(--sp-2) var(--sp-4);
+  border: 1px solid var(--stop);
+  border-radius: var(--r-full);
+  background: transparent;
+  color: var(--stop);
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--stop);
+    color: #fff;
+  }
+}
+
+// ═══ Table ═══
+
+.order-list-page__table-wrap {
+  display: none;
+
+  @include breakpoints.md {
+    display: block;
+  }
+}
+
+.order-list-page__col-number {
+  white-space: nowrap;
+  inline-size: 1%;
+}
+
+.order-list-page__col-total {
+  white-space: nowrap;
+  font-weight: 700;
+  color: var(--admin-text);
+}
+
+.order-list-page__col-waiting {
+  white-space: nowrap;
+  color: var(--admin-text-muted);
+}
+
+// Fulfilment/payment badge columns — nowrap and a floor width so neither status pill
+// (nor its longer sibling label) ever wraps or squeezes the row taller.
+.order-list-page__col-status {
+  white-space: nowrap;
+  inline-size: 1%;
+}
+
+.order-list-page__col-action {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  white-space: nowrap;
+}
+
+.order-list-page__order-link {
+  color: var(--admin-text);
+  font-weight: 700;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--gold);
+  }
+}
+
+.order-list-page__customer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.order-list-page__customer-name {
+  color: var(--admin-text);
+  font-weight: 600;
+}
+
+.order-list-page__customer-phone {
+  color: var(--admin-text-muted);
+  font-size: var(--fs-sm);
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--gold);
+  }
+}
+
+.order-list-page__quick-action {
+  padding: var(--sp-2) var(--sp-4);
+  border: none;
+  border-radius: var(--r-md);
+  background: var(--gold);
+  color: #fff;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 150ms ease;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 0.88;
+  }
+}
+
+.order-list-page__menu-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 32px;
+  block-size: 32px;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--r-md);
+  background: var(--admin-surface);
+  color: var(--admin-text-muted);
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--admin-surface-alt);
+    color: var(--admin-text);
+  }
+}
+
+.order-list-page__menu {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 200px;
+  padding: var(--sp-1);
+}
+
+.order-list-page__menu-item {
+  display: block;
+  padding: var(--sp-3);
+  border: none;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--admin-text);
+  font-size: var(--fs-sm);
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--admin-surface-alt);
+  }
+}
+
+.order-list-page__empty {
+  padding: var(--sp-8);
+  text-align: center;
+  color: var(--admin-text-muted);
+}
+
+// p-table internals — --admin-row-height rows, alternating surface, hover tint, uppercase
+// header labels. ::ng-deep is required to reach PrimeNG's own DOM structure.
+:host ::ng-deep .order-list-page__table {
+  .p-datatable-thead > tr > th {
+    padding: var(--sp-3) var(--sp-4);
+    background: var(--admin-surface-alt);
+    color: var(--admin-text-muted);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-block-end: 1px solid var(--admin-border);
+  }
+
+  .p-datatable-tbody > tr {
+    block-size: var(--admin-row-height);
+    background: var(--admin-surface);
+    transition: background 150ms ease;
+
+    > td {
+      padding: var(--sp-3) var(--sp-4);
+      border-block-end: 1px solid var(--admin-border);
+      font-size: var(--fs-sm);
+      color: var(--admin-text);
+    }
+
+    &:nth-child(even) {
+      background: var(--admin-surface-alt);
+    }
+
+    &:hover {
+      background: color-mix(in srgb, var(--gold) 6%, var(--admin-surface-alt));
+    }
+  }
+
+  .p-paginator {
+    background: var(--admin-surface);
+    border-block-start: 1px solid var(--admin-border);
+    padding: var(--sp-3);
+  }
+}
+
+.order-list-page__row--stale-warn {
+  box-shadow: inset 3px 0 0 var(--warn);
+
+  :host-context([dir='rtl']) & {
+    box-shadow: inset -3px 0 0 var(--warn);
+  }
+}
+
+.order-list-page__row--stale-stop {
+  box-shadow: inset 3px 0 0 var(--stop);
+
+  :host-context([dir='rtl']) & {
+    box-shadow: inset -3px 0 0 var(--stop);
+  }
+}
+
+// ═══ Mobile cards ═══
+
+.order-list-page__cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+
+  @include breakpoints.md {
+    display: none;
+  }
+}
+
+.order-list-page__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--r-lg);
+
+  &.order-list-page__row--stale-warn,
+  &.order-list-page__row--stale-stop {
+    box-shadow: none;
+    border-inline-start-width: 3px;
+  }
+
+  &.order-list-page__row--stale-warn {
+    border-inline-start-color: var(--warn);
+  }
+
+  &.order-list-page__row--stale-stop {
+    border-inline-start-color: var(--stop);
+  }
+}
+
+.order-list-page__card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.order-list-page__card-number {
+  color: var(--admin-text);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.order-list-page__card-waiting {
+  font-size: var(--fs-sm);
+  color: var(--admin-text-muted);
+}
+
+.order-list-page__card-customer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.order-list-page__card-call {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-full);
+  background: var(--admin-surface-alt);
+  color: var(--admin-text);
+  font-size: var(--fs-sm);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.order-list-page__card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.order-list-page__card-total {
+  font-size: var(--fs-h6);
+  font-weight: 700;
+  color: var(--admin-text);
+}
+
+.order-list-page__card-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 44px;
+  border: none;
+  border-radius: var(--r-md);
+  background: var(--gold);
+  color: #fff;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.order-list-page__card-action--secondary {
+  background: var(--admin-surface-alt);
+  color: var(--admin-text);
+  border: 1px solid var(--admin-border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .order-list-page__tab,
+  :host ::ng-deep .order-list-page__table .p-datatable-tbody > tr {
+    transition: none;
+  }
+}

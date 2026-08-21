@@ -115,18 +115,25 @@
     background: var(--admin-sidebar-hover);
     color: var(--gold);
   }
-
-  :host-context([dir='rtl']) & i {
-    transform: scaleX(-1);
-  }
 }
 
-.admin-sidebar__collapse-icon--flipped {
+// The chevron always points toward the direction the sidebar will move — left in LTR
+// (collapsing toward the left edge; expanding swings it back to the right), mirrored in
+// RTL where the sidebar lives on the right edge instead. Each of the four combinations is
+// written out as its own selector — rather than letting the collapsed-state rule and the
+// RTL rule each set `transform` independently — because both selectors previously carried
+// the same specificity as the base `i` rule, so whichever happened to win the specificity
+// tie silently dropped the other's transform (that's what pointed the RTL arrow inward).
+.admin-sidebar__collapse-toggle i.admin-sidebar__collapse-icon--flipped {
   transform: rotate(180deg);
+}
 
-  :host-context([dir='rtl']) & {
-    transform: scaleX(-1) rotate(180deg);
-  }
+:host-context([dir='rtl']) .admin-sidebar__collapse-toggle i {
+  transform: scaleX(-1);
+}
+
+:host-context([dir='rtl']) .admin-sidebar__collapse-toggle i.admin-sidebar__collapse-icon--flipped {
+  transform: scaleX(-1) rotate(180deg);
 }
 
 .admin-sidebar__nav {

@@ -14,6 +14,7 @@
     "cancel": "Cancel",
     "remove": "Remove",
     "retry": "Retry",
+    "clear": "Clear",
     "carousel": {
       "previous": "Previous",
       "next": "Next",
@@ -635,7 +636,10 @@
       "defaultChanged": "Default address updated"
     },
     "orders": {
-      "cancelled": "Order cancelled"
+      "cancelled": "Order cancelled",
+      "confirmed": "Order confirmed",
+      "statusChanged": "Status changed to {{status}}",
+      "paymentChanged": "Payment status changed to {{status}}"
     },
     "checkout": {
       "orderNumberCopied": "Order number copied"
@@ -701,11 +705,17 @@
         "heading": "With the Courier",
         "supportingLine": "{{orderCount}} orders · oldest {{oldestDays}} days"
       },
+      "stuckReservations": {
+        "heading": "Stuck reservations",
+        "supportingLine": "Stock held by unshipped orders"
+      },
       "delivery": {
         "heading": "Delivery Health",
         "delivered": "Delivered",
         "failed": "Failed",
-        "refused": "Refused"
+        "refused": "Refused",
+        "cancelled": "Cancelled",
+        "returnedToSeller": "Returned"
       },
       "sales": {
         "today": "Today",
@@ -746,6 +756,125 @@
         "name": "Product",
         "units": "Units sold",
         "revenue": "Revenue"
+      }
+    },
+    "orders": {
+      "tabs": {
+        "all": "All",
+        "pendingConfirmation": "Pending confirmation",
+        "confirmed": "Confirmed",
+        "processing": "Processing",
+        "shipped": "Shipped",
+        "delivered": "Delivered",
+        "failedCancelled": "Failed/Cancelled"
+      },
+      "filters": {
+        "dateFrom": "Date from",
+        "dateTo": "Date to",
+        "governorate": "Governorate",
+        "allGovernorates": "All governorates",
+        "paymentStatus": "Payment status",
+        "allPaymentStatuses": "All payment statuses",
+        "apply": "Apply"
+      },
+      "list": {
+        "title": "Orders",
+        "searchPlaceholder": "Search by order number or phone",
+        "errorMessage": "We couldn't load these orders.",
+        "empty": "No orders match these filters.",
+        "confirmOrder": "Confirm order",
+        "viewDetails": "View details",
+        "moreActions": "More actions",
+        "statusUpdated": "Order status updated",
+        "waitingHours": "{{hours}}h ago",
+        "waitingDays": "{{days}} days ago",
+        "columns": {
+          "orderNumber": "Order",
+          "customer": "Customer",
+          "governorate": "Governorate",
+          "items": "Items",
+          "total": "Total",
+          "fulfilment": "Fulfilment",
+          "payment": "Payment",
+          "waiting": "Waiting"
+        }
+      },
+      "confirmDialog": {
+        "title": "Confirm after call",
+        "lead": "Confirm this order now that you've spoken with the customer.",
+        "noteLabel": "Note (optional)",
+        "notePlaceholder": "Anything worth recording about the call",
+        "submit": "Confirm order"
+      },
+      "paymentDialog": {
+        "title": "Update payment status",
+        "statusLabel": "New status",
+        "statusPlaceholder": "Select a status",
+        "noteLabel": "Note (optional)",
+        "notePlaceholder": "Reason for this correction",
+        "submit": "Update"
+      },
+      "cancelDialog": {
+        "title": "Cancel order",
+        "stockNote": "Stock will be returned to inventory.",
+        "reasonLabel": "Reason",
+        "reasonPlaceholder": "Tell the customer record why this order was cancelled",
+        "keepOrder": "Keep order",
+        "submit": "Cancel order"
+      },
+      "detail": {
+        "errorMessage": "We couldn't load this order.",
+        "currentStatus": "Current status",
+        "confirmAfterCall": "Confirm after call",
+        "noFurtherTransitions": "This order has reached a final status — no further transitions.",
+        "reasonLabel": "Reason",
+        "reasonPlaceholder": "Required — explain why",
+        "confirmTransition": "Confirm",
+        "statusUpdated": "Order status updated",
+        "changePaymentStatus": "Change payment status",
+        "callCustomer": "Call customer",
+        "consequence": {
+          "shipped": "Stock will be deducted from inventory. This cannot be undone.",
+          "delivered": "An invoice will be issued with a permanent sequential number. This cannot be undone."
+        },
+        "address": {
+          "heading": "Delivery Address",
+          "copy": "Copy for courier",
+          "copied": "Address copied"
+        },
+        "customer": {
+          "heading": "Customer",
+          "name": "Name",
+          "phone": "Phone",
+          "altPhone": "Alternate phone",
+          "email": "Email"
+        },
+        "items": {
+          "heading": "Items",
+          "product": "Product",
+          "sku": "SKU",
+          "qty": "Qty",
+          "unitPrice": "Unit price",
+          "lineTotal": "Line total"
+        },
+        "totals": {
+          "subtotal": "Subtotal",
+          "shipping": "Shipping",
+          "codFee": "COD fee",
+          "tax": "Tax",
+          "grandTotal": "Grand total"
+        },
+        "note": {
+          "heading": "Customer Note"
+        },
+        "invoice": {
+          "heading": "Invoice",
+          "download": "Download PDF"
+        },
+        "timeline": {
+          "heading": "Timeline",
+          "empty": "No history yet."
+        }
       }
     }
   }

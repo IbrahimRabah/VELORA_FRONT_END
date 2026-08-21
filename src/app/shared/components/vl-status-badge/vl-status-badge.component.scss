@@ -1,0 +1,76 @@
+:host {
+  display: inline-flex;
+}
+
+.vl-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 3px var(--sp-3);
+  border: 1px solid transparent;
+  border-radius: var(--r-full);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.vl-status-badge__dot {
+  flex-shrink: 0;
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: var(--r-full);
+}
+
+.vl-status-badge--warn {
+  background: color-mix(in srgb, var(--warn) 14%, transparent);
+  color: var(--warn);
+
+  .vl-status-badge__dot { background: var(--warn); }
+
+  &.vl-status-badge--outline { background: transparent; border-color: var(--warn); }
+}
+
+.vl-status-badge--info {
+  background: color-mix(in srgb, var(--info) 14%, transparent);
+  color: var(--info);
+
+  .vl-status-badge__dot { background: var(--info); }
+
+  &.vl-status-badge--outline { background: transparent; border-color: var(--info); }
+}
+
+.vl-status-badge--violet {
+  background: color-mix(in srgb, var(--admin-violet) 14%, transparent);
+  color: var(--admin-violet);
+
+  .vl-status-badge__dot { background: var(--admin-violet); }
+
+  &.vl-status-badge--outline { background: transparent; border-color: var(--admin-violet); }
+}
+
+.vl-status-badge--blue {
+  background: color-mix(in srgb, var(--admin-blue) 14%, transparent);
+  color: var(--admin-blue);
+
+  .vl-status-badge__dot { background: var(--admin-blue); }
+
+  &.vl-status-badge--outline { background: transparent; border-color: var(--admin-blue); }
+}
+
+.vl-status-badge--ok {
+  background: color-mix(in srgb, var(--ok) 14%, transparent);
+  color: var(--ok);
+
+  .vl-status-badge__dot { background: var(--ok); }
+
+  &.vl-status-badge--outline { background: transparent; border-color: var(--ok); }
+}
+
+.vl-status-badge--stop {
+  background: color-mix(in srgb, var(--stop) 14%, transparent);
+  color: var(--stop);
+
+  .vl-status-badge__dot { background: var(--stop); }
+
+  &.vl-status-badge--outline { background: transparent; border-color: var(--stop); }
+}

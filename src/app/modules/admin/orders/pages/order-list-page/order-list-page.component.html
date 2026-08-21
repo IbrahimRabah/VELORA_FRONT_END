@@ -1,1 +1,196 @@
-<p>order-list-page works!</p>
+<div class="order-list-page">
+  <header class="order-list-page__header">
+    <h1 class="order-list-page__title">{{ 'admin.orders.list.title' | translate }}</h1>
+  </header>
+
+  <div class="order-list-page__tabs" role="tablist">
+    <button
+      *ngFor="let tab of tabs"
+      type="button"
+      role="tab"
+      class="order-list-page__tab"
+      [class.order-list-page__tab--active]="activeTabKey() === tab.key"
+      [attr.aria-selected]="activeTabKey() === tab.key"
+      (click)="selectTab(tab)"
+    >
+      {{ tab.labelKey | translate }}
+      <span class="order-list-page__tab-count" *ngIf="tabCounts()[tab.key] as count">{{ count }}</span>
+    </button>
+  </div>
+
+  <div class="order-list-page__search">
+    <i class="pi pi-search order-list-page__search-icon" aria-hidden="true"></i>
+    <input
+      type="search"
+      class="order-list-page__search-input"
+      [ngModel]="searchDraft()"
+      (ngModelChange)="onSearchDraftChange($event)"
+      [placeholder]="'admin.orders.list.searchPlaceholder' | translate"
+    />
+  </div>
+
+  <app-order-filters-bar
+    [filters]="filters()"
+    [governorates]="governorates()"
+    (apply)="applyFilters($event)"
+    (clear)="clearFilters()"
+  ></app-order-filters-bar>
+
+  <div class="order-list-page__error" *ngIf="error() && !loading()">
+    <i class="pi pi-exclamation-triangle" aria-hidden="true"></i>
+    <span>{{ 'admin.orders.list.errorMessage' | translate }}</span>
+    <button type="button" class="order-list-page__retry" (click)="retry()">{{ 'common.retry' | translate }}</button>
+  </div>
+
+  <ng-container *ngIf="!error()">
+    <!-- Desktop / tablet table -->
+    <div class="order-list-page__table-wrap">
+      <p-table
+        [value]="rows()"
+        [loading]="loading()"
+        [paginator]="true"
+        [rows]="pageSize"
+        [totalRecords]="totalElements()"
+        [lazy]="true"
+        (onLazyLoad)="onPage($event)"
+        [first]="page() * pageSize"
+        dataKey="id"
+        styleClass="order-list-page__table"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="order-list-page__col-number">{{ 'admin.orders.list.columns.orderNumber' | translate }}</th>
+            <th>{{ 'admin.orders.list.columns.customer' | translate }}</th>
+            <th>{{ 'admin.orders.list.columns.governorate' | translate }}</th>
+            <th>{{ 'admin.orders.list.columns.items' | translate }}</th>
+            <th>{{ 'admin.orders.list.columns.total' | translate }}</th>
+            <th class="order-list-page__col-status">{{ 'admin.orders.list.columns.fulfilment' | translate }}</th>
+            <th class="order-list-page__col-status">{{ 'admin.orders.list.columns.payment' | translate }}</th>
+            <th>{{ 'admin.orders.list.columns.waiting' | translate }}</th>
+            <th></th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-row>
+          <tr [ngClass]="staleClass(row)">
+            <td class="order-list-page__col-number">
+              <a [routerLink]="['/admin/orders', row.id]" class="order-list-page__order-link">{{ row.orderNumber }}</a>
+            </td>
+            <td>
+              <div class="order-list-page__customer">
+                <span class="order-list-page__customer-name">{{ row.contactName }}</span>
+                <a [href]="'tel:' + row.contactPhone" class="order-list-page__customer-phone">{{ row.contactPhone }}</a>
+              </div>
+            </td>
+            <td>{{ row.governorateName }}</td>
+            <td>{{ row.itemCount }}</td>
+            <td class="order-list-page__col-total">{{ formatMoney(row.grandTotal) }}</td>
+            <td class="order-list-page__col-status">
+              <app-vl-status-badge [label]="statusLabel(row.fulfillmentStatus)" [tone]="statusTone(row.fulfillmentStatus)"></app-vl-status-badge>
+            </td>
+            <td class="order-list-page__col-status">
+              <app-vl-status-badge [label]="paymentStatusLabel(row.paymentStatus)" [tone]="paymentStatusTone(row.paymentStatus)" [outline]="true"></app-vl-status-badge>
+            </td>
+            <td class="order-list-page__col-waiting">{{ waitingLabel(row) }}</td>
+            <td class="order-list-page__col-action">
+              <button
+                *ngIf="row.fulfillmentStatus === 'PENDING'"
+                type="button"
+                class="order-list-page__quick-action"
+                (click)="openConfirmDialog(row)"
+              >
+                {{ 'admin.orders.list.confirmOrder' | translate }}
+              </button>
+
+              <button
+                type="button"
+                class="order-list-page__menu-btn"
+                [disabled]="firing()?.rowId === row.id"
+                (click)="rowPopover.toggle($event)"
+                [attr.aria-label]="'admin.orders.list.moreActions' | translate"
+              >
+                <i class="pi" [ngClass]="firing()?.rowId === row.id ? 'pi-spin pi-spinner' : 'pi-ellipsis-v'" aria-hidden="true"></i>
+              </button>
+
+              <p-popover #rowPopover>
+                <div class="order-list-page__menu">
+                  <a [routerLink]="['/admin/orders', row.id]" class="order-list-page__menu-item">
+                    {{ 'admin.orders.list.viewDetails' | translate }}
+                  </a>
+                  <ng-container *ngFor="let status of quickTransitions(row)">
+                    <button
+                      *ngIf="isDirectFireable(status); else routeToDetail"
+                      type="button"
+                      class="order-list-page__menu-item"
+                      (click)="fireTransition(row, status); rowPopover.hide()"
+                    >
+                      {{ statusLabel(status) }}
+                    </button>
+                    <ng-template #routeToDetail>
+                      <a [routerLink]="['/admin/orders', row.id]" class="order-list-page__menu-item">
+                        {{ statusLabel(status) }}
+                      </a>
+                    </ng-template>
+                  </ng-container>
+                </div>
+              </p-popover>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="9" class="order-list-page__empty">{{ 'admin.orders.list.empty' | translate }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <!-- Mobile cards -->
+    <div class="order-list-page__cards">
+      <div *ngFor="let row of rows()" class="order-list-page__card" [ngClass]="staleClass(row)">
+        <div class="order-list-page__card-top">
+          <a [routerLink]="['/admin/orders', row.id]" class="order-list-page__card-number">{{ row.orderNumber }}</a>
+          <span class="order-list-page__card-waiting">{{ waitingLabel(row) }}</span>
+        </div>
+
+        <div class="order-list-page__card-customer">
+          <span class="order-list-page__customer-name">{{ row.contactName }}</span>
+          <a [href]="'tel:' + row.contactPhone" class="order-list-page__card-call">
+            <i class="pi pi-phone" aria-hidden="true"></i>
+            {{ row.contactPhone }}
+          </a>
+        </div>
+
+        <div class="order-list-page__card-badges">
+          <app-vl-status-badge [label]="statusLabel(row.fulfillmentStatus)" [tone]="statusTone(row.fulfillmentStatus)"></app-vl-status-badge>
+          <app-vl-status-badge [label]="paymentStatusLabel(row.paymentStatus)" [tone]="paymentStatusTone(row.paymentStatus)" [outline]="true"></app-vl-status-badge>
+        </div>
+
+        <div class="order-list-page__card-total">{{ formatMoney(row.grandTotal) }}</div>
+
+        <button
+          *ngIf="row.fulfillmentStatus === 'PENDING'; else viewDetailsBtn"
+          type="button"
+          class="order-list-page__card-action"
+          (click)="openConfirmDialog(row)"
+        >
+          {{ 'admin.orders.list.confirmOrder' | translate }}
+        </button>
+        <ng-template #viewDetailsBtn>
+          <a [routerLink]="['/admin/orders', row.id]" class="order-list-page__card-action order-list-page__card-action--secondary">
+            {{ 'admin.orders.list.viewDetails' | translate }}
+          </a>
+        </ng-template>
+      </div>
+
+      <p *ngIf="!loading() && !rows().length" class="order-list-page__empty">{{ 'admin.orders.list.empty' | translate }}</p>
+    </div>
+  </ng-container>
+</div>
+
+<app-confirm-call-dialog
+  [orderId]="confirmDialogOrderId()"
+  (closed)="confirmDialogOrderId.set(null)"
+  (confirmed)="onConfirmed()"
+></app-confirm-call-dialog>

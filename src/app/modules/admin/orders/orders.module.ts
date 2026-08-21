@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
+import { SelectModule } from 'primeng/select';
+import { DatePickerModule } from 'primeng/datepicker';
+import { PopoverModule } from 'primeng/popover';
 import { SharedModule } from '../../../shared/shared.module';
 
 import { OrdersRoutingModule } from './orders-routing.module';
@@ -26,8 +31,13 @@ import { OrderAuditPanelComponent } from './components/order-audit-panel/order-a
   ],
   imports: [
     CommonModule,
+    FormsModule,
     OrdersRoutingModule,
-    SharedModule
+    SharedModule,
+    TableModule,
+    SelectModule,
+    DatePickerModule,
+    PopoverModule
   ]
 })
 export class OrdersModule { }
