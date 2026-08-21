@@ -643,6 +643,14 @@
     },
     "checkout": {
       "orderNumberCopied": "Order number copied"
+    },
+    "products": {
+      "saved": "Product saved",
+      "published": "Product published",
+      "unpublished": "Product moved back to draft",
+      "archived": "Product archived",
+      "duplicated": "Product duplicated",
+      "validationError": "Please fix the highlighted fields"
     }
   },
   "errorPage": {
@@ -875,6 +883,81 @@
           "heading": "Timeline",
           "empty": "No history yet."
         }
+      }
+    },
+    "products": {
+      "tabs": {
+        "all": "All",
+        "active": "Active",
+        "draft": "Draft",
+        "archived": "Archived"
+      },
+      "list": {
+        "title": "Products",
+        "newProduct": "New Product",
+        "searchPlaceholder": "Search by name",
+        "allCategories": "All categories",
+        "allBrands": "All brands",
+        "errorMessage": "We couldn't load these products.",
+        "empty": "No products match these filters.",
+        "moreActions": "More actions",
+        "edit": "Edit",
+        "publish": "Publish",
+        "unpublish": "Unpublish",
+        "archive": "Archive",
+        "duplicate": "Duplicate",
+        "publishDisabledHint": "Add at least one variant before publishing",
+        "variantsCount": "{{count}} variants",
+        "columns": {
+          "name": "Name",
+          "category": "Category",
+          "brand": "Brand",
+          "variants": "Variants",
+          "price": "Price",
+          "stock": "Stock",
+          "status": "Status"
+        },
+        "archiveConfirm": {
+          "title": "Archive product",
+          "message": "\"{{name}}\" will be hidden from the store. This can't be undone from here.",
+          "confirm": "Archive"
+        }
+      },
+      "form": {
+        "errorMessage": "We couldn't load this product.",
+        "newTitle": "New Product",
+        "save": "Save",
+        "publish": "Publish",
+        "unpublish": "Unpublish",
+        "archive": "Archive",
+        "publishDisabledHint": "Add at least one variant before publishing",
+        "comingSoon": "Coming soon",
+        "tabs": {
+          "details": "Details",
+          "images": "Images",
+          "variants": "Variants",
+          "specs": "Specifications"
+        },
+        "generalHeading": "General",
+        "category": "Category",
+        "categoryPlaceholder": "Select a category",
+        "categoryRequired": "Category is required",
+        "categoriesLoadError": "Couldn't load categories — try refreshing the page",
+        "brand": "Brand",
+        "brandPlaceholder": "Select a brand",
+        "brandsLoadError": "Couldn't load brands — try refreshing the page",
+        "slug": "Slug",
+        "slugHint": "Leave empty to generate from the name",
+        "featured": "Featured",
+        "newArrival": "New Arrival",
+        "arabic": "Arabic",
+        "english": "English",
+        "name": "Name",
+        "nameRequired": "Name is required",
+        "shortDescription": "Short description",
+        "description": "Description",
+        "metaTitle": "Meta title",
+        "metaDescription": "Meta description"
       }
     }
   }

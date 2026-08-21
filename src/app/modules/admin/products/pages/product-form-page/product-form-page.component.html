@@ -1,1 +1,102 @@
-<p>product-form-page works!</p>
+<div class="product-form-page">
+  <div class="product-form-page__skeleton" *ngIf="loading()">
+    <p-skeleton height="60px" borderRadius="12px"></p-skeleton>
+    <p-skeleton height="420px" borderRadius="12px"></p-skeleton>
+  </div>
+
+  <div class="product-form-page__error" *ngIf="error() && !loading()">
+    <i class="pi pi-exclamation-triangle" aria-hidden="true"></i>
+    <span>{{ 'admin.products.form.errorMessage' | translate }}</span>
+    <button type="button" class="product-form-page__retry" (click)="retry()">{{ 'common.retry' | translate }}</button>
+  </div>
+
+  <ng-container *ngIf="!loading() && !error()">
+    <header class="product-form-page__header">
+      <div class="product-form-page__title-group">
+        <h1 class="product-form-page__title">{{ isNew ? ('admin.products.form.newTitle' | translate) : displayName() }}</h1>
+        <app-vl-status-badge *ngIf="product() as p" [label]="statusLabel(p.status)" [tone]="statusTone(p.status)"></app-vl-status-badge>
+      </div>
+    </header>
+
+    <app-publish-actions-bar
+      [product]="product()"
+      [isNew]="isNew"
+      [saving]="saving()"
+      [busy]="actionBusy()"
+      (save)="save()"
+      (publish)="publish()"
+      (unpublish)="unpublish()"
+      (archive)="confirmArchive()"
+    ></app-publish-actions-bar>
+
+    <!-- Hand-rolled, not p-tabs — PrimeNG 18's Tabs throws the same Ivy "LContainer must be
+         defined" hydration assertion under this app's SSR setup that p-drawer does (see
+         core/guards/... memory on the drawer bug); ngSkipHydration was tried here too and
+         didn't fix it either. Plain *ngIf panels hydrate the same way the rest of the app
+         already does. -->
+    <nav class="product-form-page__tabs" role="tablist">
+      <button
+        type="button"
+        role="tab"
+        class="product-form-page__tab"
+        [class.product-form-page__tab--active]="activeTab() === 'details'"
+        [attr.aria-selected]="activeTab() === 'details'"
+        (click)="activeTab.set('details')"
+      >
+        {{ 'admin.products.form.tabs.details' | translate }}
+      </button>
+      <button
+        type="button"
+        role="tab"
+        class="product-form-page__tab"
+        [class.product-form-page__tab--active]="activeTab() === 'images'"
+        [attr.aria-selected]="activeTab() === 'images'"
+        [disabled]="isNew"
+        (click)="activeTab.set('images')"
+      >
+        {{ 'admin.products.form.tabs.images' | translate }}
+      </button>
+      <button
+        type="button"
+        role="tab"
+        class="product-form-page__tab"
+        [class.product-form-page__tab--active]="activeTab() === 'variants'"
+        [attr.aria-selected]="activeTab() === 'variants'"
+        [disabled]="isNew"
+        (click)="activeTab.set('variants')"
+      >
+        {{ 'admin.products.form.tabs.variants' | translate }}
+      </button>
+      <button
+        type="button"
+        role="tab"
+        class="product-form-page__tab"
+        [class.product-form-page__tab--active]="activeTab() === 'specs'"
+        [attr.aria-selected]="activeTab() === 'specs'"
+        [disabled]="isNew"
+        (click)="activeTab.set('specs')"
+      >
+        {{ 'admin.products.form.tabs.specs' | translate }}
+      </button>
+    </nav>
+
+    <div class="product-form-page__tabpanel" role="tabpanel" *ngIf="activeTab() === 'details'">
+      <app-product-translations-tab
+        [form]="form"
+        [categories]="categoryOptions()"
+        [brands]="brands()"
+        [categoriesError]="categoriesError()"
+        [brandsError]="brandsError()"
+      ></app-product-translations-tab>
+    </div>
+    <div class="product-form-page__tabpanel" role="tabpanel" *ngIf="activeTab() === 'images'">
+      <app-product-images-tab></app-product-images-tab>
+    </div>
+    <div class="product-form-page__tabpanel" role="tabpanel" *ngIf="activeTab() === 'variants'">
+      <app-product-variants-tab></app-product-variants-tab>
+    </div>
+    <div class="product-form-page__tabpanel" role="tabpanel" *ngIf="activeTab() === 'specs'">
+      <app-product-specs-tab></app-product-specs-tab>
+    </div>
+  </ng-container>
+</div>

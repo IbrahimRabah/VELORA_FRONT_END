@@ -1,0 +1,222 @@
+@use 'styles/breakpoints';
+
+:host {
+  display: block;
+}
+
+.ptt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+// ═══ Shared panel chrome ═══
+
+.ptt__panel,
+.ptt__lang-panel {
+  padding: var(--sp-5);
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--r-lg);
+}
+
+.ptt__section-header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-block-end: var(--sp-4);
+}
+
+.ptt__icon-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 40px;
+  block-size: 40px;
+  border-radius: var(--r-md);
+  background: var(--gold);
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.ptt__icon-badge--ar {
+  background: var(--gold);
+  font-family: var(--display), serif;
+}
+
+.ptt__icon-badge--en {
+  background: var(--admin-blue);
+  font-size: var(--fs-sm);
+}
+
+.ptt__section-title {
+  margin: 0;
+  font-family: var(--body);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--admin-text);
+}
+
+// ═══ General fields ═══
+
+.ptt__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-4);
+
+  @include breakpoints.md {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.ptt__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  min-inline-size: 0;
+}
+
+.ptt__label {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--admin-text-muted);
+  transition: color 150ms ease;
+}
+
+.ptt__field:focus-within .ptt__label {
+  color: var(--gold-dp);
+}
+
+.ptt__input,
+.ptt__textarea {
+  inline-size: 100%;
+  padding-block: var(--sp-2);
+  padding-inline: 0;
+  border: none;
+  border-block-end: 1px solid var(--admin-border);
+  background: transparent;
+  color: var(--admin-text);
+  font-family: var(--body);
+  font-size: var(--fs-base);
+  transition: border-color 150ms ease;
+
+  &:focus {
+    outline: none;
+    border-block-end: 2px solid var(--gold);
+  }
+
+  &::placeholder {
+    color: var(--admin-text-muted);
+  }
+}
+
+.ptt__textarea {
+  resize: vertical;
+  min-block-size: 4.5em;
+}
+
+.ptt__hint {
+  margin: 0;
+  font-size: var(--fs-xs);
+  color: var(--admin-text-muted);
+}
+
+.ptt__error {
+  margin: 0;
+  font-size: var(--fs-xs);
+  color: var(--stop);
+}
+
+:host ::ng-deep .ptt__select {
+  inline-size: 100%;
+}
+
+.ptt__toggles {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--sp-3);
+}
+
+.ptt__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--fs-sm);
+  color: var(--admin-text);
+  cursor: pointer;
+}
+
+.ptt__toggle-input {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ptt__toggle-track {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-block;
+  inline-size: 40px;
+  block-size: 22px;
+  border-radius: var(--r-full);
+  background: var(--admin-border-strong);
+  transition: background 150ms ease;
+}
+
+.ptt__toggle-thumb {
+  position: absolute;
+  inset-block-start: 2px;
+  inset-inline-start: 2px;
+  inline-size: 18px;
+  block-size: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: inset-inline-start 150ms ease;
+}
+
+.ptt__toggle-input:checked + .ptt__toggle-track {
+  background: var(--gold);
+}
+
+.ptt__toggle-input:checked + .ptt__toggle-track .ptt__toggle-thumb {
+  inset-inline-start: 20px;
+}
+
+.ptt__toggle-input:focus-visible + .ptt__toggle-track {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+// ═══ Language panels ═══
+
+.ptt__languages {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-4);
+
+  @include breakpoints.xl {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.ptt__lang-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ptt__label,
+  .ptt__input,
+  .ptt__textarea,
+  .ptt__toggle-track,
+  .ptt__toggle-thumb {
+    transition: none;
+  }
+}

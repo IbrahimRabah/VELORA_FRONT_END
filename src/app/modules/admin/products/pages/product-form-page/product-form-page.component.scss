@@ -1,0 +1,112 @@
+.product-form-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.product-form-page__skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.product-form-page__error {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-5);
+  background: var(--stop-bg);
+  border: 1px solid var(--stop);
+  border-radius: var(--r-lg);
+  color: var(--stop);
+}
+
+.product-form-page__retry {
+  margin-inline-start: auto;
+  padding: var(--sp-2) var(--sp-4);
+  border: 1px solid var(--stop);
+  border-radius: var(--r-full);
+  background: transparent;
+  color: var(--stop);
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--stop);
+    color: #fff;
+  }
+}
+
+.product-form-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.product-form-page__title-group {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-inline-size: 0;
+}
+
+.product-form-page__title {
+  margin: 0;
+  font-family: var(--body);
+  font-size: var(--fs-h2);
+  font-weight: 800;
+  color: var(--admin-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// ═══ Tabs (hand-rolled — see the template comment for why) ═══
+
+.product-form-page__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  border-block-end: 1px solid var(--admin-border);
+}
+
+.product-form-page__tab {
+  padding: var(--sp-3) var(--sp-4);
+  margin-block-end: -1px;
+  border: none;
+  border-block-end: 2px solid transparent;
+  background: transparent;
+  color: var(--admin-text-muted);
+  font-family: var(--body);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease;
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    color: var(--admin-text);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.product-form-page__tab--active {
+  color: var(--admin-text);
+  border-block-end-color: var(--gold);
+}
+
+.product-form-page__tabpanel {
+  padding-block-start: var(--sp-5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-form-page__tab {
+    transition: none;
+  }
+}

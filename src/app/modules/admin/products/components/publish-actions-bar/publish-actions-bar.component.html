@@ -1,1 +1,48 @@
-<p>publish-actions-bar works!</p>
+<div class="publish-actions-bar">
+  <div class="publish-actions-bar__warnings" *ngIf="product?.warnings?.length">
+    <i class="pi pi-exclamation-triangle" aria-hidden="true"></i>
+    <ul class="publish-actions-bar__warnings-list">
+      <li *ngFor="let warning of product!.warnings">{{ warning }}</li>
+    </ul>
+  </div>
+
+  <div class="publish-actions-bar__buttons">
+    <button type="button" class="publish-actions-bar__save" [disabled]="saving" (click)="save.emit()">
+      <i class="pi" [ngClass]="saving ? 'pi-spin pi-spinner' : 'pi-check'" aria-hidden="true"></i>
+      {{ 'admin.products.form.save' | translate }}
+    </button>
+
+    <ng-container *ngIf="!isNew && product as p">
+      <button
+        *ngIf="p.status === ProductStatus.DRAFT"
+        type="button"
+        class="publish-actions-bar__action publish-actions-bar__action--ok"
+        [disabled]="busy || p.variantCount === 0"
+        [pTooltip]="p.variantCount === 0 ? ('admin.products.form.publishDisabledHint' | translate) : ''"
+        (click)="publish.emit()"
+      >
+        {{ 'admin.products.form.publish' | translate }}
+      </button>
+
+      <button
+        *ngIf="p.status === ProductStatus.ACTIVE"
+        type="button"
+        class="publish-actions-bar__action"
+        [disabled]="busy"
+        (click)="unpublish.emit()"
+      >
+        {{ 'admin.products.form.unpublish' | translate }}
+      </button>
+
+      <button
+        *ngIf="p.status === ProductStatus.ACTIVE"
+        type="button"
+        class="publish-actions-bar__action publish-actions-bar__action--stop"
+        [disabled]="busy"
+        (click)="archive.emit()"
+      >
+        {{ 'admin.products.form.archive' | translate }}
+      </button>
+    </ng-container>
+  </div>
+</div>

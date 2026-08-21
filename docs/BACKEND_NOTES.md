@@ -76,7 +76,30 @@ does today.
    attribute-value links onto the existing variants, or stop surfacing
    STRAP_TYPE as a filter facet until they exist.
 
-6. **Invoice number missing from `OrderResponse`.** Problem: customers cannot
+6. **RESOLVED — `ProductAdminResponse` now returns `translations[]`.** Previously
+   `GET`/`PUT /admin/products/{id}` only returned `nameAr`/`nameEn`, with no
+   `shortDescription`/`description`/`metaTitle`/`metaDescription` per locale —
+   editing an existing product's name risked silently wiping those fields on
+   save, since `PUT` fully replaces the translation set. The backend now
+   returns `translations[]` on the response, one object per locale, in the
+   same shape as the request (`locale`, `name`, `shortDescription`,
+   `description`, `metaTitle`, `metaDescription`). `product-form-page` reads
+   it directly with no reshaping; the read-only-field warning that used to
+   sit above the Details tab's language panels has been removed.
+
+   **Standing constraint — this is a full replace, not a patch.** Two rules
+   apply globally, not just to this endpoint:
+   - Null fields are **omitted from the response JSON entirely** — a field
+     with no value is a missing key, never an explicit `null`. Treat a
+     missing key as `''` when populating a form; it is not an error or a
+     schema gap.
+   - `PUT` replaces each locale's translation object wholesale. Every save
+     must send all six fields for every locale present, including ones the
+     operator never touched — anything omitted is wiped to `null` server-side.
+     `product-form-page.buildRequest()` always sends all six keys (defaulting
+     blanks to `''`, never omitting a key) for exactly this reason.
+
+7. **Invoice number missing from `OrderResponse`.** Problem: customers cannot
    download their invoice. `GET /me/invoices/{invoiceNumber}/pdf` exists, but
    there is no way for a customer to discover their invoice number — no field
    on `OrderResponse` and no endpoint that returns it. Requested: add a

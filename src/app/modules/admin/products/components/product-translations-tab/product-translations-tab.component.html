@@ -1,1 +1,144 @@
-<p>product-translations-tab works!</p>
+<div class="ptt" [formGroup]="form">
+  <section class="ptt__panel">
+    <div class="ptt__section-header">
+      <div class="ptt__icon-badge">
+        <i class="pi pi-tags" aria-hidden="true"></i>
+      </div>
+      <h2 class="ptt__section-title">{{ 'admin.products.form.generalHeading' | translate }}</h2>
+    </div>
+
+    <div class="ptt__grid">
+      <div class="ptt__field">
+        <label class="ptt__label" for="ptt-category">{{ 'admin.products.form.category' | translate }} *</label>
+        <p-select
+          inputId="ptt-category"
+          formControlName="categoryId"
+          [options]="categories"
+          optionLabel="name"
+          optionValue="id"
+          appendTo="self"
+          [placeholder]="'admin.products.form.categoryPlaceholder' | translate"
+          styleClass="ptt__select"
+        >
+          <ng-template let-option pTemplate="item">
+            <span [style.padding-inline-start.px]="option.depth * 16">{{ option.name }}</span>
+          </ng-template>
+        </p-select>
+        <p class="ptt__error" *ngIf="form.get('categoryId')?.invalid && form.get('categoryId')?.touched">
+          {{ 'admin.products.form.categoryRequired' | translate }}
+        </p>
+        <p class="ptt__error" *ngIf="categoriesError">
+          {{ 'admin.products.form.categoriesLoadError' | translate }}
+        </p>
+      </div>
+
+      <div class="ptt__field">
+        <label class="ptt__label" for="ptt-brand">{{ 'admin.products.form.brand' | translate }}</label>
+        <p-select
+          inputId="ptt-brand"
+          formControlName="brandId"
+          [options]="brands"
+          optionLabel="name"
+          optionValue="id"
+          [showClear]="true"
+          appendTo="self"
+          [placeholder]="'admin.products.form.brandPlaceholder' | translate"
+          styleClass="ptt__select"
+        ></p-select>
+        <p class="ptt__error" *ngIf="brandsError">
+          {{ 'admin.products.form.brandsLoadError' | translate }}
+        </p>
+      </div>
+
+      <div class="ptt__field">
+        <label class="ptt__label" for="ptt-slug">{{ 'admin.products.form.slug' | translate }}</label>
+        <input id="ptt-slug" type="text" class="ptt__input" formControlName="slug" />
+        <p class="ptt__hint">{{ 'admin.products.form.slugHint' | translate }}</p>
+      </div>
+
+      <div class="ptt__toggles">
+        <!-- Hand-rolled, not p-toggleswitch — PrimeNG 18's ToggleSwitch throws the same
+             Ivy "LContainer must be defined" SSR/hydration assertion p-tabs does in this
+             app (see the tabs comment further up); a plain checkbox styled as a switch
+             hydrates the same way the rest of the app already does. -->
+        <label class="ptt__toggle">
+          <input type="checkbox" class="ptt__toggle-input" formControlName="featured" />
+          <span class="ptt__toggle-track"><span class="ptt__toggle-thumb"></span></span>
+          {{ 'admin.products.form.featured' | translate }}
+        </label>
+        <label class="ptt__toggle">
+          <input type="checkbox" class="ptt__toggle-input" formControlName="newArrival" />
+          <span class="ptt__toggle-track"><span class="ptt__toggle-thumb"></span></span>
+          {{ 'admin.products.form.newArrival' | translate }}
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <div class="ptt__languages" formGroupName="translations">
+    <section class="ptt__lang-panel" dir="rtl" formGroupName="ar">
+      <div class="ptt__section-header">
+        <div class="ptt__icon-badge ptt__icon-badge--ar">ع</div>
+        <h2 class="ptt__section-title">{{ 'admin.products.form.arabic' | translate }}</h2>
+      </div>
+
+      <div class="ptt__field">
+        <label class="ptt__label" for="ptt-name-ar">{{ 'admin.products.form.name' | translate }} *</label>
+        <input id="ptt-name-ar" type="text" class="ptt__input" formControlName="name" dir="rtl" />
+        <p class="ptt__error" *ngIf="arName?.invalid && arName?.touched">{{ 'admin.products.form.nameRequired' | translate }}</p>
+      </div>
+
+      <div class="ptt__field">
+        <label class="ptt__label" for="ptt-short-ar">{{ 'admin.products.form.shortDescription' | translate }}</label>
+        <input id="ptt-short-ar" type="text" class="ptt__input" formControlName="shortDescription" dir="rtl" />
+      </div>
+
+      <div class="ptt__field">
+        <label class="ptt__label" for="ptt-desc-ar">{{ 'admin.products.form.description' | translate }}</label>
+        <textarea id="ptt-desc-ar" class="ptt__textarea" rows="4" formControlName="description" dir="rtl"></textarea>
+      </div>
+
+      <div class="ptt__field">
+        <label class="ptt__label" for="ptt-meta-title-ar">{{ 'admin.products.form.metaTitle' | translate }}</label>
+        <input id="ptt-meta-title-ar" type="text" class="ptt__input" formControlName="metaTitle" dir="rtl" />
+      </div>
+
+      <div class="ptt__field">
+        <label class="ptt__label" for="ptt-meta-desc-ar">{{ 'admin.products.form.metaDescription' | translate }}</label>
+        <textarea id="ptt-meta-desc-ar" class="ptt__textarea" rows="2" formControlName="metaDescription" dir="rtl"></textarea>
+      </div>
+    </section>
+
+    <section class="ptt__lang-panel" dir="ltr" formGroupName="en">
+      <div class="ptt__section-header">
+        <div class="ptt__icon-badge ptt__icon-badge--en">EN</div>
+        <h2 class="ptt__section-title">{{ 'admin.products.form.english' | translate }}</h2>
+      </div>
+
+      <div class="ptt__field">
+        <label class="ptt__label" for="ptt-name-en">{{ 'admin.products.form.name' | translate }}</label>
+        <input id="ptt-name-en" type="text" class="ptt__input" formControlName="name" dir="ltr" />
+      </div>
+
+      <div class="ptt__field">
+        <label class="ptt__label" for="ptt-short-en">{{ 'admin.products.form.shortDescription' | translate }}</label>
+        <input id="ptt-short-en" type="text" class="ptt__input" formControlName="shortDescription" dir="ltr" />
+      </div>
+
+      <div class="ptt__field">
+        <label class="ptt__label" for="ptt-desc-en">{{ 'admin.products.form.description' | translate }}</label>
+        <textarea id="ptt-desc-en" class="ptt__textarea" rows="4" formControlName="description" dir="ltr"></textarea>
+      </div>
+
+      <div class="ptt__field">
+        <label class="ptt__label" for="ptt-meta-title-en">{{ 'admin.products.form.metaTitle' | translate }}</label>
+        <input id="ptt-meta-title-en" type="text" class="ptt__input" formControlName="metaTitle" dir="ltr" />
+      </div>
+
+      <div class="ptt__field">
+        <label class="ptt__label" for="ptt-meta-desc-en">{{ 'admin.products.form.metaDescription' | translate }}</label>
+        <textarea id="ptt-meta-desc-en" class="ptt__textarea" rows="2" formControlName="metaDescription" dir="ltr"></textarea>
+      </div>
+    </section>
+  </div>
+</div>

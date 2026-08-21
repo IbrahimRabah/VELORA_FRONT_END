@@ -18,3 +18,18 @@ export interface NameTranslationInput {
   locale: Language;
   name: string;
 }
+
+// GET/PUT /admin/products/{id} response translations[] — same six fields as
+// TranslationInput above, sent back unchanged on save. The API omits null fields entirely
+// (a global convention, not specific to this endpoint) rather than sending explicit
+// nulls, so shortDescription/description/metaTitle/metaDescription are optional keys here
+// — a missing key means "no value", not an error. Populate the form with '' for any of
+// these that are absent.
+export interface TranslationOutput {
+  locale: Language;
+  name: string;
+  shortDescription?: string;
+  description?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+}

@@ -108,7 +108,7 @@ export const PAYMENT_STATUS_LABELS_EN: Record<PaymentStatus, string> = {
 // Shared admin colour spectrum for status badges — matches the palette already used on
 // the admin dashboard's action-queue cards, so a given status reads as the same colour
 // everywhere in the admin.
-export type StatusTone = 'warn' | 'info' | 'violet' | 'blue' | 'ok' | 'stop';
+export type StatusTone = 'warn' | 'info' | 'violet' | 'blue' | 'ok' | 'stop' | 'muted';
 
 export const FULFILLMENT_STATUS_TONE: Record<FulfillmentStatus, StatusTone> = {
   [FulfillmentStatus.PENDING]: 'warn',

@@ -1,1 +1,255 @@
-<p>product-list-page works!</p>
+<div class="product-list-page">
+  <header class="product-list-page__header">
+    <h1 class="product-list-page__title">{{ 'admin.products.list.title' | translate }}</h1>
+    <a routerLink="new" class="product-list-page__new-btn">
+      <i class="pi pi-plus" aria-hidden="true"></i>
+      {{ 'admin.products.list.newProduct' | translate }}
+    </a>
+  </header>
+
+  <div class="product-list-page__tabs" role="tablist">
+    <button
+      *ngFor="let tab of tabs"
+      type="button"
+      role="tab"
+      class="product-list-page__tab"
+      [class.product-list-page__tab--active]="activeTabKey() === tab.key"
+      [attr.aria-selected]="activeTabKey() === tab.key"
+      (click)="selectTab(tab)"
+    >
+      {{ tab.labelKey | translate }}
+      <span class="product-list-page__tab-count" *ngIf="tabCounts()[tab.key] as count">{{ count }}</span>
+    </button>
+  </div>
+
+  <div class="product-list-page__toolbar">
+    <div class="product-list-page__search">
+      <i class="pi pi-search product-list-page__search-icon" aria-hidden="true"></i>
+      <input
+        type="search"
+        class="product-list-page__search-input"
+        [ngModel]="searchDraft()"
+        (ngModelChange)="onSearchDraftChange($event)"
+        [placeholder]="'admin.products.list.searchPlaceholder' | translate"
+      />
+    </div>
+
+    <p-select
+      [ngModel]="categoryFilter()"
+      (ngModelChange)="onCategoryFilterChange($event)"
+      [options]="categoryOptions()"
+      optionLabel="name"
+      optionValue="id"
+      [showClear]="true"
+      appendTo="self"
+      [placeholder]="'admin.products.list.allCategories' | translate"
+      styleClass="product-list-page__filter-select"
+    >
+      <ng-template let-option pTemplate="item">
+        <span [style.padding-inline-start.px]="option.depth * 16">{{ option.name }}</span>
+      </ng-template>
+    </p-select>
+
+    <p-select
+      [ngModel]="brandFilter()"
+      (ngModelChange)="onBrandFilterChange($event)"
+      [options]="brands()"
+      optionLabel="name"
+      optionValue="id"
+      [showClear]="true"
+      appendTo="self"
+      [placeholder]="'admin.products.list.allBrands' | translate"
+      styleClass="product-list-page__filter-select"
+    ></p-select>
+  </div>
+
+  <div class="product-list-page__error" *ngIf="error() && !loading()">
+    <i class="pi pi-exclamation-triangle" aria-hidden="true"></i>
+    <span>{{ 'admin.products.list.errorMessage' | translate }}</span>
+    <button type="button" class="product-list-page__retry" (click)="retry()">{{ 'common.retry' | translate }}</button>
+  </div>
+
+  <ng-container *ngIf="!error()">
+    <!-- Desktop / tablet table -->
+    <div class="product-list-page__table-wrap">
+      <p-table
+        [value]="filteredRows()"
+        [loading]="loading()"
+        [paginator]="true"
+        [rows]="pageSize"
+        [first]="page() * pageSize"
+        (onPage)="onPage($event)"
+        dataKey="id"
+        styleClass="product-list-page__table"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="product-list-page__col-image"></th>
+            <th>{{ 'admin.products.list.columns.name' | translate }}</th>
+            <th>{{ 'admin.products.list.columns.category' | translate }}</th>
+            <th>{{ 'admin.products.list.columns.brand' | translate }}</th>
+            <th>{{ 'admin.products.list.columns.variants' | translate }}</th>
+            <th>{{ 'admin.products.list.columns.price' | translate }}</th>
+            <th>{{ 'admin.products.list.columns.stock' | translate }}</th>
+            <th class="product-list-page__col-status">{{ 'admin.products.list.columns.status' | translate }}</th>
+            <th class="product-list-page__col-warnings"></th>
+            <th></th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-row>
+          <tr>
+            <td class="product-list-page__col-image">
+              <!-- TODO: not in contract — ProductAdminResponse has no image/thumbUrl field
+                   (only imageCount), so a real thumbnail can't be rendered here. -->
+              <div class="product-list-page__thumb">
+                <i class="pi pi-image" aria-hidden="true"></i>
+              </div>
+            </td>
+            <td>
+              <a [routerLink]="[row.id]" class="product-list-page__name-link">{{ displayName(row) }}</a>
+            </td>
+            <td>{{ row.categoryName }}</td>
+            <td>{{ row.brandName || '—' }}</td>
+            <td>{{ row.variantCount }}</td>
+            <td class="product-list-page__col-price">{{ priceRangeLabel(row) }}</td>
+            <td>{{ row.availableQty }}</td>
+            <td class="product-list-page__col-status">
+              <app-vl-status-badge [label]="statusLabel(row.status)" [tone]="statusTone(row.status)"></app-vl-status-badge>
+            </td>
+            <td class="product-list-page__col-warnings">
+              <span
+                *ngIf="row.warnings.length"
+                class="product-list-page__warning"
+                [pTooltip]="warningsTooltip(row)"
+                [escape]="false"
+                tooltipPosition="top"
+              >
+                <i class="pi pi-exclamation-triangle" aria-hidden="true"></i>
+                <span *ngIf="row.warnings.length > 1" class="product-list-page__warning-count">{{ row.warnings.length }}</span>
+              </span>
+            </td>
+            <td class="product-list-page__col-action">
+              <button
+                type="button"
+                class="product-list-page__menu-btn"
+                (click)="rowPopover.toggle($event)"
+                [attr.aria-label]="'admin.products.list.moreActions' | translate"
+              >
+                <i class="pi pi-ellipsis-v" aria-hidden="true"></i>
+              </button>
+
+              <p-popover #rowPopover>
+                <div class="product-list-page__menu">
+                  <a [routerLink]="[row.id]" class="product-list-page__menu-item">{{ 'admin.products.list.edit' | translate }}</a>
+
+                  <button
+                    *ngIf="row.status === 'DRAFT'"
+                    type="button"
+                    class="product-list-page__menu-item"
+                    [disabled]="!canPublish(row)"
+                    [pTooltip]="!canPublish(row) ? ('admin.products.list.publishDisabledHint' | translate) : ''"
+                    tooltipPosition="left"
+                    (click)="publishRow(row); rowPopover.hide()"
+                  >
+                    {{ 'admin.products.list.publish' | translate }}
+                  </button>
+
+                  <button
+                    *ngIf="row.status === 'ACTIVE'"
+                    type="button"
+                    class="product-list-page__menu-item"
+                    (click)="unpublishRow(row); rowPopover.hide()"
+                  >
+                    {{ 'admin.products.list.unpublish' | translate }}
+                  </button>
+
+                  <button
+                    *ngIf="row.status === 'ACTIVE'"
+                    type="button"
+                    class="product-list-page__menu-item product-list-page__menu-item--danger"
+                    (click)="archiveRow(row); rowPopover.hide()"
+                  >
+                    {{ 'admin.products.list.archive' | translate }}
+                  </button>
+
+                  <button type="button" class="product-list-page__menu-item" (click)="duplicateRow(row); rowPopover.hide()">
+                    {{ 'admin.products.list.duplicate' | translate }}
+                  </button>
+                </div>
+              </p-popover>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="10" class="product-list-page__empty">{{ 'admin.products.list.empty' | translate }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <!-- Mobile cards -->
+    <div class="product-list-page__cards">
+      <div *ngFor="let row of filteredRows()" class="product-list-page__card">
+        <div class="product-list-page__thumb product-list-page__thumb--card">
+          <i class="pi pi-image" aria-hidden="true"></i>
+        </div>
+
+        <div class="product-list-page__card-body">
+          <a [routerLink]="[row.id]" class="product-list-page__name-link">{{ displayName(row) }}</a>
+          <span class="product-list-page__card-category">{{ row.categoryName }}</span>
+          <div class="product-list-page__card-meta">
+            <app-vl-status-badge [label]="statusLabel(row.status)" [tone]="statusTone(row.status)"></app-vl-status-badge>
+            <span class="product-list-page__card-variants">{{ 'admin.products.list.variantsCount' | translate: { count: row.variantCount } }}</span>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="product-list-page__menu-btn"
+          (click)="cardPopover.toggle($event)"
+          [attr.aria-label]="'admin.products.list.moreActions' | translate"
+        >
+          <i class="pi pi-ellipsis-v" aria-hidden="true"></i>
+        </button>
+
+        <p-popover #cardPopover>
+          <div class="product-list-page__menu">
+            <a [routerLink]="[row.id]" class="product-list-page__menu-item">{{ 'admin.products.list.edit' | translate }}</a>
+
+            <button
+              *ngIf="row.status === 'DRAFT'"
+              type="button"
+              class="product-list-page__menu-item"
+              [disabled]="!canPublish(row)"
+              (click)="publishRow(row); cardPopover.hide()"
+            >
+              {{ 'admin.products.list.publish' | translate }}
+            </button>
+
+            <button *ngIf="row.status === 'ACTIVE'" type="button" class="product-list-page__menu-item" (click)="unpublishRow(row); cardPopover.hide()">
+              {{ 'admin.products.list.unpublish' | translate }}
+            </button>
+
+            <button
+              *ngIf="row.status === 'ACTIVE'"
+              type="button"
+              class="product-list-page__menu-item product-list-page__menu-item--danger"
+              (click)="archiveRow(row); cardPopover.hide()"
+            >
+              {{ 'admin.products.list.archive' | translate }}
+            </button>
+
+            <button type="button" class="product-list-page__menu-item" (click)="duplicateRow(row); cardPopover.hide()">
+              {{ 'admin.products.list.duplicate' | translate }}
+            </button>
+          </div>
+        </p-popover>
+      </div>
+
+      <p *ngIf="!loading() && !filteredRows().length" class="product-list-page__empty">{{ 'admin.products.list.empty' | translate }}</p>
+    </div>
+  </ng-container>
+</div>

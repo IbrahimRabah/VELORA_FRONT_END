@@ -1,6 +1,6 @@
 import { Money } from '../../common/money';
 import { ProductStatus } from '../../../enums/product-status';
-import { TranslationInput } from './translation';
+import { TranslationInput, TranslationOutput } from './translation';
 
 // GET/POST/PUT /admin/products, and the single-product GET.
 export interface ProductAdminResponse {
@@ -11,6 +11,10 @@ export interface ProductAdminResponse {
   // be missing the other; not shown null in the one example (which has both set).
   nameAr: string | null;
   nameEn: string | null;
+  // Source of truth for editing (the Details tab form) — one entry per locale the product
+  // has a translation for. nameAr/nameEn above stay for the list table, but are otherwise
+  // redundant with translations[].find(t => t.locale === ...).name.
+  translations: TranslationOutput[];
   categoryId: number;
   categoryName: string;
   // Inferred nullable — brandId is optional on create (BRAND_NOT_FOUND only fires "if given").

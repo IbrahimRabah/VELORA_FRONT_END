@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
+import { SelectModule } from 'primeng/select';
+import { PopoverModule } from 'primeng/popover';
+import { TooltipModule } from 'primeng/tooltip';
 import { SharedModule } from '../../../shared/shared.module';
 
 import { ProductsRoutingModule } from './products-routing.module';
@@ -28,8 +33,14 @@ import { PublishActionsBarComponent } from './components/publish-actions-bar/pub
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     ProductsRoutingModule,
-    SharedModule
+    SharedModule,
+    TableModule,
+    SelectModule,
+    PopoverModule,
+    TooltipModule
   ]
 })
 export class ProductsModule { }

@@ -643,6 +643,14 @@
     },
     "checkout": {
       "orderNumberCopied": "تم نسخ رقم الطلب"
+    },
+    "products": {
+      "saved": "تم حفظ المنتج",
+      "published": "تم نشر المنتج",
+      "unpublished": "تمت إعادة المنتج إلى المسودات",
+      "archived": "تمت أرشفة المنتج",
+      "duplicated": "تم نسخ المنتج",
+      "validationError": "برجاء تصحيح الحقول المحددة"
     }
   },
   "errorPage": {
@@ -875,6 +883,81 @@
           "heading": "السجل الزمني",
           "empty": "لا يوجد سجل بعد."
         }
+      }
+    },
+    "products": {
+      "tabs": {
+        "all": "الكل",
+        "active": "نشط",
+        "draft": "مسودة",
+        "archived": "مؤرشف"
+      },
+      "list": {
+        "title": "المنتجات",
+        "newProduct": "منتج جديد",
+        "searchPlaceholder": "بحث بالاسم",
+        "allCategories": "كل الفئات",
+        "allBrands": "كل العلامات التجارية",
+        "errorMessage": "تعذّر تحميل المنتجات.",
+        "empty": "لا توجد منتجات مطابقة لهذه الفلاتر.",
+        "moreActions": "المزيد من الإجراءات",
+        "edit": "تعديل",
+        "publish": "نشر",
+        "unpublish": "إلغاء النشر",
+        "archive": "أرشفة",
+        "duplicate": "نسخ",
+        "publishDisabledHint": "أضف خيارًا واحدًا على الأقل قبل النشر",
+        "variantsCount": "{{count}} خيار",
+        "columns": {
+          "name": "الاسم",
+          "category": "الفئة",
+          "brand": "العلامة التجارية",
+          "variants": "الخيارات",
+          "price": "السعر",
+          "stock": "المخزون",
+          "status": "الحالة"
+        },
+        "archiveConfirm": {
+          "title": "أرشفة المنتج",
+          "message": "سيتم إخفاء \"{{name}}\" من المتجر. لا يمكن التراجع عن هذا من هنا.",
+          "confirm": "أرشفة"
+        }
+      },
+      "form": {
+        "errorMessage": "تعذّر تحميل هذا المنتج.",
+        "newTitle": "منتج جديد",
+        "save": "حفظ",
+        "publish": "نشر",
+        "unpublish": "إلغاء النشر",
+        "archive": "أرشفة",
+        "publishDisabledHint": "أضف خيارًا واحدًا على الأقل قبل النشر",
+        "comingSoon": "قريبًا",
+        "tabs": {
+          "details": "التفاصيل",
+          "images": "الصور",
+          "variants": "الخيارات",
+          "specs": "المواصفات"
+        },
+        "generalHeading": "عام",
+        "category": "الفئة",
+        "categoryPlaceholder": "اختر فئة",
+        "categoryRequired": "الفئة مطلوبة",
+        "categoriesLoadError": "تعذّر تحميل الفئات — حاول تحديث الصفحة",
+        "brand": "العلامة التجارية",
+        "brandPlaceholder": "اختر علامة تجارية",
+        "brandsLoadError": "تعذّر تحميل العلامات التجارية — حاول تحديث الصفحة",
+        "slug": "الرابط المختصر",
+        "slugHint": "اتركه فارغًا ليُولَّد من الاسم",
+        "featured": "مميز",
+        "newArrival": "وصل حديثًا",
+        "arabic": "العربية",
+        "english": "الإنجليزية",
+        "name": "الاسم",
+        "nameRequired": "الاسم مطلوب",
+        "shortDescription": "وصف مختصر",
+        "description": "الوصف",
+        "metaTitle": "عنوان السيو",
+        "metaDescription": "وصف السيو"
       }
     }
   }

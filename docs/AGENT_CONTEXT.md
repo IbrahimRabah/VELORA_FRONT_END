@@ -61,6 +61,24 @@ Component scaffolding exists for the whole app (161 components,
 10. `ng build` must pass before you report done. For anything visual,
     also verify in a real browser — Arabic, English, and 375px. Visual
     bugs do not show up in a build.
+11. The API omits null fields from every JSON response entirely — a
+    `T | null` field with no value never arrives as `"field": null`, the
+    key is simply absent, so at runtime it's `undefined`, not `null`.
+    This is a global backend convention, not specific to one endpoint.
+    Model types still declare these fields `T | null` (don't change
+    that) — but never assume a nullable field on a response object is
+    present at all. Concretely:
+    - Read nullable response fields with `??`/`?.`, or loose `== null`/
+      `!= null` — never strict `=== null`/`!== null` (that misses the
+      absent/`undefined` case).
+    - When populating a form from a response (`patchValue`, `reset`,
+      manual field assignment), default every optional field to `''`
+      (or the field's empty equivalent) via `?? ''` — never assume the
+      key exists.
+    - When building a request body to send back, include every field
+      the endpoint expects with an explicit value (`''`/`false`/etc.),
+      never leave one `undefined` — an omitted key can wipe a
+      previously-saved value server-side on a full-replace endpoint.
 
 ## Features deliberately NOT in this system
 

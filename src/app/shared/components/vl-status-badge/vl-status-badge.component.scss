@@ -74,3 +74,12 @@
 
   &.vl-status-badge--outline { background: transparent; border-color: var(--stop); }
 }
+
+.vl-status-badge--muted {
+  background: color-mix(in srgb, var(--admin-text-muted) 14%, transparent);
+  color: var(--admin-text-muted);
+
+  .vl-status-badge__dot { background: var(--admin-text-muted); }
+
+  &.vl-status-badge--outline { background: transparent; border-color: var(--admin-text-muted); }
+}
