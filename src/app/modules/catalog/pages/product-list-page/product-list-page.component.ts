@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, Component, PLATFORM_ID, computed, effect, inje
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { catchError, forkJoin, map, of } from 'rxjs';
 
 import { BreadcrumbItem } from '../../../../shared/components/vl-breadcrumb/vl-breadcrumb.component';
 import { CategoryFilterOption } from '../../components/filter-sidebar/filter-sidebar.component';
@@ -129,7 +128,6 @@ export class ProductListPageComponent {
   readonly categoryTree = signal<CategoryNode[]>([]);
   readonly categoryDetail = signal<CategoryDetailResponse | null>(null);
   readonly facets = signal<FilterFacetsResponse | null>(null);
-  readonly categoryCounts = signal<Map<number, number>>(new Map());
 
   readonly productsPage = signal<PageResponse<ProductSummaryResponse>>(
     emptyPage<ProductSummaryResponse>(APP_CONFIG.pagination.products.size),
@@ -181,14 +179,13 @@ export class ProductListPageComponent {
   //   browse into).
   readonly categoryCards = computed<CategoryCard[]>(() => {
     const res = this.resolved();
-    const counts = this.categoryCounts();
     this.languageStore.lang();
 
     if (!res) {
       return this.categoryTree().map((root) => ({
         id: root.id,
         label: root.name,
-        count: counts.get(root.id) ?? null,
+        count: root.productCount ?? null,
         image: TOP_CARD_IMAGES[root.slug] ?? null,
       }));
     }
@@ -201,7 +198,7 @@ export class ProductListPageComponent {
     const allCard: CategoryCard = {
       id: parent.id,
       label: this.translate.instant('products.filters.allCategory', { name: parent.name }),
-      count: counts.get(parent.id) ?? this.productsPage().totalElements,
+      count: parent.productCount ?? this.productsPage().totalElements,
       image: hasDedicatedArt
         ? WATCHES_CHILD_CARD_IMAGES.all
         : this.categoryCardImage(parent.slug, `all-${parent.slug}`),
@@ -210,7 +207,7 @@ export class ProductListPageComponent {
     const childCards: CategoryCard[] = parent.children.map((child) => ({
       id: child.id,
       label: child.name,
-      count: counts.get(child.id) ?? null,
+      count: child.productCount ?? null,
       image: hasDedicatedArt
         ? (child.slug.includes('women') ? WATCHES_CHILD_CARD_IMAGES.women : WATCHES_CHILD_CARD_IMAGES.men)
         : this.categoryCardImage(parent.slug, child.slug),
@@ -234,14 +231,13 @@ export class ProductListPageComponent {
 
   readonly categoryOptions = computed<CategoryFilterOption[]>(() => {
     const id = this.categoryId();
-    const counts = this.categoryCounts();
     this.languageStore.lang();
 
     if (id == null) {
       return this.categoryTree().map((root) => ({
         id: root.id,
         label: root.name,
-        count: counts.get(root.id) ?? null,
+        count: root.productCount ?? null,
       }));
     }
 
@@ -253,7 +249,7 @@ export class ProductListPageComponent {
     const allOption: CategoryFilterOption = {
       id: parent.id,
       label: this.translate.instant('products.filters.allCategory', { name: parent.name }),
-      count: counts.get(parent.id) ?? (res.isParentLevel ? this.productsPage().totalElements : null),
+      count: parent.productCount ?? (res.isParentLevel ? this.productsPage().totalElements : null),
     };
 
     return [
@@ -261,7 +257,7 @@ export class ProductListPageComponent {
       ...parent.children.map((child) => ({
         id: child.id,
         label: child.name,
-        count: counts.get(child.id) ?? null,
+        count: child.productCount ?? null,
       })),
     ];
   });
@@ -369,25 +365,6 @@ export class ProductListPageComponent {
           this.productsError.set(true);
         },
       });
-    }, { allowSignalWrites: true });
-
-    // Per-category product counts for the sidebar "Category" radios and the
-    // child-category strip — see docs/BACKEND_NOTES.md item 3 (no count field exists
-    // on CategoryNode, so this fires one cheap size=1 search per candidate category).
-    effect(() => {
-      const id = this.categoryId();
-      const tree = this.categoryTree();
-      if (!tree.length) return;
-
-      let ids: number[];
-      if (id == null) {
-        ids = tree.map((root) => root.id);
-      } else {
-        const res = this.resolved();
-        const parent = res ? (res.isParentLevel ? res.node : res.parent) : null;
-        ids = parent ? [parent.id, ...parent.children.map((c) => c.id)] : [];
-      }
-      this.loadCategoryCounts(ids);
     }, { allowSignalWrites: true });
 
     // A category switch (or its image path resolving) invalidates whatever broken
@@ -509,27 +486,6 @@ export class ProductListPageComponent {
   // buildImagePath) instead of one shared image repeated across all three cards.
   private categoryCardImage(parentSlug: string, scopeSlug: string): string {
     return `assets/images/products/${parentSlug}/${scopeSlug}/banner.png`;
-  }
-
-  private loadCategoryCounts(ids: number[]): void {
-    if (!ids.length) {
-      this.categoryCounts.set(new Map());
-      return;
-    }
-    forkJoin(
-      ids.map((id) =>
-        this.catalogApi.searchProducts({ categoryId: id, size: 1 }).pipe(
-          map((page) => [id, page.totalElements] as const),
-          catchError(() => of([id, null] as const)),
-        ),
-      ),
-    ).subscribe((results) => {
-      const map = new Map<number, number>();
-      for (const [id, count] of results) {
-        if (count != null) map.set(id, count);
-      }
-      this.categoryCounts.set(map);
-    });
   }
 
   private scrollToTop(): void {

@@ -88,6 +88,9 @@ export interface OrderResponse {
   deliveredAt: string | null;
   cancelledAt: string | null;
   cancelReason: string | null;
+  // Populated once the invoice is issued at delivery, null before that (verified by the
+  // backend with a real order: null while SHIPPED, set once DELIVERED, e.g. "VLR-INV-2026-000031").
+  invoiceNumber: string | null;
 }
 
 // GET /me/orders, GET /admin/orders — list row.

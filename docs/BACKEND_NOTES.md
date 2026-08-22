@@ -26,55 +26,38 @@ does today.
    backend already returns these fields, the frontend just isn't using them
    for this page yet, by design, until image management moves server-side.
 
-3. **No per-category product count endpoint.** The product listing page's
-   "Category" filter (radio rows with a count) and the child-category strip
-   need a product count per category. Neither `GET /categories/tree` nor
-   `GET /categories/{slug}` returns one, so the frontend derives it by firing
-   one `GET /products?categoryId={id}&size=1` per candidate category and
-   reading `totalElements`. This works but costs N extra requests per page
-   load (N = number of sibling/child categories, typically 2-4). A
-   `productCount` field on `CategoryNode`/`CategoryDetailResponse.children`
-   would remove the need for this entirely.
+3. **RESOLVED — `productCount` added to `CategoryNode`.** The product listing
+   page's "Category" filter (radio rows with a count) and the child-category
+   strip used to derive counts by firing one `GET /products?categoryId={id}&
+   size=1` per candidate category and reading `totalElements` (N extra
+   requests per page load, N = sibling/child count, typically 2-4). Categories
+   now return `productCount` directly, so `product-list-page` reads
+   `node.productCount` and the whole `categoryCounts`/`loadCategoryCounts()`
+   workaround (signal, effect, `forkJoin` fan-out) has been removed.
+   Field-name note: at the time this was wired, the local contract snapshot
+   (`__VELORA_API_Contract_last.txt`) still showed no `productCount` on
+   `CategoryNode`/`CategoryDetailResponse` in its example JSON — only on
+   attribute values (`/products/{slug}` `variantOptions`, `/categories/filters`
+   facets). Wired under the assumption the backend used the same field name
+   already established for that analogous case, since that's also the exact
+   name this doc requested. Worth a quick contract-doc refresh so this isn't
+   re-flagged next audit.
 
-4. **`GET /categories/filters` duplicates every attribute value (and, on the
-   evidence so far, only attribute values — `brands` was clean).** Diagnosed
-   by calling the endpoint directly: each `AttributeGroupResponse.values` row
-   comes back repeated with an **identical `id`** (confirmed on a store with
-   no `categoryId` filter — COLOR's `id: 1 "GOLD"` appeared 4 times, `id: 2
-   "SILVER"` 4 times, etc., and the same 4x pattern showed on STRAP_TYPE and
-   SIZE_ML too). This is not a data-entry problem (no distinct ids/colours
-   were created) — it's the same cartesian-product-from-a-join-without-
-   `DISTINCT` bug already fixed once for product images, just recurring on
-   this endpoint. The multiplier (4x) lines up with the number of products
-   sharing that attribute value in the test data, which points at a join
-   against the product/variant table that never got deduped.
-   Frontend workaround: `CatalogApiService.getFilters()`
-   (`core/services/api/catalog-api.service.ts`) now dedupes `brands` and
-   every attribute group's `values` by `id` before the facets reach the UI.
-   This is a client-side patch, not a fix — the backend should add
-   `DISTINCT` (or an equivalent dedupe) to whatever join produces this
-   response.
+4. **RESOLVED — `GET /categories/filters` no longer duplicates attribute
+   values.** Previously every `AttributeGroupResponse.values` row came back
+   repeated with an identical `id` (a cartesian-product-from-a-join-without-
+   `DISTINCT` bug). Confirmed fixed. The client-side dedupe added as a
+   workaround (`CatalogApiService.getFilters()` deduping `brands` and every
+   attribute group's `values` by `id`) is now redundant but left in place as
+   a harmless safety net — a no-op against a clean response, cheap insurance
+   if the bug ever regresses.
 
-5. **STRAP_TYPE filtering (`attributeValueIds` = 53/54/55, "Metal / Leather /
-   Smart") always returns zero products, on every category.** Diagnosed by
-   calling the endpoint directly: `GET /products?categoryId=10250&
-   attributeValueIds=53` (Metal, on Watches, which definitely has metal-strap
-   products) returns `"totalElements": 0`. Same result for 54 and 55, with or
-   without a category filter. This is **not** a frontend bug — the same
-   `attributeValueIds` filter works correctly for COLOR (`attributeValueIds=4`
-   "Black" on Watches correctly returns 4 matching products) and for SIZE_ML
-   on perfumes. The difference: pulling a product's own detail
-   (`GET /products/velora-chrono-classic`, a men's watch whose
-   `shortDescription` literally says "سوار معدني" / metal strap) shows its
-   `variantOptions` only lists a `COLOR` group — no `STRAP_TYPE` group at all,
-   and every variant's `attributeValueIds` only contains COLOR ids. So no
-   product variant in the current data actually has a STRAP_TYPE value
-   attached, even though STRAP_TYPE is exposed as a filterable facet on
-   `GET /categories/filters`. There's no reasonable frontend workaround for
-   this (unlike item 4, deduping can't invent an association that doesn't
-   exist) — the fix is on the backend/data side: either backfill STRAP_TYPE
-   attribute-value links onto the existing variants, or stop surfacing
-   STRAP_TYPE as a filter facet until they exist.
+5. **RESOLVED — STRAP_TYPE filtering works.** Root cause was deeper than
+   first diagnosed: STRAP_TYPE is a specification attribute (not
+   variant-defining), stored on `product_attribute_value`, but the filter
+   query only searched the variant table — so no variant ever matched
+   regardless of data. Both the filter (`GET /products?attributeValueIds=`)
+   and the facet (`GET /categories/filters`) are fixed.
 
 6. **RESOLVED — `ProductAdminResponse` now returns `translations[]`.** Previously
    `GET`/`PUT /admin/products/{id}` only returned `nameAr`/`nameEn`, with no
@@ -99,14 +82,26 @@ does today.
      `product-form-page.buildRequest()` always sends all six keys (defaulting
      blanks to `''`, never omitting a key) for exactly this reason.
 
-7. **Invoice number missing from `OrderResponse`.** Problem: customers cannot
-   download their invoice. `GET /me/invoices/{invoiceNumber}/pdf` exists, but
-   there is no way for a customer to discover their invoice number — no field
-   on `OrderResponse` and no endpoint that returns it. Requested: add a
-   nullable `invoiceNumber` to `OrderResponse`, populated when the invoice is
-   issued at delivery and `null` before that. Impact: the invoice download
-   feature is entirely unreachable from the customer UI, even though the
-   endpoint works. Frontend note: `order-details-page` deliberately never
-   renders the Invoice section as a result — `invoice-download-button` is
-   built and functional (takes `invoiceNumber` as an `@Input`) but has no
-   current caller.
+7. **RESOLVED — `invoiceNumber` added to `OrderResponse`.** Verified by the
+   backend with a real order: `null` while `SHIPPED`, populated once
+   `DELIVERED` (e.g. `"VLR-INV-2026-000031"`). `order-details-page`
+   (customer-facing) now renders the Invoice section — `<app-invoice-
+   download-button>` — only `*ngIf="o.invoiceNumber"`, so it stays hidden
+   until an invoice actually exists; the button component itself was already
+   built and functional, it just had no caller before this.
+
+8. **Attributes not scoped to categories — deferred, not a bug.** No change:
+   `GET /admin/attributes` still returns every variant-defining attribute
+   regardless of product, so an operator generating variants for a watch is
+   offered perfume volumes and vice versa (nonsensical SKUs like a 100ml
+   watch remain possible). Confirmed there is no Attribute↔Category link
+   anywhere in the schema — adding one is a data-modeling decision being
+   deferred deliberately, not an oversight. The obvious-looking quick fix
+   (only offer attributes that already have data in that category) was
+   considered and rejected: it has a fatal cold-start problem — the first
+   product ever added to a new category would find zero attributes on offer,
+   since none exist there yet. Frontend workaround stays as-is until a real
+   link exists: `product-variants-tab`'s "Add variants" picker groups values
+   by attribute with clear headings and shows a `--warn`-tinted note telling
+   the operator to select only what actually applies — no client-side
+   guessing at which attribute belongs to which category.

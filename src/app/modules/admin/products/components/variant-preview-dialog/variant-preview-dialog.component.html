@@ -1,1 +1,220 @@
-<p>variant-preview-dialog works!</p>
+<div class="vpd" *ngIf="open">
+  <div class="vpd__backdrop" (click)="cancel()"></div>
+
+  <div
+    #panel
+    class="vpd__panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="variant-preview-dialog-title"
+    tabindex="-1"
+    (keydown.escape)="cancel()"
+    (keydown.tab)="onTab($event)"
+  >
+    <header class="vpd__header" [class.vpd__header--scrolled]="scrolled()">
+      <h2 id="variant-preview-dialog-title" class="vpd__title">
+        {{ 'admin.products.form.variants.generator.title' | translate }}
+      </h2>
+      <button type="button" class="vpd__close" (click)="cancel()" [attr.aria-label]="'common.close' | translate">
+        <i class="pi pi-times" aria-hidden="true"></i>
+      </button>
+    </header>
+
+    <div class="vpd__body" (scroll)="onBodyScroll($event)" *ngIf="preview as p">
+      <!-- Step 1: preview -->
+      <ng-container *ngIf="step() === 'preview'">
+        <p class="vpd__summary">
+          {{ 'admin.products.form.variants.generator.summaryLine' | translate: { total: p.totalCombinations, existing: p.existingCount } }}
+        </p>
+
+        <div class="vpd__warnings" *ngIf="p.warnings.length">
+          <i class="pi pi-exclamation-triangle" aria-hidden="true"></i>
+          <ul>
+            <li *ngFor="let w of p.warnings">{{ w }}</li>
+          </ul>
+        </div>
+
+        <div class="vpd__combo-list">
+          <div
+            *ngFor="let combo of p.combinations; let i = index"
+            class="vpd__combo-row"
+            [class.vpd__combo-row--existing]="combo.alreadyExists"
+          >
+            <div class="vpd__combo-info">
+              <span class="vpd__combo-summary">{{ combo.summary }}</span>
+              <span class="vpd__combo-existing-tag" *ngIf="combo.alreadyExists">
+                {{ 'admin.products.form.variants.generator.alreadyExists' | translate }}
+              </span>
+            </div>
+            <div class="vpd__combo-sku" *ngIf="!combo.alreadyExists">
+              <label class="vpd__combo-sku-label">{{ 'admin.products.form.variants.generator.skuLabel' | translate }}</label>
+              <input
+                type="text"
+                class="vpd__combo-sku-input"
+                [ngModel]="skuDrafts()[i]"
+                (ngModelChange)="updateSku(i, $event)"
+              />
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Step 2: row details -->
+      <ng-container *ngIf="step() === 'details'">
+        <div class="vpd__bulk-fill">
+          <span class="vpd__bulk-fill-label">{{ 'admin.products.form.variants.generator.applyToAll' | translate }}</span>
+          <p-inputnumber
+            [ngModel]="bulkFill().price"
+            (ngModelChange)="updateBulkFill({ price: $event })"
+            mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" [min]="0" suffix=" EGP"
+            [placeholder]="'admin.products.form.variants.generator.priceLabel' | translate"
+            styleClass="vpd__bulk-input"
+          ></p-inputnumber>
+          <p-inputnumber
+            [ngModel]="bulkFill().compareAtPrice"
+            (ngModelChange)="updateBulkFill({ compareAtPrice: $event })"
+            mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" [min]="0" suffix=" EGP"
+            [placeholder]="'admin.products.form.variants.generator.compareAtLabel' | translate"
+            styleClass="vpd__bulk-input"
+          ></p-inputnumber>
+          <p-inputnumber
+            [ngModel]="bulkFill().costPrice"
+            (ngModelChange)="updateBulkFill({ costPrice: $event })"
+            mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" [min]="0" suffix=" EGP"
+            [placeholder]="'admin.products.form.variants.generator.costLabel' | translate"
+            styleClass="vpd__bulk-input"
+          ></p-inputnumber>
+          <p-inputnumber
+            [ngModel]="bulkFill().taxRate"
+            (ngModelChange)="updateBulkFill({ taxRate: $event })"
+            mode="decimal" [minFractionDigits]="4" [maxFractionDigits]="4" [min]="0" [max]="1"
+            [placeholder]="'admin.products.form.variants.generator.taxRateLabel' | translate"
+            styleClass="vpd__bulk-input vpd__bulk-input--sm"
+          ></p-inputnumber>
+          <p-inputnumber
+            [ngModel]="bulkFill().weightGrams"
+            (ngModelChange)="updateBulkFill({ weightGrams: $event })"
+            mode="decimal" [min]="0" suffix=" g"
+            [placeholder]="'admin.products.form.variants.generator.weightLabel' | translate"
+            styleClass="vpd__bulk-input vpd__bulk-input--sm"
+          ></p-inputnumber>
+          <p-inputnumber
+            [ngModel]="bulkFill().initialStock"
+            (ngModelChange)="updateBulkFill({ initialStock: $event })"
+            mode="decimal" [min]="0"
+            [placeholder]="'admin.products.form.variants.generator.initialStockLabel' | translate"
+            styleClass="vpd__bulk-input vpd__bulk-input--sm"
+          ></p-inputnumber>
+          <p-inputnumber
+            [ngModel]="bulkFill().minStockLevel"
+            (ngModelChange)="updateBulkFill({ minStockLevel: $event })"
+            mode="decimal" [min]="0"
+            [placeholder]="'admin.products.form.variants.generator.minStockLabel' | translate"
+            styleClass="vpd__bulk-input vpd__bulk-input--sm"
+          ></p-inputnumber>
+          <button type="button" class="vpd__bulk-apply" (click)="applyBulkFill()">
+            {{ 'admin.products.form.variants.generator.apply' | translate }}
+          </button>
+        </div>
+
+        <p class="vpd__stock-warning">
+          <i class="pi pi-exclamation-triangle" aria-hidden="true"></i>
+          {{ 'admin.products.form.variants.generator.initialStockWarning' | translate }}
+        </p>
+
+        <div class="vpd__row-list">
+          <div *ngFor="let i of creatableIndexes" class="vpd__detail-row" [class.vpd__detail-row--invalid]="isRowInvalid(i)">
+            <div class="vpd__detail-head">
+              <span class="vpd__detail-sku">{{ skuDrafts()[i] }}</span>
+              <span class="vpd__detail-summary">{{ comboAt(i)?.summary }}</span>
+            </div>
+            <div class="vpd__detail-grid">
+              <label class="vpd__detail-field">
+                <span>{{ 'admin.products.form.variants.generator.priceLabel' | translate }} *</span>
+                <p-inputnumber
+                  [ngModel]="rowDraft(i).price"
+                  (ngModelChange)="updateRow(i, { price: $event })"
+                  mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" [min]="0" suffix=" EGP"
+                  styleClass="vpd__detail-input"
+                ></p-inputnumber>
+              </label>
+              <label class="vpd__detail-field">
+                <span>{{ 'admin.products.form.variants.generator.compareAtLabel' | translate }}</span>
+                <p-inputnumber
+                  [ngModel]="rowDraft(i).compareAtPrice"
+                  (ngModelChange)="updateRow(i, { compareAtPrice: $event })"
+                  mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" [min]="0" suffix=" EGP"
+                  styleClass="vpd__detail-input"
+                ></p-inputnumber>
+              </label>
+              <label class="vpd__detail-field">
+                <span>{{ 'admin.products.form.variants.generator.costLabel' | translate }}</span>
+                <p-inputnumber
+                  [ngModel]="rowDraft(i).costPrice"
+                  (ngModelChange)="updateRow(i, { costPrice: $event })"
+                  mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" [min]="0" suffix=" EGP"
+                  styleClass="vpd__detail-input"
+                ></p-inputnumber>
+              </label>
+              <label class="vpd__detail-field">
+                <span>{{ 'admin.products.form.variants.generator.taxRateLabel' | translate }}</span>
+                <p-inputnumber
+                  [ngModel]="rowDraft(i).taxRate"
+                  (ngModelChange)="updateRow(i, { taxRate: $event })"
+                  mode="decimal" [minFractionDigits]="4" [maxFractionDigits]="4" [min]="0" [max]="1"
+                  styleClass="vpd__detail-input"
+                ></p-inputnumber>
+              </label>
+              <label class="vpd__detail-field">
+                <span>{{ 'admin.products.form.variants.generator.weightLabel' | translate }}</span>
+                <p-inputnumber
+                  [ngModel]="rowDraft(i).weightGrams"
+                  (ngModelChange)="updateRow(i, { weightGrams: $event })"
+                  mode="decimal" [min]="0" suffix=" g"
+                  styleClass="vpd__detail-input"
+                ></p-inputnumber>
+              </label>
+              <label class="vpd__detail-field">
+                <span>{{ 'admin.products.form.variants.generator.initialStockLabel' | translate }} *</span>
+                <p-inputnumber
+                  [ngModel]="rowDraft(i).initialStock"
+                  (ngModelChange)="updateRow(i, { initialStock: $event })"
+                  mode="decimal" [min]="0"
+                  styleClass="vpd__detail-input"
+                ></p-inputnumber>
+              </label>
+              <label class="vpd__detail-field">
+                <span>{{ 'admin.products.form.variants.generator.minStockLabel' | translate }}</span>
+                <p-inputnumber
+                  [ngModel]="rowDraft(i).minStockLevel"
+                  (ngModelChange)="updateRow(i, { minStockLevel: $event })"
+                  mode="decimal" [min]="0"
+                  styleClass="vpd__detail-input"
+                ></p-inputnumber>
+              </label>
+            </div>
+            <p class="vpd__row-error" *ngIf="isRowInvalid(i)">
+              {{ 'admin.products.form.variants.generator.priceRequired' | translate }}
+            </p>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <footer class="vpd__footer" [class.vpd__footer--scrolled]="scrolled()">
+      <ng-container *ngIf="step() === 'preview'">
+        <button type="button" class="vpd__cancel" (click)="cancel()">{{ 'admin.products.form.variants.generator.cancel' | translate }}</button>
+        <button type="button" class="vpd__primary" [disabled]="!creatableIndexes.length" (click)="goToDetails()">
+          {{ 'admin.products.form.variants.generator.continue' | translate }}
+        </button>
+      </ng-container>
+      <ng-container *ngIf="step() === 'details'">
+        <button type="button" class="vpd__cancel" [disabled]="creating" (click)="backToPreview()">{{ 'admin.products.form.variants.generator.back' | translate }}</button>
+        <button type="button" class="vpd__primary" [disabled]="creating || !allRowsValid" (click)="submitCreate()">
+          <i class="pi" [ngClass]="creating ? 'pi-spin pi-spinner' : 'pi-check'" aria-hidden="true"></i>
+          {{ 'admin.products.form.variants.generator.createButton' | translate: { count: creatableIndexes.length } }}
+        </button>
+      </ng-container>
+    </footer>
+  </div>
+</div>

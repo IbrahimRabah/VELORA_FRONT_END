@@ -5,6 +5,7 @@ import { TableModule } from 'primeng/table';
 import { SelectModule } from 'primeng/select';
 import { PopoverModule } from 'primeng/popover';
 import { TooltipModule } from 'primeng/tooltip';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { SharedModule } from '../../../shared/shared.module';
 
 import { ProductsRoutingModule } from './products-routing.module';
@@ -40,7 +41,8 @@ import { PublishActionsBarComponent } from './components/publish-actions-bar/pub
     TableModule,
     SelectModule,
     PopoverModule,
-    TooltipModule
+    TooltipModule,
+    InputNumberModule
   ]
 })
 export class ProductsModule { }

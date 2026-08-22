@@ -2,22 +2,292 @@
   display: block;
 }
 
-.product-tab-placeholder {
+.pvt__error {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-5);
+  background: var(--stop-bg);
+  border: 1px solid var(--stop);
+  border-radius: var(--r-lg);
+  color: var(--stop);
+}
+
+.pvt__retry {
+  margin-inline-start: auto;
+  padding: var(--sp-2) var(--sp-4);
+  border: 1px solid var(--stop);
+  border-radius: var(--r-full);
+  background: transparent;
+  color: var(--stop);
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--stop);
+    color: #fff;
+  }
+}
+
+// ═══ Empty state ═══
+
+.pvt__empty {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: var(--sp-3);
-  padding: var(--sp-8) var(--sp-4);
-  color: var(--admin-text-muted);
+  padding: var(--sp-8) var(--sp-5);
   text-align: center;
+  background: var(--admin-surface);
+  border: 1px dashed var(--admin-border-strong);
+  border-radius: var(--r-lg);
 
   i {
-    font-size: 2rem;
+    font-size: 2.5rem;
+    color: var(--admin-text-muted);
   }
 
   p {
     margin: 0;
-    font-size: var(--fs-sm);
+    max-inline-size: 420px;
+    color: var(--admin-text-muted);
+    font-size: var(--fs-base);
+  }
+}
+
+// ═══ Toolbar / add button ═══
+
+.pvt__toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-block-end: var(--sp-3);
+}
+
+.pvt__add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-5);
+  border: none;
+  border-radius: var(--r-md);
+  background: var(--gold);
+  color: #fff;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 150ms ease;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 0.88;
+  }
+}
+
+// ═══ Generator (step 1) ═══
+
+.pvt__generator {
+  padding: var(--sp-5);
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--r-lg);
+}
+
+.pvt__generator-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pvt__generator-title {
+  margin: 0;
+  font-family: var(--body);
+  font-size: var(--fs-h6);
+  font-weight: 700;
+  color: var(--admin-text);
+}
+
+.pvt__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 32px;
+  block-size: 32px;
+  border: none;
+  border-radius: var(--r-full);
+  background: none;
+  color: var(--admin-text-muted);
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--admin-surface-alt);
+  }
+}
+
+.pvt__generator-hint {
+  margin: var(--sp-2) 0 var(--sp-3);
+  color: var(--admin-text-muted);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+}
+
+// GET /admin/attributes returns every variant-defining attribute regardless of the
+// product's category (no scoping mechanism in the contract — see BACKEND_NOTES.md) —
+// this is the only guard against a watch offering perfume volumes until the backend adds one.
+.pvt__relevance-note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  padding: var(--sp-3);
+  margin: 0 0 var(--sp-5);
+  background: var(--warn-bg);
+  border-inline-start: 3px solid var(--warn);
+  border-radius: var(--r-md);
+  color: var(--warn);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+
+  i {
+    flex-shrink: 0;
+    margin-block-start: 2px;
+  }
+}
+
+.pvt__generator-empty {
+  padding: var(--sp-4);
+  color: var(--admin-text-muted);
+  font-size: var(--fs-sm);
+  text-align: center;
+}
+
+.pvt__attribute-group {
+  margin-block-end: var(--sp-5);
+}
+
+.pvt__attribute-name {
+  margin: 0 0 var(--sp-3);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--admin-text);
+}
+
+.pvt__value-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+// Hand-rolled, not p-multiselect — PrimeNG 18's MultiSelect shares the same internal
+// `@if`-conditional pattern that threw the Ivy "LContainer must be defined" SSR/hydration
+// assertion for p-tabs and p-toggleswitch elsewhere in this admin (confirmed by grepping
+// its compiled template for the same signal-conditional codegen before writing this —
+// not empirically re-triggered here, but the risk pattern matches exactly). A toggleable
+// chip group hydrates the same plain-`*ngIf` way the rest of the app already does.
+.pvt__value-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--r-full);
+  background: var(--admin-surface);
+  color: var(--admin-text);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+
+  &:hover {
+    border-color: var(--gold);
+  }
+}
+
+.pvt__value-chip--selected {
+  background: color-mix(in srgb, var(--gold) 14%, transparent);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.pvt__value-dot {
+  inline-size: 11px;
+  block-size: 11px;
+  border-radius: 50%;
+  // Same reasoning as .vmt__badge-dot: an inset ring stays visible against pale swatches
+  // (white, silver) where a fixed light-gray border would nearly disappear.
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+  flex-shrink: 0;
+}
+
+// Purely informational — never disables the chip. A product with only a Silver variant
+// can still need Silver selected again (e.g. Silver + 42mm); the real duplicate guard is
+// the preview response's per-combination alreadyExists flag, not a single value.
+.pvt__value-inuse {
+  padding: 1px var(--sp-2);
+  border-radius: var(--r-full);
+  background: var(--admin-surface);
+  color: var(--admin-text-muted);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.pvt__value-chip--selected .pvt__value-inuse {
+  background: color-mix(in srgb, var(--gold) 12%, var(--admin-surface));
+  color: var(--gold);
+}
+
+.pvt__generator-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--sp-3);
+  padding-block-start: var(--sp-4);
+  border-block-start: 1px solid var(--admin-border);
+}
+
+.pvt__cancel-btn {
+  padding: var(--sp-3) var(--sp-5);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--admin-text);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--admin-surface-alt);
+  }
+}
+
+.pvt__primary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-5);
+  border: none;
+  border-radius: var(--r-md);
+  background: var(--gold);
+  color: #fff;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    opacity: 0.88;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pvt__add-btn,
+  .pvt__value-chip {
+    transition: none;
   }
 }

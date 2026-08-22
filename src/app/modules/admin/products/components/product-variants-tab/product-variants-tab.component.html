@@ -1,4 +1,106 @@
-<div class="product-tab-placeholder">
-  <i class="pi pi-sitemap" aria-hidden="true"></i>
-  <p>{{ 'admin.products.form.comingSoon' | translate }}</p>
+<div class="pvt">
+  <div class="pvt__skeleton" *ngIf="loading()">
+    <p-skeleton height="240px" borderRadius="12px"></p-skeleton>
+  </div>
+
+  <div class="pvt__error" *ngIf="error() && !loading()">
+    <i class="pi pi-exclamation-triangle" aria-hidden="true"></i>
+    <span>{{ 'admin.products.form.variants.loadError' | translate }}</span>
+    <button type="button" class="pvt__retry" (click)="retry()">{{ 'admin.products.form.variants.retry' | translate }}</button>
+  </div>
+
+  <ng-container *ngIf="!loading() && !error()">
+    <!-- Empty state -->
+    <div class="pvt__empty" *ngIf="!variants().length && !generatorOpen()">
+      <i class="pi pi-sitemap" aria-hidden="true"></i>
+      <p>{{ 'admin.products.form.variants.emptyTitle' | translate }}</p>
+      <button type="button" class="pvt__add-btn" (click)="openGenerator()">
+        <i class="pi pi-plus" aria-hidden="true"></i>
+        {{ 'admin.products.form.variants.addVariants' | translate }}
+      </button>
+    </div>
+
+    <ng-container *ngIf="variants().length || generatorOpen()">
+      <div class="pvt__toolbar" *ngIf="!generatorOpen()">
+        <button type="button" class="pvt__add-btn" (click)="openGenerator()">
+          <i class="pi pi-plus" aria-hidden="true"></i>
+          {{ 'admin.products.form.variants.addVariants' | translate }}
+        </button>
+      </div>
+
+      <app-variant-matrix-table
+        *ngIf="!generatorOpen()"
+        [variants]="variants()"
+        [valueLookup]="valueLookup()"
+        [saving]="bulkSaving()"
+        [conflictedSkus]="conflictedSkus()"
+        (save)="saveDirtyRows($event)"
+        (delete)="deleteVariant($event)"
+      ></app-variant-matrix-table>
+
+      <!-- Generator step 1: pick attribute values (inline, not a dialog) -->
+      <section class="pvt__generator" *ngIf="generatorOpen()">
+        <div class="pvt__generator-header">
+          <h3 class="pvt__generator-title">{{ 'admin.products.form.variants.generator.step1Title' | translate }}</h3>
+          <button type="button" class="pvt__close" (click)="closeGenerator()" [attr.aria-label]="'common.close' | translate">
+            <i class="pi pi-times" aria-hidden="true"></i>
+          </button>
+        </div>
+        <p class="pvt__generator-hint">{{ 'admin.products.form.variants.generator.step1Hint' | translate }}</p>
+
+        <p class="pvt__relevance-note">
+          <i class="pi pi-exclamation-triangle" aria-hidden="true"></i>
+          {{ 'admin.products.form.variants.generator.relevanceNote' | translate }}
+        </p>
+
+        <p class="pvt__generator-empty" *ngIf="attributesError()">
+          {{ 'admin.products.form.variants.attributesLoadError' | translate }}
+        </p>
+        <p class="pvt__generator-empty" *ngIf="!attributesError() && !attributes().length">
+          {{ 'admin.products.form.variants.generator.noAttributes' | translate }}
+        </p>
+
+        <div class="pvt__attribute-group" *ngFor="let attr of attributes()">
+          <h4 class="pvt__attribute-name">{{ localizedName(attr) }}</h4>
+          <div class="pvt__value-chips">
+            <button
+              type="button"
+              *ngFor="let value of attr.values"
+              class="pvt__value-chip"
+              [class.pvt__value-chip--selected]="isValueSelected(attr.id, value.id)"
+              (click)="toggleValue(attr.id, value.id)"
+            >
+              <span class="pvt__value-dot" *ngIf="value.hexColor" [style.background]="value.hexColor"></span>
+              {{ localizedName(value) }}
+              <span
+                class="pvt__value-inuse"
+                *ngIf="isValueInUse(value.id)"
+                [pTooltip]="'admin.products.form.variants.generator.inUseHint' | translate"
+                tooltipPosition="top"
+              >
+                {{ 'admin.products.form.variants.generator.inUseBadge' | translate }}
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="pvt__generator-actions">
+          <button type="button" class="pvt__cancel-btn" (click)="closeGenerator()">
+            {{ 'admin.products.form.variants.generator.cancel' | translate }}
+          </button>
+          <button type="button" class="pvt__primary-btn" [disabled]="!hasSelection || previewLoading()" (click)="requestPreview()">
+            <i class="pi" [ngClass]="previewLoading() ? 'pi-spin pi-spinner' : 'pi-eye'" aria-hidden="true"></i>
+            {{ 'admin.products.form.variants.generator.previewButton' | translate }}
+          </button>
+        </div>
+      </section>
+    </ng-container>
+  </ng-container>
 </div>
+
+<app-variant-preview-dialog
+  [preview]="preview()"
+  [creating]="creating()"
+  (closed)="closePreview()"
+  (create)="confirmCreate($event)"
+></app-variant-preview-dialog>

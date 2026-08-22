@@ -650,7 +650,10 @@
       "unpublished": "Product moved back to draft",
       "archived": "Product archived",
       "duplicated": "Product duplicated",
-      "validationError": "Please fix the highlighted fields"
+      "validationError": "Please fix the highlighted fields",
+      "variantsSaved": "Variant changes saved",
+      "variantsGenerated": "{{count}} variants created",
+      "variantArchived": "Variant archived"
     }
   },
   "errorPage": {
@@ -957,7 +960,66 @@
         "shortDescription": "Short description",
         "description": "Description",
         "metaTitle": "Meta title",
-        "metaDescription": "Meta description"
+        "metaDescription": "Meta description",
+        "variants": {
+        "emptyTitle": "This product has no variants yet — it can't be published or bought.",
+        "addVariants": "Add variants",
+        "saveChanges": "Save changes",
+        "loadError": "We couldn't load these variants.",
+        "attributesLoadError": "We couldn't load variant-defining attributes.",
+        "retry": "Retry",
+        "columns": {
+          "sku": "SKU",
+          "attributes": "Attributes",
+          "price": "Price",
+          "compareAtPrice": "Compare-at",
+          "costPrice": "Cost",
+          "taxRate": "Tax rate",
+          "weight": "Weight",
+          "stock": "Stock",
+          "onHand": "On hand",
+          "reserved": "Reserved",
+          "available": "Available",
+          "lowStockThreshold": "Threshold",
+          "status": "Status"
+        },
+        "manageStock": "Manage stock",
+        "deleteConfirm": {
+          "title": "Archive variant",
+          "message": "This variant will be archived and hidden from the store.",
+          "confirm": "Archive"
+        },
+        "generator": {
+          "title": "Add variants",
+          "step1Title": "Select attribute values",
+          "step1Hint": "Choose the values that generate new SKUs — every combination across attributes becomes one variant.",
+          "relevanceNote": "This list shows every variant-defining attribute in the catalogue, not just the ones that make sense for this product — select only the attributes that actually apply (e.g. skip volumes on a watch, colours on a perfume).",
+          "noAttributes": "No variant-defining attributes are set up yet.",
+          "previewButton": "Preview combinations",
+          "cancel": "Cancel",
+          "back": "Back",
+          "continue": "Continue",
+          "createButton": "Create {{count}} variants",
+          "summaryLine": "{{total}} combinations — {{existing}} already exist",
+          "alreadyExists": "Already exists",
+          "inUseBadge": "In use",
+          "inUseHint": "This value already appears on at least one existing variant of this product — selecting it again is fine (e.g. to add a new size in this colour).",
+          "skuLabel": "SKU",
+          "applyToAll": "Apply to all rows",
+          "apply": "Apply",
+          "priceLabel": "Price",
+          "compareAtLabel": "Compare-at",
+          "costLabel": "Cost",
+          "taxRateLabel": "Tax rate",
+          "weightLabel": "Weight",
+          "initialStockLabel": "Initial stock",
+          "initialStockWarning": "A variant with 0 stock exists but can't be bought — the product will look broken to shoppers, not just unavailable.",
+          "minStockLabel": "Low-stock threshold",
+          "priceRequired": "Every row needs a price of 0 or more",
+          "noSelection": "Select at least one value from at least one attribute"
+        },
+        "skuConflict": "This SKU is already in use"
+      }
       }
     }
   }

@@ -105,6 +105,11 @@
       </div>
     </section>
 
+    <section class="order-details-page__section" *ngIf="o.invoiceNumber">
+      <h2 class="order-details-page__section-heading">{{ 'account.orderDetails.invoiceHeading' | translate }}</h2>
+      <app-invoice-download-button [invoiceNumber]="o.invoiceNumber"></app-invoice-download-button>
+    </section>
+
     <div class="order-details-page__actions" *ngIf="o.cancellable">
       <button type="button" class="order-details-page__cancel" (click)="openCancelDialog()">
         {{ 'account.orderDetails.cancelButton' | translate }}

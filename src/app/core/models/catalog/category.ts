@@ -15,6 +15,12 @@ export interface CategoryNode {
   imageUrl: string | null;
   bannerUrl: string | null;
   displayOrder: number;
+  // Product count for this category (its own products; matches what GET /products?
+  // categoryId={id} would total). Not yet in the local contract snapshot at the time
+  // this was wired — added per BACKEND_NOTES item 3's request, same field name/shape
+  // already used for attribute-value productCount elsewhere in the contract. Nullable
+  // per the global "omit null fields" convention (may arrive as undefined too).
+  productCount: number | null;
   children: CategoryNode[];
 }
 

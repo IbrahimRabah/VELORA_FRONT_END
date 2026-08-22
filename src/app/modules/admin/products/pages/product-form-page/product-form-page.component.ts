@@ -139,6 +139,20 @@ export class ProductFormPageComponent implements CanComponentDeactivate {
     }
   }
 
+  // Variant changes (generate, bulk-save, archive) can flip variantCount/warnings/status —
+  // refetch to pick those up without toggling `loading`, which would hide the tabs the
+  // operator is actively working in behind the page-level skeleton.
+  refreshProductSilently(): void {
+    const id = this.productId();
+    if (!id) {
+      return;
+    }
+    this.productApi.get(id).subscribe({
+      next: (p) => this.product.set(p),
+      error: () => {},
+    });
+  }
+
   save(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();

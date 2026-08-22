@@ -1,1 +1,279 @@
-<p>variant-matrix-table works!</p>
+<div class="vmt">
+  <!-- Desktop / tablet table -->
+  <div class="vmt__table-wrap">
+    <p-table [value]="variants" dataKey="id" styleClass="vmt__table">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>{{ 'admin.products.form.variants.columns.sku' | translate }}</th>
+          <th>{{ 'admin.products.form.variants.columns.attributes' | translate }}</th>
+          <th class="vmt__col-center">{{ 'admin.products.form.variants.columns.price' | translate }}</th>
+          <th class="vmt__col-center">{{ 'admin.products.form.variants.columns.compareAtPrice' | translate }}</th>
+          <th class="vmt__col-center">{{ 'admin.products.form.variants.columns.costPrice' | translate }}</th>
+          <th class="vmt__col-center">{{ 'admin.products.form.variants.columns.taxRate' | translate }}</th>
+          <th class="vmt__col-center">{{ 'admin.products.form.variants.columns.weight' | translate }}</th>
+          <th class="vmt__col-center">{{ 'admin.products.form.variants.columns.stock' | translate }}</th>
+          <th class="vmt__col-center">{{ 'admin.products.form.variants.columns.lowStockThreshold' | translate }}</th>
+          <th class="vmt__col-center">{{ 'admin.products.form.variants.columns.status' | translate }}</th>
+          <th class="vmt__col-center"></th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-variant>
+        <tr [class.vmt__row--dirty]="isDirty(variant)" [class.vmt__row--conflict]="isConflicted(variant)">
+          <td>
+            <span class="vmt__sku">{{ variant.sku }}</span>
+            <p class="vmt__conflict-note" *ngIf="isConflicted(variant)">{{ 'admin.products.form.variants.skuConflict' | translate }}</p>
+          </td>
+          <td>
+            <div class="vmt__badges">
+              <span class="vmt__badge" *ngFor="let value of valueBadges(variant)">
+                <span class="vmt__badge-dot" *ngIf="value.hexColor" [style.background]="value.hexColor"></span>
+                {{ value.label }}
+              </span>
+            </div>
+          </td>
+          <td class="vmt__col-center">
+            <p-inputnumber
+              [ngModel]="draft(variant.id).price"
+              (ngModelChange)="updateDraft(variant.id, { price: $event })"
+              mode="decimal"
+              [minFractionDigits]="2"
+              [maxFractionDigits]="2"
+              [min]="0"
+              suffix=" EGP"
+              styleClass="vmt__input"
+            ></p-inputnumber>
+          </td>
+          <td class="vmt__col-center">
+            <p-inputnumber
+              [ngModel]="draft(variant.id).compareAtPrice"
+              (ngModelChange)="updateDraft(variant.id, { compareAtPrice: $event })"
+              mode="decimal"
+              [minFractionDigits]="2"
+              [maxFractionDigits]="2"
+              [min]="0"
+              suffix=" EGP"
+              styleClass="vmt__input"
+            ></p-inputnumber>
+          </td>
+          <td class="vmt__col-center">
+            <p-inputnumber
+              [ngModel]="draft(variant.id).costPrice"
+              (ngModelChange)="updateDraft(variant.id, { costPrice: $event })"
+              mode="decimal"
+              [minFractionDigits]="2"
+              [maxFractionDigits]="2"
+              [min]="0"
+              suffix=" EGP"
+              styleClass="vmt__input"
+            ></p-inputnumber>
+          </td>
+          <td class="vmt__col-center">
+            <p-inputnumber
+              [ngModel]="draft(variant.id).taxRate"
+              (ngModelChange)="updateDraft(variant.id, { taxRate: $event })"
+              mode="decimal"
+              [minFractionDigits]="4"
+              [maxFractionDigits]="4"
+              [min]="0"
+              [max]="1"
+              styleClass="vmt__input vmt__input--sm"
+            ></p-inputnumber>
+          </td>
+          <td class="vmt__col-center">
+            <p-inputnumber
+              [ngModel]="draft(variant.id).weightGrams"
+              (ngModelChange)="updateDraft(variant.id, { weightGrams: $event })"
+              mode="decimal"
+              [minFractionDigits]="0"
+              [min]="0"
+              suffix=" g"
+              styleClass="vmt__input vmt__input--sm"
+            ></p-inputnumber>
+          </td>
+          <td class="vmt__col-center">
+            <a class="vmt__stock" [routerLink]="['/admin/inventory']" [queryParams]="{ sku: variant.sku }">
+              <span class="vmt__stock-figure">
+                <strong>{{ variant.qtyOnHand }}</strong>
+                <small>{{ 'admin.products.form.variants.columns.onHand' | translate }}</small>
+              </span>
+              <span class="vmt__stock-figure">
+                <strong>{{ variant.qtyReserved }}</strong>
+                <small>{{ 'admin.products.form.variants.columns.reserved' | translate }}</small>
+              </span>
+              <span
+                class="vmt__stock-figure"
+                [class.vmt__stock-figure--stop]="availableTone(variant) === 'stop'"
+                [class.vmt__stock-figure--warn]="availableTone(variant) === 'warn'"
+              >
+                <strong>{{ variant.qtyAvailable }}</strong>
+                <small>{{ 'admin.products.form.variants.columns.available' | translate }}</small>
+              </span>
+            </a>
+          </td>
+          <td class="vmt__col-center">
+            <p-inputnumber
+              [ngModel]="draft(variant.id).minStockLevel"
+              (ngModelChange)="updateDraft(variant.id, { minStockLevel: $event })"
+              mode="decimal"
+              [min]="0"
+              styleClass="vmt__input vmt__input--sm"
+            ></p-inputnumber>
+          </td>
+          <td class="vmt__col-center">
+            <app-vl-status-badge [label]="statusLabel(variant)" [tone]="statusTone(variant)"></app-vl-status-badge>
+          </td>
+          <td class="vmt__col-center">
+            <button
+              type="button"
+              class="vmt__delete-btn"
+              [disabled]="variant.status === 'ARCHIVED'"
+              (click)="confirmDelete(variant)"
+              [attr.aria-label]="'admin.products.form.variants.deleteConfirm.confirm' | translate"
+            >
+              <i class="pi pi-trash" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <div class="vmt__save-bar" *ngIf="hasDirtyRows">
+      <button type="button" class="vmt__save-btn" [disabled]="saving" (click)="submitSave()">
+        <i class="pi" [ngClass]="saving ? 'pi-spin pi-spinner' : 'pi-check'" aria-hidden="true"></i>
+        {{ 'admin.products.form.variants.saveChanges' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile cards -->
+  <div class="vmt__cards">
+    <div *ngFor="let variant of variants" class="vmt__card" [class.vmt__card--dirty]="isDirty(variant)" [class.vmt__card--conflict]="isConflicted(variant)">
+      <div class="vmt__card-top">
+        <span class="vmt__sku">{{ variant.sku }}</span>
+        <app-vl-status-badge [label]="statusLabel(variant)" [tone]="statusTone(variant)"></app-vl-status-badge>
+      </div>
+
+      <div class="vmt__badges">
+        <span class="vmt__badge" *ngFor="let value of valueBadges(variant)">
+          <span class="vmt__badge-dot" *ngIf="value.hexColor" [style.background]="value.hexColor"></span>
+          {{ value.label }}
+        </span>
+      </div>
+
+      <p class="vmt__conflict-note" *ngIf="isConflicted(variant)">{{ 'admin.products.form.variants.skuConflict' | translate }}</p>
+
+      <div class="vmt__card-grid">
+        <label class="vmt__card-field">
+          <span>{{ 'admin.products.form.variants.columns.price' | translate }}</span>
+          <p-inputnumber
+            [ngModel]="draft(variant.id).price"
+            (ngModelChange)="updateDraft(variant.id, { price: $event })"
+            mode="decimal"
+            [minFractionDigits]="2"
+            [maxFractionDigits]="2"
+            [min]="0"
+            suffix=" EGP"
+            styleClass="vmt__input"
+          ></p-inputnumber>
+        </label>
+        <label class="vmt__card-field">
+          <span>{{ 'admin.products.form.variants.columns.compareAtPrice' | translate }}</span>
+          <p-inputnumber
+            [ngModel]="draft(variant.id).compareAtPrice"
+            (ngModelChange)="updateDraft(variant.id, { compareAtPrice: $event })"
+            mode="decimal"
+            [minFractionDigits]="2"
+            [maxFractionDigits]="2"
+            [min]="0"
+            suffix=" EGP"
+            styleClass="vmt__input"
+          ></p-inputnumber>
+        </label>
+        <label class="vmt__card-field">
+          <span>{{ 'admin.products.form.variants.columns.costPrice' | translate }}</span>
+          <p-inputnumber
+            [ngModel]="draft(variant.id).costPrice"
+            (ngModelChange)="updateDraft(variant.id, { costPrice: $event })"
+            mode="decimal"
+            [minFractionDigits]="2"
+            [maxFractionDigits]="2"
+            [min]="0"
+            suffix=" EGP"
+            styleClass="vmt__input"
+          ></p-inputnumber>
+        </label>
+        <label class="vmt__card-field">
+          <span>{{ 'admin.products.form.variants.columns.taxRate' | translate }}</span>
+          <p-inputnumber
+            [ngModel]="draft(variant.id).taxRate"
+            (ngModelChange)="updateDraft(variant.id, { taxRate: $event })"
+            mode="decimal"
+            [minFractionDigits]="4"
+            [maxFractionDigits]="4"
+            [min]="0"
+            [max]="1"
+            styleClass="vmt__input"
+          ></p-inputnumber>
+        </label>
+        <label class="vmt__card-field">
+          <span>{{ 'admin.products.form.variants.columns.weight' | translate }}</span>
+          <p-inputnumber
+            [ngModel]="draft(variant.id).weightGrams"
+            (ngModelChange)="updateDraft(variant.id, { weightGrams: $event })"
+            mode="decimal"
+            [min]="0"
+            suffix=" g"
+            styleClass="vmt__input"
+          ></p-inputnumber>
+        </label>
+        <label class="vmt__card-field">
+          <span>{{ 'admin.products.form.variants.columns.lowStockThreshold' | translate }}</span>
+          <p-inputnumber
+            [ngModel]="draft(variant.id).minStockLevel"
+            (ngModelChange)="updateDraft(variant.id, { minStockLevel: $event })"
+            mode="decimal"
+            [min]="0"
+            styleClass="vmt__input"
+          ></p-inputnumber>
+        </label>
+      </div>
+
+      <a class="vmt__stock" [routerLink]="['/admin/inventory']" [queryParams]="{ sku: variant.sku }">
+        <span class="vmt__stock-figure">
+          <strong>{{ variant.qtyOnHand }}</strong>
+          <small>{{ 'admin.products.form.variants.columns.onHand' | translate }}</small>
+        </span>
+        <span class="vmt__stock-figure">
+          <strong>{{ variant.qtyReserved }}</strong>
+          <small>{{ 'admin.products.form.variants.columns.reserved' | translate }}</small>
+        </span>
+        <span
+          class="vmt__stock-figure"
+          [class.vmt__stock-figure--stop]="availableTone(variant) === 'stop'"
+          [class.vmt__stock-figure--warn]="availableTone(variant) === 'warn'"
+        >
+          <strong>{{ variant.qtyAvailable }}</strong>
+          <small>{{ 'admin.products.form.variants.columns.available' | translate }}</small>
+        </span>
+      </a>
+
+      <button
+        type="button"
+        class="vmt__delete-btn vmt__delete-btn--card"
+        [disabled]="variant.status === 'ARCHIVED'"
+        (click)="confirmDelete(variant)"
+      >
+        <i class="pi pi-trash" aria-hidden="true"></i>
+        {{ 'admin.products.form.variants.deleteConfirm.confirm' | translate }}
+      </button>
+    </div>
+
+    <div class="vmt__save-bar" *ngIf="hasDirtyRows">
+      <button type="button" class="vmt__save-btn" [disabled]="saving" (click)="submitSave()">
+        <i class="pi" [ngClass]="saving ? 'pi-spin pi-spinner' : 'pi-check'" aria-hidden="true"></i>
+        {{ 'admin.products.form.variants.saveChanges' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

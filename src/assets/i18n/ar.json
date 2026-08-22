@@ -650,7 +650,10 @@
       "unpublished": "تمت إعادة المنتج إلى المسودات",
       "archived": "تمت أرشفة المنتج",
       "duplicated": "تم نسخ المنتج",
-      "validationError": "برجاء تصحيح الحقول المحددة"
+      "validationError": "برجاء تصحيح الحقول المحددة",
+      "variantsSaved": "تم حفظ تعديلات الخيارات",
+      "variantsGenerated": "تم إنشاء {{count}} خيار",
+      "variantArchived": "تمت أرشفة الخيار"
     }
   },
   "errorPage": {
@@ -957,7 +960,66 @@
         "shortDescription": "وصف مختصر",
         "description": "الوصف",
         "metaTitle": "عنوان السيو",
-        "metaDescription": "وصف السيو"
+        "metaDescription": "وصف السيو",
+        "variants": {
+        "emptyTitle": "هذا المنتج ليس له خيارات — لا يمكن نشره أو شراؤه.",
+        "addVariants": "إضافة خيارات",
+        "saveChanges": "حفظ التعديلات",
+        "loadError": "تعذّر تحميل الخيارات.",
+        "attributesLoadError": "تعذّر تحميل السمات المولّدة للخيارات.",
+        "retry": "إعادة المحاولة",
+        "columns": {
+          "sku": "SKU",
+          "attributes": "السمات",
+          "price": "السعر",
+          "compareAtPrice": "سعر المقارنة",
+          "costPrice": "التكلفة",
+          "taxRate": "نسبة الضريبة",
+          "weight": "الوزن",
+          "stock": "المخزون",
+          "onHand": "المتاح فعليًا",
+          "reserved": "محجوز",
+          "available": "متاح",
+          "lowStockThreshold": "حد التنبيه",
+          "status": "الحالة"
+        },
+        "manageStock": "إدارة المخزون",
+        "deleteConfirm": {
+          "title": "أرشفة الخيار",
+          "message": "سيتم أرشفة هذا الخيار وإخفاؤه من المتجر.",
+          "confirm": "أرشفة"
+        },
+        "generator": {
+          "title": "إضافة خيارات",
+          "step1Title": "اختر قيم السمات",
+          "step1Hint": "اختر القيم التي تولّد SKU جديدة — كل توليفة عبر السمات تصبح خيارًا واحدًا.",
+          "relevanceNote": "تعرض هذه القائمة كل سمة مولّدة للخيارات في الكتالوج، وليس فقط ما يناسب هذا المنتج — اختر فقط السمات المناسبة فعليًا (مثلاً تجاهل الأحجام لساعة، أو الألوان لعطر).",
+          "noAttributes": "لا توجد سمات مولّدة للخيارات بعد.",
+          "previewButton": "معاينة التوليفات",
+          "cancel": "إلغاء",
+          "back": "رجوع",
+          "continue": "متابعة",
+          "createButton": "إنشاء {{count}} خيار",
+          "summaryLine": "{{total}} توليفة — {{existing}} موجودة بالفعل",
+          "alreadyExists": "موجود بالفعل",
+          "inUseBadge": "مستخدم",
+          "inUseHint": "هذه القيمة موجودة بالفعل في خيار حالي لهذا المنتج — اختيارها مجددًا أمر طبيعي (مثلاً لإضافة مقاس جديد بنفس اللون).",
+          "skuLabel": "SKU",
+          "applyToAll": "تطبيق على كل الصفوف",
+          "apply": "تطبيق",
+          "priceLabel": "السعر",
+          "compareAtLabel": "سعر المقارنة",
+          "costLabel": "التكلفة",
+          "taxRateLabel": "نسبة الضريبة",
+          "weightLabel": "الوزن",
+          "initialStockLabel": "المخزون الابتدائي",
+          "initialStockWarning": "الخيار بمخزون صفر يُنشأ لكنه لا يمكن شراؤه — سيبدو المتجر معطوبًا للعميل، لا مجرد غير متاح.",
+          "minStockLabel": "حد التنبيه للمخزون المنخفض",
+          "priceRequired": "كل صف يحتاج سعرًا صفرًا أو أكثر",
+          "noSelection": "اختر قيمة واحدة على الأقل من سمة واحدة على الأقل"
+        },
+        "skuConflict": "رمز SKU هذا مستخدم بالفعل"
+      }
       }
     }
   }
